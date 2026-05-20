@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -55,20 +56,36 @@ class GeotemporalSeriesPropertyClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def get_geotemporal_series_latest_value(
+    def load_geotemporal_series_entries(
         self,
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         primary_key: ontologies_models.PropertyValueEscapedString,
-        property_name: ontologies_models.PropertyApiName,
+        property: ontologies_models.PropertyApiName,
         *,
+        additional_properties: typing.List[ontologies_models.SelectedPropertyApiName],
+        range: ontologies_models.AbsoluteTimeRange,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Optional[ontologies_models.GeotemporalSeriesEntry]:
+    ) -> ontologies_models.LoadGeotemporalSeriesResponse:
         """
-        Get the latest recorded location for a geotemporal series reference property.
+        Load the geotemporal series entries for a given object's geotemporal series reference property within the
+        specified time range.
+
+        Each entry in the response is a map of property names to values, following the same structure as
+        `OntologyObjectV2`. Use the `additionalProperties` field in the request to control which properties are included
+        in each entry depending on the underlying geotemporal integration.
+
+        Results are paginated. Use the `nextPageToken` from the response to retrieve subsequent pages.
+
+        :::callout{theme=warning title=Warning}
+          Geotemporal series integrations with only "dataset archive" enabled are not supported.
+        :::
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -76,87 +93,34 @@ class GeotemporalSeriesPropertyClient:
         :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the object with the geotemporal series property.
         :type primary_key: PropertyValueEscapedString
-        :param property_name: The API name of the geotemporal series property. To find the API name for your property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property_name: PropertyApiName
-        :param sdk_package_rid: The package rid of the generated SDK.
-        :type sdk_package_rid: Optional[SdkPackageRid]
-        :param sdk_version: The version of the generated SDK.
-        :type sdk_version: Optional[SdkVersion]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Optional[ontologies_models.GeotemporalSeriesEntry]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{propertyName}/latestValue",
-                query_params={
-                    "sdkPackageRid": sdk_package_rid,
-                    "sdkVersion": sdk_version,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "propertyName": property_name,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=typing.Optional[ontologies_models.GeotemporalSeriesEntry],
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def stream_geotemporal_series_historic_values(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property_name: ontologies_models.PropertyApiName,
-        *,
-        range: typing.Optional[ontologies_models.TimeRange] = None,
-        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
-        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> bytes:
-        """
-        Stream historic points of a geotemporal series reference property.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object with the geotemporal series property.
-        :type primary_key: PropertyValueEscapedString
-        :param property_name: The API name of the geotemporal series property. To find the API name for your property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property_name: PropertyApiName
+        :param property: The API name of the geotemporal series property. To find the API name for your property, check the **Ontology Manager** or use the **Get object type** endpoint.
+        :type property: PropertyApiName
+        :param additional_properties: The additional property API names to include in each entry. The "time" and "position" properties are always included and do not need to be specified here. Use this to request additional geotemporal series metadata properties such as "speed" or "heading". Properties that are not available for the underlying geotemporal integration will be omitted from the response entries.
+        :type additional_properties: List[SelectedPropertyApiName]
         :param range:
-        :type range: Optional[TimeRange]
-        :param sdk_package_rid: The package rid of the generated SDK.
+        :type range: AbsoluteTimeRange
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package RID of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: bytes
+        :rtype: ontologies_models.LoadGeotemporalSeriesResponse
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{propertyName}/streamHistoricValues",
+                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{property}/loadEntries",
                 query_params={
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -164,16 +128,19 @@ class GeotemporalSeriesPropertyClient:
                     "ontology": ontology,
                     "objectType": object_type,
                     "primaryKey": primary_key,
-                    "propertyName": property_name,
+                    "property": property,
                 },
                 header_params={
                     "Content-Type": "application/json",
-                    "Accept": "*/*",
+                    "Accept": "application/json",
                 },
-                body=ontologies_models.StreamGeotemporalSeriesValuesRequest(
+                body=ontologies_models.LoadGeotemporalSeriesRequest(
                     range=range,
+                    additional_properties=additional_properties,
+                    page_token=page_token,
+                    page_size=page_size,
                 ),
-                response_type=bytes,
+                response_type=ontologies_models.LoadGeotemporalSeriesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -183,33 +150,19 @@ class GeotemporalSeriesPropertyClient:
 
 class _GeotemporalSeriesPropertyClientRaw:
     def __init__(self, client: GeotemporalSeriesPropertyClient) -> None:
-        def get_geotemporal_series_latest_value(
-            _: typing.Optional[ontologies_models.GeotemporalSeriesEntry],
-        ): ...
-        def stream_geotemporal_series_historic_values(_: bytes): ...
+        def load_geotemporal_series_entries(_: ontologies_models.LoadGeotemporalSeriesResponse): ...
 
-        self.get_geotemporal_series_latest_value = core.with_raw_response(
-            get_geotemporal_series_latest_value, client.get_geotemporal_series_latest_value
-        )
-        self.stream_geotemporal_series_historic_values = core.with_raw_response(
-            stream_geotemporal_series_historic_values,
-            client.stream_geotemporal_series_historic_values,
+        self.load_geotemporal_series_entries = core.with_raw_response(
+            load_geotemporal_series_entries, client.load_geotemporal_series_entries
         )
 
 
 class _GeotemporalSeriesPropertyClientStreaming:
     def __init__(self, client: GeotemporalSeriesPropertyClient) -> None:
-        def get_geotemporal_series_latest_value(
-            _: typing.Optional[ontologies_models.GeotemporalSeriesEntry],
-        ): ...
-        def stream_geotemporal_series_historic_values(_: bytes): ...
+        def load_geotemporal_series_entries(_: ontologies_models.LoadGeotemporalSeriesResponse): ...
 
-        self.get_geotemporal_series_latest_value = core.with_streaming_response(
-            get_geotemporal_series_latest_value, client.get_geotemporal_series_latest_value
-        )
-        self.stream_geotemporal_series_historic_values = core.with_streaming_response(
-            stream_geotemporal_series_historic_values,
-            client.stream_geotemporal_series_historic_values,
+        self.load_geotemporal_series_entries = core.with_streaming_response(
+            load_geotemporal_series_entries, client.load_geotemporal_series_entries
         )
 
 
@@ -245,20 +198,36 @@ class AsyncGeotemporalSeriesPropertyClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def get_geotemporal_series_latest_value(
+    def load_geotemporal_series_entries(
         self,
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         primary_key: ontologies_models.PropertyValueEscapedString,
-        property_name: ontologies_models.PropertyApiName,
+        property: ontologies_models.PropertyApiName,
         *,
+        additional_properties: typing.List[ontologies_models.SelectedPropertyApiName],
+        range: ontologies_models.AbsoluteTimeRange,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[typing.Optional[ontologies_models.GeotemporalSeriesEntry]]:
+    ) -> typing.Awaitable[ontologies_models.LoadGeotemporalSeriesResponse]:
         """
-        Get the latest recorded location for a geotemporal series reference property.
+        Load the geotemporal series entries for a given object's geotemporal series reference property within the
+        specified time range.
+
+        Each entry in the response is a map of property names to values, following the same structure as
+        `OntologyObjectV2`. Use the `additionalProperties` field in the request to control which properties are included
+        in each entry depending on the underlying geotemporal integration.
+
+        Results are paginated. Use the `nextPageToken` from the response to retrieve subsequent pages.
+
+        :::callout{theme=warning title=Warning}
+          Geotemporal series integrations with only "dataset archive" enabled are not supported.
+        :::
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -266,87 +235,34 @@ class AsyncGeotemporalSeriesPropertyClient:
         :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the object with the geotemporal series property.
         :type primary_key: PropertyValueEscapedString
-        :param property_name: The API name of the geotemporal series property. To find the API name for your property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property_name: PropertyApiName
-        :param sdk_package_rid: The package rid of the generated SDK.
-        :type sdk_package_rid: Optional[SdkPackageRid]
-        :param sdk_version: The version of the generated SDK.
-        :type sdk_version: Optional[SdkVersion]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[typing.Optional[ontologies_models.GeotemporalSeriesEntry]]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{propertyName}/latestValue",
-                query_params={
-                    "sdkPackageRid": sdk_package_rid,
-                    "sdkVersion": sdk_version,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "propertyName": property_name,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=typing.Optional[ontologies_models.GeotemporalSeriesEntry],
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def stream_geotemporal_series_historic_values(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property_name: ontologies_models.PropertyApiName,
-        *,
-        range: typing.Optional[ontologies_models.TimeRange] = None,
-        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
-        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[bytes]:
-        """
-        Stream historic points of a geotemporal series reference property.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object with the geotemporal series property.
-        :type primary_key: PropertyValueEscapedString
-        :param property_name: The API name of the geotemporal series property. To find the API name for your property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property_name: PropertyApiName
+        :param property: The API name of the geotemporal series property. To find the API name for your property, check the **Ontology Manager** or use the **Get object type** endpoint.
+        :type property: PropertyApiName
+        :param additional_properties: The additional property API names to include in each entry. The "time" and "position" properties are always included and do not need to be specified here. Use this to request additional geotemporal series metadata properties such as "speed" or "heading". Properties that are not available for the underlying geotemporal integration will be omitted from the response entries.
+        :type additional_properties: List[SelectedPropertyApiName]
         :param range:
-        :type range: Optional[TimeRange]
-        :param sdk_package_rid: The package rid of the generated SDK.
+        :type range: AbsoluteTimeRange
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package RID of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: typing.Awaitable[bytes]
+        :rtype: typing.Awaitable[ontologies_models.LoadGeotemporalSeriesResponse]
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{propertyName}/streamHistoricValues",
+                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{property}/loadEntries",
                 query_params={
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -354,16 +270,19 @@ class AsyncGeotemporalSeriesPropertyClient:
                     "ontology": ontology,
                     "objectType": object_type,
                     "primaryKey": primary_key,
-                    "propertyName": property_name,
+                    "property": property,
                 },
                 header_params={
                     "Content-Type": "application/json",
-                    "Accept": "*/*",
+                    "Accept": "application/json",
                 },
-                body=ontologies_models.StreamGeotemporalSeriesValuesRequest(
+                body=ontologies_models.LoadGeotemporalSeriesRequest(
                     range=range,
+                    additional_properties=additional_properties,
+                    page_token=page_token,
+                    page_size=page_size,
                 ),
-                response_type=bytes,
+                response_type=ontologies_models.LoadGeotemporalSeriesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -373,31 +292,17 @@ class AsyncGeotemporalSeriesPropertyClient:
 
 class _AsyncGeotemporalSeriesPropertyClientRaw:
     def __init__(self, client: AsyncGeotemporalSeriesPropertyClient) -> None:
-        def get_geotemporal_series_latest_value(
-            _: typing.Optional[ontologies_models.GeotemporalSeriesEntry],
-        ): ...
-        def stream_geotemporal_series_historic_values(_: bytes): ...
+        def load_geotemporal_series_entries(_: ontologies_models.LoadGeotemporalSeriesResponse): ...
 
-        self.get_geotemporal_series_latest_value = core.async_with_raw_response(
-            get_geotemporal_series_latest_value, client.get_geotemporal_series_latest_value
-        )
-        self.stream_geotemporal_series_historic_values = core.async_with_raw_response(
-            stream_geotemporal_series_historic_values,
-            client.stream_geotemporal_series_historic_values,
+        self.load_geotemporal_series_entries = core.async_with_raw_response(
+            load_geotemporal_series_entries, client.load_geotemporal_series_entries
         )
 
 
 class _AsyncGeotemporalSeriesPropertyClientStreaming:
     def __init__(self, client: AsyncGeotemporalSeriesPropertyClient) -> None:
-        def get_geotemporal_series_latest_value(
-            _: typing.Optional[ontologies_models.GeotemporalSeriesEntry],
-        ): ...
-        def stream_geotemporal_series_historic_values(_: bytes): ...
+        def load_geotemporal_series_entries(_: ontologies_models.LoadGeotemporalSeriesResponse): ...
 
-        self.get_geotemporal_series_latest_value = core.async_with_streaming_response(
-            get_geotemporal_series_latest_value, client.get_geotemporal_series_latest_value
-        )
-        self.stream_geotemporal_series_historic_values = core.async_with_streaming_response(
-            stream_geotemporal_series_historic_values,
-            client.stream_geotemporal_series_historic_values,
+        self.load_geotemporal_series_entries = core.async_with_streaming_response(
+            load_geotemporal_series_entries, client.load_geotemporal_series_entries
         )

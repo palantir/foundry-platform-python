@@ -2353,9 +2353,11 @@ Namespace | Name | Import |
 **Ontologies** | [BatchActionObjectEdits](docs/v2/Ontologies/models/BatchActionObjectEdits.md) | `from foundry_sdk.v2.ontologies.models import BatchActionObjectEdits` |
 **Ontologies** | [BatchActionResults](docs/v2/Ontologies/models/BatchActionResults.md) | `from foundry_sdk.v2.ontologies.models import BatchActionResults` |
 **Ontologies** | [BatchApplyActionRequestItem](docs/v2/Ontologies/models/BatchApplyActionRequestItem.md) | `from foundry_sdk.v2.ontologies.models import BatchApplyActionRequestItem` |
+**Ontologies** | [BatchApplyActionRequestItemWithOverrides](docs/v2/Ontologies/models/BatchApplyActionRequestItemWithOverrides.md) | `from foundry_sdk.v2.ontologies.models import BatchApplyActionRequestItemWithOverrides` |
 **Ontologies** | [BatchApplyActionRequestOptions](docs/v2/Ontologies/models/BatchApplyActionRequestOptions.md) | `from foundry_sdk.v2.ontologies.models import BatchApplyActionRequestOptions` |
 **Ontologies** | [BatchApplyActionRequestV2](docs/v2/Ontologies/models/BatchApplyActionRequestV2.md) | `from foundry_sdk.v2.ontologies.models import BatchApplyActionRequestV2` |
 **Ontologies** | [BatchApplyActionResponseV2](docs/v2/Ontologies/models/BatchApplyActionResponseV2.md) | `from foundry_sdk.v2.ontologies.models import BatchApplyActionResponseV2` |
+**Ontologies** | [BatchApplyActionWithOverridesRequest](docs/v2/Ontologies/models/BatchApplyActionWithOverridesRequest.md) | `from foundry_sdk.v2.ontologies.models import BatchApplyActionWithOverridesRequest` |
 **Ontologies** | [BatchedFunctionLogicRule](docs/v2/Ontologies/models/BatchedFunctionLogicRule.md) | `from foundry_sdk.v2.ontologies.models import BatchedFunctionLogicRule` |
 **Ontologies** | [BatchReturnEditsMode](docs/v2/Ontologies/models/BatchReturnEditsMode.md) | `from foundry_sdk.v2.ontologies.models import BatchReturnEditsMode` |
 **Ontologies** | [BlueprintIcon](docs/v2/Ontologies/models/BlueprintIcon.md) | `from foundry_sdk.v2.ontologies.models import BlueprintIcon` |
@@ -2533,6 +2535,8 @@ Namespace | Name | Import |
 **Ontologies** | [ListScenarioEditedLinkTypesResponse](docs/v2/Ontologies/models/ListScenarioEditedLinkTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedLinkTypesResponse` |
 **Ontologies** | [ListScenarioEditedObjectsResponse](docs/v2/Ontologies/models/ListScenarioEditedObjectsResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedObjectsResponse` |
 **Ontologies** | [ListScenarioEditedObjectTypesResponse](docs/v2/Ontologies/models/ListScenarioEditedObjectTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedObjectTypesResponse` |
+**Ontologies** | [LoadGeotemporalSeriesRequest](docs/v2/Ontologies/models/LoadGeotemporalSeriesRequest.md) | `from foundry_sdk.v2.ontologies.models import LoadGeotemporalSeriesRequest` |
+**Ontologies** | [LoadGeotemporalSeriesResponse](docs/v2/Ontologies/models/LoadGeotemporalSeriesResponse.md) | `from foundry_sdk.v2.ontologies.models import LoadGeotemporalSeriesResponse` |
 **Ontologies** | [LoadObjectSetLinksRequestV2](docs/v2/Ontologies/models/LoadObjectSetLinksRequestV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetLinksRequestV2` |
 **Ontologies** | [LoadObjectSetLinksResponseV2](docs/v2/Ontologies/models/LoadObjectSetLinksResponseV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetLinksResponseV2` |
 **Ontologies** | [LoadObjectSetRequestV2](docs/v2/Ontologies/models/LoadObjectSetRequestV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetRequestV2` |
@@ -2669,6 +2673,7 @@ Namespace | Name | Import |
 **Ontologies** | [PreciseDuration](docs/v2/Ontologies/models/PreciseDuration.md) | `from foundry_sdk.v2.ontologies.models import PreciseDuration` |
 **Ontologies** | [PreciseTimeUnit](docs/v2/Ontologies/models/PreciseTimeUnit.md) | `from foundry_sdk.v2.ontologies.models import PreciseTimeUnit` |
 **Ontologies** | [PrefixOnLastTokenRule](docs/v2/Ontologies/models/PrefixOnLastTokenRule.md) | `from foundry_sdk.v2.ontologies.models import PrefixOnLastTokenRule` |
+**Ontologies** | [PrimaryKeyPropertySelector](docs/v2/Ontologies/models/PrimaryKeyPropertySelector.md) | `from foundry_sdk.v2.ontologies.models import PrimaryKeyPropertySelector` |
 **Ontologies** | [PrimaryKeyValue](docs/v2/Ontologies/models/PrimaryKeyValue.md) | `from foundry_sdk.v2.ontologies.models import PrimaryKeyValue` |
 **Ontologies** | [PrimaryKeyValueV2](docs/v2/Ontologies/models/PrimaryKeyValueV2.md) | `from foundry_sdk.v2.ontologies.models import PrimaryKeyValueV2` |
 **Ontologies** | [PropertyApiName](docs/v2/Ontologies/models/PropertyApiName.md) | `from foundry_sdk.v2.ontologies.models import PropertyApiName` |
@@ -2770,7 +2775,6 @@ Namespace | Name | Import |
 **Ontologies** | [SpatialFilterMode](docs/v2/Ontologies/models/SpatialFilterMode.md) | `from foundry_sdk.v2.ontologies.models import SpatialFilterMode` |
 **Ontologies** | [StartsWithQuery](docs/v2/Ontologies/models/StartsWithQuery.md) | `from foundry_sdk.v2.ontologies.models import StartsWithQuery` |
 **Ontologies** | [StaticArgument](docs/v2/Ontologies/models/StaticArgument.md) | `from foundry_sdk.v2.ontologies.models import StaticArgument` |
-**Ontologies** | [StreamGeotemporalSeriesValuesRequest](docs/v2/Ontologies/models/StreamGeotemporalSeriesValuesRequest.md) | `from foundry_sdk.v2.ontologies.models import StreamGeotemporalSeriesValuesRequest` |
 **Ontologies** | [StreamingOutputFormat](docs/v2/Ontologies/models/StreamingOutputFormat.md) | `from foundry_sdk.v2.ontologies.models import StreamingOutputFormat` |
 **Ontologies** | [StreamMessage](docs/v2/Ontologies/models/StreamMessage.md) | `from foundry_sdk.v2.ontologies.models import StreamMessage` |
 **Ontologies** | [StreamTimeSeriesPointsRequest](docs/v2/Ontologies/models/StreamTimeSeriesPointsRequest.md) | `from foundry_sdk.v2.ontologies.models import StreamTimeSeriesPointsRequest` |
@@ -2818,6 +2822,7 @@ Namespace | Name | Import |
 **Ontologies** | [TimeSeriesWindowType](docs/v2/Ontologies/models/TimeSeriesWindowType.md) | `from foundry_sdk.v2.ontologies.models import TimeSeriesWindowType` |
 **Ontologies** | [TimestampValue](docs/v2/Ontologies/models/TimestampValue.md) | `from foundry_sdk.v2.ontologies.models import TimestampValue` |
 **Ontologies** | [TimeUnit](docs/v2/Ontologies/models/TimeUnit.md) | `from foundry_sdk.v2.ontologies.models import TimeUnit` |
+**Ontologies** | [TitlePropertySelector](docs/v2/Ontologies/models/TitlePropertySelector.md) | `from foundry_sdk.v2.ontologies.models import TitlePropertySelector` |
 **Ontologies** | [TransactionEdit](docs/v2/Ontologies/models/TransactionEdit.md) | `from foundry_sdk.v2.ontologies.models import TransactionEdit` |
 **Ontologies** | [TwoDimensionalAggregation](docs/v2/Ontologies/models/TwoDimensionalAggregation.md) | `from foundry_sdk.v2.ontologies.models import TwoDimensionalAggregation` |
 **Ontologies** | [TypeClass](docs/v2/Ontologies/models/TypeClass.md) | `from foundry_sdk.v2.ontologies.models import TypeClass` |
@@ -3838,6 +3843,7 @@ Namespace | Name | Import |
 **Ontologies** | MarketplaceSdkPropertyMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkPropertyMappingNotFound` |
 **Ontologies** | MarketplaceSdkQueryMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkQueryMappingNotFound` |
 **Ontologies** | MissingParameter | `from foundry_sdk.v2.ontologies.errors import MissingParameter` |
+**Ontologies** | MissingValueTypeReference | `from foundry_sdk.v2.ontologies.errors import MissingValueTypeReference` |
 **Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry_sdk.v2.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
 **Ontologies** | MultiplePropertyValuesNotSupported | `from foundry_sdk.v2.ontologies.errors import MultiplePropertyValuesNotSupported` |
 **Ontologies** | NotCipherFormatted | `from foundry_sdk.v2.ontologies.errors import NotCipherFormatted` |
@@ -4160,6 +4166,7 @@ Namespace | Name | Import |
 **Ontologies** | MarketplaceSdkPropertyMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkPropertyMappingNotFound` |
 **Ontologies** | MarketplaceSdkQueryMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkQueryMappingNotFound` |
 **Ontologies** | MissingParameter | `from foundry_sdk.v1.ontologies.errors import MissingParameter` |
+**Ontologies** | MissingValueTypeReference | `from foundry_sdk.v1.ontologies.errors import MissingValueTypeReference` |
 **Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry_sdk.v1.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
 **Ontologies** | MultiplePropertyValuesNotSupported | `from foundry_sdk.v1.ontologies.errors import MultiplePropertyValuesNotSupported` |
 **Ontologies** | NotCipherFormatted | `from foundry_sdk.v1.ontologies.errors import NotCipherFormatted` |

@@ -1514,6 +1514,22 @@ class MissingParameter(errors.BadRequestError):
     error_instance_id: str
 
 
+class MissingValueTypeReferenceParameters(typing_extensions.TypedDict):
+    """This struct value type references another value type which either doesn't exist, or the user doesn't have access to."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    referencedRid: typing_extensions.NotRequired[ontologies_models.ValueTypeRid]
+    rid: typing_extensions.NotRequired[ontologies_models.ValueTypeRid]
+
+
+@dataclass
+class MissingValueTypeReference(errors.BadRequestError):
+    name: typing.Literal["MissingValueTypeReference"]
+    parameters: MissingValueTypeReferenceParameters
+    error_instance_id: str
+
+
 class MultipleGroupByOnFieldNotSupportedParameters(typing_extensions.TypedDict):
     """Aggregation cannot group by on the same field multiple times."""
 
@@ -2562,6 +2578,7 @@ __all__ = [
     "MarketplaceSdkPropertyMappingNotFound",
     "MarketplaceSdkQueryMappingNotFound",
     "MissingParameter",
+    "MissingValueTypeReference",
     "MultipleGroupByOnFieldNotSupported",
     "MultiplePropertyValuesNotSupported",
     "NotCipherFormatted",

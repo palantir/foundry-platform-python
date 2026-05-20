@@ -11554,16 +11554,36 @@ def ontologies_geotemporal_series_property():
     pass
 
 
-@ontologies_geotemporal_series_property.command("get_geotemporal_series_latest_value")
+@ontologies_geotemporal_series_property.command("load_geotemporal_series_entries")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
-@click.argument("property_name", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.option(
+    "--additional_properties",
+    type=str,
+    required=True,
+    help="""The additional property API names to include in each entry. The "time" and "position" properties are always
+included and do not need to be specified here. Use this to request additional geotemporal series metadata
+properties such as "speed" or "heading". Properties that are not available for the underlying geotemporal
+integration will be omitted from the response entries.
+""",
+)
+@click.option("--range", type=str, required=True, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package rid of the generated SDK.
+    help="""The package RID of the generated SDK.
 """,
 )
 @click.option(
@@ -11574,75 +11594,49 @@ def ontologies_geotemporal_series_property():
 """,
 )
 @click.pass_obj
-def ontologies_geotemporal_series_property_op_get_geotemporal_series_latest_value(
+def ontologies_geotemporal_series_property_op_load_geotemporal_series_entries(
     client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
-    property_name: str,
+    property: str,
+    additional_properties: str,
+    range: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
     """
-    Get the latest recorded location for a geotemporal series reference property.
+    Load the geotemporal series entries for a given object's geotemporal series reference property within the
+    specified time range.
+
+    Each entry in the response is a map of property names to values, following the same structure as
+    `OntologyObjectV2`. Use the `additionalProperties` field in the request to control which properties are included
+    in each entry depending on the underlying geotemporal integration.
+
+    Results are paginated. Use the `nextPageToken` from the response to retrieve subsequent pages.
+
+    :::callout{theme=warning title=Warning}
+      Geotemporal series integrations with only "dataset archive" enabled are not supported.
+    :::
 
     """
-    result = client.ontologies.GeotemporalSeriesProperty.get_geotemporal_series_latest_value(
+    result = client.ontologies.GeotemporalSeriesProperty.load_geotemporal_series_entries(
         ontology=ontology,
         object_type=object_type,
         primary_key=primary_key,
-        property_name=property_name,
+        property=property,
+        additional_properties=json.loads(additional_properties),
+        range=json.loads(range),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
     click.echo(repr(result))
-
-
-@ontologies_geotemporal_series_property.command("stream_geotemporal_series_historic_values")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.argument("primary_key", type=str, required=True)
-@click.argument("property_name", type=str, required=True)
-@click.option("--range", type=str, required=False, help="""""")
-@click.option(
-    "--sdk_package_rid",
-    type=str,
-    required=False,
-    help="""The package rid of the generated SDK.
-""",
-)
-@click.option(
-    "--sdk_version",
-    type=str,
-    required=False,
-    help="""The version of the generated SDK.
-""",
-)
-@click.pass_obj
-def ontologies_geotemporal_series_property_op_stream_geotemporal_series_historic_values(
-    client: FoundryClient,
-    ontology: str,
-    object_type: str,
-    primary_key: str,
-    property_name: str,
-    range: typing.Optional[str],
-    sdk_package_rid: typing.Optional[str],
-    sdk_version: typing.Optional[str],
-):
-    """
-    Stream historic points of a geotemporal series reference property.
-
-    """
-    result = client.ontologies.GeotemporalSeriesProperty.stream_geotemporal_series_historic_values(
-        ontology=ontology,
-        object_type=object_type,
-        primary_key=primary_key,
-        property_name=property_name,
-        range=None if range is None else json.loads(range),
-        sdk_package_rid=sdk_package_rid,
-        sdk_version=sdk_version,
-    )
-    click.echo(result)
 
 
 @ontologies.group("cipher_text_property")
@@ -12235,6 +12229,69 @@ def ontologies_action_op_apply_batch(
 
     """
     result = client.ontologies.Action.apply_batch(
+        ontology=ontology,
+        action=action,
+        requests=json.loads(requests),
+        branch=branch,
+        options=None if options is None else json.loads(options),
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_action.command("apply_batch_with_overrides")
+@click.argument("ontology", type=str, required=True)
+@click.argument("action", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to apply the action against. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option("--options", type=str, required=False, help="""""")
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
+@click.pass_obj
+def ontologies_action_op_apply_batch_with_overrides(
+    client: FoundryClient,
+    ontology: str,
+    action: str,
+    requests: str,
+    branch: typing.Optional[str],
+    options: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+):
+    """
+    Applies multiple actions (of the same Action Type) with per-item overrides
+    for UniqueIdentifier and CurrentTime generated action parameters.
+
+    Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+    Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
+
+    Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
+    call Functions may receive a higher limit.
+
+    Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+
+    """
+    result = client.ontologies.Action.apply_batch_with_overrides(
         ontology=ontology,
         action=action,
         requests=json.loads(requests),
