@@ -213,6 +213,7 @@ Name | Type | Description  | Notes |
 **requests** | List[BatchApplyActionRequestItemWithOverrides] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **options** | Optional[BatchApplyActionRequestOptions] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
@@ -249,6 +250,8 @@ requests = [
 branch = None
 # Optional[BatchApplyActionRequestOptions]
 options = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -262,6 +265,7 @@ try:
         requests=requests,
         branch=branch,
         options=options,
+        preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -299,6 +303,7 @@ Name | Type | Description  | Notes |
 **overrides** | ApplyActionOverrides |  |  |
 **request** | ApplyActionRequestV2 |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to apply the action against.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -331,6 +336,8 @@ overrides = {
 request = {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}}
 # Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 # Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to apply the action against.
 scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -348,6 +355,7 @@ try:
         overrides=overrides,
         request=request,
         branch=branch,
+        preview=preview,
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,

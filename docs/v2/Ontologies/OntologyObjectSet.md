@@ -24,6 +24,7 @@ Name | Type | Description  | Notes |
 **object_set** | ObjectSet |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to aggregate the objects on.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
@@ -66,6 +67,8 @@ object_set = {"objectType": "Employee", "type": "base"}
 accuracy = None
 # Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+execute_in_memory_only = None
 # Optional[IncludeComputeUsage]
 include_compute_usage = None
 # Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to aggregate the objects on.
@@ -90,6 +93,7 @@ try:
         object_set=object_set,
         accuracy=accuracy,
         branch=branch,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
@@ -129,6 +133,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
@@ -152,6 +157,8 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # Optional[FoundryBranch] | The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -167,6 +174,7 @@ try:
         ontology,
         object_set=object_set,
         branch=branch,
+        preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -202,6 +210,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **object_set_rid** | ObjectSetRid | The RID of the object set.  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **ObjectSet**
@@ -219,10 +228,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ObjectSetRid | The RID of the object set.
 object_set_rid = "ri.object-set.main.object-set.c32ccba5-1a55-4cfe-ad71-160c4c77a053"
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
-    api_response = client.ontologies.OntologyObjectSet.get(ontology, object_set_rid)
+    api_response = client.ontologies.OntologyObjectSet.get(
+        ontology, object_set_rid, preview=preview
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -393,6 +406,7 @@ Name | Type | Description  | Notes |
 **links** | List[LinkTypeApiName] |  |  |
 **object_set** | ObjectSet |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
@@ -421,6 +435,8 @@ links = None
 object_set = {"objectType": "Employee", "type": "base"}
 # Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+execute_in_memory_only = None
 # Optional[IncludeComputeUsage]
 include_compute_usage = None
 # Optional[PageToken]
@@ -443,6 +459,7 @@ try:
         links=links,
         object_set=object_set,
         branch=branch,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         page_token=page_token,
         preview=preview,
@@ -632,6 +649,7 @@ Name | Type | Description  | Notes |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -667,6 +685,8 @@ select = None
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
+# Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+execute_in_memory_only = None
 # Optional[SearchOrderByV2]
 order_by = None
 # Optional[PageSize]
@@ -700,6 +720,7 @@ try:
         select=select,
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,

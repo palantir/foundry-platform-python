@@ -22,6 +22,7 @@ DeleteObjectLogicRule | deleteObject
 FunctionLogicRule | function
 CreateInterfaceLinkLogicRule | createInterfaceLink
 CreateInterfaceLogicRule | createInterface
+ApplyScenarioLogicRule | applyScenario
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

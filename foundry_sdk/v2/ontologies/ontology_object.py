@@ -137,6 +137,7 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -151,6 +152,8 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -167,6 +170,7 @@ class OntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/count",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -358,6 +362,7 @@ class OntologyObjectClient:
         select: typing.List[ontologies_models.PropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -404,6 +409,8 @@ class OntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -452,6 +459,7 @@ class OntologyObjectClient:
                     select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,
                 request_timeout=request_timeout,
@@ -604,6 +612,7 @@ class AsyncOntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -618,6 +627,8 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -634,6 +645,7 @@ class AsyncOntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/count",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -825,6 +837,7 @@ class AsyncOntologyObjectClient:
         select: typing.List[ontologies_models.PropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -871,6 +884,8 @@ class AsyncOntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -919,6 +934,7 @@ class AsyncOntologyObjectClient:
                     select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,
                 request_timeout=request_timeout,

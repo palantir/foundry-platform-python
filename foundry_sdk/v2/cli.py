@@ -8500,11 +8500,19 @@ def ontologies_ontology_scenario():
 @ontologies_ontology_scenario.command("create_scenario")
 @click.argument("ontology", type=str, required=True)
 @click.option("--base", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_scenario_op_create_scenario(
     client: FoundryClient,
     ontology: str,
     base: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Creates an ontology scenario.
@@ -8513,6 +8521,214 @@ def ontologies_ontology_scenario_op_create_scenario(
     result = client.ontologies.OntologyScenario.create_scenario(
         ontology=ontology,
         base=None if base is None else json.loads(base),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_scenario.command("list_scenario_edited_entity_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_scenario_op_list_scenario_edited_entity_types(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Returns the object types and link types that have been modified within a given scenario.
+
+    The response contains the list of object type API names that have been modified, and the list of
+    many-to-many link types that have been modified, grouped by their source object type. One-to-many
+    link type edits are surfaced as object edits on the object type that owns the foreign key property.
+
+    """
+    result = client.ontologies.OntologyScenario.list_scenario_edited_entity_types(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_scenario.command("list_scenario_edited_link_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_scenario_op_list_scenario_edited_link_types(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    object_type: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Returns the list of outgoing links that have been modified within a given scenario for an object type.
+
+    Note that only many-to-many link type are returned by this endpoint. One-to-many link type edits are
+    surfaced as object edits on the object type that owns the foreign key property.
+
+    """
+    result = client.ontologies.OntologyScenario.list_scenario_edited_link_types(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        object_type=object_type,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_scenario.command("list_scenario_edited_links")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("link_type", type=str, required=True)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of links to return per page.
+""",
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token to use for pagination.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_scenario_op_list_scenario_edited_links(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    object_type: str,
+    link_type: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Returns the list of edited links within a given scenario for a specific object type and link type, grouped
+    by source object. Only works for many-to-many link types. Only links where the user has permission to view
+    both objects are returned.
+
+    Each page may be smaller than the requested page size.
+
+    """
+    result = client.ontologies.OntologyScenario.list_scenario_edited_links(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        object_type=object_type,
+        link_type=link_type,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_scenario.command("list_scenario_edited_object_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_scenario_op_list_scenario_edited_object_types(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Returns the list of object type API names that have been modified within a given scenario.
+
+    """
+    result = client.ontologies.OntologyScenario.list_scenario_edited_object_types(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_scenario.command("list_scenario_edited_objects")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of objects to return per page.
+""",
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token to use for pagination.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_scenario_op_list_scenario_edited_objects(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    object_type: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Returns the list of objects that have been edited within a given scenario for a specific object type.
+    Only objects that the user has permission to view are returned.
+
+    Each page may be smaller than the requested page size.
+
+    """
+    result = client.ontologies.OntologyScenario.list_scenario_edited_objects(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        object_type=object_type,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -8539,6 +8755,17 @@ def ontologies_ontology_object_set():
     required=False,
     help="""The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
 Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--execute_in_memory_only",
+    type=bool,
+    required=False,
+    help="""If true, the request fails with an error when it cannot be computed in-memory.
+Use this to opt into fast failure on requests that would otherwise require
+heavier computation.
+
+Defaults to false.
 """,
 )
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
@@ -8594,6 +8821,7 @@ def ontologies_ontology_object_set_op_aggregate(
     object_set: str,
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
     branch: typing.Optional[str],
+    execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
     scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
@@ -8613,6 +8841,7 @@ def ontologies_ontology_object_set_op_aggregate(
         object_set=json.loads(object_set),
         accuracy=accuracy,
         branch=branch,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
@@ -8633,6 +8862,13 @@ def ontologies_ontology_object_set_op_aggregate(
     required=False,
     help="""The Foundry branch to reference. If not specified, the default branch will be used.
 Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
 @click.option(
@@ -8669,6 +8905,7 @@ def ontologies_ontology_object_set_op_create_temporary(
     ontology: str,
     object_set: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -8682,6 +8919,7 @@ def ontologies_ontology_object_set_op_create_temporary(
         ontology=ontology,
         object_set=json.loads(object_set),
         branch=branch,
+        preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -8693,11 +8931,19 @@ def ontologies_ontology_object_set_op_create_temporary(
 @ontologies_ontology_object_set.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_set_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_get(
     client: FoundryClient,
     ontology: str,
     object_set_rid: str,
+    preview: typing.Optional[bool],
 ):
     """
     Gets the definition of the `ObjectSet` with the given RID.
@@ -8706,6 +8952,7 @@ def ontologies_ontology_object_set_op_get(
     result = client.ontologies.OntologyObjectSet.get(
         ontology=ontology,
         object_set_rid=object_set_rid,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -8874,6 +9121,17 @@ def ontologies_ontology_object_set_op_load(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--execute_in_memory_only",
+    type=bool,
+    required=False,
+    help="""If true, the request fails with an error when it cannot be computed in-memory.
+Use this to opt into fast failure on requests that would otherwise require
+heavier computation.
+
+Defaults to false.
+""",
+)
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
@@ -8918,6 +9176,7 @@ def ontologies_ontology_object_set_op_load_links(
     links: str,
     object_set: str,
     branch: typing.Optional[str],
+    execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -8948,6 +9207,7 @@ def ontologies_ontology_object_set_op_load_links(
         links=json.loads(links),
         object_set=json.loads(object_set),
         branch=branch,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         page_token=page_token,
         preview=preview,
@@ -9145,6 +9405,17 @@ Branches are an experimental feature and not all workflows are supported.
 Setting this to true may improve performance of this endpoint for object types in OSV2.
 """,
 )
+@click.option(
+    "--execute_in_memory_only",
+    type=bool,
+    required=False,
+    help="""If true, the request fails with an error when it cannot be computed in-memory.
+Use this to opt into fast failure on requests that would otherwise require
+heavier computation.
+
+Defaults to false.
+""",
+)
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -9224,6 +9495,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     select: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    execute_in_memory_only: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -9261,6 +9533,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         select=json.loads(select),
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
@@ -9359,6 +9632,13 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -9378,6 +9658,7 @@ def ontologies_ontology_object_op_count(
     ontology: str,
     object_type: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -9389,6 +9670,7 @@ def ontologies_ontology_object_op_count(
         ontology=ontology,
         object_type=object_type,
         branch=branch,
+        preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -9600,6 +9882,17 @@ Branches are an experimental feature and not all workflows are supported.
 Setting this to true may improve performance of this endpoint for object types in OSV2.
 """,
 )
+@click.option(
+    "--execute_in_memory_only",
+    type=bool,
+    required=False,
+    help="""If true, the request fails with an error when it cannot be computed in-memory.
+Use this to opt into fast failure on requests that would otherwise require
+heavier computation.
+
+Defaults to false.
+""",
+)
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -9644,6 +9937,7 @@ def ontologies_ontology_object_op_search(
     select: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    execute_in_memory_only: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -9685,6 +9979,7 @@ def ontologies_ontology_object_op_search(
         select=json.loads(select),
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
@@ -9832,6 +10127,13 @@ def ontologies_ontology_interface_op_get(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_op_get_outgoing_interface_link_type(
     client: FoundryClient,
@@ -9839,6 +10141,7 @@ def ontologies_ontology_interface_op_get_outgoing_interface_link_type(
     interface_type: str,
     interface_link_type: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Get an outgoing interface link type for an interface type.
@@ -9849,6 +10152,7 @@ def ontologies_ontology_interface_op_get_outgoing_interface_link_type(
         interface_type=interface_type,
         interface_link_type=interface_link_type,
         branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10123,12 +10427,20 @@ def ontologies_ontology_interface_op_list_objects_for_interface(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_op_list_outgoing_interface_link_types(
     client: FoundryClient,
     ontology: str,
     interface_type: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List the outgoing interface link types for an interface type.
@@ -10138,6 +10450,7 @@ def ontologies_ontology_interface_op_list_outgoing_interface_link_types(
         ontology=ontology,
         interface_type=interface_type,
         branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10329,11 +10642,19 @@ def ontologies_ontology_op_get(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_op_get_full_metadata(
     client: FoundryClient,
     ontology: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
@@ -10344,6 +10665,7 @@ def ontologies_ontology_op_get_full_metadata(
     result = client.ontologies.Ontology.get_full_metadata(
         ontology=ontology,
         branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10613,6 +10935,20 @@ Branches are an experimental feature and not all workflows are supported.
     help="""Token for retrieving the next page of results""",
 )
 @click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to get edits history from.
+""",
+)
+@click.option(
     "--sort_order", type=click.Choice(["newest_first", "oldest_first"]), required=False, help=""""""
 )
 @click.pass_obj
@@ -10626,6 +10962,8 @@ def ontologies_ontology_object_type_op_get_edits_history(
     object_primary_key: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sort_order: typing.Optional[typing.Literal["newest_first", "oldest_first"]],
 ):
     """
@@ -10647,6 +10985,8 @@ def ontologies_ontology_object_type_op_get_edits_history(
         object_primary_key=None if object_primary_key is None else json.loads(object_primary_key),
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
+        scenario_rid=scenario_rid,
         sort_order=sort_order,
     )
     click.echo(repr(result))
@@ -10875,168 +11215,6 @@ def ontologies_ontology_object_type_op_list_outgoing_link_types(
         ontology=ontology,
         object_type=object_type,
         branch=branch,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_object_type.command("list_scenario_edited_entity_types")
-@click.argument("ontology", type=str, required=True)
-@click.argument("scenario_rid", type=str, required=True)
-@click.pass_obj
-def ontologies_ontology_object_type_op_list_scenario_edited_entity_types(
-    client: FoundryClient,
-    ontology: str,
-    scenario_rid: str,
-):
-    """
-    Returns the object types and link types that have been modified within a given scenario.
-
-    The response contains the list of object type API names that have been modified, and the list of
-    many-to-many link types that have been modified, grouped by their source object type. One-to-many
-    link type edits are surfaced as object edits on the object type that owns the foreign key property.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_entity_types(
-        ontology=ontology,
-        scenario_rid=scenario_rid,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_object_type.command("list_scenario_edited_link_types")
-@click.argument("ontology", type=str, required=True)
-@click.argument("scenario_rid", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.pass_obj
-def ontologies_ontology_object_type_op_list_scenario_edited_link_types(
-    client: FoundryClient,
-    ontology: str,
-    scenario_rid: str,
-    object_type: str,
-):
-    """
-    Returns the list of outgoing links that have been modified within a given scenario for an object type.
-
-    Note that only many-to-many link type are returned by this endpoint. One-to-many link type edits are
-    surfaced as object edits on the object type that owns the foreign key property.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_link_types(
-        ontology=ontology,
-        scenario_rid=scenario_rid,
-        object_type=object_type,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_object_type.command("list_scenario_edited_links")
-@click.argument("ontology", type=str, required=True)
-@click.argument("scenario_rid", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.argument("link_type", type=str, required=True)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The maximum number of links to return per page.
-""",
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token to use for pagination.
-""",
-)
-@click.pass_obj
-def ontologies_ontology_object_type_op_list_scenario_edited_links(
-    client: FoundryClient,
-    ontology: str,
-    scenario_rid: str,
-    object_type: str,
-    link_type: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Returns the list of edited links within a given scenario for a specific object type and link type, grouped
-    by source object. Only works for many-to-many link types. Only links where the user has permission to view
-    both objects are returned.
-
-    Each page may be smaller than the requested page size.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_links(
-        ontology=ontology,
-        scenario_rid=scenario_rid,
-        object_type=object_type,
-        link_type=link_type,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_object_type.command("list_scenario_edited_object_types")
-@click.argument("ontology", type=str, required=True)
-@click.argument("scenario_rid", type=str, required=True)
-@click.pass_obj
-def ontologies_ontology_object_type_op_list_scenario_edited_object_types(
-    client: FoundryClient,
-    ontology: str,
-    scenario_rid: str,
-):
-    """
-    Returns the list of object type API names that have been modified within a given scenario.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_object_types(
-        ontology=ontology,
-        scenario_rid=scenario_rid,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_object_type.command("list_scenario_edited_objects")
-@click.argument("ontology", type=str, required=True)
-@click.argument("scenario_rid", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The maximum number of objects to return per page.
-""",
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token to use for pagination.
-""",
-)
-@click.pass_obj
-def ontologies_ontology_object_type_op_list_scenario_edited_objects(
-    client: FoundryClient,
-    ontology: str,
-    scenario_rid: str,
-    object_type: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Returns the list of objects that have been edited within a given scenario for a specific object type.
-    Only objects that the user has permission to view are returned.
-
-    Each page may be smaller than the requested page size.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_objects(
-        ontology=ontology,
-        scenario_rid=scenario_rid,
-        object_type=object_type,
         page_size=page_size,
         page_token=page_token,
     )
@@ -12000,12 +12178,20 @@ def ontologies_action_type_full_metadata():
     help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
 """,
 )
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_action_type_full_metadata_op_get(
     client: FoundryClient,
     ontology: str,
     action_type: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Gets the full metadata associated with an action type.
@@ -12015,6 +12201,7 @@ def ontologies_action_type_full_metadata_op_get(
         ontology=ontology,
         action_type=action_type,
         branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -12045,6 +12232,13 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_action_type_full_metadata_op_list(
     client: FoundryClient,
@@ -12053,6 +12247,7 @@ def ontologies_action_type_full_metadata_op_list(
     object_type_api_names: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists the action types (with full metadata) for the given Ontology.
@@ -12069,6 +12264,7 @@ def ontologies_action_type_full_metadata_op_list(
         ),
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -12254,6 +12450,13 @@ Branches are an experimental feature and not all workflows are supported.
 )
 @click.option("--options", type=str, required=False, help="""""")
 @click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12275,6 +12478,7 @@ def ontologies_action_op_apply_batch_with_overrides(
     requests: str,
     branch: typing.Optional[str],
     options: typing.Optional[str],
+    preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -12297,6 +12501,7 @@ def ontologies_action_op_apply_batch_with_overrides(
         requests=json.loads(requests),
         branch=branch,
         options=None if options is None else json.loads(options),
+        preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -12314,6 +12519,13 @@ def ontologies_action_op_apply_batch_with_overrides(
     required=False,
     help="""The Foundry branch to apply the action against. If not specified, the default branch is used.
 Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
 @click.option(
@@ -12353,6 +12565,7 @@ def ontologies_action_op_apply_with_overrides(
     overrides: str,
     request: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
     scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -12369,6 +12582,7 @@ def ontologies_action_op_apply_with_overrides(
         overrides=json.loads(overrides),
         request=json.loads(request),
         branch=branch,
+        preview=preview,
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,

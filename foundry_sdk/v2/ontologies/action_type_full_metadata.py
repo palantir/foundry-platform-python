@@ -62,6 +62,7 @@ class ActionTypeFullMetadataClient:
         action_type: ontologies_models.ActionTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ActionTypeFullMetadata:
@@ -74,6 +75,8 @@ class ActionTypeFullMetadataClient:
         :type action_type: ActionTypeApiName
         :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -86,6 +89,7 @@ class ActionTypeFullMetadataClient:
                 resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
@@ -115,6 +119,7 @@ class ActionTypeFullMetadataClient:
         ] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[ontologies_models.ActionTypeFullMetadata]:
@@ -134,6 +139,8 @@ class ActionTypeFullMetadataClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -149,6 +156,7 @@ class ActionTypeFullMetadataClient:
                     "objectTypeApiNames": object_type_api_names,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
@@ -221,6 +229,7 @@ class AsyncActionTypeFullMetadataClient:
         action_type: ontologies_models.ActionTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ActionTypeFullMetadata]:
@@ -233,6 +242,8 @@ class AsyncActionTypeFullMetadataClient:
         :type action_type: ActionTypeApiName
         :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -245,6 +256,7 @@ class AsyncActionTypeFullMetadataClient:
                 resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
@@ -274,6 +286,7 @@ class AsyncActionTypeFullMetadataClient:
         ] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[ontologies_models.ActionTypeFullMetadata]:
@@ -293,6 +306,8 @@ class AsyncActionTypeFullMetadataClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -308,6 +323,7 @@ class AsyncActionTypeFullMetadataClient:
                     "objectTypeApiNames": object_type_api_names,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,

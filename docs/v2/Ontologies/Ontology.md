@@ -67,6 +67,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **OntologyFullMetadata**
@@ -84,10 +85,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
-    api_response = client.ontologies.Ontology.get_full_metadata(ontology, branch=branch)
+    api_response = client.ontologies.Ontology.get_full_metadata(
+        ontology, branch=branch, preview=preview
+    )
     print("The get_full_metadata response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

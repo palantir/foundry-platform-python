@@ -13,6 +13,7 @@ SearchObjectsRequestV2
 **select_v2** | Optional[List[PropertyIdentifier]] | No | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |
 **exclude_rid** | Optional[bool] | No | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  |
 **snapshot** | Optional[bool] | No | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  |
+**execute_in_memory_only** | Optional[bool] | No | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

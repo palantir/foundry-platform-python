@@ -391,6 +391,7 @@ class FileSizeLimitExceededParameters(typing_extensions.TypedDict):
     datasetRid: core_models.DatasetRid
     path: core_models.FilePath
     fileSizeBytes: core.Long
+    maxFileSizeBytes: core.Long
 
 
 @dataclass

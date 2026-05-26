@@ -222,6 +222,23 @@ class ApplyActionResponse(core.ModelBase):
     """ApplyActionResponse"""
 
 
+class ApplyScenarioRule(core.ModelBase):
+    """
+    An Action rule that applies the edits accumulated on a referenced Scenario onto the ontology data context
+    where the Action is applied. If the Action is applied in the context of main ontology data, the edits are
+    applied there. If the Action is applied in the context of another Scenario, the edits are applied in that
+    other Scenario.
+
+    The scenario is supplied through the parameter identified by `scenarioParameter` of type
+    `scenarioReference`. The affected object types and link types are explicitly enumerated in the scope.
+    """
+
+    scenario_parameter: ParameterId = pydantic.Field(alias=str("scenarioParameter"))  # type: ignore[literal-required]
+    object_type_api_names: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypeApiNames"))  # type: ignore[literal-required]
+    link_types: typing.List[ObjectTypeLinkTypeApiNameMapping] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    type: typing.Literal["applyScenario"] = "applyScenario"
+
+
 class ApproximateDistinctAggregation(core.ModelBase):
     """Computes an approximate number of distinct values for the provided field."""
 
@@ -352,6 +369,7 @@ Represents the value of data in the following format. Note that these values can
 | Ontology Object Reference           | JSON encoding of the object's primary key             | `10033123` or `"EMP1234"`                                                                                                                                     |
 | Ontology Interface Object Reference | JSON encoding of the object's API name and primary key| `{"objectTypeApiName":"Employee", "primaryKeyValue":"EMP1234"}`                                                                                               |
 | Ontology Object Type Reference      | string of the object type's api name                  | `"Employee"`                                                                                                                                                  |
+| Scenario Reference                  | string of the scenario RID                            | `"ri.actions..scenario.cf2a8a49-8b56-446d-ab04-a6bc7fadef48"`                                                                                                 |
 | Set                                 | array                                                 | `["alpha", "bravo", "charlie"]`                                                                                                                               |
 | Short                               | number                                                | `8739`                                                                                                                                                        |
 | String                              | string                                                | `"Call me Ishmael"`                                                                                                                                           |
@@ -616,6 +634,7 @@ LogicRule = typing_extensions.Annotated[
         "DeleteLinkRule",
         "CreateObjectRule",
         "CreateLinkRule",
+        "ApplyScenarioRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -720,6 +739,17 @@ ObjectTypeApiName = str
 The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the
 `List object types` endpoint or check the **Ontology Manager**.
 """
+
+
+class ObjectTypeLinkTypeApiNameMapping(core.ModelBase):
+    """
+    Groups link type API names by the object type they're scoped to. Link type API names are only unique within
+    an object type, so this pairing is required to identify a link type unambiguously.
+    """
+
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    link_types: typing.List[LinkTypeApiName] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    """The list of link type API names scoped by the object type."""
 
 
 ObjectTypeRid = core.RID
@@ -1580,6 +1610,7 @@ __all__ = [
     "ApplyActionRequest",
     "ApplyActionRequestOptions",
     "ApplyActionResponse",
+    "ApplyScenarioRule",
     "ApproximateDistinctAggregation",
     "ArrayEntryEvaluatedConstraint",
     "ArrayEvaluatedConstraint",
@@ -1646,6 +1677,7 @@ __all__ = [
     "ObjectSetRid",
     "ObjectType",
     "ObjectTypeApiName",
+    "ObjectTypeLinkTypeApiNameMapping",
     "ObjectTypeRid",
     "ObjectTypeVisibility",
     "OneOfConstraint",

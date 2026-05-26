@@ -21,6 +21,7 @@ LongType | long
 OntologyObjectTypeReferenceType | objectType
 BooleanType | boolean
 MarkingType | marking
+ScenarioReferenceType | scenarioReference
 AttachmentType | attachment
 MediaReferenceType | mediaReference
 ActionParameterArrayType | array

@@ -111,6 +111,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 
@@ -132,6 +133,8 @@ ontology = "palantir"
 object_type = "employee"
 # Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -143,6 +146,7 @@ try:
         ontology,
         object_type,
         branch=branch,
+        preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -380,6 +384,7 @@ Name | Type | Description  | Notes |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -411,6 +416,8 @@ select = None
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
+# Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+execute_in_memory_only = None
 # Optional[SearchOrderByV2]
 order_by = None
 # Optional[PageSize]
@@ -436,6 +443,7 @@ try:
         select=select,
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,

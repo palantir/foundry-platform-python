@@ -132,6 +132,7 @@ class OntologyClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.OntologyFullMetadata:
@@ -144,6 +145,8 @@ class OntologyClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -156,6 +159,7 @@ class OntologyClient:
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
@@ -413,6 +417,7 @@ class AsyncOntologyClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.OntologyFullMetadata]:
@@ -425,6 +430,8 @@ class AsyncOntologyClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -437,6 +444,7 @@ class AsyncOntologyClient:
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,

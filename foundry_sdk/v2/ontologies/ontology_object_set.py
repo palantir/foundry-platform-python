@@ -65,6 +65,7 @@ class OntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
@@ -90,6 +91,8 @@ class OntologyObjectSetClient:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param scenario_rid: The resource identifier of an ontology scenario to aggregate the objects on.
@@ -136,6 +139,7 @@ class OntologyObjectSetClient:
                     group_by=group_by,
                     accuracy=accuracy,
                     include_compute_usage=include_compute_usage,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
@@ -153,6 +157,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -169,6 +174,8 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param branch: The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -189,6 +196,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -219,6 +227,7 @@ class OntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_set_rid: ontologies_models.ObjectSetRid,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ObjectSet:
@@ -229,6 +238,8 @@ class OntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -239,7 +250,9 @@ class OntologyObjectSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectSets/{objectSetRid}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectSetRid": object_set_rid,
@@ -383,6 +396,7 @@ class OntologyObjectSetClient:
         links: typing.List[ontologies_models.LinkTypeApiName],
         object_set: ontologies_models.ObjectSet,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -417,6 +431,8 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param page_token:
@@ -461,6 +477,7 @@ class OntologyObjectSetClient:
                     links=links,
                     page_token=page_token,
                     include_compute_usage=include_compute_usage,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetLinksResponseV2,
                 request_timeout=request_timeout,
@@ -607,6 +624,7 @@ class OntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -649,6 +667,8 @@ class OntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -709,6 +729,7 @@ class OntologyObjectSetClient:
                     page_size=page_size,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
                 request_timeout=request_timeout,
@@ -815,6 +836,7 @@ class AsyncOntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
@@ -840,6 +862,8 @@ class AsyncOntologyObjectSetClient:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param scenario_rid: The resource identifier of an ontology scenario to aggregate the objects on.
@@ -886,6 +910,7 @@ class AsyncOntologyObjectSetClient:
                     group_by=group_by,
                     accuracy=accuracy,
                     include_compute_usage=include_compute_usage,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
@@ -903,6 +928,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -919,6 +945,8 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param branch: The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -939,6 +967,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -969,6 +998,7 @@ class AsyncOntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_set_rid: ontologies_models.ObjectSetRid,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ObjectSet]:
@@ -979,6 +1009,8 @@ class AsyncOntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -989,7 +1021,9 @@ class AsyncOntologyObjectSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectSets/{objectSetRid}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectSetRid": object_set_rid,
@@ -1133,6 +1167,7 @@ class AsyncOntologyObjectSetClient:
         links: typing.List[ontologies_models.LinkTypeApiName],
         object_set: ontologies_models.ObjectSet,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -1167,6 +1202,8 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param page_token:
@@ -1211,6 +1248,7 @@ class AsyncOntologyObjectSetClient:
                     links=links,
                     page_token=page_token,
                     include_compute_usage=include_compute_usage,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetLinksResponseV2,
                 request_timeout=request_timeout,
@@ -1357,6 +1395,7 @@ class AsyncOntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -1399,6 +1438,8 @@ class AsyncOntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -1459,6 +1500,7 @@ class AsyncOntologyObjectSetClient:
                     page_size=page_size,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
                 request_timeout=request_timeout,
