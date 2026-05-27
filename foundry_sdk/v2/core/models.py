@@ -542,7 +542,16 @@ MarkingId = str
 class MarkingType(core.ModelBase):
     """MarkingType"""
 
+    marking_type: typing.Optional[MarkingTypeValue] = pydantic.Field(alias=str("markingType"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["marking"] = "marking"
+
+
+MarkingTypeValue = typing.Literal["CBAC", "MANDATORY"]
+"""
+The kind of marking applied by a marking property type.
+- `CBAC`: Classification-based access control markings.
+- `MANDATORY`: Standard non-classification markings. Example - Organizations.
+"""
 
 
 MediaItemPath = str
@@ -725,6 +734,12 @@ The default roles in Foundry are: Owner, Editor, Viewer, and Discoverer. See mor
 
 RoleSetId = str
 """RoleSetId"""
+
+
+class ScenarioReferenceType(core.ModelBase):
+    """ScenarioReferenceType"""
+
+    type: typing.Literal["scenarioReference"] = "scenarioReference"
 
 
 ScheduleRid = core.RID
@@ -1021,6 +1036,7 @@ __all__ = [
     "MapFieldType",
     "MarkingId",
     "MarkingType",
+    "MarkingTypeValue",
     "MediaItemPath",
     "MediaItemReadToken",
     "MediaItemRid",
@@ -1051,6 +1067,7 @@ __all__ = [
     "RoleContext",
     "RoleId",
     "RoleSetId",
+    "ScenarioReferenceType",
     "ScheduleRid",
     "SchemaFieldType",
     "ShortType",

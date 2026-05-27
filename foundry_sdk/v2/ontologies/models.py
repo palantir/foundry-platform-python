@@ -61,6 +61,7 @@ ActionLogicRule = typing_extensions.Annotated[
         "FunctionLogicRule",
         "CreateInterfaceLinkLogicRule",
         "CreateInterfaceLogicRule",
+        "ApplyScenarioLogicRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -87,6 +88,7 @@ ActionParameterType = typing_extensions.Annotated[
         "OntologyObjectTypeReferenceType",
         core_models.BooleanType,
         core_models.MarkingType,
+        core_models.ScenarioReferenceType,
         core_models.AttachmentType,
         core_models.MediaReferenceType,
         "ActionParameterArrayType",
@@ -220,6 +222,14 @@ class AggregateObjectSetRequestV2(core.ModelBase):
     group_by: typing.List[AggregationGroupByV2] = pydantic.Field(alias=str("groupBy"))  # type: ignore[literal-required]
     accuracy: typing.Optional[AggregationAccuracyRequest] = None
     include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the request fails with an error when it cannot be computed in-memory.
+    Use this to opt into fast failure on requests that would otherwise require
+    heavier computation.
+
+    Defaults to false.
+    """
 
 
 class AggregateObjectsRequestV2(core.ModelBase):
@@ -476,6 +486,39 @@ class ApplyReducersLoadLevel(core.ModelBase):
     """Returns a single value of an array as configured in the ontology."""
 
     type: typing.Literal["applyReducers"] = "applyReducers"
+
+
+class ApplyScenarioLogicRule(core.ModelBase):
+    """
+    An Action rule that merges the edits accumulated on a referenced Scenario into the ontology data context
+    where the Action is applied. If the Action is applied against another Scenario, the edits are merged into
+    that target Scenario.
+
+    The scenario is supplied through the parameter identified by `scenarioParameter`, whose value type is
+    `scenarioReference`. The affected object types and link types are explicitly enumerated in the scope.
+    """
+
+    scenario_parameter: ParameterId = pydantic.Field(alias=str("scenarioParameter"))  # type: ignore[literal-required]
+    object_type_api_names: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypeApiNames"))  # type: ignore[literal-required]
+    link_types: typing.List[ObjectTypeLinkTypeApiNameMapping] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    type: typing.Literal["applyScenario"] = "applyScenario"
+
+
+class ApplyScenarioRule(core.ModelBase):
+    """
+    An Action rule that applies the edits accumulated on a referenced Scenario onto the ontology data context
+    where the Action is applied. If the Action is applied in the context of main ontology data, the edits are
+    applied there. If the Action is applied in the context of another Scenario, the edits are applied in that
+    other Scenario.
+
+    The scenario is supplied through the parameter identified by `scenarioParameter` of type
+    `scenarioReference`. The affected object types and link types are explicitly enumerated in the scope.
+    """
+
+    scenario_parameter: ParameterId = pydantic.Field(alias=str("scenarioParameter"))  # type: ignore[literal-required]
+    object_type_api_names: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypeApiNames"))  # type: ignore[literal-required]
+    link_types: typing.List[ObjectTypeLinkTypeApiNameMapping] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    type: typing.Literal["applyScenario"] = "applyScenario"
 
 
 class ApproximateDistinctAggregationV2(core.ModelBase):
@@ -961,6 +1004,7 @@ Represents the value of data in the following format. Note that these values can
 | Ontology Object Reference           | JSON encoding of the object's primary key             | `10033123` or `"EMP1234"`                                                                                                                                     |
 | Ontology Interface Object Reference | JSON encoding of the object's API name and primary key| `{"objectTypeApiName":"Employee", "primaryKeyValue":"EMP1234"}`                                                                                               |
 | Ontology Object Type Reference      | string of the object type's api name                  | `"Employee"`                                                                                                                                                  |
+| Scenario Reference                  | string of the scenario RID                            | `"ri.actions..scenario.cf2a8a49-8b56-446d-ab04-a6bc7fadef48"`                                                                                                 |
 | Set                                 | array                                                 | `["alpha", "bravo", "charlie"]`                                                                                                                               |
 | Short                               | number                                                | `8739`                                                                                                                                                        |
 | String                              | string                                                | `"Call me Ishmael"`                                                                                                                                           |
@@ -2169,7 +2213,7 @@ class ListScenarioEditedEntityTypesResponse(core.ModelBase):
     object_types: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypes"))  # type: ignore[literal-required]
     """The list of object type API names that have been modified within the scenario."""
 
-    link_types: typing.List[ScenarioEditedLinkTypeMapping] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    link_types: typing.List[ObjectTypeLinkTypeApiNameMapping] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
     """
     The list of edited link types grouped by source object type.
 
@@ -2261,6 +2305,14 @@ class LoadObjectSetLinksRequestV2(core.ModelBase):
     links: typing.List[LinkTypeApiName]
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the request fails with an error when it cannot be computed in-memory.
+    Use this to opt into fast failure on requests that would otherwise require
+    heavier computation.
+
+    Defaults to false.
+    """
 
 
 class LoadObjectSetLinksResponseV2(core.ModelBase):
@@ -2418,6 +2470,15 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     This defaults to false if not specified, which means you will always get the latest results.
     """
 
+    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the request fails with an error when it cannot be computed in-memory.
+    Use this to opt into fast failure on requests that would otherwise require
+    heavier computation.
+
+    Defaults to false.
+    """
+
 
 class LoadObjectSetV2ObjectsOrInterfacesResponse(core.ModelBase):
     """
@@ -2453,6 +2514,7 @@ LogicRule = typing_extensions.Annotated[
         "DeleteLinkRule",
         "CreateObjectRule",
         "CreateLinkRule",
+        "ApplyScenarioRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3296,6 +3358,17 @@ class ObjectTypeInterfaceImplementation(core.ModelBase):
     properties: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
     properties_v2: typing.Dict[InterfacePropertyApiName, InterfacePropertyTypeImplementation] = pydantic.Field(alias=str("propertiesV2"))  # type: ignore[literal-required]
     links: typing.Dict[InterfaceLinkTypeApiName, typing.List[LinkTypeApiName]]
+
+
+class ObjectTypeLinkTypeApiNameMapping(core.ModelBase):
+    """
+    Groups link type API names by the object type they're scoped to. Link type API names are only unique within
+    an object type, so this pairing is required to identify a link type unambiguously.
+    """
+
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    link_types: typing.List[LinkTypeApiName] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    """The list of link type API names scoped by the object type."""
 
 
 ObjectTypeRid = core.RID
@@ -4392,14 +4465,6 @@ class RollingAggregateWindowPoints(core.ModelBase):
     type: typing.Literal["pointsCount"] = "pointsCount"
 
 
-class ScenarioEditedLinkTypeMapping(core.ModelBase):
-    """The link types that have been modified within a scenario for a given object type."""
-
-    source_object_type: ObjectTypeApiName = pydantic.Field(alias=str("sourceObjectType"))  # type: ignore[literal-required]
-    link_types: typing.List[LinkTypeApiName] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
-    """The list of link type API names that have been modified within the scenario for the source object type."""
-
-
 SdkPackageName = str
 """SdkPackageName"""
 
@@ -4531,6 +4596,15 @@ class SearchObjectsRequestV2(core.ModelBase):
     Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
     Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
     This defaults to false if not specified, which means you will always get the latest results.
+    """
+
+    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the request fails with an error when it cannot be computed in-memory.
+    Use this to opt into fast failure on requests that would otherwise require
+    heavier computation.
+
+    Defaults to false.
     """
 
 
@@ -5678,6 +5752,8 @@ __all__ = [
     "ApplyActionWithOverridesRequest",
     "ApplyReducersAndExtractMainValueLoadLevel",
     "ApplyReducersLoadLevel",
+    "ApplyScenarioLogicRule",
+    "ApplyScenarioRule",
     "ApproximateDistinctAggregationV2",
     "ApproximatePercentileAggregationV2",
     "Arg",
@@ -5969,6 +6045,7 @@ __all__ = [
     "ObjectTypeFullMetadata",
     "ObjectTypeId",
     "ObjectTypeInterfaceImplementation",
+    "ObjectTypeLinkTypeApiNameMapping",
     "ObjectTypeRid",
     "ObjectTypeV2",
     "ObjectTypeVisibility",
@@ -6086,7 +6163,6 @@ __all__ = [
     "ReturnEditsMode",
     "RidConstraint",
     "RollingAggregateWindowPoints",
-    "ScenarioEditedLinkTypeMapping",
     "SdkPackageName",
     "SdkPackageRid",
     "SdkVersion",

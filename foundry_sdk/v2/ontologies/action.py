@@ -233,6 +233,7 @@ class ActionClient:
         requests: typing.List[ontologies_models.BatchApplyActionRequestItemWithOverrides],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -260,6 +261,8 @@ class ActionClient:
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -276,6 +279,7 @@ class ActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatchWithOverrides",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -309,6 +313,7 @@ class ActionClient:
         overrides: ontologies_models.ApplyActionOverrides,
         request: ontologies_models.ApplyActionRequestV2,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -330,6 +335,8 @@ class ActionClient:
         :type request: ApplyActionRequestV2
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param scenario_rid: The resource identifier of an ontology scenario to apply the action against.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -350,6 +357,7 @@ class ActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyWithOverrides",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -618,6 +626,7 @@ class AsyncActionClient:
         requests: typing.List[ontologies_models.BatchApplyActionRequestItemWithOverrides],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -645,6 +654,8 @@ class AsyncActionClient:
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -661,6 +672,7 @@ class AsyncActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatchWithOverrides",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -694,6 +706,7 @@ class AsyncActionClient:
         overrides: ontologies_models.ApplyActionOverrides,
         request: ontologies_models.ApplyActionRequestV2,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -715,6 +728,8 @@ class AsyncActionClient:
         :type request: ApplyActionRequestV2
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param scenario_rid: The resource identifier of an ontology scenario to apply the action against.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -735,6 +750,7 @@ class AsyncActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyWithOverrides",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,

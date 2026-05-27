@@ -16,6 +16,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action_type** | ActionTypeApiName | The name of the action type in the API.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **ActionTypeFullMetadata**
@@ -35,11 +36,13 @@ ontology = "palantir"
 action_type = "promote-employee"
 # Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
     api_response = client.ontologies.ActionTypeFullMetadata.get(
-        ontology, action_type, branch=branch
+        ontology, action_type, branch=branch, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -77,6 +80,7 @@ Name | Type | Description  | Notes |
 **object_type_api_names** | Optional[List[ObjectTypeApiName]] | An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **ListActionTypesFullMetadataResponse**
@@ -100,6 +104,8 @@ object_type_api_names = None
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
@@ -109,6 +115,7 @@ try:
         object_type_api_names=object_type_api_names,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
     ):
         pprint(action_type_full_metadata)
 except foundry_sdk.PalantirRPCException as e:

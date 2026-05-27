@@ -186,6 +186,7 @@ Name | Type | Description  | Notes |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.  |  |
 **interface_link_type** | InterfaceLinkTypeApiName | The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **InterfaceLinkType**
@@ -207,11 +208,13 @@ interface_type = "Employee"
 interface_link_type = "worksAt"
 # Optional[FoundryBranch] | The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
     api_response = client.ontologies.OntologyInterface.get_outgoing_interface_link_type(
-        ontology, interface_type, interface_link_type, branch=branch
+        ontology, interface_type, interface_link_type, branch=branch, preview=preview
     )
     print("The get_outgoing_interface_link_type response:\n")
     pprint(api_response)
@@ -514,6 +517,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **ListOutgoingInterfaceLinkTypesResponse**
@@ -533,11 +537,13 @@ ontology = "palantir"
 interface_type = "Employee"
 # Optional[FoundryBranch] | The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
     api_response = client.ontologies.OntologyInterface.list_outgoing_interface_link_types(
-        ontology, interface_type, branch=branch
+        ontology, interface_type, branch=branch, preview=preview
     )
     print("The list_outgoing_interface_link_types response:\n")
     pprint(api_response)

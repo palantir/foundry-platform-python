@@ -155,7 +155,16 @@ class LongType(core.ModelBase):
 class MarkingType(core.ModelBase):
     """MarkingType"""
 
+    marking_type: typing.Optional[MarkingTypeValue] = pydantic.Field(alias=str("markingType"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["marking"] = "marking"
+
+
+MarkingTypeValue = typing.Literal["CBAC", "MANDATORY"]
+"""
+The kind of marking applied by a marking property type.
+- `CBAC`: Classification-based access control markings.
+- `MANDATORY`: Standard non-classification markings. Example - Organizations.
+"""
 
 
 class MediaReferenceType(core.ModelBase):
@@ -284,6 +293,7 @@ __all__ = [
     "IntegerType",
     "LongType",
     "MarkingType",
+    "MarkingTypeValue",
     "MediaReferenceType",
     "MediaType",
     "NullType",

@@ -180,6 +180,8 @@ class ObjectTypeClient:
         object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
         page_size: typing.Optional[int] = None,
         page_token: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sort_order: typing.Optional[ontologies_models.EditsHistorySortOrder] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -209,6 +211,10 @@ class ObjectTypeClient:
         :type page_size: Optional[int]
         :param page_token: Token for retrieving the next page of results
         :type page_token: Optional[str]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to get edits history from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sort_order:
         :type sort_order: Optional[EditsHistorySortOrder]
         :param request_timeout: timeout setting for this request in seconds.
@@ -223,6 +229,8 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
+                    "scenarioRid": scenario_rid,
                 },
                 path_params={
                     "ontology": ontology,
@@ -545,274 +553,6 @@ class ObjectTypeClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_entity_types(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.ListScenarioEditedEntityTypesResponse:
-        """
-        Returns the object types and link types that have been modified within a given scenario.
-
-        The response contains the list of object type API names that have been modified, and the list of
-        many-to-many link types that have been modified, grouped by their source object type. One-to-many
-        link type edits are surfaced as object edits on the object type that owns the foreign key property.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.ListScenarioEditedEntityTypesResponse
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/editedEntityTypes",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedEntityTypesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_link_types(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.ListScenarioEditedLinkTypesResponse:
-        """
-        Returns the list of outgoing links that have been modified within a given scenario for an object type.
-
-        Note that only many-to-many link type are returned by this endpoint. One-to-many link type edits are
-        surfaced as object edits on the object type that owns the foreign key property.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
-        :type object_type: ObjectTypeApiName
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.ListScenarioEditedLinkTypesResponse
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/{objectType}/outgoingLinkTypes/edited",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                    "objectType": object_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedLinkTypesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_links(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        link_type: ontologies_models.LinkTypeApiName,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.ResourceIterator[ontologies_models.LinksFromObject]:
-        """
-        Returns the list of edited links within a given scenario for a specific object type and link type, grouped
-        by source object. Only works for many-to-many link types. Only links where the user has permission to view
-        both objects are returned.
-
-        Each page may be smaller than the requested page size.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param object_type: The API name of the object type.
-        :type object_type: ObjectTypeApiName
-        :param link_type: The API name of the link type.
-        :type link_type: LinkTypeApiName
-        :param page_size: The maximum number of links to return per page.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token to use for pagination.
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ResourceIterator[ontologies_models.LinksFromObject]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/links/{linkType}/edited",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                    "objectType": object_type,
-                    "linkType": link_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedLinksResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_object_types(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.ListScenarioEditedObjectTypesResponse:
-        """
-        Returns the list of object type API names that have been modified within a given scenario.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.ListScenarioEditedObjectTypesResponse
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/edited",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedObjectTypesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_objects(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.ResourceIterator[ontologies_models.OntologyObjectV2]:
-        """
-        Returns the list of objects that have been edited within a given scenario for a specific object type.
-        Only objects that the user has permission to view are returned.
-
-        Each page may be smaller than the requested page size.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param object_type: The API name of the object type.
-        :type object_type: ObjectTypeApiName
-        :param page_size: The maximum number of objects to return per page.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token to use for pagination.
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ResourceIterator[ontologies_models.OntologyObjectV2]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/edited",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                    "objectType": object_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedObjectsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
-            ),
-        )
-
 
 class _ObjectTypeClientRaw:
     def __init__(self, client: ObjectTypeClient) -> None:
@@ -826,19 +566,6 @@ class _ObjectTypeClientRaw:
         ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
-        def list_scenario_edited_entity_types(
-            _: ontologies_models.ListScenarioEditedEntityTypesResponse,
-        ): ...
-        def list_scenario_edited_link_types(
-            _: ontologies_models.ListScenarioEditedLinkTypesResponse,
-        ): ...
-        def list_scenario_edited_links(_: ontologies_models.ListScenarioEditedLinksResponse): ...
-        def list_scenario_edited_object_types(
-            _: ontologies_models.ListScenarioEditedObjectTypesResponse,
-        ): ...
-        def list_scenario_edited_objects(
-            _: ontologies_models.ListScenarioEditedObjectsResponse,
-        ): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
@@ -855,21 +582,6 @@ class _ObjectTypeClientRaw:
         self.list_outgoing_link_types = core.with_raw_response(
             list_outgoing_link_types, client.list_outgoing_link_types
         )
-        self.list_scenario_edited_entity_types = core.with_raw_response(
-            list_scenario_edited_entity_types, client.list_scenario_edited_entity_types
-        )
-        self.list_scenario_edited_link_types = core.with_raw_response(
-            list_scenario_edited_link_types, client.list_scenario_edited_link_types
-        )
-        self.list_scenario_edited_links = core.with_raw_response(
-            list_scenario_edited_links, client.list_scenario_edited_links
-        )
-        self.list_scenario_edited_object_types = core.with_raw_response(
-            list_scenario_edited_object_types, client.list_scenario_edited_object_types
-        )
-        self.list_scenario_edited_objects = core.with_raw_response(
-            list_scenario_edited_objects, client.list_scenario_edited_objects
-        )
 
 
 class _ObjectTypeClientStreaming:
@@ -884,19 +596,6 @@ class _ObjectTypeClientStreaming:
         ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
-        def list_scenario_edited_entity_types(
-            _: ontologies_models.ListScenarioEditedEntityTypesResponse,
-        ): ...
-        def list_scenario_edited_link_types(
-            _: ontologies_models.ListScenarioEditedLinkTypesResponse,
-        ): ...
-        def list_scenario_edited_links(_: ontologies_models.ListScenarioEditedLinksResponse): ...
-        def list_scenario_edited_object_types(
-            _: ontologies_models.ListScenarioEditedObjectTypesResponse,
-        ): ...
-        def list_scenario_edited_objects(
-            _: ontologies_models.ListScenarioEditedObjectsResponse,
-        ): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.get_by_rid_batch = core.with_streaming_response(
@@ -918,21 +617,6 @@ class _ObjectTypeClientStreaming:
         self.list = core.with_streaming_response(list, client.list)
         self.list_outgoing_link_types = core.with_streaming_response(
             list_outgoing_link_types, client.list_outgoing_link_types
-        )
-        self.list_scenario_edited_entity_types = core.with_streaming_response(
-            list_scenario_edited_entity_types, client.list_scenario_edited_entity_types
-        )
-        self.list_scenario_edited_link_types = core.with_streaming_response(
-            list_scenario_edited_link_types, client.list_scenario_edited_link_types
-        )
-        self.list_scenario_edited_links = core.with_streaming_response(
-            list_scenario_edited_links, client.list_scenario_edited_links
-        )
-        self.list_scenario_edited_object_types = core.with_streaming_response(
-            list_scenario_edited_object_types, client.list_scenario_edited_object_types
-        )
-        self.list_scenario_edited_objects = core.with_streaming_response(
-            list_scenario_edited_objects, client.list_scenario_edited_objects
         )
 
 
@@ -1091,6 +775,8 @@ class AsyncObjectTypeClient:
         object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
         page_size: typing.Optional[int] = None,
         page_token: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sort_order: typing.Optional[ontologies_models.EditsHistorySortOrder] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1120,6 +806,10 @@ class AsyncObjectTypeClient:
         :type page_size: Optional[int]
         :param page_token: Token for retrieving the next page of results
         :type page_token: Optional[str]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to get edits history from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sort_order:
         :type sort_order: Optional[EditsHistorySortOrder]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1134,6 +824,8 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
+                    "scenarioRid": scenario_rid,
                 },
                 path_params={
                     "ontology": ontology,
@@ -1456,274 +1148,6 @@ class AsyncObjectTypeClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_entity_types(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[ontologies_models.ListScenarioEditedEntityTypesResponse]:
-        """
-        Returns the object types and link types that have been modified within a given scenario.
-
-        The response contains the list of object type API names that have been modified, and the list of
-        many-to-many link types that have been modified, grouped by their source object type. One-to-many
-        link type edits are surfaced as object edits on the object type that owns the foreign key property.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[ontologies_models.ListScenarioEditedEntityTypesResponse]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/editedEntityTypes",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedEntityTypesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_link_types(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[ontologies_models.ListScenarioEditedLinkTypesResponse]:
-        """
-        Returns the list of outgoing links that have been modified within a given scenario for an object type.
-
-        Note that only many-to-many link type are returned by this endpoint. One-to-many link type edits are
-        surfaced as object edits on the object type that owns the foreign key property.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
-        :type object_type: ObjectTypeApiName
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[ontologies_models.ListScenarioEditedLinkTypesResponse]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/{objectType}/outgoingLinkTypes/edited",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                    "objectType": object_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedLinkTypesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_links(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        link_type: ontologies_models.LinkTypeApiName,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.AsyncResourceIterator[ontologies_models.LinksFromObject]:
-        """
-        Returns the list of edited links within a given scenario for a specific object type and link type, grouped
-        by source object. Only works for many-to-many link types. Only links where the user has permission to view
-        both objects are returned.
-
-        Each page may be smaller than the requested page size.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param object_type: The API name of the object type.
-        :type object_type: ObjectTypeApiName
-        :param link_type: The API name of the link type.
-        :type link_type: LinkTypeApiName
-        :param page_size: The maximum number of links to return per page.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token to use for pagination.
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.AsyncResourceIterator[ontologies_models.LinksFromObject]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/links/{linkType}/edited",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                    "objectType": object_type,
-                    "linkType": link_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedLinksResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_object_types(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[ontologies_models.ListScenarioEditedObjectTypesResponse]:
-        """
-        Returns the list of object type API names that have been modified within a given scenario.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[ontologies_models.ListScenarioEditedObjectTypesResponse]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/edited",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedObjectTypesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list_scenario_edited_objects(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        scenario_rid: ontologies_models.OntologyScenarioRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.AsyncResourceIterator[ontologies_models.OntologyObjectV2]:
-        """
-        Returns the list of objects that have been edited within a given scenario for a specific object type.
-        Only objects that the user has permission to view are returned.
-
-        Each page may be smaller than the requested page size.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param scenario_rid: The unique resource identifier of the scenario.
-        :type scenario_rid: OntologyScenarioRid
-        :param object_type: The API name of the object type.
-        :type object_type: ObjectTypeApiName
-        :param page_size: The maximum number of objects to return per page.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token to use for pagination.
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.AsyncResourceIterator[ontologies_models.OntologyObjectV2]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/edited",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "scenarioRid": scenario_rid,
-                    "objectType": object_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=ontologies_models.ListScenarioEditedObjectsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
-            ),
-        )
-
 
 class _AsyncObjectTypeClientRaw:
     def __init__(self, client: AsyncObjectTypeClient) -> None:
@@ -1737,19 +1161,6 @@ class _AsyncObjectTypeClientRaw:
         ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
-        def list_scenario_edited_entity_types(
-            _: ontologies_models.ListScenarioEditedEntityTypesResponse,
-        ): ...
-        def list_scenario_edited_link_types(
-            _: ontologies_models.ListScenarioEditedLinkTypesResponse,
-        ): ...
-        def list_scenario_edited_links(_: ontologies_models.ListScenarioEditedLinksResponse): ...
-        def list_scenario_edited_object_types(
-            _: ontologies_models.ListScenarioEditedObjectTypesResponse,
-        ): ...
-        def list_scenario_edited_objects(
-            _: ontologies_models.ListScenarioEditedObjectsResponse,
-        ): ...
 
         self.get = core.async_with_raw_response(get, client.get)
         self.get_by_rid_batch = core.async_with_raw_response(
@@ -1772,21 +1183,6 @@ class _AsyncObjectTypeClientRaw:
         self.list_outgoing_link_types = core.async_with_raw_response(
             list_outgoing_link_types, client.list_outgoing_link_types
         )
-        self.list_scenario_edited_entity_types = core.async_with_raw_response(
-            list_scenario_edited_entity_types, client.list_scenario_edited_entity_types
-        )
-        self.list_scenario_edited_link_types = core.async_with_raw_response(
-            list_scenario_edited_link_types, client.list_scenario_edited_link_types
-        )
-        self.list_scenario_edited_links = core.async_with_raw_response(
-            list_scenario_edited_links, client.list_scenario_edited_links
-        )
-        self.list_scenario_edited_object_types = core.async_with_raw_response(
-            list_scenario_edited_object_types, client.list_scenario_edited_object_types
-        )
-        self.list_scenario_edited_objects = core.async_with_raw_response(
-            list_scenario_edited_objects, client.list_scenario_edited_objects
-        )
 
 
 class _AsyncObjectTypeClientStreaming:
@@ -1801,19 +1197,6 @@ class _AsyncObjectTypeClientStreaming:
         ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
-        def list_scenario_edited_entity_types(
-            _: ontologies_models.ListScenarioEditedEntityTypesResponse,
-        ): ...
-        def list_scenario_edited_link_types(
-            _: ontologies_models.ListScenarioEditedLinkTypesResponse,
-        ): ...
-        def list_scenario_edited_links(_: ontologies_models.ListScenarioEditedLinksResponse): ...
-        def list_scenario_edited_object_types(
-            _: ontologies_models.ListScenarioEditedObjectTypesResponse,
-        ): ...
-        def list_scenario_edited_objects(
-            _: ontologies_models.ListScenarioEditedObjectsResponse,
-        ): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_by_rid_batch = core.async_with_streaming_response(
@@ -1835,19 +1218,4 @@ class _AsyncObjectTypeClientStreaming:
         self.list = core.async_with_streaming_response(list, client.list)
         self.list_outgoing_link_types = core.async_with_streaming_response(
             list_outgoing_link_types, client.list_outgoing_link_types
-        )
-        self.list_scenario_edited_entity_types = core.async_with_streaming_response(
-            list_scenario_edited_entity_types, client.list_scenario_edited_entity_types
-        )
-        self.list_scenario_edited_link_types = core.async_with_streaming_response(
-            list_scenario_edited_link_types, client.list_scenario_edited_link_types
-        )
-        self.list_scenario_edited_links = core.async_with_streaming_response(
-            list_scenario_edited_links, client.list_scenario_edited_links
-        )
-        self.list_scenario_edited_object_types = core.async_with_streaming_response(
-            list_scenario_edited_object_types, client.list_scenario_edited_object_types
-        )
-        self.list_scenario_edited_objects = core.async_with_streaming_response(
-            list_scenario_edited_objects, client.list_scenario_edited_objects
         )

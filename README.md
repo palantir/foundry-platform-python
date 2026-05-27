@@ -1487,6 +1487,7 @@ Namespace | Name | Import |
 **Core** | [MapFieldType](docs/v2/Core/models/MapFieldType.md) | `from foundry_sdk.v2.core.models import MapFieldType` |
 **Core** | [MarkingId](docs/v2/Core/models/MarkingId.md) | `from foundry_sdk.v2.core.models import MarkingId` |
 **Core** | [MarkingType](docs/v2/Core/models/MarkingType.md) | `from foundry_sdk.v2.core.models import MarkingType` |
+**Core** | [MarkingTypeValue](docs/v2/Core/models/MarkingTypeValue.md) | `from foundry_sdk.v2.core.models import MarkingTypeValue` |
 **Core** | [MediaItemPath](docs/v2/Core/models/MediaItemPath.md) | `from foundry_sdk.v2.core.models import MediaItemPath` |
 **Core** | [MediaItemReadToken](docs/v2/Core/models/MediaItemReadToken.md) | `from foundry_sdk.v2.core.models import MediaItemReadToken` |
 **Core** | [MediaItemRid](docs/v2/Core/models/MediaItemRid.md) | `from foundry_sdk.v2.core.models import MediaItemRid` |
@@ -1517,6 +1518,7 @@ Namespace | Name | Import |
 **Core** | [RoleContext](docs/v2/Core/models/RoleContext.md) | `from foundry_sdk.v2.core.models import RoleContext` |
 **Core** | [RoleId](docs/v2/Core/models/RoleId.md) | `from foundry_sdk.v2.core.models import RoleId` |
 **Core** | [RoleSetId](docs/v2/Core/models/RoleSetId.md) | `from foundry_sdk.v2.core.models import RoleSetId` |
+**Core** | [ScenarioReferenceType](docs/v2/Core/models/ScenarioReferenceType.md) | `from foundry_sdk.v2.core.models import ScenarioReferenceType` |
 **Core** | [ScheduleRid](docs/v2/Core/models/ScheduleRid.md) | `from foundry_sdk.v2.core.models import ScheduleRid` |
 **Core** | [SchemaFieldType](docs/v2/Core/models/SchemaFieldType.md) | `from foundry_sdk.v2.core.models import SchemaFieldType` |
 **Core** | [ShortType](docs/v2/Core/models/ShortType.md) | `from foundry_sdk.v2.core.models import ShortType` |
@@ -2337,6 +2339,8 @@ Namespace | Name | Import |
 **Ontologies** | [ApplyActionWithOverridesRequest](docs/v2/Ontologies/models/ApplyActionWithOverridesRequest.md) | `from foundry_sdk.v2.ontologies.models import ApplyActionWithOverridesRequest` |
 **Ontologies** | [ApplyReducersAndExtractMainValueLoadLevel](docs/v2/Ontologies/models/ApplyReducersAndExtractMainValueLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import ApplyReducersAndExtractMainValueLoadLevel` |
 **Ontologies** | [ApplyReducersLoadLevel](docs/v2/Ontologies/models/ApplyReducersLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import ApplyReducersLoadLevel` |
+**Ontologies** | [ApplyScenarioLogicRule](docs/v2/Ontologies/models/ApplyScenarioLogicRule.md) | `from foundry_sdk.v2.ontologies.models import ApplyScenarioLogicRule` |
+**Ontologies** | [ApplyScenarioRule](docs/v2/Ontologies/models/ApplyScenarioRule.md) | `from foundry_sdk.v2.ontologies.models import ApplyScenarioRule` |
 **Ontologies** | [ApproximateDistinctAggregationV2](docs/v2/Ontologies/models/ApproximateDistinctAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import ApproximateDistinctAggregationV2` |
 **Ontologies** | [ApproximatePercentileAggregationV2](docs/v2/Ontologies/models/ApproximatePercentileAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import ApproximatePercentileAggregationV2` |
 **Ontologies** | [Arg](docs/v2/Ontologies/models/Arg.md) | `from foundry_sdk.v2.ontologies.models import Arg` |
@@ -2628,6 +2632,7 @@ Namespace | Name | Import |
 **Ontologies** | [ObjectTypeFullMetadata](docs/v2/Ontologies/models/ObjectTypeFullMetadata.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeFullMetadata` |
 **Ontologies** | [ObjectTypeId](docs/v2/Ontologies/models/ObjectTypeId.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeId` |
 **Ontologies** | [ObjectTypeInterfaceImplementation](docs/v2/Ontologies/models/ObjectTypeInterfaceImplementation.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeInterfaceImplementation` |
+**Ontologies** | [ObjectTypeLinkTypeApiNameMapping](docs/v2/Ontologies/models/ObjectTypeLinkTypeApiNameMapping.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeLinkTypeApiNameMapping` |
 **Ontologies** | [ObjectTypeRid](docs/v2/Ontologies/models/ObjectTypeRid.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeRid` |
 **Ontologies** | [ObjectTypeV2](docs/v2/Ontologies/models/ObjectTypeV2.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeV2` |
 **Ontologies** | [ObjectTypeVisibility](docs/v2/Ontologies/models/ObjectTypeVisibility.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeVisibility` |
@@ -2745,7 +2750,6 @@ Namespace | Name | Import |
 **Ontologies** | [ReturnEditsMode](docs/v2/Ontologies/models/ReturnEditsMode.md) | `from foundry_sdk.v2.ontologies.models import ReturnEditsMode` |
 **Ontologies** | [RidConstraint](docs/v2/Ontologies/models/RidConstraint.md) | `from foundry_sdk.v2.ontologies.models import RidConstraint` |
 **Ontologies** | [RollingAggregateWindowPoints](docs/v2/Ontologies/models/RollingAggregateWindowPoints.md) | `from foundry_sdk.v2.ontologies.models import RollingAggregateWindowPoints` |
-**Ontologies** | [ScenarioEditedLinkTypeMapping](docs/v2/Ontologies/models/ScenarioEditedLinkTypeMapping.md) | `from foundry_sdk.v2.ontologies.models import ScenarioEditedLinkTypeMapping` |
 **Ontologies** | [SdkPackageName](docs/v2/Ontologies/models/SdkPackageName.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageName` |
 **Ontologies** | [SdkPackageRid](docs/v2/Ontologies/models/SdkPackageRid.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageRid` |
 **Ontologies** | [SdkVersion](docs/v2/Ontologies/models/SdkVersion.md) | `from foundry_sdk.v2.ontologies.models import SdkVersion` |
@@ -3083,6 +3087,7 @@ Namespace | Name | Import |
 **Core** | [IntegerType](docs/v1/Core/models/IntegerType.md) | `from foundry_sdk.v1.core.models import IntegerType` |
 **Core** | [LongType](docs/v1/Core/models/LongType.md) | `from foundry_sdk.v1.core.models import LongType` |
 **Core** | [MarkingType](docs/v1/Core/models/MarkingType.md) | `from foundry_sdk.v1.core.models import MarkingType` |
+**Core** | [MarkingTypeValue](docs/v1/Core/models/MarkingTypeValue.md) | `from foundry_sdk.v1.core.models import MarkingTypeValue` |
 **Core** | [MediaReferenceType](docs/v1/Core/models/MediaReferenceType.md) | `from foundry_sdk.v1.core.models import MediaReferenceType` |
 **Core** | [MediaType](docs/v1/Core/models/MediaType.md) | `from foundry_sdk.v1.core.models import MediaType` |
 **Core** | [NullType](docs/v1/Core/models/NullType.md) | `from foundry_sdk.v1.core.models import NullType` |
@@ -3144,6 +3149,7 @@ Namespace | Name | Import |
 **Ontologies** | [ApplyActionRequest](docs/v1/Ontologies/models/ApplyActionRequest.md) | `from foundry_sdk.v1.ontologies.models import ApplyActionRequest` |
 **Ontologies** | [ApplyActionRequestOptions](docs/v1/Ontologies/models/ApplyActionRequestOptions.md) | `from foundry_sdk.v1.ontologies.models import ApplyActionRequestOptions` |
 **Ontologies** | [ApplyActionResponse](docs/v1/Ontologies/models/ApplyActionResponse.md) | `from foundry_sdk.v1.ontologies.models import ApplyActionResponse` |
+**Ontologies** | [ApplyScenarioRule](docs/v1/Ontologies/models/ApplyScenarioRule.md) | `from foundry_sdk.v1.ontologies.models import ApplyScenarioRule` |
 **Ontologies** | [ApproximateDistinctAggregation](docs/v1/Ontologies/models/ApproximateDistinctAggregation.md) | `from foundry_sdk.v1.ontologies.models import ApproximateDistinctAggregation` |
 **Ontologies** | [ArrayEntryEvaluatedConstraint](docs/v1/Ontologies/models/ArrayEntryEvaluatedConstraint.md) | `from foundry_sdk.v1.ontologies.models import ArrayEntryEvaluatedConstraint` |
 **Ontologies** | [ArrayEvaluatedConstraint](docs/v1/Ontologies/models/ArrayEvaluatedConstraint.md) | `from foundry_sdk.v1.ontologies.models import ArrayEvaluatedConstraint` |
@@ -3210,6 +3216,7 @@ Namespace | Name | Import |
 **Ontologies** | [ObjectSetRid](docs/v1/Ontologies/models/ObjectSetRid.md) | `from foundry_sdk.v1.ontologies.models import ObjectSetRid` |
 **Ontologies** | [ObjectType](docs/v1/Ontologies/models/ObjectType.md) | `from foundry_sdk.v1.ontologies.models import ObjectType` |
 **Ontologies** | [ObjectTypeApiName](docs/v1/Ontologies/models/ObjectTypeApiName.md) | `from foundry_sdk.v1.ontologies.models import ObjectTypeApiName` |
+**Ontologies** | [ObjectTypeLinkTypeApiNameMapping](docs/v1/Ontologies/models/ObjectTypeLinkTypeApiNameMapping.md) | `from foundry_sdk.v1.ontologies.models import ObjectTypeLinkTypeApiNameMapping` |
 **Ontologies** | [ObjectTypeRid](docs/v1/Ontologies/models/ObjectTypeRid.md) | `from foundry_sdk.v1.ontologies.models import ObjectTypeRid` |
 **Ontologies** | [ObjectTypeVisibility](docs/v1/Ontologies/models/ObjectTypeVisibility.md) | `from foundry_sdk.v1.ontologies.models import ObjectTypeVisibility` |
 **Ontologies** | [OneOfConstraint](docs/v1/Ontologies/models/OneOfConstraint.md) | `from foundry_sdk.v1.ontologies.models import OneOfConstraint` |

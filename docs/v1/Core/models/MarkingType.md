@@ -5,6 +5,7 @@ MarkingType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**marking_type** | Optional[MarkingTypeValue] | No |  |
 **type** | Literal["marking"] | Yes | None |
 
 

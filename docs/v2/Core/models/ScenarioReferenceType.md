@@ -1,12 +1,11 @@
-# MarkingType
+# ScenarioReferenceType
 
-MarkingType
+ScenarioReferenceType
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**marking_type** | Optional[MarkingTypeValue] | No |  |
-**type** | Literal["marking"] | Yes | None |
+**type** | Literal["scenarioReference"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)
