@@ -1541,33 +1541,7 @@ SeriesAggregationsValue: typing_extensions.TypeAlias = DoubleSeriesAggregations
 """Union of aggregation values by series type."""
 
 
-globals()["CreateConfigValidationFailureReason"] = core.resolve_forward_references(
-    CreateConfigValidationFailureReason, globalns=globals(), localns=locals()
-)
-globals()["ExperimentSource"] = core.resolve_forward_references(
-    ExperimentSource, globalns=globals(), localns=locals()
-)
-globals()["InferenceInputErrorType"] = core.resolve_forward_references(
-    InferenceInputErrorType, globalns=globals(), localns=locals()
-)
-globals()["ModelApiDataType"] = core.resolve_forward_references(
-    ModelApiDataType, globalns=globals(), localns=locals()
-)
-globals()["ModelApiInput"] = core.resolve_forward_references(
-    ModelApiInput, globalns=globals(), localns=locals()
-)
-globals()["ModelApiOutput"] = core.resolve_forward_references(
-    ModelApiOutput, globalns=globals(), localns=locals()
-)
-globals()["ModelVersionSource"] = core.resolve_forward_references(
-    ModelVersionSource, globalns=globals(), localns=locals()
-)
-globals()["ParameterValue"] = core.resolve_forward_references(
-    ParameterValue, globalns=globals(), localns=locals()
-)
-globals()["SearchExperimentsFilter"] = core.resolve_forward_references(
-    SearchExperimentsFilter, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "BooleanParameter",

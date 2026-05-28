@@ -733,18 +733,7 @@ UsageAccountRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-globals()["AddResourceReferenceRequest"] = core.resolve_forward_references(
-    AddResourceReferenceRequest, globalns=globals(), localns=locals()
-)
-globals()["ProjectResourceReferenceUnion"] = core.resolve_forward_references(
-    ProjectResourceReferenceUnion, globalns=globals(), localns=locals()
-)
-globals()["ResourceRolePrincipal"] = core.resolve_forward_references(
-    ResourceRolePrincipal, globalns=globals(), localns=locals()
-)
-globals()["ResourceRolePrincipalIdentifier"] = core.resolve_forward_references(
-    ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AccessRequirements",

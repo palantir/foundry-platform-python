@@ -694,15 +694,7 @@ The type of trend to validate:
 """
 
 
-globals()["CheckConfig"] = core.resolve_forward_references(
-    CheckConfig, globalns=globals(), localns=locals()
-)
-globals()["ColumnValue"] = core.resolve_forward_references(
-    ColumnValue, globalns=globals(), localns=locals()
-)
-globals()["ReplaceCheckConfig"] = core.resolve_forward_references(
-    ReplaceCheckConfig, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AllowedColumnValuesCheckConfig",

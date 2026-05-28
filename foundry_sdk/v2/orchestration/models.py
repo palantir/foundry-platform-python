@@ -865,39 +865,7 @@ RetryBackoffDuration: typing_extensions.TypeAlias = core_models.Duration
 """The duration to wait before retrying after a Job fails."""
 
 
-globals()["BuildTarget"] = core.resolve_forward_references(
-    BuildTarget, globalns=globals(), localns=locals()
-)
-globals()["CreateScheduleRequestBuildTarget"] = core.resolve_forward_references(
-    CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
-)
-globals()["CreateScheduleRequestScopeMode"] = core.resolve_forward_references(
-    CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
-)
-globals()["FallbackBranches"] = core.resolve_forward_references(
-    FallbackBranches, globalns=globals(), localns=locals()
-)
-globals()["JobOutput"] = core.resolve_forward_references(
-    JobOutput, globalns=globals(), localns=locals()
-)
-globals()["ReplaceScheduleRequestBuildTarget"] = core.resolve_forward_references(
-    ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
-)
-globals()["ReplaceScheduleRequestScopeMode"] = core.resolve_forward_references(
-    ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
-)
-globals()["ScheduleRunResult"] = core.resolve_forward_references(
-    ScheduleRunResult, globalns=globals(), localns=locals()
-)
-globals()["ScopeMode"] = core.resolve_forward_references(
-    ScopeMode, globalns=globals(), localns=locals()
-)
-globals()["SearchBuildsFilter"] = core.resolve_forward_references(
-    SearchBuildsFilter, globalns=globals(), localns=locals()
-)
-globals()["Trigger"] = core.resolve_forward_references(
-    Trigger, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AbortOnFailure",

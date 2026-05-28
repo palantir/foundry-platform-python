@@ -710,30 +710,7 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-globals()["ExecuteQueryAsyncResponse"] = core.resolve_forward_references(
-    ExecuteQueryAsyncResponse, globalns=globals(), localns=locals()
-)
-globals()["GetExecutionResultResponse"] = core.resolve_forward_references(
-    GetExecutionResultResponse, globalns=globals(), localns=locals()
-)
-globals()["QueryAggregationKeyType"] = core.resolve_forward_references(
-    QueryAggregationKeyType, globalns=globals(), localns=locals()
-)
-globals()["QueryAggregationRangeSubType"] = core.resolve_forward_references(
-    QueryAggregationRangeSubType, globalns=globals(), localns=locals()
-)
-globals()["QueryAggregationValueType"] = core.resolve_forward_references(
-    QueryAggregationValueType, globalns=globals(), localns=locals()
-)
-globals()["QueryDataType"] = core.resolve_forward_references(
-    QueryDataType, globalns=globals(), localns=locals()
-)
-globals()["ValueTypeConstraint"] = core.resolve_forward_references(
-    ValueTypeConstraint, globalns=globals(), localns=locals()
-)
-globals()["ValueTypeDataType"] = core.resolve_forward_references(
-    ValueTypeDataType, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "ArrayConstraint",

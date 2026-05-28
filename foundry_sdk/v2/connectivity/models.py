@@ -2075,69 +2075,7 @@ SmbAuth: typing_extensions.TypeAlias = SmbUsernamePasswordAuth
 """SmbAuth"""
 
 
-globals()["ConnectionConfiguration"] = core.resolve_forward_references(
-    ConnectionConfiguration, globalns=globals(), localns=locals()
-)
-globals()["ConnectionWorker"] = core.resolve_forward_references(
-    ConnectionWorker, globalns=globals(), localns=locals()
-)
-globals()["CreateConnectionRequestConnectionConfiguration"] = core.resolve_forward_references(
-    CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
-)
-globals()["CreateConnectionRequestConnectionWorker"] = core.resolve_forward_references(
-    CreateConnectionRequestConnectionWorker, globalns=globals(), localns=locals()
-)
-globals()["CreateConnectionRequestDatabricksAuthenticationMode"] = core.resolve_forward_references(
-    CreateConnectionRequestDatabricksAuthenticationMode, globalns=globals(), localns=locals()
-)
-globals()["CreateConnectionRequestEncryptedProperty"] = core.resolve_forward_references(
-    CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals()
-)
-globals()["CreateConnectionRequestSnowflakeAuthenticationMode"] = core.resolve_forward_references(
-    CreateConnectionRequestSnowflakeAuthenticationMode, globalns=globals(), localns=locals()
-)
-globals()["CreateTableImportRequestTableImportConfig"] = core.resolve_forward_references(
-    CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
-)
-globals()["DatabricksAuthenticationMode"] = core.resolve_forward_references(
-    DatabricksAuthenticationMode, globalns=globals(), localns=locals()
-)
-globals()["EncryptedProperty"] = core.resolve_forward_references(
-    EncryptedProperty, globalns=globals(), localns=locals()
-)
-globals()["FileImportFilter"] = core.resolve_forward_references(
-    FileImportFilter, globalns=globals(), localns=locals()
-)
-globals()["JdbcProperties"] = core.resolve_forward_references(
-    JdbcProperties, globalns=globals(), localns=locals()
-)
-globals()["ReplaceTableImportRequestTableImportConfig"] = core.resolve_forward_references(
-    ReplaceTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
-)
-globals()["RestAuthenticationMode"] = core.resolve_forward_references(
-    RestAuthenticationMode, globalns=globals(), localns=locals()
-)
-globals()["RestConnectionAdditionalSecrets"] = core.resolve_forward_references(
-    RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
-)
-globals()["RestRequestApiKeyLocation"] = core.resolve_forward_references(
-    RestRequestApiKeyLocation, globalns=globals(), localns=locals()
-)
-globals()["S3AuthenticationMode"] = core.resolve_forward_references(
-    S3AuthenticationMode, globalns=globals(), localns=locals()
-)
-globals()["SnowflakeAuthenticationMode"] = core.resolve_forward_references(
-    SnowflakeAuthenticationMode, globalns=globals(), localns=locals()
-)
-globals()["TableImportConfig"] = core.resolve_forward_references(
-    TableImportConfig, globalns=globals(), localns=locals()
-)
-globals()["TableImportInitialIncrementalState"] = core.resolve_forward_references(
-    TableImportInitialIncrementalState, globalns=globals(), localns=locals()
-)
-globals()["VirtualTableConfig"] = core.resolve_forward_references(
-    VirtualTableConfig, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "ApiKeyAuthentication",

@@ -942,12 +942,7 @@ UserUsername: typing_extensions.TypeAlias = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-globals()["AttributeValues"] = core.resolve_forward_references(
-    AttributeValues, globalns=globals(), localns=locals()
-)
-globals()["AuthenticationProtocol"] = core.resolve_forward_references(
-    AuthenticationProtocol, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",

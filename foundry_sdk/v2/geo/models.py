@@ -201,19 +201,7 @@ FeatureCollectionTypes: typing_extensions.TypeAlias = Feature
 """FeatureCollectionTypes"""
 
 
-globals()["BBox"] = core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
-globals()["Geometry"] = core.resolve_forward_references(
-    Geometry, globalns=globals(), localns=locals()
-)
-globals()["LineStringCoordinates"] = core.resolve_forward_references(
-    LineStringCoordinates, globalns=globals(), localns=locals()
-)
-globals()["LinearRing"] = core.resolve_forward_references(
-    LinearRing, globalns=globals(), localns=locals()
-)
-globals()["Position"] = core.resolve_forward_references(
-    Position, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "BBox",

@@ -468,27 +468,7 @@ AnthropicToolResultContent: typing_extensions.TypeAlias = AnthropicText
 """AnthropicToolResultContent"""
 
 
-globals()["AnthropicCompletionContent"] = core.resolve_forward_references(
-    AnthropicCompletionContent, globalns=globals(), localns=locals()
-)
-globals()["AnthropicDocumentSource"] = core.resolve_forward_references(
-    AnthropicDocumentSource, globalns=globals(), localns=locals()
-)
-globals()["AnthropicMessageContent"] = core.resolve_forward_references(
-    AnthropicMessageContent, globalns=globals(), localns=locals()
-)
-globals()["AnthropicThinkingConfig"] = core.resolve_forward_references(
-    AnthropicThinkingConfig, globalns=globals(), localns=locals()
-)
-globals()["AnthropicToolChoice"] = core.resolve_forward_references(
-    AnthropicToolChoice, globalns=globals(), localns=locals()
-)
-globals()["JsonSchema"] = core.resolve_forward_references(
-    JsonSchema, globalns=globals(), localns=locals()
-)
-globals()["OpenAiEmbeddingInput"] = core.resolve_forward_references(
-    OpenAiEmbeddingInput, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AnthropicAnyToolChoice",

@@ -956,21 +956,7 @@ UpdatedBy: typing_extensions.TypeAlias = UserId
 """The Foundry user who last updated this resource"""
 
 
-globals()["CustomMetadata"] = core.resolve_forward_references(
-    CustomMetadata, globalns=globals(), localns=locals()
-)
-globals()["EmbeddingModel"] = core.resolve_forward_references(
-    EmbeddingModel, globalns=globals(), localns=locals()
-)
-globals()["FieldDataType"] = core.resolve_forward_references(
-    FieldDataType, globalns=globals(), localns=locals()
-)
-globals()["FilterType"] = core.resolve_forward_references(
-    FilterType, globalns=globals(), localns=locals()
-)
-globals()["TimeSeriesItemType"] = core.resolve_forward_references(
-    TimeSeriesItemType, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AnyType",

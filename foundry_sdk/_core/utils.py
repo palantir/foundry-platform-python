@@ -117,6 +117,21 @@ def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> 
     return typing.get_origin(type_obj)[args]
 
 
+def resolve_forward_references_in_module(module_name: str) -> None:
+    """Resolve forward references in all generic type aliases in a module.
+
+    Call as ``core.resolve_forward_references_in_module(__name__)`` at the end
+    of a models.py after all classes are defined.  Updates the module namespace
+    in place so pyright's view of each TypeAlias is undisturbed.
+    """
+    import sys
+
+    ns = vars(sys.modules[module_name])
+    for name, obj in list(ns.items()):
+        if typing.get_origin(obj) is not None:
+            ns[name] = resolve_forward_references(obj, ns, ns)
+
+
 def assert_non_empty_string(value: str, name: str) -> None:
     if not isinstance(value, str):
         raise TypeError(f"The {name} must be a string, not {type(value)}.")

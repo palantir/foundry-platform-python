@@ -651,27 +651,7 @@ class UserTextInput(core.ModelBase):
     """The user message text."""
 
 
-globals()["InputContext"] = core.resolve_forward_references(
-    InputContext, globalns=globals(), localns=locals()
-)
-globals()["ParameterType"] = core.resolve_forward_references(
-    ParameterType, globalns=globals(), localns=locals()
-)
-globals()["ParameterValue"] = core.resolve_forward_references(
-    ParameterValue, globalns=globals(), localns=locals()
-)
-globals()["ParameterValueUpdate"] = core.resolve_forward_references(
-    ParameterValueUpdate, globalns=globals(), localns=locals()
-)
-globals()["ToolCallOutput"] = core.resolve_forward_references(
-    ToolCallOutput, globalns=globals(), localns=locals()
-)
-globals()["ToolInputValue"] = core.resolve_forward_references(
-    ToolInputValue, globalns=globals(), localns=locals()
-)
-globals()["ToolOutputValue"] = core.resolve_forward_references(
-    ToolOutputValue, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "Agent",

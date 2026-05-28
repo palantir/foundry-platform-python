@@ -2463,75 +2463,7 @@ VideoToTextOperation: typing_extensions.TypeAlias = GetTimestampsForSceneFramesO
 """The operation to perform for video to text conversion."""
 
 
-globals()["AudioEncodeFormat"] = core.resolve_forward_references(
-    AudioEncodeFormat, globalns=globals(), localns=locals()
-)
-globals()["AudioOperation"] = core.resolve_forward_references(
-    AudioOperation, globalns=globals(), localns=locals()
-)
-globals()["AudioToTextOperation"] = core.resolve_forward_references(
-    AudioToTextOperation, globalns=globals(), localns=locals()
-)
-globals()["ContrastType"] = core.resolve_forward_references(
-    ContrastType, globalns=globals(), localns=locals()
-)
-globals()["DocumentToDocumentOperation"] = core.resolve_forward_references(
-    DocumentToDocumentOperation, globalns=globals(), localns=locals()
-)
-globals()["DocumentToImageOperation"] = core.resolve_forward_references(
-    DocumentToImageOperation, globalns=globals(), localns=locals()
-)
-globals()["DocumentToTextOperation"] = core.resolve_forward_references(
-    DocumentToTextOperation, globalns=globals(), localns=locals()
-)
-globals()["ImageOperation"] = core.resolve_forward_references(
-    ImageOperation, globalns=globals(), localns=locals()
-)
-globals()["ImageRegionPolygon"] = core.resolve_forward_references(
-    ImageRegionPolygon, globalns=globals(), localns=locals()
-)
-globals()["ImageToTextOperation"] = core.resolve_forward_references(
-    ImageToTextOperation, globalns=globals(), localns=locals()
-)
-globals()["ImageryEncodeFormat"] = core.resolve_forward_references(
-    ImageryEncodeFormat, globalns=globals(), localns=locals()
-)
-globals()["MailboxOrGroup"] = core.resolve_forward_references(
-    MailboxOrGroup, globalns=globals(), localns=locals()
-)
-globals()["MediaItemMetadata"] = core.resolve_forward_references(
-    MediaItemMetadata, globalns=globals(), localns=locals()
-)
-globals()["OcrLanguageOrScript"] = core.resolve_forward_references(
-    OcrLanguageOrScript, globalns=globals(), localns=locals()
-)
-globals()["OcrOutputFormat"] = core.resolve_forward_references(
-    OcrOutputFormat, globalns=globals(), localns=locals()
-)
-globals()["TrackedTransformationResponse"] = core.resolve_forward_references(
-    TrackedTransformationResponse, globalns=globals(), localns=locals()
-)
-globals()["TransactionPolicy"] = core.resolve_forward_references(
-    TransactionPolicy, globalns=globals(), localns=locals()
-)
-globals()["TranscribeTextEncodeFormat"] = core.resolve_forward_references(
-    TranscribeTextEncodeFormat, globalns=globals(), localns=locals()
-)
-globals()["Transformation"] = core.resolve_forward_references(
-    Transformation, globalns=globals(), localns=locals()
-)
-globals()["VideoEncodeFormat"] = core.resolve_forward_references(
-    VideoEncodeFormat, globalns=globals(), localns=locals()
-)
-globals()["VideoOperation"] = core.resolve_forward_references(
-    VideoOperation, globalns=globals(), localns=locals()
-)
-globals()["VideoToImageOperation"] = core.resolve_forward_references(
-    VideoToImageOperation, globalns=globals(), localns=locals()
-)
-globals()["VlmPreprocessingConfig"] = core.resolve_forward_references(
-    VlmPreprocessingConfig, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AffineTransform",

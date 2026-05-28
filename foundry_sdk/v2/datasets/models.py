@@ -426,12 +426,7 @@ PrimaryKeyResolutionStrategy: typing_extensions.TypeAlias = PrimaryKeyLatestWins
 """PrimaryKeyResolutionStrategy"""
 
 
-globals()["GetDatasetJobsQuery"] = core.resolve_forward_references(
-    GetDatasetJobsQuery, globalns=globals(), localns=locals()
-)
-globals()["ViewPrimaryKeyResolution"] = core.resolve_forward_references(
-    ViewPrimaryKeyResolution, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AddBackingDatasetsRequest",
