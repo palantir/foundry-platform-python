@@ -46,11 +46,11 @@ class ChangelogTooLongError(core.ModelBase):
     type: typing.Literal["changelogTooLong"] = "changelogTooLong"
 
 
-ColumnTypeSpecId = str
+ColumnTypeSpecId: typing_extensions.TypeAlias = str
 """An identifier for a column type specification."""
 
 
-CreateConfigValidationFailureReason = typing_extensions.Annotated[
+CreateConfigValidationFailureReason: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "JsonSchemaValidationError",
         "OutputResourceInDifferentProjectError",
@@ -228,7 +228,7 @@ class DoubleSeriesValueV1(core.ModelBase):
     step: core.Long
 
 
-EpochMillis = core.Long
+EpochMillis: typing_extensions.TypeAlias = core.Long
 """
 Milliseconds since unix time zero. This representation is used to maintain consistency with the Parquet
 format.
@@ -264,7 +264,7 @@ class ExperimentArtifactMetadata(core.ModelBase):
     details: ExperimentArtifactDetails
 
 
-ExperimentArtifactName = str
+ExperimentArtifactName: typing_extensions.TypeAlias = str
 """The name of an experiment artifact."""
 
 
@@ -275,7 +275,7 @@ class ExperimentAuthoringSource(core.ModelBase):
     type: typing.Literal["authoring"] = "authoring"
 
 
-ExperimentBranch = str
+ExperimentBranch: typing_extensions.TypeAlias = str
 """ExperimentBranch"""
 
 
@@ -287,7 +287,7 @@ class ExperimentCodeWorkspaceSource(core.ModelBase):
     type: typing.Literal["codeWorkspace"] = "codeWorkspace"
 
 
-ExperimentRid = core.RID
+ExperimentRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of an Experiment."""
 
 
@@ -297,7 +297,7 @@ class ExperimentSdkSource(core.ModelBase):
     type: typing.Literal["sdk"] = "sdk"
 
 
-ExperimentSource = typing_extensions.Annotated[
+ExperimentSource: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ExperimentCodeWorkspaceSource", "ExperimentAuthoringSource", "ExperimentSdkSource"
     ],
@@ -306,11 +306,11 @@ ExperimentSource = typing_extensions.Annotated[
 """The source from which the experiment was created."""
 
 
-ExperimentStatus = typing.Literal["RUNNING", "SUCCEEDED", "FAILED"]
+ExperimentStatus: typing_extensions.TypeAlias = typing.Literal["RUNNING", "SUCCEEDED", "FAILED"]
 """The current status of an experiment."""
 
 
-ExperimentTagText = str
+ExperimentTagText: typing_extensions.TypeAlias = str
 """A tag associated with an experiment."""
 
 
@@ -329,7 +329,7 @@ class FieldValidationError(core.ModelBase):
     type: typing.Literal["fieldValidationFailure"] = "fieldValidationFailure"
 
 
-GpuType = typing.Literal["A100", "A10G", "A16", "H100", "H200", "L4", "L40S", "T4", "V100"]
+GpuType: typing_extensions.TypeAlias = typing.Literal["A100", "A10G", "A16", "H100", "H200", "L4", "L40S", "T4", "V100"]
 """The specific type of GPU hardware to use."""
 
 
@@ -345,7 +345,7 @@ class InconsistentArrayDimensionsError(core.ModelBase):
     type: typing.Literal["inconsistentArrayDimensions"] = "inconsistentArrayDimensions"
 
 
-InferenceInputErrorType = typing_extensions.Annotated[
+InferenceInputErrorType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "InvalidArrayShapeError",
         "TypeMismatchError",
@@ -364,7 +364,7 @@ Each variant carries parameters relevant to that specific error category.
 """
 
 
-InputAlias = str
+InputAlias: typing_extensions.TypeAlias = str
 """A string alias used to identify inputs in a Model Studio configuration."""
 
 
@@ -485,7 +485,7 @@ class LiveDeploymentModelVersion(core.ModelBase):
     model_version_rid: ModelVersionRid = pydantic.Field(alias=str("modelVersionRid"))  # type: ignore[literal-required]
 
 
-LiveDeploymentRid = core.RID
+LiveDeploymentRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Live Deployment."""
 
 
@@ -527,7 +527,7 @@ class LiveDeploymentScalingConfiguration(core.ModelBase):
     """The duration that load must be below the scale-down threshold before scaling down."""
 
 
-LiveDeploymentState = typing.Literal["ACTIVE", "STARTING", "DEGRADED", "DISABLED", "FAILED"]
+LiveDeploymentState: typing_extensions.TypeAlias = typing.Literal["ACTIVE", "STARTING", "DEGRADED", "DISABLED", "FAILED"]
 """
 The operational state of a live deployment.
 
@@ -648,7 +648,7 @@ class ModelApiColumn(core.ModelBase):
     data_type: ModelApiDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
 
-ModelApiDataType = typing_extensions.Annotated[
+ModelApiDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -668,7 +668,7 @@ ModelApiDataType = typing_extensions.Annotated[
 """ModelApiDataType"""
 
 
-ModelApiInput = typing_extensions.Annotated[
+ModelApiInput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.UnsupportedType, "ModelApiParameterType", "ModelApiTabularType"],
     pydantic.Field(discriminator="type"),
 ]
@@ -683,7 +683,7 @@ class ModelApiMapType(core.ModelBase):
     type: typing.Literal["map"] = "map"
 
 
-ModelApiOutput = typing_extensions.Annotated[
+ModelApiOutput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.UnsupportedType, "ModelApiParameterType", "ModelApiTabularType"],
     pydantic.Field(discriminator="type"),
 ]
@@ -701,7 +701,7 @@ class ModelApiParameterType(core.ModelBase):
     type: typing.Literal["parameter"] = "parameter"
 
 
-ModelApiTabularFormat = typing.Literal["PANDAS", "SPARK"]
+ModelApiTabularFormat: typing_extensions.TypeAlias = typing.Literal["PANDAS", "SPARK"]
 """ModelApiTabularFormat"""
 
 
@@ -730,27 +730,27 @@ class ModelFunction(core.ModelBase):
     ontology_binding: typing.Optional[ontologies_models.OntologyRid] = pydantic.Field(alias=str("ontologyBinding"), default=None)  # type: ignore[literal-required]
 
 
-ModelFunctionApiName = str
+ModelFunctionApiName: typing_extensions.TypeAlias = str
 """ModelFunctionApiName"""
 
 
-ModelFunctionDisplayName = str
+ModelFunctionDisplayName: typing_extensions.TypeAlias = str
 """ModelFunctionDisplayName"""
 
 
-ModelFunctionFunctionRid = core.RID
+ModelFunctionFunctionRid: typing_extensions.TypeAlias = core.RID
 """ModelFunctionFunctionRid"""
 
 
-ModelFunctionFunctionVersion = str
+ModelFunctionFunctionVersion: typing_extensions.TypeAlias = str
 """ModelFunctionFunctionVersion"""
 
 
-ModelFunctionIsRowWise = bool
+ModelFunctionIsRowWise: typing_extensions.TypeAlias = bool
 """ModelFunctionIsRowWise"""
 
 
-ModelName = str
+ModelName: typing_extensions.TypeAlias = str
 """ModelName"""
 
 
@@ -763,7 +763,7 @@ class ModelOutput(core.ModelBase):
     type: typing.Literal["model"] = "model"
 
 
-ModelRid = core.RID
+ModelRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Model."""
 
 
@@ -805,15 +805,15 @@ class ModelStudioConfigVersion(core.ModelBase):
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
 
-ModelStudioConfigVersionName = str
+ModelStudioConfigVersionName: typing_extensions.TypeAlias = str
 """Human readable name of the configuration version and experiment."""
 
 
-ModelStudioConfigVersionNumber = int
+ModelStudioConfigVersionNumber: typing_extensions.TypeAlias = int
 """The version number of a Model Studio Configuration."""
 
 
-ModelStudioRid = core.RID
+ModelStudioRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Model Studio."""
 
 
@@ -845,11 +845,11 @@ class ModelStudioRun(core.ModelBase):
     """Map of alias to resolved output details (e.g., for models, contains the version RID and experiment)."""
 
 
-ModelStudioRunBuildRid = core.RID
+ModelStudioRunBuildRid: typing_extensions.TypeAlias = core.RID
 """The RID of the build associated with this run."""
 
 
-ModelStudioRunJobRid = core.RID
+ModelStudioRunJobRid: typing_extensions.TypeAlias = core.RID
 """The RID of the job associated with this run."""
 
 
@@ -897,7 +897,7 @@ class ModelStudioTrainer(core.ModelBase):
     """Whether this trainer is experimental and may have breaking changes."""
 
 
-ModelStudioTrainerExperimental = bool
+ModelStudioTrainerExperimental: typing_extensions.TypeAlias = bool
 """Whether this trainer is experimental and may have breaking changes."""
 
 
@@ -970,7 +970,7 @@ class ModelVersionPromotedSource(core.ModelBase):
     type: typing.Literal["promoted"] = "promoted"
 
 
-ModelVersionRid = core.RID
+ModelVersionRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Model Version."""
 
 
@@ -980,7 +980,7 @@ class ModelVersionSdkSource(core.ModelBase):
     type: typing.Literal["sdk"] = "sdk"
 
 
-ModelVersionSource = typing_extensions.Annotated[
+ModelVersionSource: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ModelVersionContainerizedSource",
         "ModelVersionExternalSource",
@@ -1032,7 +1032,7 @@ class OtherValidationError(core.ModelBase):
     type: typing.Literal["other"] = "other"
 
 
-OutputAlias = str
+OutputAlias: typing_extensions.TypeAlias = str
 """A string alias used to identify outputs in a Model Studio configuration."""
 
 
@@ -1070,11 +1070,11 @@ class Parameter(core.ModelBase):
     """The parameter value"""
 
 
-ParameterName = str
+ParameterName: typing_extensions.TypeAlias = str
 """The name of an experiment parameter."""
 
 
-ParameterValue = typing_extensions.Annotated[
+ParameterValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DatetimeParameter",
         "BooleanParameter",
@@ -1132,7 +1132,7 @@ class ResourceConfiguration(core.ModelBase):
     """GPU allocation (must be available in the project's resource queue)."""
 
 
-RunId = str
+RunId: typing_extensions.TypeAlias = str
 """A unique identifier for a Model Studio run, derived from the studio, config, and build."""
 
 
@@ -1151,7 +1151,7 @@ class SearchExperimentsContainsFilter(core.ModelBase):
     type: typing.Literal["contains"] = "contains"
 
 
-SearchExperimentsContainsFilterField = typing.Literal[
+SearchExperimentsContainsFilterField: typing_extensions.TypeAlias = typing.Literal[
     "EXPERIMENT_NAME", "PARAMETER_NAME", "SERIES_NAME"
 ]
 """Fields that support substring containment filtering."""
@@ -1165,7 +1165,7 @@ class SearchExperimentsEqualsFilter(core.ModelBase):
     type: typing.Literal["eq"] = "eq"
 
 
-SearchExperimentsEqualsFilterField = typing.Literal[
+SearchExperimentsEqualsFilterField: typing_extensions.TypeAlias = typing.Literal[
     "STATUS",
     "BRANCH",
     "EXPERIMENT_NAME",
@@ -1178,7 +1178,7 @@ SearchExperimentsEqualsFilterField = typing.Literal[
 """Fields that support equality filtering."""
 
 
-SearchExperimentsFilter = typing_extensions.Annotated[
+SearchExperimentsFilter: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "SearchExperimentsSeriesFilter",
         "SearchExperimentsContainsFilter",
@@ -1215,7 +1215,7 @@ class SearchExperimentsNotFilter(core.ModelBase):
     type: typing.Literal["not"] = "not"
 
 
-SearchExperimentsNumericFilterOperator = typing.Literal["EQ", "GT", "LT"]
+SearchExperimentsNumericFilterOperator: typing_extensions.TypeAlias = typing.Literal["EQ", "GT", "LT"]
 """Comparison operator for numeric filter predicates (series and summary metrics)."""
 
 
@@ -1233,7 +1233,7 @@ class SearchExperimentsOrderBy(core.ModelBase):
     direction: core_models.OrderByDirection
 
 
-SearchExperimentsOrderByField = typing.Literal["EXPERIMENT_NAME", "CREATED_TIME"]
+SearchExperimentsOrderByField: typing_extensions.TypeAlias = typing.Literal["EXPERIMENT_NAME", "CREATED_TIME"]
 """Fields to order experiment search results by."""
 
 
@@ -1259,7 +1259,7 @@ class SearchExperimentsParameterFilter(core.ModelBase):
     type: typing.Literal["parameterFilter"] = "parameterFilter"
 
 
-SearchExperimentsParameterFilterOperator = typing.Literal["EQ", "GT", "LT", "CONTAINS"]
+SearchExperimentsParameterFilterOperator: typing_extensions.TypeAlias = typing.Literal["EQ", "GT", "LT", "CONTAINS"]
 """Comparison operator for parameter filter predicates."""
 
 
@@ -1310,7 +1310,7 @@ class SearchExperimentsSeriesFilter(core.ModelBase):
     type: typing.Literal["seriesFilter"] = "seriesFilter"
 
 
-SearchExperimentsSeriesFilterField = typing.Literal[
+SearchExperimentsSeriesFilterField: typing_extensions.TypeAlias = typing.Literal[
     "LENGTH", "AGGREGATION_MIN", "AGGREGATION_MAX", "AGGREGATION_LAST"
 ]
 """The series metric to filter on."""
@@ -1324,7 +1324,7 @@ class SearchExperimentsStartsWithFilter(core.ModelBase):
     type: typing.Literal["startsWith"] = "startsWith"
 
 
-SearchExperimentsStartsWithFilterField = typing.Literal[
+SearchExperimentsStartsWithFilterField: typing_extensions.TypeAlias = typing.Literal[
     "EXPERIMENT_NAME", "PARAMETER_NAME", "SERIES_NAME"
 ]
 """Fields that support prefix filtering."""
@@ -1364,7 +1364,7 @@ class SeriesAggregations(core.ModelBase):
     """Aggregated values for this series"""
 
 
-SeriesName = str
+SeriesName: typing_extensions.TypeAlias = str
 """The name of a series (metrics tracked over time)."""
 
 
@@ -1388,7 +1388,7 @@ class SummaryMetric(core.ModelBase):
     """The computed value"""
 
 
-SummaryMetricAggregation = typing.Literal["MIN", "MAX", "LAST"]
+SummaryMetricAggregation: typing_extensions.TypeAlias = typing.Literal["MIN", "MAX", "LAST"]
 """The type of aggregation computed for a summary metric."""
 
 
@@ -1399,35 +1399,35 @@ class TableArtifactDetails(core.ModelBase):
     type: typing.Literal["table"] = "table"
 
 
-TrainerDescription = str
+TrainerDescription: typing_extensions.TypeAlias = str
 """Description of what a trainer does and its capabilities."""
 
 
-TrainerId = str
+TrainerId: typing_extensions.TypeAlias = str
 """The identifier for a trainer."""
 
 
-TrainerInputsSpecification = typing.Any
+TrainerInputsSpecification: typing_extensions.TypeAlias = typing.Any
 """Specification of the inputs required by a trainer. When creating a ModelStudioConfigVersion, the workerConfig.inputs must conform to this specification, providing entries for each required input defined here."""
 
 
-TrainerName = str
+TrainerName: typing_extensions.TypeAlias = str
 """Human-readable name of a trainer."""
 
 
-TrainerOutputsSpecification = typing.Any
+TrainerOutputsSpecification: typing_extensions.TypeAlias = typing.Any
 """Specification of the outputs produced by a trainer. When creating a ModelStudioConfigVersion, the workerConfig.outputs must conform to this specification, providing entries for each required output defined here."""
 
 
-TrainerSchemaDefinition = typing.Any
+TrainerSchemaDefinition: typing_extensions.TypeAlias = typing.Any
 """JSON schema defining the custom configuration parameters for a trainer."""
 
 
-TrainerType = str
+TrainerType: typing_extensions.TypeAlias = str
 """The type/category of a trainer."""
 
 
-TrainerVersion = str
+TrainerVersion: typing_extensions.TypeAlias = str
 """A specific version identifier for a trainer."""
 
 
@@ -1496,52 +1496,52 @@ class UnsupportedTypeError(core.ModelBase):
     type: typing.Literal["unsupportedType"] = "unsupportedType"
 
 
-CreateLiveDeploymentTarget = DirectCreateLiveDeploymentTarget
+CreateLiveDeploymentTarget: typing_extensions.TypeAlias = DirectCreateLiveDeploymentTarget
 """The target model source for the live deployment. Determines which model and version selection strategy to use when creating the deployment."""
 
 
-ExperimentArtifactDetails = TableArtifactDetails
+ExperimentArtifactDetails: typing_extensions.TypeAlias = TableArtifactDetails
 """Details about an experiment artifact."""
 
 
-ModelFiles = DillModelFiles
+ModelFiles: typing_extensions.TypeAlias = DillModelFiles
 """
 The serialized data of a machine learning model. This can include the model's parameters, architecture, and any other relevant information needed to reconstruct the model.
 Must be a base64-encoded string of a dill-serialized model function.
 """
 
 
-ModelStudioInput = DatasetInput
+ModelStudioInput: typing_extensions.TypeAlias = DatasetInput
 """Input specification for a Model Studio configuration."""
 
 
-ModelStudioOutput = ModelOutput
+ModelStudioOutput: typing_extensions.TypeAlias = ModelOutput
 """Output specification for a Model Studio configuration."""
 
 
-ModelStudioRunOutput = ModelStudioRunModelOutput
+ModelStudioRunOutput: typing_extensions.TypeAlias = ModelStudioRunModelOutput
 """Resolved output details for a Model Studio run."""
 
 
-Series = DoubleSeriesV1
+Series: typing_extensions.TypeAlias = DoubleSeriesV1
 """A series of values logged over time."""
 
 
-SeriesAggregationsValue = DoubleSeriesAggregations
+SeriesAggregationsValue: typing_extensions.TypeAlias = DoubleSeriesAggregations
 """Union of aggregation values by series type."""
 
 
-CreateConfigValidationFailureReason = core.resolve_forward_references(
+globals()['CreateConfigValidationFailureReason'] = core.resolve_forward_references(
     CreateConfigValidationFailureReason, globalns=globals(), localns=locals()
 )
-ExperimentSource = core.resolve_forward_references(ExperimentSource, globalns=globals(), localns=locals())
-InferenceInputErrorType = core.resolve_forward_references(InferenceInputErrorType, globalns=globals(), localns=locals())
-ModelApiDataType = core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
-ModelApiInput = core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
-ModelApiOutput = core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
-ModelVersionSource = core.resolve_forward_references(ModelVersionSource, globalns=globals(), localns=locals())
-ParameterValue = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-SearchExperimentsFilter = core.resolve_forward_references(SearchExperimentsFilter, globalns=globals(), localns=locals())
+globals()['ExperimentSource'] = core.resolve_forward_references(ExperimentSource, globalns=globals(), localns=locals())
+globals()['InferenceInputErrorType'] = core.resolve_forward_references(InferenceInputErrorType, globalns=globals(), localns=locals())
+globals()['ModelApiDataType'] = core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
+globals()['ModelApiInput'] = core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
+globals()['ModelApiOutput'] = core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
+globals()['ModelVersionSource'] = core.resolve_forward_references(ModelVersionSource, globalns=globals(), localns=locals())
+globals()['ParameterValue'] = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
+globals()['SearchExperimentsFilter'] = core.resolve_forward_references(SearchExperimentsFilter, globalns=globals(), localns=locals())
 
 __all__ = [
     "BooleanParameter",

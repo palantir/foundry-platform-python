@@ -42,11 +42,11 @@ class AbsoluteValuePropertyExpression(core.ModelBase):
     type: typing.Literal["absoluteValue"] = "absoluteValue"
 
 
-ActionExecutionTime = core.AwareDatetime
+ActionExecutionTime: typing_extensions.TypeAlias = core.AwareDatetime
 """An ISO 8601 timestamp."""
 
 
-ActionLogicRule = typing_extensions.Annotated[
+ActionLogicRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ModifyInterfaceLogicRule",
         "CreateOrModifyObjectLogicRule",
@@ -75,7 +75,7 @@ class ActionParameterArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-ActionParameterType = typing_extensions.Annotated[
+ActionParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyInterfaceObjectType",
@@ -113,17 +113,17 @@ class ActionParameterV2(core.ModelBase):
     type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
-ActionResults = typing_extensions.Annotated[
+ActionResults: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ObjectEdits", "ObjectTypeEdits"], pydantic.Field(discriminator="type")
 ]
 """ActionResults"""
 
 
-ActionRid = core.RID
+ActionRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier for an action."""
 
 
-ActionTypeApiName = str
+ActionTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the action type in the API. To find the API name for your Action Type, use the `List action types`
 endpoint or check the **Ontology Manager**.
@@ -137,7 +137,7 @@ class ActionTypeFullMetadata(core.ModelBase):
     full_logic_rules: typing.List[ActionLogicRule] = pydantic.Field(alias=str("fullLogicRules"))  # type: ignore[literal-required]
 
 
-ActionTypeRid = core.RID
+ActionTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an action type, useful for interacting with other Foundry APIs."""
 
 
@@ -264,11 +264,11 @@ class AggregateTimeSeries(core.ModelBase):
     strategy: TimeSeriesAggregationStrategy
 
 
-AggregationAccuracy = typing.Literal["ACCURATE", "APPROXIMATE"]
+AggregationAccuracy: typing_extensions.TypeAlias = typing.Literal["ACCURATE", "APPROXIMATE"]
 """AggregationAccuracy"""
 
 
-AggregationAccuracyRequest = typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]
+AggregationAccuracyRequest: typing_extensions.TypeAlias = typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]
 """
 Specifies the accuracy requirement for aggregation results.
 
@@ -344,7 +344,7 @@ class AggregationFixedWidthGroupingV2(core.ModelBase):
     type: typing.Literal["fixedWidth"] = "fixedWidth"
 
 
-AggregationGroupByV2 = typing_extensions.Annotated[
+AggregationGroupByV2: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AggregationDurationGroupingV2",
         "AggregationFixedWidthGroupingV2",
@@ -356,15 +356,15 @@ AggregationGroupByV2 = typing_extensions.Annotated[
 """Specifies a grouping for aggregation results."""
 
 
-AggregationGroupKeyV2 = str
+AggregationGroupKeyV2: typing_extensions.TypeAlias = str
 """AggregationGroupKeyV2"""
 
 
-AggregationGroupValueV2 = typing.Any
+AggregationGroupValueV2: typing_extensions.TypeAlias = typing.Any
 """AggregationGroupValueV2"""
 
 
-AggregationMetricName = str
+AggregationMetricName: typing_extensions.TypeAlias = str
 """A user-specified alias for an aggregation metric name."""
 
 
@@ -401,7 +401,7 @@ class AggregationRangesGroupingV2(core.ModelBase):
     type: typing.Literal["ranges"] = "ranges"
 
 
-AggregationV2 = typing_extensions.Annotated[
+AggregationV2: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ApproximateDistinctAggregationV2",
         "MinAggregationV2",
@@ -444,7 +444,7 @@ class AnyOfRule(core.ModelBase):
     type: typing.Literal["anyOf"] = "anyOf"
 
 
-ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
+ApplyActionMode: typing_extensions.TypeAlias = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
 """If not specified, defaults to `VALIDATE_AND_EXECUTE`."""
 
 
@@ -590,17 +590,17 @@ class ArraySizeConstraint(core.ModelBase):
     type: typing.Literal["arraySize"] = "arraySize"
 
 
-ArtifactRepositoryRid = core.RID
+ArtifactRepositoryRid: typing_extensions.TypeAlias = core.RID
 """ArtifactRepositoryRid"""
 
 
-AttachmentMetadataResponse = typing_extensions.Annotated[
+AttachmentMetadataResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AttachmentV2", "ListAttachmentsResponseV2"], pydantic.Field(discriminator="type")
 ]
 """The attachment metadata response"""
 
 
-AttachmentRid = core.RID
+AttachmentRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an attachment."""
 
 
@@ -627,7 +627,7 @@ class AvgAggregationV2(core.ModelBase):
     type: typing.Literal["avg"] = "avg"
 
 
-BatchActionObjectEdit = typing_extensions.Annotated[
+BatchActionObjectEdit: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ModifyObject", "AddObject", "AddLink"], pydantic.Field(discriminator="type")
 ]
 """BatchActionObjectEdit"""
@@ -645,7 +645,7 @@ class BatchActionObjectEdits(core.ModelBase):
     type: typing.Literal["edits"] = "edits"
 
 
-BatchActionResults = typing_extensions.Annotated[
+BatchActionResults: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["BatchActionObjectEdits", "ObjectTypeEdits"], pydantic.Field(discriminator="type")
 ]
 """BatchActionResults"""
@@ -690,7 +690,7 @@ class BatchApplyActionWithOverridesRequest(core.ModelBase):
     requests: typing.List[BatchApplyActionRequestItemWithOverrides]
 
 
-BatchReturnEditsMode = typing.Literal["ALL", "NONE"]
+BatchReturnEditsMode: typing_extensions.TypeAlias = typing.Literal["ALL", "NONE"]
 """If not specified, defaults to `NONE`."""
 
 
@@ -739,14 +739,14 @@ class CenterPoint(core.ModelBase):
     distance: core_models.Distance
 
 
-ConjunctiveMarkingSummary = typing.List["MarkingId"]
+ConjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List["MarkingId"]
 """
 The conjunctive set of markings required to access the property value. 
 All markings from a conjunctive set must be met for access.
 """
 
 
-ContainerConjunctiveMarkingSummary = typing.List["MarkingId"]
+ContainerConjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List["MarkingId"]
 """
 The conjunctive set of markings for the container of this property value,
 such as the project of a dataset. These markings may differ from the marking
@@ -756,7 +756,7 @@ All markings from a conjunctive set must be met for access.
 """
 
 
-ContainerDisjunctiveMarkingSummary = typing.List[typing.List["MarkingId"]]
+ContainerDisjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List[typing.List["MarkingId"]]
 """
 The disjunctive set of markings for the container of this property value,
 such as the project of a dataset. These markings may differ from the marking
@@ -981,7 +981,7 @@ class CurrentUserArgument(core.ModelBase):
     type: typing.Literal["currentUser"] = "currentUser"
 
 
-DataValue = typing.Any
+DataValue: typing_extensions.TypeAlias = typing.Any
 """
 Represents the value of data in the following format. Note that these values can be nested, for example an array of structs.
 | Type                                | JSON encoding                                         | Example                                                                                                                                                       |
@@ -1022,7 +1022,7 @@ class DateValue(core.ModelBase):
     type: typing.Literal["dateValue"] = "dateValue"
 
 
-DatetimeFormat = typing_extensions.Annotated[
+DatetimeFormat: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["DatetimeStringFormat", "DatetimeLocalizedFormat"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1036,7 +1036,7 @@ class DatetimeLocalizedFormat(core.ModelBase):
     type: typing.Literal["localizedFormat"] = "localizedFormat"
 
 
-DatetimeLocalizedFormatType = typing.Literal[
+DatetimeLocalizedFormatType: typing_extensions.TypeAlias = typing.Literal[
     "DATE_FORMAT_RELATIVE_TO_NOW",
     "DATE_FORMAT_DATE",
     "DATE_FORMAT_YEAR_AND_MONTH",
@@ -1057,7 +1057,7 @@ class DatetimeStringFormat(core.ModelBase):
     type: typing.Literal["stringFormat"] = "stringFormat"
 
 
-DatetimeTimezone = typing_extensions.Annotated[
+DatetimeTimezone: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["DatetimeTimezoneStatic", "DatetimeTimezoneUser"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1188,11 +1188,11 @@ class DeprecatedPropertyTypeStatus(core.ModelBase):
     type: typing.Literal["deprecated"] = "deprecated"
 
 
-DerivedPropertyApiName = str
+DerivedPropertyApiName: typing_extensions.TypeAlias = str
 """The name of the derived property that will be returned."""
 
 
-DerivedPropertyDefinition = typing_extensions.Annotated[
+DerivedPropertyDefinition: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AddPropertyExpression",
         "AbsoluteValuePropertyExpression",
@@ -1211,7 +1211,7 @@ DerivedPropertyDefinition = typing_extensions.Annotated[
 """Definition of a derived property."""
 
 
-DisjunctiveMarkingSummary = typing.List[typing.List["MarkingId"]]
+DisjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List[typing.List["MarkingId"]]
 """
 The disjunctive set of markings required to access the property value.
 Disjunctive markings are represented as a conjunctive list of disjunctive sets.
@@ -1272,27 +1272,27 @@ class DoubleVector(core.ModelBase):
     type: typing.Literal["vector"] = "vector"
 
 
-DurationBaseValue = typing.Literal["SECONDS", "MILLISECONDS"]
+DurationBaseValue: typing_extensions.TypeAlias = typing.Literal["SECONDS", "MILLISECONDS"]
 """Specifies the unit of the input duration value."""
 
 
-DurationFormatStyle = typing_extensions.Annotated[
+DurationFormatStyle: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["HumanReadableFormat", "TimeCodeFormat"], pydantic.Field(discriminator="type")
 ]
 """DurationFormatStyle"""
 
 
-DurationPrecision = typing.Literal["DAYS", "HOURS", "MINUTES", "SECONDS", "AUTO"]
+DurationPrecision: typing_extensions.TypeAlias = typing.Literal["DAYS", "HOURS", "MINUTES", "SECONDS", "AUTO"]
 """Specifies the maximum precision to apply when formatting a duration."""
 
 
-EditHistoryEdit = typing_extensions.Annotated[
+EditHistoryEdit: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["CreateEdit", "DeleteEdit", "ModifyEdit"], pydantic.Field(discriminator="type")
 ]
 """EditHistoryEdit"""
 
 
-EditsHistoryFilter = typing_extensions.Annotated[
+EditsHistoryFilter: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["EditsHistoryTimestampFilter", "EditsHistoryOperationIdsFilter"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1306,7 +1306,7 @@ class EditsHistoryOperationIdsFilter(core.ModelBase):
     type: typing.Literal["operationIdsFilter"] = "operationIdsFilter"
 
 
-EditsHistorySortOrder = typing.Literal["newest_first", "oldest_first"]
+EditsHistorySortOrder: typing_extensions.TypeAlias = typing.Literal["newest_first", "oldest_first"]
 """EditsHistorySortOrder"""
 
 
@@ -1371,7 +1371,7 @@ class ErrorComputingSecurity(core.ModelBase):
     type: typing.Literal["errorComputingSecurity"] = "errorComputingSecurity"
 
 
-ErrorName = str
+ErrorName: typing_extensions.TypeAlias = str
 """ErrorName"""
 
 
@@ -1416,7 +1416,7 @@ class ExperimentalPropertyTypeStatus(core.ModelBase):
     type: typing.Literal["experimental"] = "experimental"
 
 
-ExtractDatePart = typing.Literal["DAYS", "MONTHS", "QUARTERS", "YEARS"]
+ExtractDatePart: typing_extensions.TypeAlias = typing.Literal["DAYS", "MONTHS", "QUARTERS", "YEARS"]
 """ExtractDatePart"""
 
 
@@ -1434,14 +1434,14 @@ class ExtractPropertyExpression(core.ModelBase):
     type: typing.Literal["extract"] = "extract"
 
 
-FilterValue = str
+FilterValue: typing_extensions.TypeAlias = str
 """
 Represents the value of a property filter. For instance, false is the FilterValue in
 `properties.{propertyApiName}.isNull=false`.
 """
 
 
-FixedValuesMapKey = int
+FixedValuesMapKey: typing_extensions.TypeAlias = int
 """Integer key for fixed value mapping."""
 
 
@@ -1454,15 +1454,15 @@ class FunctionLogicRule(core.ModelBase):
     type: typing.Literal["function"] = "function"
 
 
-FunctionParameterName = str
+FunctionParameterName: typing_extensions.TypeAlias = str
 """The name of an input to a function."""
 
 
-FunctionRid = core.RID
+FunctionRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of a Function, useful for interacting with other Foundry APIs."""
 
 
-FunctionVersion = str
+FunctionVersion: typing_extensions.TypeAlias = str
 """
 The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional.
 Examples: `1.2.3`, `1.2.3-rc1`.
@@ -1485,7 +1485,7 @@ class FuzzyRule(core.ModelBase):
     type: typing.Literal["fuzzy"] = "fuzzy"
 
 
-FuzzyV2 = bool
+FuzzyV2: typing_extensions.TypeAlias = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""
 
 
@@ -1501,7 +1501,7 @@ class GeoJsonString(core.ModelBase):
     type: typing.Literal["geoJson"] = "geoJson"
 
 
-GeoShapeV2Geometry = typing_extensions.Annotated[
+GeoShapeV2Geometry: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["BoundingBoxValue", "GeoJsonString"], pydantic.Field(discriminator="type")
 ]
 """Geometry specification for a GeoShapeV2Query. Supports bounding box envelopes and arbitrary GeoJSON geometries."""
@@ -1521,7 +1521,7 @@ class GeoShapeV2Query(core.ModelBase):
     type: typing.Literal["geoShapeV2"] = "geoShapeV2"
 
 
-GeotemporalSeriesEntry = typing.Dict["PropertyApiName", "PropertyValue"]
+GeotemporalSeriesEntry: typing_extensions.TypeAlias = typing.Dict["PropertyApiName", "PropertyValue"]
 """
 A single geotemporal data point. Each entry is a map from property API names to property values. Standard
 entries include "time" (ISO 8601 timestamp) and "position" (GeoPoint), and may include additional geotemporal
@@ -1724,28 +1724,28 @@ class InterfaceLinkType(core.ModelBase):
     """Whether each implementing object type must declare at least one implementation of this link."""
 
 
-InterfaceLinkTypeApiName = str
+InterfaceLinkTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the interface link type in the API. To find the API name for your Interface Link Type, check the 
 [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
 """
 
 
-InterfaceLinkTypeCardinality = typing.Literal["ONE", "MANY"]
+InterfaceLinkTypeCardinality: typing_extensions.TypeAlias = typing.Literal["ONE", "MANY"]
 """
 The cardinality of the link in the given direction. Cardinality can be "ONE", meaning an object can
 link to zero or one other objects, or "MANY", meaning an object can link to any number of other objects.
 """
 
 
-InterfaceLinkTypeLinkedEntityApiName = typing_extensions.Annotated[
+InterfaceLinkTypeLinkedEntityApiName: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["LinkedObjectTypeApiName", "LinkedInterfaceTypeApiName"],
     pydantic.Field(discriminator="type"),
 ]
 """A reference to the linked entity. This can either be an object or an interface type."""
 
 
-InterfaceLinkTypeRid = core.RID
+InterfaceLinkTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an interface link type, useful for interacting with other Foundry APIs."""
 
 
@@ -1757,7 +1757,7 @@ class InterfaceParameterPropertyArgument(core.ModelBase):
     type: typing.Literal["interfaceParameterPropertyValue"] = "interfaceParameterPropertyValue"
 
 
-InterfacePropertyApiName = str
+InterfacePropertyApiName: typing_extensions.TypeAlias = str
 """
 The name of the interface property type in the API in lowerCamelCase format. To find the API name for your
 interface property type, use the `List interface types` endpoint and check the `allPropertiesV2` field or check
@@ -1796,7 +1796,7 @@ class InterfacePropertyStructImplementation(core.ModelBase):
     type: typing.Literal["structImplementation"] = "structImplementation"
 
 
-InterfacePropertyStructImplementationMapping = typing.Dict[
+InterfacePropertyStructImplementationMapping: typing_extensions.TypeAlias = typing.Dict[
     "StructFieldApiName", "PropertyOrStructFieldOfPropertyImplementation"
 ]
 """
@@ -1805,7 +1805,7 @@ struct fields to local struct fields or properties.
 """
 
 
-InterfacePropertyType = typing_extensions.Annotated[
+InterfacePropertyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["InterfaceDefinedPropertyType", "InterfaceSharedPropertyType"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1815,7 +1815,7 @@ shared property type or defined on the interface directly.
 """
 
 
-InterfacePropertyTypeImplementation = typing_extensions.Annotated[
+InterfacePropertyTypeImplementation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "InterfacePropertyStructFieldImplementation",
         "InterfacePropertyStructImplementation",
@@ -1827,7 +1827,7 @@ InterfacePropertyTypeImplementation = typing_extensions.Annotated[
 """Describes how an object type implements an interface property."""
 
 
-InterfacePropertyTypeRid = core.RID
+InterfacePropertyTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an interface property type, useful for interacting with other Foundry APIs."""
 
 
@@ -1853,21 +1853,21 @@ class InterfaceSharedPropertyType(core.ModelBase):
     type: typing.Literal["interfaceSharedPropertyType"] = "interfaceSharedPropertyType"
 
 
-InterfaceToObjectTypeMapping = typing.Dict["SharedPropertyTypeApiName", "PropertyApiName"]
+InterfaceToObjectTypeMapping: typing_extensions.TypeAlias = typing.Dict["SharedPropertyTypeApiName", "PropertyApiName"]
 """Represents an implementation of an interface (the mapping of interface property to local property)."""
 
 
-InterfaceToObjectTypeMappingV2 = typing.Dict[
+InterfaceToObjectTypeMappingV2: typing_extensions.TypeAlias = typing.Dict[
     "InterfacePropertyApiName", "InterfacePropertyTypeImplementation"
 ]
 """Represents an implementation of an interface (the mapping of interface property to how it is implemented."""
 
 
-InterfaceToObjectTypeMappings = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMapping"]
+InterfaceToObjectTypeMappings: typing_extensions.TypeAlias = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMapping"]
 """Map from object type to the interface-to-object-type mapping for that object type."""
 
 
-InterfaceToObjectTypeMappingsV2 = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMappingV2"]
+InterfaceToObjectTypeMappingsV2: typing_extensions.TypeAlias = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMappingV2"]
 """Map from object type to the interface property implementations of that object type."""
 
 
@@ -1934,14 +1934,14 @@ class InterfaceType(core.ModelBase):
     """
 
 
-InterfaceTypeApiName = str
+InterfaceTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
 type, use the `List interface types` endpoint or check the **Ontology Manager**.
 """
 
 
-InterfaceTypeRid = core.RID
+InterfaceTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an interface, useful for interacting with other Foundry APIs."""
 
 
@@ -1981,7 +1981,7 @@ class IntervalQuery(core.ModelBase):
     type: typing.Literal["interval"] = "interval"
 
 
-IntervalQueryRule = typing_extensions.Annotated[
+IntervalQueryRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule", "FuzzyRule"],
     pydantic.Field(discriminator="type"),
 ]
@@ -2000,7 +2000,7 @@ class IsNullQueryV2(core.ModelBase):
     type: typing.Literal["isNull"] = "isNull"
 
 
-KnownType = typing.Literal["USER_OR_GROUP_ID", "RESOURCE_RID", "ARTIFACT_GID"]
+KnownType: typing_extensions.TypeAlias = typing.Literal["USER_OR_GROUP_ID", "RESOURCE_RID", "ARTIFACT_GID"]
 """
 Known Foundry types for specialized formatting:
 - userOrGroupRid: Format as user or group
@@ -2031,22 +2031,22 @@ class LinkSideObject(core.ModelBase):
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
 
 
-LinkTypeApiName = str
+LinkTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager**
 application.
 """
 
 
-LinkTypeId = str
+LinkTypeId: typing_extensions.TypeAlias = str
 """The unique ID of a link type. To find the ID for your link type, check the **Ontology Manager** application."""
 
 
-LinkTypeRid = core.RID
+LinkTypeRid: typing_extensions.TypeAlias = core.RID
 """LinkTypeRid"""
 
 
-LinkTypeSideCardinality = typing.Literal["ONE", "MANY"]
+LinkTypeSideCardinality: typing_extensions.TypeAlias = typing.Literal["ONE", "MANY"]
 """LinkTypeSideCardinality"""
 
 
@@ -2504,7 +2504,7 @@ class LoadOntologyMetadataRequest(core.ModelBase):
     interface_types: typing.List[InterfaceTypeApiName] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
 
 
-LogicRule = typing_extensions.Annotated[
+LogicRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
@@ -2521,7 +2521,7 @@ LogicRule = typing_extensions.Annotated[
 """LogicRule"""
 
 
-LogicRuleArgument = typing_extensions.Annotated[
+LogicRuleArgument: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "CurrentTimeArgument",
         "StaticArgument",
@@ -2568,7 +2568,7 @@ class LteQueryV2(core.ModelBase):
     type: typing.Literal["lte"] = "lte"
 
 
-MarkingId = str
+MarkingId: typing_extensions.TypeAlias = str
 """The id of a classification or mandatory marking."""
 
 
@@ -2693,7 +2693,7 @@ class MultiplyPropertyExpression(core.ModelBase):
     type: typing.Literal["multiply"] = "multiply"
 
 
-NearestNeighborsQuery = typing_extensions.Annotated[
+NearestNeighborsQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["DoubleVector", "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
 ]
 """
@@ -2716,7 +2716,7 @@ class NegatePropertyExpression(core.ModelBase):
     type: typing.Literal["negate"] = "negate"
 
 
-NestedInterfacePropertyTypeImplementation = typing_extensions.Annotated[
+NestedInterfacePropertyTypeImplementation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "InterfacePropertyStructFieldImplementation",
         "InterfacePropertyStructImplementation",
@@ -2767,7 +2767,7 @@ class NumberFormatCurrency(core.ModelBase):
     type: typing.Literal["currency"] = "currency"
 
 
-NumberFormatCurrencyStyle = typing.Literal["STANDARD", "COMPACT"]
+NumberFormatCurrencyStyle: typing_extensions.TypeAlias = typing.Literal["STANDARD", "COMPACT"]
 """
 Currency rendering style options:
 - STANDARD: Full currency formatting (e.g., "USD 1,234.56")
@@ -2810,7 +2810,7 @@ class NumberFormatFixedValues(core.ModelBase):
     type: typing.Literal["fixedValues"] = "fixedValues"
 
 
-NumberFormatNotation = typing.Literal["STANDARD", "SCIENTIFIC", "ENGINEERING", "COMPACT"]
+NumberFormatNotation: typing_extensions.TypeAlias = typing.Literal["STANDARD", "SCIENTIFIC", "ENGINEERING", "COMPACT"]
 """
 Number notation style options:
 - STANDARD: Regular number display ("1,234")
@@ -2894,7 +2894,7 @@ class NumberFormatStandardUnit(core.ModelBase):
     type: typing.Literal["standardUnit"] = "standardUnit"
 
 
-NumberRatioType = typing.Literal["PERCENTAGE", "PER_MILLE", "BASIS_POINTS"]
+NumberRatioType: typing_extensions.TypeAlias = typing.Literal["PERCENTAGE", "PER_MILLE", "BASIS_POINTS"]
 """
 Ratio format options for displaying proportional values:
 - PERCENTAGE: Multiply by 100 and add "%" suffix
@@ -2903,7 +2903,7 @@ Ratio format options for displaying proportional values:
 """
 
 
-NumberRoundingMode = typing.Literal["CEIL", "FLOOR", "ROUND_CLOSEST"]
+NumberRoundingMode: typing_extensions.TypeAlias = typing.Literal["CEIL", "FLOOR", "ROUND_CLOSEST"]
 """
 Number rounding behavior:
 - CEIL: Always round up (3.1 becomes 4)
@@ -2912,7 +2912,7 @@ Number rounding behavior:
 """
 
 
-NumberScaleType = typing.Literal["THOUSANDS", "MILLIONS", "BILLIONS"]
+NumberScaleType: typing_extensions.TypeAlias = typing.Literal["THOUSANDS", "MILLIONS", "BILLIONS"]
 """
 Scale factor options for large numbers:
 - THOUSANDS: Divide by 1,000 and add "K" suffix
@@ -2921,7 +2921,7 @@ Scale factor options for large numbers:
 """
 
 
-ObjectEdit = typing_extensions.Annotated[
+ObjectEdit: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ModifyObject", "DeleteObject", "AddObject", "DeleteLink", "AddLink"],
     pydantic.Field(discriminator="type"),
 ]
@@ -2976,15 +2976,15 @@ class ObjectParameterPropertyArgument(core.ModelBase):
     type: typing.Literal["objectParameterPropertyValue"] = "objectParameterPropertyValue"
 
 
-ObjectPrimaryKey = typing.Dict["PropertyApiName", "PropertyValue"]
+ObjectPrimaryKey: typing_extensions.TypeAlias = typing.Dict["PropertyApiName", "PropertyValue"]
 """ObjectPrimaryKey"""
 
 
-ObjectPrimaryKeyV2 = typing.Dict["PropertyApiName", "PrimaryKeyValueV2"]
+ObjectPrimaryKeyV2: typing_extensions.TypeAlias = typing.Dict["PropertyApiName", "PrimaryKeyValueV2"]
 """ObjectPrimaryKeyV2"""
 
 
-ObjectPropertyType = typing_extensions.Annotated[
+ObjectPropertyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "StructType",
@@ -3026,11 +3026,11 @@ class ObjectQueryResultConstraint(core.ModelBase):
     type: typing.Literal["objectQueryResult"] = "objectQueryResult"
 
 
-ObjectRid = core.RID
+ObjectRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an object, useful for interacting with other Foundry APIs."""
 
 
-ObjectSet = typing_extensions.Annotated[
+ObjectSet: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ObjectSetSearchAroundType",
         "ObjectSetStaticType",
@@ -3175,7 +3175,7 @@ class ObjectSetReferenceType(core.ModelBase):
     type: typing.Literal["reference"] = "reference"
 
 
-ObjectSetRid = core.RID
+ObjectSetRid: typing_extensions.TypeAlias = core.RID
 """ObjectSetRid"""
 
 
@@ -3213,7 +3213,7 @@ class ObjectSetStreamSubscribeRequests(core.ModelBase):
     requests: typing.List[ObjectSetStreamSubscribeRequest]
 
 
-ObjectSetSubscribeResponse = typing_extensions.Annotated[
+ObjectSetSubscribeResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["QosError", "SubscriptionSuccess", "SubscriptionError"],
     pydantic.Field(discriminator="type"),
 ]
@@ -3242,7 +3242,7 @@ class ObjectSetUnionType(core.ModelBase):
     type: typing.Literal["union"] = "union"
 
 
-ObjectSetUpdate = typing_extensions.Annotated[
+ObjectSetUpdate: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ReferenceUpdate", "ObjectUpdate"], pydantic.Field(discriminator="type")
 ]
 """ObjectSetUpdate"""
@@ -3270,7 +3270,7 @@ class ObjectSetWithPropertiesType(core.ModelBase):
     type: typing.Literal["withProperties"] = "withProperties"
 
 
-ObjectState = typing.Literal["ADDED_OR_UPDATED", "REMOVED"]
+ObjectState: typing_extensions.TypeAlias = typing.Literal["ADDED_OR_UPDATED", "REMOVED"]
 """
 Represents the state of the object within the object set. ADDED_OR_UPDATED indicates that the object was 
 added to the set or the object has updated and was previously in the set. REMOVED indicates that the object 
@@ -3279,7 +3279,7 @@ definition.
 """
 
 
-ObjectTypeApiName = str
+ObjectTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the
 `List object types` endpoint or check the **Ontology Manager**.
@@ -3346,7 +3346,7 @@ class ObjectTypeFullMetadata(core.ModelBase):
     """
 
 
-ObjectTypeId = str
+ObjectTypeId: typing_extensions.TypeAlias = str
 """The unique identifier (ID) for an object type. This can be viewed in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/)."""
 
 
@@ -3371,7 +3371,7 @@ class ObjectTypeLinkTypeApiNameMapping(core.ModelBase):
     """The list of link type API names scoped by the object type."""
 
 
-ObjectTypeRid = core.RID
+ObjectTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an object type, useful for interacting with other Foundry APIs."""
 
 
@@ -3397,7 +3397,7 @@ class ObjectTypeV2(core.ModelBase):
     visibility: typing.Optional[ObjectTypeVisibility] = None
 
 
-ObjectTypeVisibility = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
+ObjectTypeVisibility: typing_extensions.TypeAlias = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
 """The suggested visibility of the object type."""
 
 
@@ -3419,7 +3419,7 @@ class OneOfConstraint(core.ModelBase):
     type: typing.Literal["oneOf"] = "oneOf"
 
 
-OntologyApiName = str
+OntologyApiName: typing_extensions.TypeAlias = str
 """OntologyApiName"""
 
 
@@ -3437,7 +3437,7 @@ class OntologyBaseBranch(core.ModelBase):
     type: typing.Literal["branch"] = "branch"
 
 
-OntologyDataType = typing_extensions.Annotated[
+OntologyDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyStructType",
@@ -3481,7 +3481,7 @@ class OntologyFullMetadata(core.ModelBase):
     value_types: typing.Dict[ValueTypeApiName, OntologyValueType] = pydantic.Field(alias=str("valueTypes"))  # type: ignore[literal-required]
 
 
-OntologyIdentifier = str
+OntologyIdentifier: typing_extensions.TypeAlias = str
 """
 The API name or RID of the Ontology. To find the API name or RID, use the **List Ontologies** endpoint or
 check the **Ontology Manager**.
@@ -3531,7 +3531,7 @@ class OntologyObjectArrayTypeReducer(core.ModelBase):
     field: typing.Optional[StructFieldApiName] = None
 
 
-OntologyObjectArrayTypeReducerSortDirection = typing.Literal[
+OntologyObjectArrayTypeReducerSortDirection: typing_extensions.TypeAlias = typing.Literal[
     "ASCENDING_NULLS_LAST", "DESCENDING_NULLS_LAST"
 ]
 """OntologyObjectArrayTypeReducerSortDirection"""
@@ -3559,18 +3559,18 @@ class OntologyObjectTypeReferenceType(core.ModelBase):
     type: typing.Literal["objectType"] = "objectType"
 
 
-OntologyObjectV2 = typing.Dict["PropertyApiName", "PropertyValue"]
+OntologyObjectV2: typing_extensions.TypeAlias = typing.Dict["PropertyApiName", "PropertyValue"]
 """Represents an object in the Ontology."""
 
 
-OntologyRid = core.RID
+OntologyRid: typing_extensions.TypeAlias = core.RID
 """
 The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the
 `List ontologies` endpoint or check the **Ontology Manager**.
 """
 
 
-OntologyScenarioRid = core.RID
+OntologyScenarioRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an ontology scenario."""
 
 
@@ -3596,7 +3596,7 @@ class OntologyStructType(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-OntologyTransactionId = str
+OntologyTransactionId: typing_extensions.TypeAlias = str
 """The ID identifying a transaction."""
 
 
@@ -3629,7 +3629,7 @@ class OrQueryV2(core.ModelBase):
     type: typing.Literal["or"] = "or"
 
 
-OrderBy = str
+OrderBy: typing_extensions.TypeAlias = str
 """
 A command representing the list of properties to order by. Properties should be delimited by commas and
 prefixed by `p` or `properties`. The format expected format is
@@ -3644,11 +3644,11 @@ You may also use the shorthand `p` instead of `properties` such as `orderBy=p.la
 """
 
 
-OrderByDirection = typing.Literal["ASC", "DESC"]
+OrderByDirection: typing_extensions.TypeAlias = typing.Literal["ASC", "DESC"]
 """OrderByDirection"""
 
 
-ParameterEvaluatedConstraint = typing_extensions.Annotated[
+ParameterEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
         "OneOfConstraint",
@@ -3694,7 +3694,7 @@ class ParameterEvaluationResult(core.ModelBase):
     """Represents whether the parameter is a required input to the action."""
 
 
-ParameterId = str
+ParameterId: typing_extensions.TypeAlias = str
 """
 The unique identifier of the parameter. Parameters are used as inputs when an action or query is applied.
 Parameters can be viewed and managed in the **Ontology Manager**.
@@ -3716,7 +3716,7 @@ class ParameterOption(core.ModelBase):
     """An allowed configured value for a parameter within an action."""
 
 
-Plaintext = str
+Plaintext: typing_extensions.TypeAlias = str
 """Plaintext"""
 
 
@@ -3740,7 +3740,7 @@ class PreciseDuration(core.ModelBase):
     type: typing.Literal["duration"] = "duration"
 
 
-PreciseTimeUnit = typing.Literal["NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS"]
+PreciseTimeUnit: typing_extensions.TypeAlias = typing.Literal["NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS"]
 """The unit of a fixed-width duration. Each day is 24 hours and each week is 7 days."""
 
 
@@ -3760,11 +3760,11 @@ class PrimaryKeyPropertySelector(core.ModelBase):
     type: typing.Literal["primaryKeyProperty"] = "primaryKeyProperty"
 
 
-PrimaryKeyValue = typing.Any
+PrimaryKeyValue: typing_extensions.TypeAlias = typing.Any
 """Represents the primary key value that is used as a unique identifier for an object."""
 
 
-PrimaryKeyValueV2 = typing_extensions.Annotated[
+PrimaryKeyValueV2: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DateValue",
         "StringValue",
@@ -3779,7 +3779,7 @@ PrimaryKeyValueV2 = typing_extensions.Annotated[
 """PrimaryKeyValueV2"""
 
 
-PropertyApiName = str
+PropertyApiName: typing_extensions.TypeAlias = str
 """
 The name of the property in the API. To find the API name for your property, use the `Get object type`
 endpoint or check the **Ontology Manager**.
@@ -3812,7 +3812,7 @@ class PropertyDateFormattingRule(core.ModelBase):
     type: typing.Literal["date"] = "date"
 
 
-PropertyFilter = str
+PropertyFilter: typing_extensions.TypeAlias = str
 """
 Represents a filter used on properties.
 
@@ -3842,14 +3842,14 @@ The following are a list of supported property filters:
 """
 
 
-PropertyId = str
+PropertyId: typing_extensions.TypeAlias = str
 """
 The immutable ID of a property. Property IDs are only used to identify properties in the **Ontology Manager**
 application and assign them API names. In every other case, API names should be used instead of property IDs.
 """
 
 
-PropertyIdentifier = typing_extensions.Annotated[
+PropertyIdentifier: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "PropertyApiNameSelector",
         "StructFieldSelector",
@@ -3876,7 +3876,7 @@ class PropertyKnownTypeFormattingRule(core.ModelBase):
     type: typing.Literal["knownType"] = "knownType"
 
 
-PropertyLoadLevel = typing_extensions.Annotated[
+PropertyLoadLevel: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ApplyReducersAndExtractMainValueLoadLevel",
         "ApplyReducersLoadLevel",
@@ -3909,7 +3909,7 @@ class PropertyNumberFormattingRule(core.ModelBase):
     type: typing.Literal["number"] = "number"
 
 
-PropertyNumberFormattingRuleType = typing_extensions.Annotated[
+PropertyNumberFormattingRuleType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "NumberFormatStandard",
         "NumberFormatDuration",
@@ -3926,7 +3926,7 @@ PropertyNumberFormattingRuleType = typing_extensions.Annotated[
 """PropertyNumberFormattingRuleType"""
 
 
-PropertyOrStructFieldOfPropertyImplementation = typing_extensions.Annotated[
+PropertyOrStructFieldOfPropertyImplementation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StructFieldOfPropertyImplementation", "PropertyImplementation"],
     pydantic.Field(discriminator="type"),
 ]
@@ -3939,7 +3939,7 @@ class PropertySecurities(core.ModelBase):
     disjunction: typing.List[PropertySecurity]
 
 
-PropertySecurity = typing_extensions.Annotated[
+PropertySecurity: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PropertyMarkingSummary", "UnsupportedPolicy", "ErrorComputingSecurity"],
     pydantic.Field(discriminator="type"),
 ]
@@ -3954,7 +3954,7 @@ class PropertyTimestampFormattingRule(core.ModelBase):
     type: typing.Literal["timestamp"] = "timestamp"
 
 
-PropertyTypeApiName = str
+PropertyTypeApiName: typing_extensions.TypeAlias = str
 """PropertyTypeApiName"""
 
 
@@ -3967,17 +3967,17 @@ class PropertyTypeReference(core.ModelBase):
     type: typing.Literal["propertyType"] = "propertyType"
 
 
-PropertyTypeReferenceOrStringConstant = typing_extensions.Annotated[
+PropertyTypeReferenceOrStringConstant: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringConstant", "PropertyTypeReference"], pydantic.Field(discriminator="type")
 ]
 """PropertyTypeReferenceOrStringConstant"""
 
 
-PropertyTypeRid = core.RID
+PropertyTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of a property."""
 
 
-PropertyTypeStatus = typing_extensions.Annotated[
+PropertyTypeStatus: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DeprecatedPropertyTypeStatus",
         "ActivePropertyTypeStatus",
@@ -3989,7 +3989,7 @@ PropertyTypeStatus = typing_extensions.Annotated[
 """The status to indicate whether the PropertyType is either Experimental, Active, Deprecated, or Example."""
 
 
-PropertyTypeVisibility = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
+PropertyTypeVisibility: typing_extensions.TypeAlias = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
 """PropertyTypeVisibility"""
 
 
@@ -4007,7 +4007,7 @@ class PropertyV2(core.ModelBase):
     type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
-PropertyValue = typing.Any
+PropertyValue: typing_extensions.TypeAlias = typing.Any
 """
 Represents the value of a property in the following format.
 
@@ -4039,11 +4039,11 @@ Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer
 """
 
 
-PropertyValueEscapedString = str
+PropertyValueEscapedString: typing_extensions.TypeAlias = str
 """Represents the value of a property in string format. This is used in URL parameters."""
 
 
-PropertyValueFormattingRule = typing_extensions.Annotated[
+PropertyValueFormattingRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "PropertyDateFormattingRule",
         "PropertyNumberFormattingRule",
@@ -4091,7 +4091,7 @@ class QueryAggregation(core.ModelBase):
     value: typing.Any
 
 
-QueryAggregationKeyType = typing_extensions.Annotated[
+QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -4106,7 +4106,7 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationRangeSubType = typing_extensions.Annotated[
+QueryAggregationRangeSubType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
@@ -4125,14 +4125,14 @@ class QueryAggregationRangeType(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-QueryAggregationValueType = typing_extensions.Annotated[
+QueryAggregationValueType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryApiName = str
+QueryApiName: typing_extensions.TypeAlias = str
 """The name of the Query in the API."""
 
 
@@ -4143,7 +4143,7 @@ class QueryArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-QueryDataType = typing_extensions.Annotated[
+QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyInterfaceObjectType",
@@ -4184,7 +4184,7 @@ class QueryParameterV2(core.ModelBase):
     required: bool
 
 
-QueryRuntimeErrorParameter = str
+QueryRuntimeErrorParameter: typing_extensions.TypeAlias = str
 """QueryRuntimeErrorParameter"""
 
 
@@ -4284,7 +4284,7 @@ class Reason(core.ModelBase):
     type: typing.Literal["reason"] = "reason"
 
 
-ReasonType = typing.Literal["USER_CLOSED", "CHANNEL_CLOSED"]
+ReasonType: typing_extensions.TypeAlias = typing.Literal["USER_CLOSED", "CHANNEL_CLOSED"]
 """Represents the reason a subscription was closed."""
 
 
@@ -4411,21 +4411,21 @@ class RelativeTimeRange(core.ModelBase):
     type: typing.Literal["relative"] = "relative"
 
 
-RelativeTimeRelation = typing.Literal["BEFORE", "AFTER"]
+RelativeTimeRelation: typing_extensions.TypeAlias = typing.Literal["BEFORE", "AFTER"]
 """RelativeTimeRelation"""
 
 
-RelativeTimeSeriesTimeUnit = typing.Literal[
+RelativeTimeSeriesTimeUnit: typing_extensions.TypeAlias = typing.Literal[
     "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS"
 ]
 """RelativeTimeSeriesTimeUnit"""
 
 
-RelativeTimeUnit = typing.Literal["DAY", "WEEK", "MONTH", "YEAR"]
+RelativeTimeUnit: typing_extensions.TypeAlias = typing.Literal["DAY", "WEEK", "MONTH", "YEAR"]
 """Units for relative time calculations."""
 
 
-RequestId = core.UUID
+RequestId: typing_extensions.TypeAlias = core.UUID
 """Unique request id"""
 
 
@@ -4448,7 +4448,7 @@ class ResolvedInterfacePropertyType(core.ModelBase):
     """Whether each implementing object type must declare an implementation for this property."""
 
 
-ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
+ReturnEditsMode: typing_extensions.TypeAlias = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
 """If not specified, defaults to `NONE`."""
 
 
@@ -4465,19 +4465,19 @@ class RollingAggregateWindowPoints(core.ModelBase):
     type: typing.Literal["pointsCount"] = "pointsCount"
 
 
-SdkPackageName = str
+SdkPackageName: typing_extensions.TypeAlias = str
 """SdkPackageName"""
 
 
-SdkPackageRid = core.RID
+SdkPackageRid: typing_extensions.TypeAlias = core.RID
 """SdkPackageRid"""
 
 
-SdkVersion = str
+SdkVersion: typing_extensions.TypeAlias = str
 """SdkVersion"""
 
 
-SearchJsonQueryV2 = typing_extensions.Annotated[
+SearchJsonQueryV2: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "LtQueryV2",
         "DoesNotIntersectBoundingBoxQuery",
@@ -4616,7 +4616,7 @@ class SearchObjectsResponseV2(core.ModelBase):
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
 
 
-SearchOrderByType = typing.Literal["fields", "relevance"]
+SearchOrderByType: typing_extensions.TypeAlias = typing.Literal["fields", "relevance"]
 """SearchOrderByType"""
 
 
@@ -4635,7 +4635,7 @@ class SearchOrderingV2(core.ModelBase):
     """Specifies the ordering direction (can be either `asc` or `desc`)"""
 
 
-SelectedPropertyApiName = str
+SelectedPropertyApiName: typing_extensions.TypeAlias = str
 """
 By default, whenever an object is requested, all of its properties are returned, except for properties of the 
 following types:
@@ -4752,7 +4752,7 @@ class SelectedPropertyMinAggregation(core.ModelBase):
     type: typing.Literal["min"] = "min"
 
 
-SelectedPropertyOperation = typing_extensions.Annotated[
+SelectedPropertyOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "SelectedPropertyApproximateDistinctAggregation",
         "SelectedPropertyMinAggregation",
@@ -4793,18 +4793,18 @@ class SharedPropertyType(core.ModelBase):
     type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
-SharedPropertyTypeApiName = str
+SharedPropertyTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the shared property type in the API in lowerCamelCase format. To find the API name for your
 shared property type, use the `List shared property types` endpoint or check the **Ontology Manager**.
 """
 
 
-SharedPropertyTypeRid = core.RID
+SharedPropertyTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an shared property type, useful for interacting with other Foundry APIs."""
 
 
-SpatialFilterMode = typing.Literal["INTERSECTS", "DISJOINT", "WITHIN", "CONTAINS"]
+SpatialFilterMode: typing_extensions.TypeAlias = typing.Literal["INTERSECTS", "DISJOINT", "WITHIN", "CONTAINS"]
 """
 The spatial relation operator for a GeoShapeV2Query. INTERSECTS matches objects that intersect the provided
 geometry, DISJOINT matches objects that do not intersect the provided geometry, WITHIN matches objects that
@@ -4832,7 +4832,7 @@ class StaticArgument(core.ModelBase):
     type: typing.Literal["staticValue"] = "staticValue"
 
 
-StreamMessage = typing_extensions.Annotated[
+StreamMessage: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ObjectSetUpdates", "RefreshObjectSet", "SubscriptionClosed", "ObjectSetSubscribeResponses"
     ],
@@ -4854,7 +4854,7 @@ class StreamTimeSeriesValuesRequest(core.ModelBase):
     range: typing.Optional[TimeRange] = None
 
 
-StreamingOutputFormat = typing.Literal["JSON", "ARROW"]
+StreamingOutputFormat: typing_extensions.TypeAlias = typing.Literal["JSON", "ARROW"]
 """
 Which format to serialize the binary stream in.
 ARROW is more efficient for streaming a large sized response.
@@ -4927,18 +4927,18 @@ class StructEvaluatedConstraint(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-StructFieldApiName = str
+StructFieldApiName: typing_extensions.TypeAlias = str
 """The name of a struct field in the Ontology."""
 
 
-StructFieldArgument = typing_extensions.Annotated[
+StructFieldArgument: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StructListParameterFieldArgument", "StructParameterFieldArgument"],
     pydantic.Field(discriminator="type"),
 ]
 """Represents an argument used for an individual struct field."""
 
 
-StructFieldEvaluatedConstraint = typing_extensions.Annotated[
+StructFieldEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "OneOfConstraint",
         "RangeConstraint",
@@ -5003,7 +5003,7 @@ class StructFieldType(core.ModelBase):
     type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
-StructFieldTypeRid = core.RID
+StructFieldTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of a struct field, useful for interacting with other Foundry APIs."""
 
 
@@ -5015,7 +5015,7 @@ class StructListParameterFieldArgument(core.ModelBase):
     type: typing.Literal["structListParameterFieldValue"] = "structListParameterFieldValue"
 
 
-StructParameterFieldApiName = str
+StructParameterFieldApiName: typing_extensions.TypeAlias = str
 """The unique identifier of the struct parameter field."""
 
 
@@ -5067,7 +5067,7 @@ class SubscriptionClosed(core.ModelBase):
     type: typing.Literal["subscriptionClosed"] = "subscriptionClosed"
 
 
-SubscriptionClosureCause = typing_extensions.Annotated[
+SubscriptionClosureCause: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["Reason", "Error"], pydantic.Field(discriminator="type")
 ]
 """SubscriptionClosureCause"""
@@ -5080,7 +5080,7 @@ class SubscriptionError(core.ModelBase):
     type: typing.Literal["error"] = "error"
 
 
-SubscriptionId = core.UUID
+SubscriptionId: typing_extensions.TypeAlias = core.UUID
 """A unique identifier used to associate subscription requests with responses."""
 
 
@@ -5143,13 +5143,13 @@ class TimeCodeFormat(core.ModelBase):
     type: typing.Literal["timecode"] = "timecode"
 
 
-TimeRange = typing_extensions.Annotated[
+TimeRange: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AbsoluteTimeRange", "RelativeTimeRange"], pydantic.Field(discriminator="type")
 ]
 """An absolute or relative range for a time series query."""
 
 
-TimeSeriesAggregationMethod = typing.Literal[
+TimeSeriesAggregationMethod: typing_extensions.TypeAlias = typing.Literal[
     "SUM",
     "MEAN",
     "STANDARD_DEVIATION",
@@ -5165,7 +5165,7 @@ TimeSeriesAggregationMethod = typing.Literal[
 """The aggregation function to use for aggregating time series data."""
 
 
-TimeSeriesAggregationStrategy = typing_extensions.Annotated[
+TimeSeriesAggregationStrategy: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "TimeSeriesRollingAggregate", "TimeSeriesPeriodicAggregate", "TimeSeriesCumulativeAggregate"
     ],
@@ -5235,7 +5235,7 @@ class TimeSeriesRollingAggregate(core.ModelBase):
     type: typing.Literal["rolling"] = "rolling"
 
 
-TimeSeriesRollingAggregateWindow = typing_extensions.Annotated[
+TimeSeriesRollingAggregateWindow: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PreciseDuration", "RollingAggregateWindowPoints"],
     pydantic.Field(discriminator="type"),
 ]
@@ -5249,11 +5249,11 @@ in time series analysis.
 """
 
 
-TimeSeriesWindowType = typing.Literal["START", "END"]
+TimeSeriesWindowType: typing_extensions.TypeAlias = typing.Literal["START", "END"]
 """TimeSeriesWindowType"""
 
 
-TimeUnit = typing.Literal[
+TimeUnit: typing_extensions.TypeAlias = typing.Literal[
     "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS", "QUARTERS"
 ]
 """TimeUnit"""
@@ -5282,7 +5282,7 @@ class TitlePropertySelector(core.ModelBase):
     type: typing.Literal["titleProperty"] = "titleProperty"
 
 
-TransactionEdit = typing_extensions.Annotated[
+TransactionEdit: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ModifyObjectEdit", "DeleteObjectEdit", "AddObjectEdit", "DeleteLinkEdit", "AddLinkEdit"
     ],
@@ -5309,7 +5309,7 @@ class TypeClass(core.ModelBase):
     """The value of the type class."""
 
 
-TypeReferenceIdentifier = str
+TypeReferenceIdentifier: typing_extensions.TypeAlias = str
 """
 The unique identifier of a type reference. This identifier is used to look up the
 type definition in the `typeReferences` map of the enclosing Query.
@@ -5337,11 +5337,11 @@ class UniqueIdentifierArgument(core.ModelBase):
     type: typing.Literal["uniqueIdentifier"] = "uniqueIdentifier"
 
 
-UniqueIdentifierLinkId = core.UUID
+UniqueIdentifierLinkId: typing_extensions.TypeAlias = core.UUID
 """A reference to a UniqueIdentifierArgument linkId defined for this action type."""
 
 
-UniqueIdentifierValue = core.UUID
+UniqueIdentifierValue: typing_extensions.TypeAlias = core.UUID
 """
 An override value to be used for a UniqueIdentifier action parameter, instead of 
 the value being automatically generated.
@@ -5368,11 +5368,11 @@ class ValidateActionResponseV2(core.ModelBase):
     parameters: typing.Dict[ParameterId, ParameterEvaluationResult]
 
 
-ValidationResult = typing.Literal["VALID", "INVALID"]
+ValidationResult: typing_extensions.TypeAlias = typing.Literal["VALID", "INVALID"]
 """Represents the state of a validation."""
 
 
-ValueType = str
+ValueType: typing_extensions.TypeAlias = str
 """
 A string indicating the type of each data value. Note that these types can be nested, for example an array of
 structs.
@@ -5400,7 +5400,7 @@ structs.
 """
 
 
-ValueTypeApiName = str
+ValueTypeApiName: typing_extensions.TypeAlias = str
 """The name of the value type in the API in camelCase format."""
 
 
@@ -5411,7 +5411,7 @@ class ValueTypeArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-ValueTypeConstraint = typing_extensions.Annotated[
+ValueTypeConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructConstraint",
         "RegexConstraint",
@@ -5434,7 +5434,7 @@ class ValueTypeDecimalType(core.ModelBase):
     type: typing.Literal["decimal"] = "decimal"
 
 
-ValueTypeFieldType = typing_extensions.Annotated[
+ValueTypeFieldType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "ValueTypeStructType",
@@ -5481,11 +5481,11 @@ class ValueTypeReferenceType(core.ModelBase):
     type: typing.Literal["reference"] = "reference"
 
 
-ValueTypeRid = core.RID
+ValueTypeRid: typing_extensions.TypeAlias = core.RID
 """ValueTypeRid"""
 
 
-ValueTypeStatus = typing.Literal["ACTIVE", "DEPRECATED"]
+ValueTypeStatus: typing_extensions.TypeAlias = typing.Literal["ACTIVE", "DEPRECATED"]
 """ValueTypeStatus"""
 
 
@@ -5510,7 +5510,7 @@ class ValueTypeUnionType(core.ModelBase):
     type: typing.Literal["union"] = "union"
 
 
-VersionedQueryTypeApiName = str
+VersionedQueryTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the Query in the API and an optional version identifier separated by a colon.
 If the API name contains a colon, then a version identifier of either "latest" or a semantic version must
@@ -5572,136 +5572,136 @@ class WithinPolygonQuery(core.ModelBase):
     type: typing.Literal["withinPolygon"] = "withinPolygon"
 
 
-ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
+ArrayEntryEvaluatedConstraint: typing_extensions.TypeAlias = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-CenterPointTypes = geo_models.GeoPoint
+CenterPointTypes: typing_extensions.TypeAlias = geo_models.GeoPoint
 """CenterPointTypes"""
 
 
-Icon = BlueprintIcon
+Icon: typing_extensions.TypeAlias = BlueprintIcon
 """A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
 
 
-MethodObjectSet = ObjectSet
+MethodObjectSet: typing_extensions.TypeAlias = ObjectSet
 """MethodObjectSet"""
 
 
-OntologyBase = OntologyBaseBranch
+OntologyBase: typing_extensions.TypeAlias = OntologyBaseBranch
 """The base used to initialize a scenario."""
 
 
-PolygonValue = geo_models.Polygon
+PolygonValue: typing_extensions.TypeAlias = geo_models.Polygon
 """PolygonValue"""
 
 
-ReferenceValue = GeotimeSeriesValue
+ReferenceValue: typing_extensions.TypeAlias = GeotimeSeriesValue
 """Resolved data values pointed to by a reference."""
 
 
-RelativeDateRangeBound = RelativePointInTime
+RelativeDateRangeBound: typing_extensions.TypeAlias = RelativePointInTime
 """Specifies a bound for a relative date range query."""
 
 
-WithinBoundingBoxPoint = geo_models.GeoPoint
+WithinBoundingBoxPoint: typing_extensions.TypeAlias = geo_models.GeoPoint
 """WithinBoundingBoxPoint"""
 
 
-ActionLogicRule = core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
-ActionParameterType = core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
-ActionResults = core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
-AggregationGroupByV2 = core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
-AggregationV2 = core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
-AttachmentMetadataResponse = core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
-BatchActionObjectEdit = core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
-BatchActionResults = core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
-ConjunctiveMarkingSummary = core.resolve_forward_references(ConjunctiveMarkingSummary, globalns=globals(), localns=locals())
-ContainerConjunctiveMarkingSummary = core.resolve_forward_references(
+globals()['ActionLogicRule'] = core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
+globals()['ActionParameterType'] = core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
+globals()['ActionResults'] = core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
+globals()['AggregationGroupByV2'] = core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
+globals()['AggregationV2'] = core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
+globals()['AttachmentMetadataResponse'] = core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
+globals()['BatchActionObjectEdit'] = core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
+globals()['BatchActionResults'] = core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
+globals()['ConjunctiveMarkingSummary'] = core.resolve_forward_references(ConjunctiveMarkingSummary, globalns=globals(), localns=locals())
+globals()['ContainerConjunctiveMarkingSummary'] = core.resolve_forward_references(
     ContainerConjunctiveMarkingSummary, globalns=globals(), localns=locals()
 )
-ContainerDisjunctiveMarkingSummary = core.resolve_forward_references(
+globals()['ContainerDisjunctiveMarkingSummary'] = core.resolve_forward_references(
     ContainerDisjunctiveMarkingSummary, globalns=globals(), localns=locals()
 )
-DatetimeFormat = core.resolve_forward_references(DatetimeFormat, globalns=globals(), localns=locals())
-DatetimeTimezone = core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=locals())
-DerivedPropertyDefinition = core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
-DisjunctiveMarkingSummary = core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), localns=locals())
-DurationFormatStyle = core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
-EditHistoryEdit = core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
-EditsHistoryFilter = core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
-GeoShapeV2Geometry = core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
-GeotemporalSeriesEntry = core.resolve_forward_references(GeotemporalSeriesEntry, globalns=globals(), localns=locals())
-InterfaceLinkTypeLinkedEntityApiName = core.resolve_forward_references(
+globals()['DatetimeFormat'] = core.resolve_forward_references(DatetimeFormat, globalns=globals(), localns=locals())
+globals()['DatetimeTimezone'] = core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=locals())
+globals()['DerivedPropertyDefinition'] = core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
+globals()['DisjunctiveMarkingSummary'] = core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), localns=locals())
+globals()['DurationFormatStyle'] = core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
+globals()['EditHistoryEdit'] = core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
+globals()['EditsHistoryFilter'] = core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
+globals()['GeoShapeV2Geometry'] = core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
+globals()['GeotemporalSeriesEntry'] = core.resolve_forward_references(GeotemporalSeriesEntry, globalns=globals(), localns=locals())
+globals()['InterfaceLinkTypeLinkedEntityApiName'] = core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
-InterfacePropertyStructImplementationMapping = core.resolve_forward_references(
+globals()['InterfacePropertyStructImplementationMapping'] = core.resolve_forward_references(
     InterfacePropertyStructImplementationMapping, globalns=globals(), localns=locals()
 )
-InterfacePropertyType = core.resolve_forward_references(InterfacePropertyType, globalns=globals(), localns=locals())
-InterfacePropertyTypeImplementation = core.resolve_forward_references(
+globals()['InterfacePropertyType'] = core.resolve_forward_references(InterfacePropertyType, globalns=globals(), localns=locals())
+globals()['InterfacePropertyTypeImplementation'] = core.resolve_forward_references(
     InterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
 )
-InterfaceToObjectTypeMapping = core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
-InterfaceToObjectTypeMappingV2 = core.resolve_forward_references(
+globals()['InterfaceToObjectTypeMapping'] = core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
+globals()['InterfaceToObjectTypeMappingV2'] = core.resolve_forward_references(
     InterfaceToObjectTypeMappingV2, globalns=globals(), localns=locals()
 )
-InterfaceToObjectTypeMappings = core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
-InterfaceToObjectTypeMappingsV2 = core.resolve_forward_references(
+globals()['InterfaceToObjectTypeMappings'] = core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
+globals()['InterfaceToObjectTypeMappingsV2'] = core.resolve_forward_references(
     InterfaceToObjectTypeMappingsV2, globalns=globals(), localns=locals()
 )
-IntervalQueryRule = core.resolve_forward_references(IntervalQueryRule, globalns=globals(), localns=locals())
-LogicRule = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-LogicRuleArgument = core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
-NearestNeighborsQuery = core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
-NestedInterfacePropertyTypeImplementation = core.resolve_forward_references(
+globals()['IntervalQueryRule'] = core.resolve_forward_references(IntervalQueryRule, globalns=globals(), localns=locals())
+globals()['LogicRule'] = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+globals()['LogicRuleArgument'] = core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
+globals()['NearestNeighborsQuery'] = core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
+globals()['NestedInterfacePropertyTypeImplementation'] = core.resolve_forward_references(
     NestedInterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
 )
-ObjectEdit = core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
-ObjectPrimaryKey = core.resolve_forward_references(ObjectPrimaryKey, globalns=globals(), localns=locals())
-ObjectPrimaryKeyV2 = core.resolve_forward_references(ObjectPrimaryKeyV2, globalns=globals(), localns=locals())
-ObjectPropertyType = core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
-ObjectSet = core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
-ObjectSetSubscribeResponse = core.resolve_forward_references(ObjectSetSubscribeResponse, globalns=globals(), localns=locals())
-ObjectSetUpdate = core.resolve_forward_references(ObjectSetUpdate, globalns=globals(), localns=locals())
-OntologyDataType = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-OntologyObjectV2 = core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
-ParameterEvaluatedConstraint = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-PrimaryKeyValueV2 = core.resolve_forward_references(PrimaryKeyValueV2, globalns=globals(), localns=locals())
-PropertyIdentifier = core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
-PropertyLoadLevel = core.resolve_forward_references(PropertyLoadLevel, globalns=globals(), localns=locals())
-PropertyNumberFormattingRuleType = core.resolve_forward_references(
+globals()['ObjectEdit'] = core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
+globals()['ObjectPrimaryKey'] = core.resolve_forward_references(ObjectPrimaryKey, globalns=globals(), localns=locals())
+globals()['ObjectPrimaryKeyV2'] = core.resolve_forward_references(ObjectPrimaryKeyV2, globalns=globals(), localns=locals())
+globals()['ObjectPropertyType'] = core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
+globals()['ObjectSet'] = core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
+globals()['ObjectSetSubscribeResponse'] = core.resolve_forward_references(ObjectSetSubscribeResponse, globalns=globals(), localns=locals())
+globals()['ObjectSetUpdate'] = core.resolve_forward_references(ObjectSetUpdate, globalns=globals(), localns=locals())
+globals()['OntologyDataType'] = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
+globals()['OntologyObjectV2'] = core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
+globals()['ParameterEvaluatedConstraint'] = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
+globals()['PrimaryKeyValueV2'] = core.resolve_forward_references(PrimaryKeyValueV2, globalns=globals(), localns=locals())
+globals()['PropertyIdentifier'] = core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
+globals()['PropertyLoadLevel'] = core.resolve_forward_references(PropertyLoadLevel, globalns=globals(), localns=locals())
+globals()['PropertyNumberFormattingRuleType'] = core.resolve_forward_references(
     PropertyNumberFormattingRuleType, globalns=globals(), localns=locals()
 )
-PropertyOrStructFieldOfPropertyImplementation = core.resolve_forward_references(
+globals()['PropertyOrStructFieldOfPropertyImplementation'] = core.resolve_forward_references(
     PropertyOrStructFieldOfPropertyImplementation, globalns=globals(), localns=locals()
 )
-PropertySecurity = core.resolve_forward_references(PropertySecurity, globalns=globals(), localns=locals())
-PropertyTypeReferenceOrStringConstant = core.resolve_forward_references(
+globals()['PropertySecurity'] = core.resolve_forward_references(PropertySecurity, globalns=globals(), localns=locals())
+globals()['PropertyTypeReferenceOrStringConstant'] = core.resolve_forward_references(
     PropertyTypeReferenceOrStringConstant, globalns=globals(), localns=locals()
 )
-PropertyTypeStatus = core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
-PropertyValueFormattingRule = core.resolve_forward_references(PropertyValueFormattingRule, globalns=globals(), localns=locals())
-QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-SearchJsonQueryV2 = core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
-SelectedPropertyOperation = core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
-StreamMessage = core.resolve_forward_references(StreamMessage, globalns=globals(), localns=locals())
-StructFieldArgument = core.resolve_forward_references(StructFieldArgument, globalns=globals(), localns=locals())
-StructFieldEvaluatedConstraint = core.resolve_forward_references(
+globals()['PropertyTypeStatus'] = core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
+globals()['PropertyValueFormattingRule'] = core.resolve_forward_references(PropertyValueFormattingRule, globalns=globals(), localns=locals())
+globals()['QueryAggregationKeyType'] = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+globals()['QueryAggregationRangeSubType'] = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+globals()['QueryAggregationValueType'] = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+globals()['QueryDataType'] = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+globals()['SearchJsonQueryV2'] = core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
+globals()['SelectedPropertyOperation'] = core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
+globals()['StreamMessage'] = core.resolve_forward_references(StreamMessage, globalns=globals(), localns=locals())
+globals()['StructFieldArgument'] = core.resolve_forward_references(StructFieldArgument, globalns=globals(), localns=locals())
+globals()['StructFieldEvaluatedConstraint'] = core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
-SubscriptionClosureCause = core.resolve_forward_references(SubscriptionClosureCause, globalns=globals(), localns=locals())
-TimeRange = core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
-TimeSeriesAggregationStrategy = core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
-TimeSeriesRollingAggregateWindow = core.resolve_forward_references(
+globals()['SubscriptionClosureCause'] = core.resolve_forward_references(SubscriptionClosureCause, globalns=globals(), localns=locals())
+globals()['TimeRange'] = core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
+globals()['TimeSeriesAggregationStrategy'] = core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
+globals()['TimeSeriesRollingAggregateWindow'] = core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
 )
-TransactionEdit = core.resolve_forward_references(TransactionEdit, globalns=globals(), localns=locals())
-ValueTypeConstraint = core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-ValueTypeFieldType = core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
+globals()['TransactionEdit'] = core.resolve_forward_references(TransactionEdit, globalns=globals(), localns=locals())
+globals()['ValueTypeConstraint'] = core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
+globals()['ValueTypeFieldType'] = core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbsoluteTimeRange",

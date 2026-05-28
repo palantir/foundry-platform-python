@@ -25,7 +25,7 @@ from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
-AbortOnFailure = bool
+AbortOnFailure: typing_extensions.TypeAlias = bool
 """
 If any job in the build is unsuccessful, immediately finish the
 build by cancelling all other jobs.
@@ -88,18 +88,18 @@ class Build(core.ModelBase):
     """Schedule RID of the Schedule that triggered this build. If a user triggered the build, Schedule RID will be empty."""
 
 
-BuildStatus = typing.Literal["RUNNING", "SUCCEEDED", "FAILED", "CANCELED"]
+BuildStatus: typing_extensions.TypeAlias = typing.Literal["RUNNING", "SUCCEEDED", "FAILED", "CANCELED"]
 """The status of the build."""
 
 
-BuildTarget = typing_extensions.Annotated[
+BuildTarget: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["UpstreamTarget", "ManualTarget", "ConnectingTarget"],
     pydantic.Field(discriminator="type"),
 ]
 """The targets of the build."""
 
 
-BuildableRid = core.RID
+BuildableRid: typing_extensions.TypeAlias = core.RID
 """
 The Resource Identifier (RID) of a Resource that can be built. For example, this is a Dataset RID, Media Set
 RID or Restricted View RID.
@@ -173,7 +173,7 @@ class CreateScheduleRequestAction(core.ModelBase):
     target: CreateScheduleRequestBuildTarget
 
 
-CreateScheduleRequestBuildTarget = typing_extensions.Annotated[
+CreateScheduleRequestBuildTarget: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "CreateScheduleRequestUpstreamTarget",
         "CreateScheduleRequestManualTarget",
@@ -213,7 +213,7 @@ class CreateScheduleRequestProjectScope(core.ModelBase):
     type: typing.Literal["project"] = "project"
 
 
-CreateScheduleRequestScopeMode = typing_extensions.Annotated[
+CreateScheduleRequestScopeMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["CreateScheduleRequestProjectScope", "CreateScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
@@ -238,7 +238,7 @@ class CreateScheduleRequestUserScope(core.ModelBase):
     type: typing.Literal["user"] = "user"
 
 
-CronExpression = str
+CronExpression: typing_extensions.TypeAlias = str
 """
 A standard CRON expression with minute, hour, day, month
 and day of week.
@@ -264,14 +264,14 @@ class DatasetUpdatedTrigger(core.ModelBase):
     type: typing.Literal["datasetUpdated"] = "datasetUpdated"
 
 
-FallbackBranches = typing.List[core_models.BranchName]
+FallbackBranches: typing_extensions.TypeAlias = typing.List[core_models.BranchName]
 """
 The branches to retrieve JobSpecs from if no JobSpec is found on the
 target branch.
 """
 
 
-ForceBuild = bool
+ForceBuild: typing_extensions.TypeAlias = bool
 """Whether to ignore staleness information when running the build."""
 
 
@@ -339,18 +339,18 @@ class Job(core.ModelBase):
     """
 
 
-JobOutput = typing_extensions.Annotated[
+JobOutput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["DatasetJobOutput", "TransactionalMediaSetJobOutput"],
     pydantic.Field(discriminator="type"),
 ]
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
 
 
-JobStartedTime = core.AwareDatetime
+JobStartedTime: typing_extensions.TypeAlias = core.AwareDatetime
 """The time this job started waiting for the dependencies to be resolved."""
 
 
-JobStatus = typing.Literal["WAITING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELED", "DID_NOT_RUN"]
+JobStatus: typing_extensions.TypeAlias = typing.Literal["WAITING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELED", "DID_NOT_RUN"]
 """The status of the job."""
 
 
@@ -416,7 +416,7 @@ class NewLogicTrigger(core.ModelBase):
     type: typing.Literal["newLogic"] = "newLogic"
 
 
-NotificationsEnabled = bool
+NotificationsEnabled: typing_extensions.TypeAlias = bool
 """
 Whether to receive a notification at the end of the build.
 The notification will be sent to the user that has most recently edited the schedule.
@@ -468,7 +468,7 @@ class ReplaceScheduleRequestAction(core.ModelBase):
     target: ReplaceScheduleRequestBuildTarget
 
 
-ReplaceScheduleRequestBuildTarget = typing_extensions.Annotated[
+ReplaceScheduleRequestBuildTarget: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ReplaceScheduleRequestUpstreamTarget",
         "ReplaceScheduleRequestManualTarget",
@@ -508,7 +508,7 @@ class ReplaceScheduleRequestProjectScope(core.ModelBase):
     type: typing.Literal["project"] = "project"
 
 
-ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
+ReplaceScheduleRequestScopeMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ReplaceScheduleRequestProjectScope", "ReplaceScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
@@ -533,7 +533,7 @@ class ReplaceScheduleRequestUserScope(core.ModelBase):
     type: typing.Literal["user"] = "user"
 
 
-RetryCount = int
+RetryCount: typing_extensions.TypeAlias = int
 """
 The number of retry attempts for failed Jobs within the Build. A Job's failure is not considered final until
 all retries have been attempted or an error occurs indicating that retries cannot be performed. Be aware,
@@ -565,7 +565,7 @@ class Schedule(core.ModelBase):
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
 
 
-SchedulePaused = bool
+SchedulePaused: typing_extensions.TypeAlias = bool
 """SchedulePaused"""
 
 
@@ -601,7 +601,7 @@ class ScheduleRunError(core.ModelBase):
     type: typing.Literal["error"] = "error"
 
 
-ScheduleRunErrorName = typing.Literal[
+ScheduleRunErrorName: typing_extensions.TypeAlias = typing.Literal[
     "TARGETRESOLUTIONFAILURE",
     "CYCLICDEPENDENCY",
     "INCOMPATIBLETARGETS",
@@ -619,7 +619,7 @@ class ScheduleRunIgnored(core.ModelBase):
     type: typing.Literal["ignored"] = "ignored"
 
 
-ScheduleRunResult = typing_extensions.Annotated[
+ScheduleRunResult: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ScheduleRunIgnored", "ScheduleRunSubmitted", "ScheduleRunError"],
     pydantic.Field(discriminator="type"),
 ]
@@ -629,7 +629,7 @@ ignored if all targets are up-to-date or error.
 """
 
 
-ScheduleRunRid = core.RID
+ScheduleRunRid: typing_extensions.TypeAlias = core.RID
 """The RID of a schedule run"""
 
 
@@ -668,11 +668,11 @@ class ScheduleVersion(core.ModelBase):
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
 
 
-ScheduleVersionRid = core.RID
+ScheduleVersionRid: typing_extensions.TypeAlias = core.RID
 """The RID of a schedule version"""
 
 
-ScopeMode = typing_extensions.Annotated[
+ScopeMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ProjectScope", "UserScope"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
@@ -693,11 +693,11 @@ class SearchBuildsEqualsFilter(core.ModelBase):
     type: typing.Literal["eq"] = "eq"
 
 
-SearchBuildsEqualsFilterField = typing.Literal["CREATED_BY", "BRANCH_NAME", "STATUS", "RID"]
+SearchBuildsEqualsFilterField: typing_extensions.TypeAlias = typing.Literal["CREATED_BY", "BRANCH_NAME", "STATUS", "RID"]
 """SearchBuildsEqualsFilterField"""
 
 
-SearchBuildsFilter = typing_extensions.Annotated[
+SearchBuildsFilter: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilter",
         "SearchBuildsOrFilter",
@@ -719,7 +719,7 @@ class SearchBuildsGteFilter(core.ModelBase):
     type: typing.Literal["gte"] = "gte"
 
 
-SearchBuildsGteFilterField = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
+SearchBuildsGteFilterField: typing_extensions.TypeAlias = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
 """SearchBuildsGteFilterField"""
 
 
@@ -731,7 +731,7 @@ class SearchBuildsLtFilter(core.ModelBase):
     type: typing.Literal["lt"] = "lt"
 
 
-SearchBuildsLtFilterField = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
+SearchBuildsLtFilterField: typing_extensions.TypeAlias = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
 """SearchBuildsLtFilterField"""
 
 
@@ -755,7 +755,7 @@ class SearchBuildsOrderBy(core.ModelBase):
     fields: typing.List[SearchBuildsOrderByItem]
 
 
-SearchBuildsOrderByField = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
+SearchBuildsOrderByField: typing_extensions.TypeAlias = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
 """SearchBuildsOrderByField"""
 
 
@@ -810,7 +810,7 @@ class TransactionalMediaSetJobOutput(core.ModelBase):
     type: typing.Literal["transactionalMediaSetJobOutput"] = "transactionalMediaSetJobOutput"
 
 
-Trigger = typing_extensions.Annotated[
+Trigger: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "JobSucceededTrigger",
         "OrTrigger",
@@ -849,29 +849,29 @@ class UserScope(core.ModelBase):
     type: typing.Literal["user"] = "user"
 
 
-RetryBackoffDuration = core_models.Duration
+RetryBackoffDuration: typing_extensions.TypeAlias = core_models.Duration
 """The duration to wait before retrying after a Job fails."""
 
 
-BuildTarget = core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
-CreateScheduleRequestBuildTarget = core.resolve_forward_references(
+globals()['BuildTarget'] = core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
+globals()['CreateScheduleRequestBuildTarget'] = core.resolve_forward_references(
     CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
 )
-CreateScheduleRequestScopeMode = core.resolve_forward_references(
+globals()['CreateScheduleRequestScopeMode'] = core.resolve_forward_references(
     CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
 )
-FallbackBranches = core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
-JobOutput = core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
-ReplaceScheduleRequestBuildTarget = core.resolve_forward_references(
+globals()['FallbackBranches'] = core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
+globals()['JobOutput'] = core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
+globals()['ReplaceScheduleRequestBuildTarget'] = core.resolve_forward_references(
     ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
 )
-ReplaceScheduleRequestScopeMode = core.resolve_forward_references(
+globals()['ReplaceScheduleRequestScopeMode'] = core.resolve_forward_references(
     ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
 )
-ScheduleRunResult = core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
-ScopeMode = core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
-SearchBuildsFilter = core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
-Trigger = core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
+globals()['ScheduleRunResult'] = core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
+globals()['ScopeMode'] = core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
+globals()['SearchBuildsFilter'] = core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
+globals()['Trigger'] = core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbortOnFailure",

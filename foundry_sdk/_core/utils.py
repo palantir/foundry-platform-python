@@ -27,7 +27,7 @@ from typing import TypeVar
 import pydantic
 from typing_extensions import Annotated
 
-RID = Annotated[
+RID: typing.TypeAlias = Annotated[
     str,
     pydantic.StringConstraints(
         pattern=r"^ri\.[a-z][a-z0-9-]*\.([a-z0-9][a-z0-9\-]*)?\.[a-z][a-z0-9-]*\.[a-zA-Z0-9._-]+$",
@@ -35,7 +35,7 @@ RID = Annotated[
 ]
 
 
-UUID = Annotated[
+UUID: typing.TypeAlias = Annotated[
     str,
     pydantic.StringConstraints(
         pattern=r"^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$",
@@ -43,7 +43,7 @@ UUID = Annotated[
 ]
 
 
-Long = Annotated[
+Long: typing.TypeAlias = Annotated[
     int,
     pydantic.PlainSerializer(
         lambda value: str(value),
@@ -56,7 +56,7 @@ Long = Annotated[
 """A long integer that is serialized to a string in JSON."""
 
 
-AwareDatetime = Annotated[
+AwareDatetime: typing.TypeAlias = Annotated[
     pydantic.AwareDatetime,
     pydantic.PlainSerializer(
         lambda value: value.astimezone(timezone.utc).isoformat(),
@@ -69,7 +69,7 @@ AwareDatetime = Annotated[
 """A datetime object that enforces timezones and is always serialized to UTC."""
 
 
-Timeout = Annotated[int, pydantic.Field(gt=0)]
+Timeout: typing.TypeAlias = Annotated[int, pydantic.Field(gt=0)]
 
 
 def remove_prefixes(text: str, prefixes: List[str]):

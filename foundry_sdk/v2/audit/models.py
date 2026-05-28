@@ -18,11 +18,12 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 
-FileId = str
+FileId: typing_extensions.TypeAlias = str
 """The ID of an audit log file"""
 
 
