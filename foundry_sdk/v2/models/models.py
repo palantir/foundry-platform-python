@@ -1711,5 +1711,3 @@ __all__ = [
     "UnknownInputNameError",
     "UnsupportedTypeError",
 ]
-
-core.rebuild_pydantic_models(__name__)

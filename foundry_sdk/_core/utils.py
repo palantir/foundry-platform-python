@@ -111,33 +111,11 @@ def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> 
         for arg in typing.get_args(type_obj)  # type: ignore
     )
 
-    try:
-        setattr(type_obj, "__args__", args)
-    except AttributeError:
-        # Python 3.14+: __args__ is readonly on generic aliases; reconstruct the type
-        type_obj = typing.get_origin(type_obj)[args]
-    return type_obj
+    # Always reconstruct rather than mutating __args__ in place: on Python 3.14+
+    # setattr silently succeeds for Annotated types but typing.get_args() reads
+    # from __origin__ / __metadata__ and ignores the mutated __args__ field.
+    return typing.get_origin(type_obj)[args]
 
-
-def rebuild_pydantic_models(module_name: str) -> None:
-    """Rebuild all pydantic BaseModel subclasses defined in *module_name*.
-
-    Call this at the end of each models.py (after all resolve_forward_references
-    calls) to ensure pydantic re-evaluates field annotations with the complete
-    namespace.  This is needed in Python 3.14+ where annotation evaluation
-    during class creation may encounter names that are not yet defined.
-
-    Usage: ``core.rebuild_pydantic_models(__name__)``
-    """
-    import sys
-
-    namespace = vars(sys.modules[module_name])
-    for obj in list(namespace.values()):
-        if isinstance(obj, type) and issubclass(obj, pydantic.BaseModel):
-            try:
-                obj.model_rebuild(_types_namespace=namespace)
-            except Exception:
-                pass
 
 
 def assert_non_empty_string(value: str, name: str) -> None:

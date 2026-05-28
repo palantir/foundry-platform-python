@@ -423,5 +423,3 @@ __all__ = [
     "SucceededQueryStatus",
     "UnnamedParameterValues",
 ]
-
-core.rebuild_pydantic_models(__name__)

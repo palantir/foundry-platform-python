@@ -82,5 +82,3 @@ __all__ = [
     "VersionVersion",
     "Website",
 ]
-
-core.rebuild_pydantic_models(__name__)

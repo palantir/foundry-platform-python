@@ -806,5 +806,3 @@ __all__ = [
     "TrashStatus",
     "UsageAccountRid",
 ]
-
-core.rebuild_pydantic_models(__name__)

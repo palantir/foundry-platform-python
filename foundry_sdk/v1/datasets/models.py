@@ -141,5 +141,3 @@ __all__ = [
     "TransactionStatus",
     "TransactionType",
 ]
-
-core.rebuild_pydantic_models(__name__)

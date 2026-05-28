@@ -720,5 +720,3 @@ __all__ = [
     "UpdateSessionTitleRequest",
     "UserTextInput",
 ]
-
-core.rebuild_pydantic_models(__name__)

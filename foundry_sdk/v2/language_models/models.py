@@ -529,5 +529,3 @@ __all__ = [
     "OpenAiEmbeddingsResponse",
     "OpenAiEncodingFormat",
 ]
-
-core.rebuild_pydantic_models(__name__)

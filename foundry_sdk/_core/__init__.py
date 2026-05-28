@@ -58,5 +58,4 @@ from foundry_sdk._core.utils import AwareDatetime as AwareDatetime
 from foundry_sdk._core.utils import Long as Long
 from foundry_sdk._core.utils import Timeout as Timeout
 from foundry_sdk._core.utils import maybe_ignore_preview as maybe_ignore_preview
-from foundry_sdk._core.utils import rebuild_pydantic_models as rebuild_pydantic_models  # NOQA
 from foundry_sdk._core.utils import resolve_forward_references as resolve_forward_references  # NOQA

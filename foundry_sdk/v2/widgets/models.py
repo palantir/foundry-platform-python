@@ -324,5 +324,3 @@ __all__ = [
     "WidgetSetInputSpec",
     "WidgetSetRid",
 ]
-
-core.rebuild_pydantic_models(__name__)

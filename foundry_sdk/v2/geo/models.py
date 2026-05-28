@@ -224,5 +224,3 @@ __all__ = [
     "Polygon",
     "Position",
 ]
-
-core.rebuild_pydantic_models(__name__)

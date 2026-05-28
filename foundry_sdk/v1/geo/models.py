@@ -20,5 +20,3 @@ import pydantic
 from foundry_sdk import _core as core
 
 __all__ = []
-
-core.rebuild_pydantic_models(__name__)

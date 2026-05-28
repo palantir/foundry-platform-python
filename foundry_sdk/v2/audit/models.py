@@ -44,5 +44,3 @@ __all__ = [
     "ListLogFilesResponse",
     "LogFile",
 ]
-
-core.rebuild_pydantic_models(__name__)

@@ -980,5 +980,3 @@ __all__ = [
     "SearchRecordsRequest",
     "SortDirection",
 ]
-
-core.rebuild_pydantic_models(__name__)

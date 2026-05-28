@@ -2260,5 +2260,3 @@ __all__ = [
     "VirtualTableConfig",
     "WorkflowIdentityFederation",
 ]
-
-core.rebuild_pydantic_models(__name__)

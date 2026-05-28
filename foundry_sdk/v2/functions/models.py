@@ -803,5 +803,3 @@ __all__ = [
     "ValueTypeVersionId",
     "VersionId",
 ]
-
-core.rebuild_pydantic_models(__name__)

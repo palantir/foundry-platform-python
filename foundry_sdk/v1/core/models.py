@@ -315,5 +315,3 @@ __all__ = [
     "UnsupportedTypeParamValue",
     "VoidType",
 ]
-
-core.rebuild_pydantic_models(__name__)
