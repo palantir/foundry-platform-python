@@ -451,12 +451,12 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(PartitionOffsets, globalns=globals(), localns=locals())
-core.resolve_forward_references(PartitionRecords, globalns=globals(), localns=locals())
-core.resolve_forward_references(ReadPosition, globalns=globals(), localns=locals())
-core.resolve_forward_references(Record, globalns=globals(), localns=locals())
+GetEndOffsetsResponse = core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())
+GetRecordsResponse = core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())
+PartitionOffsets = core.resolve_forward_references(PartitionOffsets, globalns=globals(), localns=locals())
+PartitionRecords = core.resolve_forward_references(PartitionRecords, globalns=globals(), localns=locals())
+ReadPosition = core.resolve_forward_references(ReadPosition, globalns=globals(), localns=locals())
+Record = core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
     "CommitSubscriberOffsetsRequest",

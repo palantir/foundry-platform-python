@@ -1570,17 +1570,17 @@ ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+Aggregation = core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
+AggregationGroupBy = core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())
+LogicRule = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+OntologyDataType = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
+ParameterEvaluatedConstraint = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
+QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+SearchJsonQuery = core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())
+StructFieldEvaluatedConstraint = core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
 

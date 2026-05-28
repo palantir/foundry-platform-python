@@ -466,13 +466,13 @@ AnthropicToolResultContent = AnthropicText
 """AnthropicToolResultContent"""
 
 
-core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())
-core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
-core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())
+AnthropicCompletionContent = core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())
+AnthropicDocumentSource = core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())
+AnthropicMessageContent = core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())
+AnthropicThinkingConfig = core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())
+AnthropicToolChoice = core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())
+JsonSchema = core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
+OpenAiEmbeddingInput = core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())
 
 __all__ = [
     "AnthropicAnyToolChoice",

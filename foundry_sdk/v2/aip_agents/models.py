@@ -651,13 +651,13 @@ class UserTextInput(core.ModelBase):
     """The user message text."""
 
 
-core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())
+InputContext = core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
+ParameterType = core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
+ParameterValue = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
+ParameterValueUpdate = core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
+ToolCallOutput = core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())
+ToolInputValue = core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())
+ToolOutputValue = core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())
 
 __all__ = [
     "Agent",

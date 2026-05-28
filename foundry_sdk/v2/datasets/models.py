@@ -418,8 +418,8 @@ PrimaryKeyResolutionStrategy = PrimaryKeyLatestWinsResolutionStrategy
 """PrimaryKeyResolutionStrategy"""
 
 
-core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
+GetDatasetJobsQuery = core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())
+ViewPrimaryKeyResolution = core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
 
 __all__ = [
     "AddBackingDatasetsRequest",

@@ -853,25 +853,25 @@ RetryBackoffDuration = core_models.Duration
 """The duration to wait before retrying after a Job fails."""
 
 
-core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+BuildTarget = core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
+CreateScheduleRequestBuildTarget = core.resolve_forward_references(
     CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+CreateScheduleRequestScopeMode = core.resolve_forward_references(
     CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
-core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+FallbackBranches = core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
+JobOutput = core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
+ReplaceScheduleRequestBuildTarget = core.resolve_forward_references(
     ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+ReplaceScheduleRequestScopeMode = core.resolve_forward_references(
     ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
-core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
-core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
+ScheduleRunResult = core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
+ScopeMode = core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
+SearchBuildsFilter = core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
+Trigger = core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbortOnFailure",

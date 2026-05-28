@@ -372,12 +372,12 @@ class UnnamedParameterValues(core.ModelBase):
     type: typing.Literal["unnamedParameterValues"] = "unnamedParameterValues"
 
 
-core.resolve_forward_references(ColumnType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterMapping, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(Parameters, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
-core.resolve_forward_references(StructElementName, globalns=globals(), localns=locals())
+ColumnType = core.resolve_forward_references(ColumnType, globalns=globals(), localns=locals())
+ParameterMapping = core.resolve_forward_references(ParameterMapping, globalns=globals(), localns=locals())
+ParameterValue = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
+Parameters = core.resolve_forward_references(Parameters, globalns=globals(), localns=locals())
+QueryStatus = core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
+StructElementName = core.resolve_forward_references(StructElementName, globalns=globals(), localns=locals())
 
 __all__ = [
     "AnyColumnType",

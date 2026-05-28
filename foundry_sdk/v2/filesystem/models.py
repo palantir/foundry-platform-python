@@ -731,10 +731,10 @@ UsageAccountRid = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-core.resolve_forward_references(AddResourceReferenceRequest, globalns=globals(), localns=locals())
-core.resolve_forward_references(ProjectResourceReferenceUnion, globalns=globals(), localns=locals())
-core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+AddResourceReferenceRequest = core.resolve_forward_references(AddResourceReferenceRequest, globalns=globals(), localns=locals())
+ProjectResourceReferenceUnion = core.resolve_forward_references(ProjectResourceReferenceUnion, globalns=globals(), localns=locals())
+ResourceRolePrincipal = core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
+ResourceRolePrincipalIdentifier = core.resolve_forward_references(
     ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
 )
 

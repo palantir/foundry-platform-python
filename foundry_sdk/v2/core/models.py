@@ -954,11 +954,11 @@ UpdatedBy = UserId
 """The Foundry user who last updated this resource"""
 
 
-core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
-core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
-core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
+CustomMetadata = core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
+EmbeddingModel = core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
+FieldDataType = core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
+FilterType = core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
+TimeSeriesItemType = core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
 
 __all__ = [
     "AnyType",

@@ -5608,100 +5608,100 @@ WithinBoundingBoxPoint = geo_models.GeoPoint
 """WithinBoundingBoxPoint"""
 
 
-core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
-core.resolve_forward_references(ConjunctiveMarkingSummary, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+ActionLogicRule = core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
+ActionParameterType = core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
+ActionResults = core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
+AggregationGroupByV2 = core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
+AggregationV2 = core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
+AttachmentMetadataResponse = core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
+BatchActionObjectEdit = core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
+BatchActionResults = core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
+ConjunctiveMarkingSummary = core.resolve_forward_references(ConjunctiveMarkingSummary, globalns=globals(), localns=locals())
+ContainerConjunctiveMarkingSummary = core.resolve_forward_references(
     ContainerConjunctiveMarkingSummary, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+ContainerDisjunctiveMarkingSummary = core.resolve_forward_references(
     ContainerDisjunctiveMarkingSummary, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(DatetimeFormat, globalns=globals(), localns=locals())
-core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=locals())
-core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
-core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), localns=locals())
-core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
-core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
-core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
-core.resolve_forward_references(GeotemporalSeriesEntry, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+DatetimeFormat = core.resolve_forward_references(DatetimeFormat, globalns=globals(), localns=locals())
+DatetimeTimezone = core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=locals())
+DerivedPropertyDefinition = core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
+DisjunctiveMarkingSummary = core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), localns=locals())
+DurationFormatStyle = core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
+EditHistoryEdit = core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
+EditsHistoryFilter = core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
+GeoShapeV2Geometry = core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
+GeotemporalSeriesEntry = core.resolve_forward_references(GeotemporalSeriesEntry, globalns=globals(), localns=locals())
+InterfaceLinkTypeLinkedEntityApiName = core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+InterfacePropertyStructImplementationMapping = core.resolve_forward_references(
     InterfacePropertyStructImplementationMapping, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(InterfacePropertyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+InterfacePropertyType = core.resolve_forward_references(InterfacePropertyType, globalns=globals(), localns=locals())
+InterfacePropertyTypeImplementation = core.resolve_forward_references(
     InterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+InterfaceToObjectTypeMapping = core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
+InterfaceToObjectTypeMappingV2 = core.resolve_forward_references(
     InterfaceToObjectTypeMappingV2, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+InterfaceToObjectTypeMappings = core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
+InterfaceToObjectTypeMappingsV2 = core.resolve_forward_references(
     InterfaceToObjectTypeMappingsV2, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(IntervalQueryRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
-core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+IntervalQueryRule = core.resolve_forward_references(IntervalQueryRule, globalns=globals(), localns=locals())
+LogicRule = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+LogicRuleArgument = core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
+NearestNeighborsQuery = core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
+NestedInterfacePropertyTypeImplementation = core.resolve_forward_references(
     NestedInterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectPrimaryKey, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectPrimaryKeyV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectSetSubscribeResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectSetUpdate, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(PrimaryKeyValueV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
-core.resolve_forward_references(PropertyLoadLevel, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+ObjectEdit = core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
+ObjectPrimaryKey = core.resolve_forward_references(ObjectPrimaryKey, globalns=globals(), localns=locals())
+ObjectPrimaryKeyV2 = core.resolve_forward_references(ObjectPrimaryKeyV2, globalns=globals(), localns=locals())
+ObjectPropertyType = core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
+ObjectSet = core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
+ObjectSetSubscribeResponse = core.resolve_forward_references(ObjectSetSubscribeResponse, globalns=globals(), localns=locals())
+ObjectSetUpdate = core.resolve_forward_references(ObjectSetUpdate, globalns=globals(), localns=locals())
+OntologyDataType = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
+OntologyObjectV2 = core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
+ParameterEvaluatedConstraint = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
+PrimaryKeyValueV2 = core.resolve_forward_references(PrimaryKeyValueV2, globalns=globals(), localns=locals())
+PropertyIdentifier = core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
+PropertyLoadLevel = core.resolve_forward_references(PropertyLoadLevel, globalns=globals(), localns=locals())
+PropertyNumberFormattingRuleType = core.resolve_forward_references(
     PropertyNumberFormattingRuleType, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+PropertyOrStructFieldOfPropertyImplementation = core.resolve_forward_references(
     PropertyOrStructFieldOfPropertyImplementation, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(PropertySecurity, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+PropertySecurity = core.resolve_forward_references(PropertySecurity, globalns=globals(), localns=locals())
+PropertyTypeReferenceOrStringConstant = core.resolve_forward_references(
     PropertyTypeReferenceOrStringConstant, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
-core.resolve_forward_references(PropertyValueFormattingRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(StreamMessage, globalns=globals(), localns=locals())
-core.resolve_forward_references(StructFieldArgument, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+PropertyTypeStatus = core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
+PropertyValueFormattingRule = core.resolve_forward_references(PropertyValueFormattingRule, globalns=globals(), localns=locals())
+QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+SearchJsonQueryV2 = core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
+SelectedPropertyOperation = core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
+StreamMessage = core.resolve_forward_references(StreamMessage, globalns=globals(), localns=locals())
+StructFieldArgument = core.resolve_forward_references(StructFieldArgument, globalns=globals(), localns=locals())
+StructFieldEvaluatedConstraint = core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(SubscriptionClosureCause, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+SubscriptionClosureCause = core.resolve_forward_references(SubscriptionClosureCause, globalns=globals(), localns=locals())
+TimeRange = core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
+TimeSeriesAggregationStrategy = core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
+TimeSeriesRollingAggregateWindow = core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(TransactionEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
+TransactionEdit = core.resolve_forward_references(TransactionEdit, globalns=globals(), localns=locals())
+ValueTypeConstraint = core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
+ValueTypeFieldType = core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbsoluteTimeRange",

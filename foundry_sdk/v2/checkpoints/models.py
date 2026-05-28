@@ -883,10 +883,10 @@ SortDirection = typing.Literal["ASC", "DESC"]
 """SortDirection"""
 
 
-core.resolve_forward_references(CheckpointedItem, globalns=globals(), localns=locals())
-core.resolve_forward_references(CheckpointedItemId, globalns=globals(), localns=locals())
-core.resolve_forward_references(Justification, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchCheckpointRecordsFilter, globalns=globals(), localns=locals())
+CheckpointedItem = core.resolve_forward_references(CheckpointedItem, globalns=globals(), localns=locals())
+CheckpointedItemId = core.resolve_forward_references(CheckpointedItemId, globalns=globals(), localns=locals())
+Justification = core.resolve_forward_references(Justification, globalns=globals(), localns=locals())
+SearchCheckpointRecordsFilter = core.resolve_forward_references(SearchCheckpointRecordsFilter, globalns=globals(), localns=locals())
 
 __all__ = [
     "AcknowledgementJustification",

@@ -938,8 +938,8 @@ UserUsername = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
-core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
+AttributeValues = core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
+AuthenticationProtocol = core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",

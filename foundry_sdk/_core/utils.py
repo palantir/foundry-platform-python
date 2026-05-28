@@ -111,7 +111,11 @@ def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> 
         for arg in typing.get_args(type_obj)  # type: ignore
     )
 
-    setattr(type_obj, "__args__", args)
+    try:
+        setattr(type_obj, "__args__", args)
+    except AttributeError:
+        # Python 3.14+: __args__ is readonly on generic aliases; reconstruct the type
+        type_obj = typing.get_origin(type_obj)[args]
     return type_obj
 
 

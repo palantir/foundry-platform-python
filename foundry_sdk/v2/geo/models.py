@@ -199,11 +199,11 @@ FeatureCollectionTypes = Feature
 """FeatureCollectionTypes"""
 
 
-core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
-core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())
-core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())
-core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
-core.resolve_forward_references(Position, globalns=globals(), localns=locals())
+BBox = core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
+Geometry = core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())
+LineStringCoordinates = core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())
+LinearRing = core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
+Position = core.resolve_forward_references(Position, globalns=globals(), localns=locals())
 
 __all__ = [
     "BBox",

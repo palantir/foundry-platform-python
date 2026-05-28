@@ -1531,17 +1531,17 @@ SeriesAggregationsValue = DoubleSeriesAggregations
 """Union of aggregation values by series type."""
 
 
-core.resolve_forward_references(
+CreateConfigValidationFailureReason = core.resolve_forward_references(
     CreateConfigValidationFailureReason, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(ExperimentSource, globalns=globals(), localns=locals())
-core.resolve_forward_references(InferenceInputErrorType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
-core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
-core.resolve_forward_references(ModelVersionSource, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchExperimentsFilter, globalns=globals(), localns=locals())
+ExperimentSource = core.resolve_forward_references(ExperimentSource, globalns=globals(), localns=locals())
+InferenceInputErrorType = core.resolve_forward_references(InferenceInputErrorType, globalns=globals(), localns=locals())
+ModelApiDataType = core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
+ModelApiInput = core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
+ModelApiOutput = core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
+ModelVersionSource = core.resolve_forward_references(ModelVersionSource, globalns=globals(), localns=locals())
+ParameterValue = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
+SearchExperimentsFilter = core.resolve_forward_references(SearchExperimentsFilter, globalns=globals(), localns=locals())
 
 __all__ = [
     "BooleanParameter",

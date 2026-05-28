@@ -710,14 +710,14 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-core.resolve_forward_references(ExecuteQueryAsyncResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(GetExecutionResultResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())
+ExecuteQueryAsyncResponse = core.resolve_forward_references(ExecuteQueryAsyncResponse, globalns=globals(), localns=locals())
+GetExecutionResultResponse = core.resolve_forward_references(GetExecutionResultResponse, globalns=globals(), localns=locals())
+QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+ValueTypeConstraint = core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
+ValueTypeDataType = core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())
 
 __all__ = [
     "ArrayConstraint",
