@@ -88,7 +88,9 @@ class Build(core.ModelBase):
     """Schedule RID of the Schedule that triggered this build. If a user triggered the build, Schedule RID will be empty."""
 
 
-BuildStatus: typing_extensions.TypeAlias = typing.Literal["RUNNING", "SUCCEEDED", "FAILED", "CANCELED"]
+BuildStatus: typing_extensions.TypeAlias = typing.Literal[
+    "RUNNING", "SUCCEEDED", "FAILED", "CANCELED"
+]
 """The status of the build."""
 
 
@@ -350,7 +352,9 @@ JobStartedTime: typing_extensions.TypeAlias = core.AwareDatetime
 """The time this job started waiting for the dependencies to be resolved."""
 
 
-JobStatus: typing_extensions.TypeAlias = typing.Literal["WAITING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELED", "DID_NOT_RUN"]
+JobStatus: typing_extensions.TypeAlias = typing.Literal[
+    "WAITING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELED", "DID_NOT_RUN"
+]
 """The status of the job."""
 
 
@@ -693,7 +697,9 @@ class SearchBuildsEqualsFilter(core.ModelBase):
     type: typing.Literal["eq"] = "eq"
 
 
-SearchBuildsEqualsFilterField: typing_extensions.TypeAlias = typing.Literal["CREATED_BY", "BRANCH_NAME", "STATUS", "RID"]
+SearchBuildsEqualsFilterField: typing_extensions.TypeAlias = typing.Literal[
+    "CREATED_BY", "BRANCH_NAME", "STATUS", "RID"
+]
 """SearchBuildsEqualsFilterField"""
 
 
@@ -719,7 +725,9 @@ class SearchBuildsGteFilter(core.ModelBase):
     type: typing.Literal["gte"] = "gte"
 
 
-SearchBuildsGteFilterField: typing_extensions.TypeAlias = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
+SearchBuildsGteFilterField: typing_extensions.TypeAlias = typing.Literal[
+    "STARTED_TIME", "FINISHED_TIME"
+]
 """SearchBuildsGteFilterField"""
 
 
@@ -731,7 +739,9 @@ class SearchBuildsLtFilter(core.ModelBase):
     type: typing.Literal["lt"] = "lt"
 
 
-SearchBuildsLtFilterField: typing_extensions.TypeAlias = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
+SearchBuildsLtFilterField: typing_extensions.TypeAlias = typing.Literal[
+    "STARTED_TIME", "FINISHED_TIME"
+]
 """SearchBuildsLtFilterField"""
 
 
@@ -755,7 +765,9 @@ class SearchBuildsOrderBy(core.ModelBase):
     fields: typing.List[SearchBuildsOrderByItem]
 
 
-SearchBuildsOrderByField: typing_extensions.TypeAlias = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
+SearchBuildsOrderByField: typing_extensions.TypeAlias = typing.Literal[
+    "STARTED_TIME", "FINISHED_TIME"
+]
 """SearchBuildsOrderByField"""
 
 
@@ -853,25 +865,39 @@ RetryBackoffDuration: typing_extensions.TypeAlias = core_models.Duration
 """The duration to wait before retrying after a Job fails."""
 
 
-globals()['BuildTarget'] = core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
-globals()['CreateScheduleRequestBuildTarget'] = core.resolve_forward_references(
+globals()["BuildTarget"] = core.resolve_forward_references(
+    BuildTarget, globalns=globals(), localns=locals()
+)
+globals()["CreateScheduleRequestBuildTarget"] = core.resolve_forward_references(
     CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
 )
-globals()['CreateScheduleRequestScopeMode'] = core.resolve_forward_references(
+globals()["CreateScheduleRequestScopeMode"] = core.resolve_forward_references(
     CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
 )
-globals()['FallbackBranches'] = core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
-globals()['JobOutput'] = core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
-globals()['ReplaceScheduleRequestBuildTarget'] = core.resolve_forward_references(
+globals()["FallbackBranches"] = core.resolve_forward_references(
+    FallbackBranches, globalns=globals(), localns=locals()
+)
+globals()["JobOutput"] = core.resolve_forward_references(
+    JobOutput, globalns=globals(), localns=locals()
+)
+globals()["ReplaceScheduleRequestBuildTarget"] = core.resolve_forward_references(
     ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
 )
-globals()['ReplaceScheduleRequestScopeMode'] = core.resolve_forward_references(
+globals()["ReplaceScheduleRequestScopeMode"] = core.resolve_forward_references(
     ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
 )
-globals()['ScheduleRunResult'] = core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
-globals()['ScopeMode'] = core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
-globals()['SearchBuildsFilter'] = core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
-globals()['Trigger'] = core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
+globals()["ScheduleRunResult"] = core.resolve_forward_references(
+    ScheduleRunResult, globalns=globals(), localns=locals()
+)
+globals()["ScopeMode"] = core.resolve_forward_references(
+    ScopeMode, globalns=globals(), localns=locals()
+)
+globals()["SearchBuildsFilter"] = core.resolve_forward_references(
+    SearchBuildsFilter, globalns=globals(), localns=locals()
+)
+globals()["Trigger"] = core.resolve_forward_references(
+    Trigger, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AbortOnFailure",

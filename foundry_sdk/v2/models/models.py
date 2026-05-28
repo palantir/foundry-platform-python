@@ -329,7 +329,9 @@ class FieldValidationError(core.ModelBase):
     type: typing.Literal["fieldValidationFailure"] = "fieldValidationFailure"
 
 
-GpuType: typing_extensions.TypeAlias = typing.Literal["A100", "A10G", "A16", "H100", "H200", "L4", "L40S", "T4", "V100"]
+GpuType: typing_extensions.TypeAlias = typing.Literal[
+    "A100", "A10G", "A16", "H100", "H200", "L4", "L40S", "T4", "V100"
+]
 """The specific type of GPU hardware to use."""
 
 
@@ -527,7 +529,9 @@ class LiveDeploymentScalingConfiguration(core.ModelBase):
     """The duration that load must be below the scale-down threshold before scaling down."""
 
 
-LiveDeploymentState: typing_extensions.TypeAlias = typing.Literal["ACTIVE", "STARTING", "DEGRADED", "DISABLED", "FAILED"]
+LiveDeploymentState: typing_extensions.TypeAlias = typing.Literal[
+    "ACTIVE", "STARTING", "DEGRADED", "DISABLED", "FAILED"
+]
 """
 The operational state of a live deployment.
 
@@ -1215,7 +1219,9 @@ class SearchExperimentsNotFilter(core.ModelBase):
     type: typing.Literal["not"] = "not"
 
 
-SearchExperimentsNumericFilterOperator: typing_extensions.TypeAlias = typing.Literal["EQ", "GT", "LT"]
+SearchExperimentsNumericFilterOperator: typing_extensions.TypeAlias = typing.Literal[
+    "EQ", "GT", "LT"
+]
 """Comparison operator for numeric filter predicates (series and summary metrics)."""
 
 
@@ -1233,7 +1239,9 @@ class SearchExperimentsOrderBy(core.ModelBase):
     direction: core_models.OrderByDirection
 
 
-SearchExperimentsOrderByField: typing_extensions.TypeAlias = typing.Literal["EXPERIMENT_NAME", "CREATED_TIME"]
+SearchExperimentsOrderByField: typing_extensions.TypeAlias = typing.Literal[
+    "EXPERIMENT_NAME", "CREATED_TIME"
+]
 """Fields to order experiment search results by."""
 
 
@@ -1259,7 +1267,9 @@ class SearchExperimentsParameterFilter(core.ModelBase):
     type: typing.Literal["parameterFilter"] = "parameterFilter"
 
 
-SearchExperimentsParameterFilterOperator: typing_extensions.TypeAlias = typing.Literal["EQ", "GT", "LT", "CONTAINS"]
+SearchExperimentsParameterFilterOperator: typing_extensions.TypeAlias = typing.Literal[
+    "EQ", "GT", "LT", "CONTAINS"
+]
 """Comparison operator for parameter filter predicates."""
 
 
@@ -1531,17 +1541,33 @@ SeriesAggregationsValue: typing_extensions.TypeAlias = DoubleSeriesAggregations
 """Union of aggregation values by series type."""
 
 
-globals()['CreateConfigValidationFailureReason'] = core.resolve_forward_references(
+globals()["CreateConfigValidationFailureReason"] = core.resolve_forward_references(
     CreateConfigValidationFailureReason, globalns=globals(), localns=locals()
 )
-globals()['ExperimentSource'] = core.resolve_forward_references(ExperimentSource, globalns=globals(), localns=locals())
-globals()['InferenceInputErrorType'] = core.resolve_forward_references(InferenceInputErrorType, globalns=globals(), localns=locals())
-globals()['ModelApiDataType'] = core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
-globals()['ModelApiInput'] = core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
-globals()['ModelApiOutput'] = core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
-globals()['ModelVersionSource'] = core.resolve_forward_references(ModelVersionSource, globalns=globals(), localns=locals())
-globals()['ParameterValue'] = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-globals()['SearchExperimentsFilter'] = core.resolve_forward_references(SearchExperimentsFilter, globalns=globals(), localns=locals())
+globals()["ExperimentSource"] = core.resolve_forward_references(
+    ExperimentSource, globalns=globals(), localns=locals()
+)
+globals()["InferenceInputErrorType"] = core.resolve_forward_references(
+    InferenceInputErrorType, globalns=globals(), localns=locals()
+)
+globals()["ModelApiDataType"] = core.resolve_forward_references(
+    ModelApiDataType, globalns=globals(), localns=locals()
+)
+globals()["ModelApiInput"] = core.resolve_forward_references(
+    ModelApiInput, globalns=globals(), localns=locals()
+)
+globals()["ModelApiOutput"] = core.resolve_forward_references(
+    ModelApiOutput, globalns=globals(), localns=locals()
+)
+globals()["ModelVersionSource"] = core.resolve_forward_references(
+    ModelVersionSource, globalns=globals(), localns=locals()
+)
+globals()["ParameterValue"] = core.resolve_forward_references(
+    ParameterValue, globalns=globals(), localns=locals()
+)
+globals()["SearchExperimentsFilter"] = core.resolve_forward_references(
+    SearchExperimentsFilter, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "BooleanParameter",

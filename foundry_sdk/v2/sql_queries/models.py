@@ -372,12 +372,24 @@ class UnnamedParameterValues(core.ModelBase):
     type: typing.Literal["unnamedParameterValues"] = "unnamedParameterValues"
 
 
-globals()['ColumnType'] = core.resolve_forward_references(ColumnType, globalns=globals(), localns=locals())
-globals()['ParameterMapping'] = core.resolve_forward_references(ParameterMapping, globalns=globals(), localns=locals())
-globals()['ParameterValue'] = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-globals()['Parameters'] = core.resolve_forward_references(Parameters, globalns=globals(), localns=locals())
-globals()['QueryStatus'] = core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
-globals()['StructElementName'] = core.resolve_forward_references(StructElementName, globalns=globals(), localns=locals())
+globals()["ColumnType"] = core.resolve_forward_references(
+    ColumnType, globalns=globals(), localns=locals()
+)
+globals()["ParameterMapping"] = core.resolve_forward_references(
+    ParameterMapping, globalns=globals(), localns=locals()
+)
+globals()["ParameterValue"] = core.resolve_forward_references(
+    ParameterValue, globalns=globals(), localns=locals()
+)
+globals()["Parameters"] = core.resolve_forward_references(
+    Parameters, globalns=globals(), localns=locals()
+)
+globals()["QueryStatus"] = core.resolve_forward_references(
+    QueryStatus, globalns=globals(), localns=locals()
+)
+globals()["StructElementName"] = core.resolve_forward_references(
+    StructElementName, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AnyColumnType",

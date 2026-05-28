@@ -120,7 +120,9 @@ TransactionStatus: typing_extensions.TypeAlias = typing.Literal["ABORTED", "COMM
 """The status of a Transaction."""
 
 
-TransactionType: typing_extensions.TypeAlias = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
+TransactionType: typing_extensions.TypeAlias = typing.Literal[
+    "APPEND", "UPDATE", "SNAPSHOT", "DELETE"
+]
 """The type of a Transaction."""
 
 

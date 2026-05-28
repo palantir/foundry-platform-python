@@ -224,17 +224,19 @@ class CreateConnectionRequestBasicCredentials(core.ModelBase):
     type: typing.Literal["basic"] = "basic"
 
 
-CreateConnectionRequestConnectionConfiguration: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union[
-        "CreateConnectionRequestS3ConnectionConfiguration",
-        "CreateConnectionRequestRestConnectionConfiguration",
-        "CreateConnectionRequestSnowflakeConnectionConfiguration",
-        "CreateConnectionRequestDatabricksConnectionConfiguration",
-        "CreateConnectionRequestSmbConnectionConfiguration",
-        "CreateConnectionRequestJdbcConnectionConfiguration",
-    ],
-    pydantic.Field(discriminator="type"),
-]
+CreateConnectionRequestConnectionConfiguration: typing_extensions.TypeAlias = (
+    typing_extensions.Annotated[
+        typing.Union[
+            "CreateConnectionRequestS3ConnectionConfiguration",
+            "CreateConnectionRequestRestConnectionConfiguration",
+            "CreateConnectionRequestSnowflakeConnectionConfiguration",
+            "CreateConnectionRequestDatabricksConnectionConfiguration",
+            "CreateConnectionRequestSmbConnectionConfiguration",
+            "CreateConnectionRequestJdbcConnectionConfiguration",
+        ],
+        pydantic.Field(discriminator="type"),
+    ]
+)
 """CreateConnectionRequestConnectionConfiguration"""
 
 
@@ -248,15 +250,17 @@ compute for capabilities are run.
 """
 
 
-CreateConnectionRequestDatabricksAuthenticationMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union[
-        "CreateConnectionRequestWorkflowIdentityFederation",
-        "CreateConnectionRequestOauthMachineToMachineAuth",
-        "CreateConnectionRequestPersonalAccessToken",
-        "CreateConnectionRequestBasicCredentials",
-    ],
-    pydantic.Field(discriminator="type"),
-]
+CreateConnectionRequestDatabricksAuthenticationMode: typing_extensions.TypeAlias = (
+    typing_extensions.Annotated[
+        typing.Union[
+            "CreateConnectionRequestWorkflowIdentityFederation",
+            "CreateConnectionRequestOauthMachineToMachineAuth",
+            "CreateConnectionRequestPersonalAccessToken",
+            "CreateConnectionRequestBasicCredentials",
+        ],
+        pydantic.Field(discriminator="type"),
+    ]
+)
 """The method of authentication for connecting to an external Databricks system."""
 
 
@@ -485,14 +489,16 @@ class CreateConnectionRequestSmbUsernamePasswordAuth(core.ModelBase):
     type: typing.Literal["usernamePassword"] = "usernamePassword"
 
 
-CreateConnectionRequestSnowflakeAuthenticationMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union[
-        "CreateConnectionRequestSnowflakeExternalOauth",
-        "CreateConnectionRequestSnowflakeKeyPairAuthentication",
-        "CreateConnectionRequestBasicCredentials",
-    ],
-    pydantic.Field(discriminator="type"),
-]
+CreateConnectionRequestSnowflakeAuthenticationMode: typing_extensions.TypeAlias = (
+    typing_extensions.Annotated[
+        typing.Union[
+            "CreateConnectionRequestSnowflakeExternalOauth",
+            "CreateConnectionRequestSnowflakeKeyPairAuthentication",
+            "CreateConnectionRequestBasicCredentials",
+        ],
+        pydantic.Field(discriminator="type"),
+    ]
+)
 """CreateConnectionRequestSnowflakeAuthenticationMode"""
 
 
@@ -684,18 +690,20 @@ class CreateTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
 
 
-CreateTableImportRequestTableImportConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union[
-        "CreateTableImportRequestDatabricksTableImportConfig",
-        "CreateTableImportRequestJdbcTableImportConfig",
-        "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
-        "CreateTableImportRequestPostgreSqlTableImportConfig",
-        "CreateTableImportRequestMicrosoftAccessTableImportConfig",
-        "CreateTableImportRequestSnowflakeTableImportConfig",
-        "CreateTableImportRequestOracleTableImportConfig",
-    ],
-    pydantic.Field(discriminator="type"),
-]
+CreateTableImportRequestTableImportConfig: typing_extensions.TypeAlias = (
+    typing_extensions.Annotated[
+        typing.Union[
+            "CreateTableImportRequestDatabricksTableImportConfig",
+            "CreateTableImportRequestJdbcTableImportConfig",
+            "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
+            "CreateTableImportRequestPostgreSqlTableImportConfig",
+            "CreateTableImportRequestMicrosoftAccessTableImportConfig",
+            "CreateTableImportRequestSnowflakeTableImportConfig",
+            "CreateTableImportRequestOracleTableImportConfig",
+        ],
+        pydantic.Field(discriminator="type"),
+    ]
+)
 """The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
@@ -1395,18 +1403,20 @@ class ReplaceTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
 
 
-ReplaceTableImportRequestTableImportConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union[
-        "ReplaceTableImportRequestDatabricksTableImportConfig",
-        "ReplaceTableImportRequestJdbcTableImportConfig",
-        "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
-        "ReplaceTableImportRequestPostgreSqlTableImportConfig",
-        "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
-        "ReplaceTableImportRequestSnowflakeTableImportConfig",
-        "ReplaceTableImportRequestOracleTableImportConfig",
-    ],
-    pydantic.Field(discriminator="type"),
-]
+ReplaceTableImportRequestTableImportConfig: typing_extensions.TypeAlias = (
+    typing_extensions.Annotated[
+        typing.Union[
+            "ReplaceTableImportRequestDatabricksTableImportConfig",
+            "ReplaceTableImportRequestJdbcTableImportConfig",
+            "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
+            "ReplaceTableImportRequestPostgreSqlTableImportConfig",
+            "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
+            "ReplaceTableImportRequestSnowflakeTableImportConfig",
+            "ReplaceTableImportRequestOracleTableImportConfig",
+        ],
+        pydantic.Field(discriminator="type"),
+    ]
+)
 """The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
@@ -2055,7 +2065,9 @@ class WorkflowIdentityFederation(core.ModelBase):
     type: typing.Literal["workflowIdentityFederation"] = "workflowIdentityFederation"
 
 
-CreateConnectionRequestSmbAuth: typing_extensions.TypeAlias = CreateConnectionRequestSmbUsernamePasswordAuth
+CreateConnectionRequestSmbAuth: typing_extensions.TypeAlias = (
+    CreateConnectionRequestSmbUsernamePasswordAuth
+)
 """CreateConnectionRequestSmbAuth"""
 
 
@@ -2063,45 +2075,69 @@ SmbAuth: typing_extensions.TypeAlias = SmbUsernamePasswordAuth
 """SmbAuth"""
 
 
-globals()['ConnectionConfiguration'] = core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
-globals()['ConnectionWorker'] = core.resolve_forward_references(ConnectionWorker, globalns=globals(), localns=locals())
-globals()['CreateConnectionRequestConnectionConfiguration'] = core.resolve_forward_references(
+globals()["ConnectionConfiguration"] = core.resolve_forward_references(
+    ConnectionConfiguration, globalns=globals(), localns=locals()
+)
+globals()["ConnectionWorker"] = core.resolve_forward_references(
+    ConnectionWorker, globalns=globals(), localns=locals()
+)
+globals()["CreateConnectionRequestConnectionConfiguration"] = core.resolve_forward_references(
     CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
 )
-globals()['CreateConnectionRequestConnectionWorker'] = core.resolve_forward_references(
+globals()["CreateConnectionRequestConnectionWorker"] = core.resolve_forward_references(
     CreateConnectionRequestConnectionWorker, globalns=globals(), localns=locals()
 )
-globals()['CreateConnectionRequestDatabricksAuthenticationMode'] = core.resolve_forward_references(
+globals()["CreateConnectionRequestDatabricksAuthenticationMode"] = core.resolve_forward_references(
     CreateConnectionRequestDatabricksAuthenticationMode, globalns=globals(), localns=locals()
 )
-globals()['CreateConnectionRequestEncryptedProperty'] = core.resolve_forward_references(
+globals()["CreateConnectionRequestEncryptedProperty"] = core.resolve_forward_references(
     CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals()
 )
-globals()['CreateConnectionRequestSnowflakeAuthenticationMode'] = core.resolve_forward_references(
+globals()["CreateConnectionRequestSnowflakeAuthenticationMode"] = core.resolve_forward_references(
     CreateConnectionRequestSnowflakeAuthenticationMode, globalns=globals(), localns=locals()
 )
-globals()['CreateTableImportRequestTableImportConfig'] = core.resolve_forward_references(
+globals()["CreateTableImportRequestTableImportConfig"] = core.resolve_forward_references(
     CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
-globals()['DatabricksAuthenticationMode'] = core.resolve_forward_references(DatabricksAuthenticationMode, globalns=globals(), localns=locals())
-globals()['EncryptedProperty'] = core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
-globals()['FileImportFilter'] = core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
-globals()['JdbcProperties'] = core.resolve_forward_references(JdbcProperties, globalns=globals(), localns=locals())
-globals()['ReplaceTableImportRequestTableImportConfig'] = core.resolve_forward_references(
+globals()["DatabricksAuthenticationMode"] = core.resolve_forward_references(
+    DatabricksAuthenticationMode, globalns=globals(), localns=locals()
+)
+globals()["EncryptedProperty"] = core.resolve_forward_references(
+    EncryptedProperty, globalns=globals(), localns=locals()
+)
+globals()["FileImportFilter"] = core.resolve_forward_references(
+    FileImportFilter, globalns=globals(), localns=locals()
+)
+globals()["JdbcProperties"] = core.resolve_forward_references(
+    JdbcProperties, globalns=globals(), localns=locals()
+)
+globals()["ReplaceTableImportRequestTableImportConfig"] = core.resolve_forward_references(
     ReplaceTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
-globals()['RestAuthenticationMode'] = core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())
-globals()['RestConnectionAdditionalSecrets'] = core.resolve_forward_references(
+globals()["RestAuthenticationMode"] = core.resolve_forward_references(
+    RestAuthenticationMode, globalns=globals(), localns=locals()
+)
+globals()["RestConnectionAdditionalSecrets"] = core.resolve_forward_references(
     RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
 )
-globals()['RestRequestApiKeyLocation'] = core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())
-globals()['S3AuthenticationMode'] = core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
-globals()['SnowflakeAuthenticationMode'] = core.resolve_forward_references(SnowflakeAuthenticationMode, globalns=globals(), localns=locals())
-globals()['TableImportConfig'] = core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
-globals()['TableImportInitialIncrementalState'] = core.resolve_forward_references(
+globals()["RestRequestApiKeyLocation"] = core.resolve_forward_references(
+    RestRequestApiKeyLocation, globalns=globals(), localns=locals()
+)
+globals()["S3AuthenticationMode"] = core.resolve_forward_references(
+    S3AuthenticationMode, globalns=globals(), localns=locals()
+)
+globals()["SnowflakeAuthenticationMode"] = core.resolve_forward_references(
+    SnowflakeAuthenticationMode, globalns=globals(), localns=locals()
+)
+globals()["TableImportConfig"] = core.resolve_forward_references(
+    TableImportConfig, globalns=globals(), localns=locals()
+)
+globals()["TableImportInitialIncrementalState"] = core.resolve_forward_references(
     TableImportInitialIncrementalState, globalns=globals(), localns=locals()
 )
-globals()['VirtualTableConfig'] = core.resolve_forward_references(VirtualTableConfig, globalns=globals(), localns=locals())
+globals()["VirtualTableConfig"] = core.resolve_forward_references(
+    VirtualTableConfig, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "ApiKeyAuthentication",

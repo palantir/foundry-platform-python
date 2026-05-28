@@ -451,12 +451,22 @@ ViewRid: typing_extensions.TypeAlias = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-globals()['GetEndOffsetsResponse'] = core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())
-globals()['GetRecordsResponse'] = core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())
-globals()['PartitionOffsets'] = core.resolve_forward_references(PartitionOffsets, globalns=globals(), localns=locals())
-globals()['PartitionRecords'] = core.resolve_forward_references(PartitionRecords, globalns=globals(), localns=locals())
-globals()['ReadPosition'] = core.resolve_forward_references(ReadPosition, globalns=globals(), localns=locals())
-globals()['Record'] = core.resolve_forward_references(Record, globalns=globals(), localns=locals())
+globals()["GetEndOffsetsResponse"] = core.resolve_forward_references(
+    GetEndOffsetsResponse, globalns=globals(), localns=locals()
+)
+globals()["GetRecordsResponse"] = core.resolve_forward_references(
+    GetRecordsResponse, globalns=globals(), localns=locals()
+)
+globals()["PartitionOffsets"] = core.resolve_forward_references(
+    PartitionOffsets, globalns=globals(), localns=locals()
+)
+globals()["PartitionRecords"] = core.resolve_forward_references(
+    PartitionRecords, globalns=globals(), localns=locals()
+)
+globals()["ReadPosition"] = core.resolve_forward_references(
+    ReadPosition, globalns=globals(), localns=locals()
+)
+globals()["Record"] = core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
     "CommitSubscriberOffsetsRequest",

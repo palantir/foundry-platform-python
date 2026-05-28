@@ -718,7 +718,9 @@ SpaceRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Space."""
 
 
-TrashStatus: typing_extensions.TypeAlias = typing.Literal["DIRECTLY_TRASHED", "ANCESTOR_TRASHED", "NOT_TRASHED"]
+TrashStatus: typing_extensions.TypeAlias = typing.Literal[
+    "DIRECTLY_TRASHED", "ANCESTOR_TRASHED", "NOT_TRASHED"
+]
 """
 Values:
   - **DIRECTLY_TRASHED**: The resource was specifically trashed by a user. It can be restored directly.
@@ -731,10 +733,16 @@ UsageAccountRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-globals()['AddResourceReferenceRequest'] = core.resolve_forward_references(AddResourceReferenceRequest, globalns=globals(), localns=locals())
-globals()['ProjectResourceReferenceUnion'] = core.resolve_forward_references(ProjectResourceReferenceUnion, globalns=globals(), localns=locals())
-globals()['ResourceRolePrincipal'] = core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
-globals()['ResourceRolePrincipalIdentifier'] = core.resolve_forward_references(
+globals()["AddResourceReferenceRequest"] = core.resolve_forward_references(
+    AddResourceReferenceRequest, globalns=globals(), localns=locals()
+)
+globals()["ProjectResourceReferenceUnion"] = core.resolve_forward_references(
+    ProjectResourceReferenceUnion, globalns=globals(), localns=locals()
+)
+globals()["ResourceRolePrincipal"] = core.resolve_forward_references(
+    ResourceRolePrincipal, globalns=globals(), localns=locals()
+)
+globals()["ResourceRolePrincipalIdentifier"] = core.resolve_forward_references(
     ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
 )
 

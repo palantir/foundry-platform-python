@@ -207,7 +207,9 @@ PreviewMode: typing_extensions.TypeAlias = bool
 """Enables the use of preview functionality."""
 
 
-ReleaseStatus: typing_extensions.TypeAlias = typing.Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
+ReleaseStatus: typing_extensions.TypeAlias = typing.Literal[
+    "ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"
+]
 """The release status of the entity."""
 
 

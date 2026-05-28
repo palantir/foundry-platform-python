@@ -201,7 +201,9 @@ class AnyTermQuery(core.ModelBase):
     type: typing.Literal["anyTerm"] = "anyTerm"
 
 
-ApplyActionMode: typing_extensions.TypeAlias = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
+ApplyActionMode: typing_extensions.TypeAlias = typing.Literal[
+    "VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"
+]
 """If not specified, defaults to `VALIDATE_AND_EXECUTE`."""
 
 
@@ -1259,7 +1261,9 @@ class RangeConstraint(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-ReturnEditsMode: typing_extensions.TypeAlias = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
+ReturnEditsMode: typing_extensions.TypeAlias = typing.Literal[
+    "ALL", "ALL_V2_WITH_DELETIONS", "NONE"
+]
 """If not specified, defaults to `NONE`."""
 
 
@@ -1570,17 +1574,37 @@ ArrayEntryEvaluatedConstraint: typing_extensions.TypeAlias = StructEvaluatedCons
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-globals()['Aggregation'] = core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
-globals()['AggregationGroupBy'] = core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())
-globals()['LogicRule'] = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-globals()['OntologyDataType'] = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-globals()['ParameterEvaluatedConstraint'] = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-globals()['QueryAggregationKeyType'] = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-globals()['QueryAggregationRangeSubType'] = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-globals()['QueryAggregationValueType'] = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-globals()['QueryDataType'] = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-globals()['SearchJsonQuery'] = core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())
-globals()['StructFieldEvaluatedConstraint'] = core.resolve_forward_references(
+globals()["Aggregation"] = core.resolve_forward_references(
+    Aggregation, globalns=globals(), localns=locals()
+)
+globals()["AggregationGroupBy"] = core.resolve_forward_references(
+    AggregationGroupBy, globalns=globals(), localns=locals()
+)
+globals()["LogicRule"] = core.resolve_forward_references(
+    LogicRule, globalns=globals(), localns=locals()
+)
+globals()["OntologyDataType"] = core.resolve_forward_references(
+    OntologyDataType, globalns=globals(), localns=locals()
+)
+globals()["ParameterEvaluatedConstraint"] = core.resolve_forward_references(
+    ParameterEvaluatedConstraint, globalns=globals(), localns=locals()
+)
+globals()["QueryAggregationKeyType"] = core.resolve_forward_references(
+    QueryAggregationKeyType, globalns=globals(), localns=locals()
+)
+globals()["QueryAggregationRangeSubType"] = core.resolve_forward_references(
+    QueryAggregationRangeSubType, globalns=globals(), localns=locals()
+)
+globals()["QueryAggregationValueType"] = core.resolve_forward_references(
+    QueryAggregationValueType, globalns=globals(), localns=locals()
+)
+globals()["QueryDataType"] = core.resolve_forward_references(
+    QueryDataType, globalns=globals(), localns=locals()
+)
+globals()["SearchJsonQuery"] = core.resolve_forward_references(
+    SearchJsonQuery, globalns=globals(), localns=locals()
+)
+globals()["StructFieldEvaluatedConstraint"] = core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
 

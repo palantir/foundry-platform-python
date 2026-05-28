@@ -126,7 +126,9 @@ LineStringCoordinates: typing_extensions.TypeAlias = typing_extensions.Annotated
 """GeoJSon fundamental geometry construct, array of two or more positions."""
 
 
-LinearRing: typing_extensions.TypeAlias = typing_extensions.Annotated[typing.List["Position"], annotated_types.Len(min_length=4)]
+LinearRing: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.List["Position"], annotated_types.Len(min_length=4)
+]
 """
 A linear ring is a closed LineString with four or more positions.
 
@@ -199,11 +201,19 @@ FeatureCollectionTypes: typing_extensions.TypeAlias = Feature
 """FeatureCollectionTypes"""
 
 
-globals()['BBox'] = core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
-globals()['Geometry'] = core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())
-globals()['LineStringCoordinates'] = core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())
-globals()['LinearRing'] = core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
-globals()['Position'] = core.resolve_forward_references(Position, globalns=globals(), localns=locals())
+globals()["BBox"] = core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
+globals()["Geometry"] = core.resolve_forward_references(
+    Geometry, globalns=globals(), localns=locals()
+)
+globals()["LineStringCoordinates"] = core.resolve_forward_references(
+    LineStringCoordinates, globalns=globals(), localns=locals()
+)
+globals()["LinearRing"] = core.resolve_forward_references(
+    LinearRing, globalns=globals(), localns=locals()
+)
+globals()["Position"] = core.resolve_forward_references(
+    Position, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "BBox",

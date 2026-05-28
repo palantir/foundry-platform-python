@@ -117,7 +117,6 @@ def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> 
     return typing.get_origin(type_obj)[args]
 
 
-
 def assert_non_empty_string(value: str, name: str) -> None:
     if not isinstance(value, str):
         raise TypeError(f"The {name} must be a string, not {type(value)}.")

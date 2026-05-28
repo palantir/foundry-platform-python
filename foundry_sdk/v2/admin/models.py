@@ -161,11 +161,15 @@ class CertificateInfo(core.ModelBase):
     usage_type: CertificateUsageType = pydantic.Field(alias=str("usageType"))  # type: ignore[literal-required]
 
 
-CertificateUsageType: typing_extensions.TypeAlias = typing.Literal["ENCRYPTION", "SIGNING", "UNSPECIFIED"]
+CertificateUsageType: typing_extensions.TypeAlias = typing.Literal[
+    "ENCRYPTION", "SIGNING", "UNSPECIFIED"
+]
 """CertificateUsageType"""
 
 
-ClassificationBannerDisplayType: typing_extensions.TypeAlias = typing.Literal["BANNER_LINE", "PORTION_MARKING"]
+ClassificationBannerDisplayType: typing_extensions.TypeAlias = typing.Literal[
+    "BANNER_LINE", "PORTION_MARKING"
+]
 """The display type of the classification banner. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs"""
 
 
@@ -938,8 +942,12 @@ UserUsername: typing_extensions.TypeAlias = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-globals()['AttributeValues'] = core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
-globals()['AuthenticationProtocol'] = core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
+globals()["AttributeValues"] = core.resolve_forward_references(
+    AttributeValues, globalns=globals(), localns=locals()
+)
+globals()["AuthenticationProtocol"] = core.resolve_forward_references(
+    AuthenticationProtocol, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",

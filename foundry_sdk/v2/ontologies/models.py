@@ -268,7 +268,9 @@ AggregationAccuracy: typing_extensions.TypeAlias = typing.Literal["ACCURATE", "A
 """AggregationAccuracy"""
 
 
-AggregationAccuracyRequest: typing_extensions.TypeAlias = typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]
+AggregationAccuracyRequest: typing_extensions.TypeAlias = typing.Literal[
+    "REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"
+]
 """
 Specifies the accuracy requirement for aggregation results.
 
@@ -444,7 +446,9 @@ class AnyOfRule(core.ModelBase):
     type: typing.Literal["anyOf"] = "anyOf"
 
 
-ApplyActionMode: typing_extensions.TypeAlias = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
+ApplyActionMode: typing_extensions.TypeAlias = typing.Literal[
+    "VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"
+]
 """If not specified, defaults to `VALIDATE_AND_EXECUTE`."""
 
 
@@ -756,7 +760,9 @@ All markings from a conjunctive set must be met for access.
 """
 
 
-ContainerDisjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List[typing.List["MarkingId"]]
+ContainerDisjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List[
+    typing.List["MarkingId"]
+]
 """
 The disjunctive set of markings for the container of this property value,
 such as the project of a dataset. These markings may differ from the marking
@@ -1282,7 +1288,9 @@ DurationFormatStyle: typing_extensions.TypeAlias = typing_extensions.Annotated[
 """DurationFormatStyle"""
 
 
-DurationPrecision: typing_extensions.TypeAlias = typing.Literal["DAYS", "HOURS", "MINUTES", "SECONDS", "AUTO"]
+DurationPrecision: typing_extensions.TypeAlias = typing.Literal[
+    "DAYS", "HOURS", "MINUTES", "SECONDS", "AUTO"
+]
 """Specifies the maximum precision to apply when formatting a duration."""
 
 
@@ -1521,7 +1529,9 @@ class GeoShapeV2Query(core.ModelBase):
     type: typing.Literal["geoShapeV2"] = "geoShapeV2"
 
 
-GeotemporalSeriesEntry: typing_extensions.TypeAlias = typing.Dict["PropertyApiName", "PropertyValue"]
+GeotemporalSeriesEntry: typing_extensions.TypeAlias = typing.Dict[
+    "PropertyApiName", "PropertyValue"
+]
 """
 A single geotemporal data point. Each entry is a map from property API names to property values. Standard
 entries include "time" (ISO 8601 timestamp) and "position" (GeoPoint), and may include additional geotemporal
@@ -1853,7 +1863,9 @@ class InterfaceSharedPropertyType(core.ModelBase):
     type: typing.Literal["interfaceSharedPropertyType"] = "interfaceSharedPropertyType"
 
 
-InterfaceToObjectTypeMapping: typing_extensions.TypeAlias = typing.Dict["SharedPropertyTypeApiName", "PropertyApiName"]
+InterfaceToObjectTypeMapping: typing_extensions.TypeAlias = typing.Dict[
+    "SharedPropertyTypeApiName", "PropertyApiName"
+]
 """Represents an implementation of an interface (the mapping of interface property to local property)."""
 
 
@@ -1863,11 +1875,15 @@ InterfaceToObjectTypeMappingV2: typing_extensions.TypeAlias = typing.Dict[
 """Represents an implementation of an interface (the mapping of interface property to how it is implemented."""
 
 
-InterfaceToObjectTypeMappings: typing_extensions.TypeAlias = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMapping"]
+InterfaceToObjectTypeMappings: typing_extensions.TypeAlias = typing.Dict[
+    "ObjectTypeApiName", "InterfaceToObjectTypeMapping"
+]
 """Map from object type to the interface-to-object-type mapping for that object type."""
 
 
-InterfaceToObjectTypeMappingsV2: typing_extensions.TypeAlias = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMappingV2"]
+InterfaceToObjectTypeMappingsV2: typing_extensions.TypeAlias = typing.Dict[
+    "ObjectTypeApiName", "InterfaceToObjectTypeMappingV2"
+]
 """Map from object type to the interface property implementations of that object type."""
 
 
@@ -2000,7 +2016,9 @@ class IsNullQueryV2(core.ModelBase):
     type: typing.Literal["isNull"] = "isNull"
 
 
-KnownType: typing_extensions.TypeAlias = typing.Literal["USER_OR_GROUP_ID", "RESOURCE_RID", "ARTIFACT_GID"]
+KnownType: typing_extensions.TypeAlias = typing.Literal[
+    "USER_OR_GROUP_ID", "RESOURCE_RID", "ARTIFACT_GID"
+]
 """
 Known Foundry types for specialized formatting:
 - userOrGroupRid: Format as user or group
@@ -2716,14 +2734,16 @@ class NegatePropertyExpression(core.ModelBase):
     type: typing.Literal["negate"] = "negate"
 
 
-NestedInterfacePropertyTypeImplementation: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union[
-        "InterfacePropertyStructFieldImplementation",
-        "InterfacePropertyStructImplementation",
-        "InterfacePropertyLocalPropertyImplementation",
-    ],
-    pydantic.Field(discriminator="type"),
-]
+NestedInterfacePropertyTypeImplementation: typing_extensions.TypeAlias = (
+    typing_extensions.Annotated[
+        typing.Union[
+            "InterfacePropertyStructFieldImplementation",
+            "InterfacePropertyStructImplementation",
+            "InterfacePropertyLocalPropertyImplementation",
+        ],
+        pydantic.Field(discriminator="type"),
+    ]
+)
 """
 Describes how an object type implements an interface property when a reducer is applied to it. Is missing a
 reduced property implementation to prevent arbitrarily nested implementations.
@@ -2810,7 +2830,9 @@ class NumberFormatFixedValues(core.ModelBase):
     type: typing.Literal["fixedValues"] = "fixedValues"
 
 
-NumberFormatNotation: typing_extensions.TypeAlias = typing.Literal["STANDARD", "SCIENTIFIC", "ENGINEERING", "COMPACT"]
+NumberFormatNotation: typing_extensions.TypeAlias = typing.Literal[
+    "STANDARD", "SCIENTIFIC", "ENGINEERING", "COMPACT"
+]
 """
 Number notation style options:
 - STANDARD: Regular number display ("1,234")
@@ -2894,7 +2916,9 @@ class NumberFormatStandardUnit(core.ModelBase):
     type: typing.Literal["standardUnit"] = "standardUnit"
 
 
-NumberRatioType: typing_extensions.TypeAlias = typing.Literal["PERCENTAGE", "PER_MILLE", "BASIS_POINTS"]
+NumberRatioType: typing_extensions.TypeAlias = typing.Literal[
+    "PERCENTAGE", "PER_MILLE", "BASIS_POINTS"
+]
 """
 Ratio format options for displaying proportional values:
 - PERCENTAGE: Multiply by 100 and add "%" suffix
@@ -2980,7 +3004,9 @@ ObjectPrimaryKey: typing_extensions.TypeAlias = typing.Dict["PropertyApiName", "
 """ObjectPrimaryKey"""
 
 
-ObjectPrimaryKeyV2: typing_extensions.TypeAlias = typing.Dict["PropertyApiName", "PrimaryKeyValueV2"]
+ObjectPrimaryKeyV2: typing_extensions.TypeAlias = typing.Dict[
+    "PropertyApiName", "PrimaryKeyValueV2"
+]
 """ObjectPrimaryKeyV2"""
 
 
@@ -3740,7 +3766,9 @@ class PreciseDuration(core.ModelBase):
     type: typing.Literal["duration"] = "duration"
 
 
-PreciseTimeUnit: typing_extensions.TypeAlias = typing.Literal["NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS"]
+PreciseTimeUnit: typing_extensions.TypeAlias = typing.Literal[
+    "NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS"
+]
 """The unit of a fixed-width duration. Each day is 24 hours and each week is 7 days."""
 
 
@@ -3926,10 +3954,12 @@ PropertyNumberFormattingRuleType: typing_extensions.TypeAlias = typing_extension
 """PropertyNumberFormattingRuleType"""
 
 
-PropertyOrStructFieldOfPropertyImplementation: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union["StructFieldOfPropertyImplementation", "PropertyImplementation"],
-    pydantic.Field(discriminator="type"),
-]
+PropertyOrStructFieldOfPropertyImplementation: typing_extensions.TypeAlias = (
+    typing_extensions.Annotated[
+        typing.Union["StructFieldOfPropertyImplementation", "PropertyImplementation"],
+        pydantic.Field(discriminator="type"),
+    ]
+)
 """PropertyOrStructFieldOfPropertyImplementation"""
 
 
@@ -3989,7 +4019,9 @@ PropertyTypeStatus: typing_extensions.TypeAlias = typing_extensions.Annotated[
 """The status to indicate whether the PropertyType is either Experimental, Active, Deprecated, or Example."""
 
 
-PropertyTypeVisibility: typing_extensions.TypeAlias = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
+PropertyTypeVisibility: typing_extensions.TypeAlias = typing.Literal[
+    "NORMAL", "PROMINENT", "HIDDEN"
+]
 """PropertyTypeVisibility"""
 
 
@@ -4448,7 +4480,9 @@ class ResolvedInterfacePropertyType(core.ModelBase):
     """Whether each implementing object type must declare an implementation for this property."""
 
 
-ReturnEditsMode: typing_extensions.TypeAlias = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
+ReturnEditsMode: typing_extensions.TypeAlias = typing.Literal[
+    "ALL", "ALL_V2_WITH_DELETIONS", "NONE"
+]
 """If not specified, defaults to `NONE`."""
 
 
@@ -4804,7 +4838,9 @@ SharedPropertyTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an shared property type, useful for interacting with other Foundry APIs."""
 
 
-SpatialFilterMode: typing_extensions.TypeAlias = typing.Literal["INTERSECTS", "DISJOINT", "WITHIN", "CONTAINS"]
+SpatialFilterMode: typing_extensions.TypeAlias = typing.Literal[
+    "INTERSECTS", "DISJOINT", "WITHIN", "CONTAINS"
+]
 """
 The spatial relation operator for a GeoShapeV2Query. INTERSECTS matches objects that intersect the provided
 geometry, DISJOINT matches objects that do not intersect the provided geometry, WITHIN matches objects that
@@ -5608,100 +5644,210 @@ WithinBoundingBoxPoint: typing_extensions.TypeAlias = geo_models.GeoPoint
 """WithinBoundingBoxPoint"""
 
 
-globals()['ActionLogicRule'] = core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
-globals()['ActionParameterType'] = core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
-globals()['ActionResults'] = core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
-globals()['AggregationGroupByV2'] = core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
-globals()['AggregationV2'] = core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
-globals()['AttachmentMetadataResponse'] = core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
-globals()['BatchActionObjectEdit'] = core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
-globals()['BatchActionResults'] = core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
-globals()['ConjunctiveMarkingSummary'] = core.resolve_forward_references(ConjunctiveMarkingSummary, globalns=globals(), localns=locals())
-globals()['ContainerConjunctiveMarkingSummary'] = core.resolve_forward_references(
+globals()["ActionLogicRule"] = core.resolve_forward_references(
+    ActionLogicRule, globalns=globals(), localns=locals()
+)
+globals()["ActionParameterType"] = core.resolve_forward_references(
+    ActionParameterType, globalns=globals(), localns=locals()
+)
+globals()["ActionResults"] = core.resolve_forward_references(
+    ActionResults, globalns=globals(), localns=locals()
+)
+globals()["AggregationGroupByV2"] = core.resolve_forward_references(
+    AggregationGroupByV2, globalns=globals(), localns=locals()
+)
+globals()["AggregationV2"] = core.resolve_forward_references(
+    AggregationV2, globalns=globals(), localns=locals()
+)
+globals()["AttachmentMetadataResponse"] = core.resolve_forward_references(
+    AttachmentMetadataResponse, globalns=globals(), localns=locals()
+)
+globals()["BatchActionObjectEdit"] = core.resolve_forward_references(
+    BatchActionObjectEdit, globalns=globals(), localns=locals()
+)
+globals()["BatchActionResults"] = core.resolve_forward_references(
+    BatchActionResults, globalns=globals(), localns=locals()
+)
+globals()["ConjunctiveMarkingSummary"] = core.resolve_forward_references(
+    ConjunctiveMarkingSummary, globalns=globals(), localns=locals()
+)
+globals()["ContainerConjunctiveMarkingSummary"] = core.resolve_forward_references(
     ContainerConjunctiveMarkingSummary, globalns=globals(), localns=locals()
 )
-globals()['ContainerDisjunctiveMarkingSummary'] = core.resolve_forward_references(
+globals()["ContainerDisjunctiveMarkingSummary"] = core.resolve_forward_references(
     ContainerDisjunctiveMarkingSummary, globalns=globals(), localns=locals()
 )
-globals()['DatetimeFormat'] = core.resolve_forward_references(DatetimeFormat, globalns=globals(), localns=locals())
-globals()['DatetimeTimezone'] = core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=locals())
-globals()['DerivedPropertyDefinition'] = core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
-globals()['DisjunctiveMarkingSummary'] = core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), localns=locals())
-globals()['DurationFormatStyle'] = core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
-globals()['EditHistoryEdit'] = core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
-globals()['EditsHistoryFilter'] = core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
-globals()['GeoShapeV2Geometry'] = core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
-globals()['GeotemporalSeriesEntry'] = core.resolve_forward_references(GeotemporalSeriesEntry, globalns=globals(), localns=locals())
-globals()['InterfaceLinkTypeLinkedEntityApiName'] = core.resolve_forward_references(
+globals()["DatetimeFormat"] = core.resolve_forward_references(
+    DatetimeFormat, globalns=globals(), localns=locals()
+)
+globals()["DatetimeTimezone"] = core.resolve_forward_references(
+    DatetimeTimezone, globalns=globals(), localns=locals()
+)
+globals()["DerivedPropertyDefinition"] = core.resolve_forward_references(
+    DerivedPropertyDefinition, globalns=globals(), localns=locals()
+)
+globals()["DisjunctiveMarkingSummary"] = core.resolve_forward_references(
+    DisjunctiveMarkingSummary, globalns=globals(), localns=locals()
+)
+globals()["DurationFormatStyle"] = core.resolve_forward_references(
+    DurationFormatStyle, globalns=globals(), localns=locals()
+)
+globals()["EditHistoryEdit"] = core.resolve_forward_references(
+    EditHistoryEdit, globalns=globals(), localns=locals()
+)
+globals()["EditsHistoryFilter"] = core.resolve_forward_references(
+    EditsHistoryFilter, globalns=globals(), localns=locals()
+)
+globals()["GeoShapeV2Geometry"] = core.resolve_forward_references(
+    GeoShapeV2Geometry, globalns=globals(), localns=locals()
+)
+globals()["GeotemporalSeriesEntry"] = core.resolve_forward_references(
+    GeotemporalSeriesEntry, globalns=globals(), localns=locals()
+)
+globals()["InterfaceLinkTypeLinkedEntityApiName"] = core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
-globals()['InterfacePropertyStructImplementationMapping'] = core.resolve_forward_references(
+globals()["InterfacePropertyStructImplementationMapping"] = core.resolve_forward_references(
     InterfacePropertyStructImplementationMapping, globalns=globals(), localns=locals()
 )
-globals()['InterfacePropertyType'] = core.resolve_forward_references(InterfacePropertyType, globalns=globals(), localns=locals())
-globals()['InterfacePropertyTypeImplementation'] = core.resolve_forward_references(
+globals()["InterfacePropertyType"] = core.resolve_forward_references(
+    InterfacePropertyType, globalns=globals(), localns=locals()
+)
+globals()["InterfacePropertyTypeImplementation"] = core.resolve_forward_references(
     InterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
 )
-globals()['InterfaceToObjectTypeMapping'] = core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
-globals()['InterfaceToObjectTypeMappingV2'] = core.resolve_forward_references(
+globals()["InterfaceToObjectTypeMapping"] = core.resolve_forward_references(
+    InterfaceToObjectTypeMapping, globalns=globals(), localns=locals()
+)
+globals()["InterfaceToObjectTypeMappingV2"] = core.resolve_forward_references(
     InterfaceToObjectTypeMappingV2, globalns=globals(), localns=locals()
 )
-globals()['InterfaceToObjectTypeMappings'] = core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
-globals()['InterfaceToObjectTypeMappingsV2'] = core.resolve_forward_references(
+globals()["InterfaceToObjectTypeMappings"] = core.resolve_forward_references(
+    InterfaceToObjectTypeMappings, globalns=globals(), localns=locals()
+)
+globals()["InterfaceToObjectTypeMappingsV2"] = core.resolve_forward_references(
     InterfaceToObjectTypeMappingsV2, globalns=globals(), localns=locals()
 )
-globals()['IntervalQueryRule'] = core.resolve_forward_references(IntervalQueryRule, globalns=globals(), localns=locals())
-globals()['LogicRule'] = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-globals()['LogicRuleArgument'] = core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
-globals()['NearestNeighborsQuery'] = core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
-globals()['NestedInterfacePropertyTypeImplementation'] = core.resolve_forward_references(
+globals()["IntervalQueryRule"] = core.resolve_forward_references(
+    IntervalQueryRule, globalns=globals(), localns=locals()
+)
+globals()["LogicRule"] = core.resolve_forward_references(
+    LogicRule, globalns=globals(), localns=locals()
+)
+globals()["LogicRuleArgument"] = core.resolve_forward_references(
+    LogicRuleArgument, globalns=globals(), localns=locals()
+)
+globals()["NearestNeighborsQuery"] = core.resolve_forward_references(
+    NearestNeighborsQuery, globalns=globals(), localns=locals()
+)
+globals()["NestedInterfacePropertyTypeImplementation"] = core.resolve_forward_references(
     NestedInterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
 )
-globals()['ObjectEdit'] = core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
-globals()['ObjectPrimaryKey'] = core.resolve_forward_references(ObjectPrimaryKey, globalns=globals(), localns=locals())
-globals()['ObjectPrimaryKeyV2'] = core.resolve_forward_references(ObjectPrimaryKeyV2, globalns=globals(), localns=locals())
-globals()['ObjectPropertyType'] = core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
-globals()['ObjectSet'] = core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
-globals()['ObjectSetSubscribeResponse'] = core.resolve_forward_references(ObjectSetSubscribeResponse, globalns=globals(), localns=locals())
-globals()['ObjectSetUpdate'] = core.resolve_forward_references(ObjectSetUpdate, globalns=globals(), localns=locals())
-globals()['OntologyDataType'] = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-globals()['OntologyObjectV2'] = core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
-globals()['ParameterEvaluatedConstraint'] = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-globals()['PrimaryKeyValueV2'] = core.resolve_forward_references(PrimaryKeyValueV2, globalns=globals(), localns=locals())
-globals()['PropertyIdentifier'] = core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
-globals()['PropertyLoadLevel'] = core.resolve_forward_references(PropertyLoadLevel, globalns=globals(), localns=locals())
-globals()['PropertyNumberFormattingRuleType'] = core.resolve_forward_references(
+globals()["ObjectEdit"] = core.resolve_forward_references(
+    ObjectEdit, globalns=globals(), localns=locals()
+)
+globals()["ObjectPrimaryKey"] = core.resolve_forward_references(
+    ObjectPrimaryKey, globalns=globals(), localns=locals()
+)
+globals()["ObjectPrimaryKeyV2"] = core.resolve_forward_references(
+    ObjectPrimaryKeyV2, globalns=globals(), localns=locals()
+)
+globals()["ObjectPropertyType"] = core.resolve_forward_references(
+    ObjectPropertyType, globalns=globals(), localns=locals()
+)
+globals()["ObjectSet"] = core.resolve_forward_references(
+    ObjectSet, globalns=globals(), localns=locals()
+)
+globals()["ObjectSetSubscribeResponse"] = core.resolve_forward_references(
+    ObjectSetSubscribeResponse, globalns=globals(), localns=locals()
+)
+globals()["ObjectSetUpdate"] = core.resolve_forward_references(
+    ObjectSetUpdate, globalns=globals(), localns=locals()
+)
+globals()["OntologyDataType"] = core.resolve_forward_references(
+    OntologyDataType, globalns=globals(), localns=locals()
+)
+globals()["OntologyObjectV2"] = core.resolve_forward_references(
+    OntologyObjectV2, globalns=globals(), localns=locals()
+)
+globals()["ParameterEvaluatedConstraint"] = core.resolve_forward_references(
+    ParameterEvaluatedConstraint, globalns=globals(), localns=locals()
+)
+globals()["PrimaryKeyValueV2"] = core.resolve_forward_references(
+    PrimaryKeyValueV2, globalns=globals(), localns=locals()
+)
+globals()["PropertyIdentifier"] = core.resolve_forward_references(
+    PropertyIdentifier, globalns=globals(), localns=locals()
+)
+globals()["PropertyLoadLevel"] = core.resolve_forward_references(
+    PropertyLoadLevel, globalns=globals(), localns=locals()
+)
+globals()["PropertyNumberFormattingRuleType"] = core.resolve_forward_references(
     PropertyNumberFormattingRuleType, globalns=globals(), localns=locals()
 )
-globals()['PropertyOrStructFieldOfPropertyImplementation'] = core.resolve_forward_references(
+globals()["PropertyOrStructFieldOfPropertyImplementation"] = core.resolve_forward_references(
     PropertyOrStructFieldOfPropertyImplementation, globalns=globals(), localns=locals()
 )
-globals()['PropertySecurity'] = core.resolve_forward_references(PropertySecurity, globalns=globals(), localns=locals())
-globals()['PropertyTypeReferenceOrStringConstant'] = core.resolve_forward_references(
+globals()["PropertySecurity"] = core.resolve_forward_references(
+    PropertySecurity, globalns=globals(), localns=locals()
+)
+globals()["PropertyTypeReferenceOrStringConstant"] = core.resolve_forward_references(
     PropertyTypeReferenceOrStringConstant, globalns=globals(), localns=locals()
 )
-globals()['PropertyTypeStatus'] = core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
-globals()['PropertyValueFormattingRule'] = core.resolve_forward_references(PropertyValueFormattingRule, globalns=globals(), localns=locals())
-globals()['QueryAggregationKeyType'] = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-globals()['QueryAggregationRangeSubType'] = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-globals()['QueryAggregationValueType'] = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-globals()['QueryDataType'] = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-globals()['SearchJsonQueryV2'] = core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
-globals()['SelectedPropertyOperation'] = core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
-globals()['StreamMessage'] = core.resolve_forward_references(StreamMessage, globalns=globals(), localns=locals())
-globals()['StructFieldArgument'] = core.resolve_forward_references(StructFieldArgument, globalns=globals(), localns=locals())
-globals()['StructFieldEvaluatedConstraint'] = core.resolve_forward_references(
+globals()["PropertyTypeStatus"] = core.resolve_forward_references(
+    PropertyTypeStatus, globalns=globals(), localns=locals()
+)
+globals()["PropertyValueFormattingRule"] = core.resolve_forward_references(
+    PropertyValueFormattingRule, globalns=globals(), localns=locals()
+)
+globals()["QueryAggregationKeyType"] = core.resolve_forward_references(
+    QueryAggregationKeyType, globalns=globals(), localns=locals()
+)
+globals()["QueryAggregationRangeSubType"] = core.resolve_forward_references(
+    QueryAggregationRangeSubType, globalns=globals(), localns=locals()
+)
+globals()["QueryAggregationValueType"] = core.resolve_forward_references(
+    QueryAggregationValueType, globalns=globals(), localns=locals()
+)
+globals()["QueryDataType"] = core.resolve_forward_references(
+    QueryDataType, globalns=globals(), localns=locals()
+)
+globals()["SearchJsonQueryV2"] = core.resolve_forward_references(
+    SearchJsonQueryV2, globalns=globals(), localns=locals()
+)
+globals()["SelectedPropertyOperation"] = core.resolve_forward_references(
+    SelectedPropertyOperation, globalns=globals(), localns=locals()
+)
+globals()["StreamMessage"] = core.resolve_forward_references(
+    StreamMessage, globalns=globals(), localns=locals()
+)
+globals()["StructFieldArgument"] = core.resolve_forward_references(
+    StructFieldArgument, globalns=globals(), localns=locals()
+)
+globals()["StructFieldEvaluatedConstraint"] = core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
-globals()['SubscriptionClosureCause'] = core.resolve_forward_references(SubscriptionClosureCause, globalns=globals(), localns=locals())
-globals()['TimeRange'] = core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
-globals()['TimeSeriesAggregationStrategy'] = core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
-globals()['TimeSeriesRollingAggregateWindow'] = core.resolve_forward_references(
+globals()["SubscriptionClosureCause"] = core.resolve_forward_references(
+    SubscriptionClosureCause, globalns=globals(), localns=locals()
+)
+globals()["TimeRange"] = core.resolve_forward_references(
+    TimeRange, globalns=globals(), localns=locals()
+)
+globals()["TimeSeriesAggregationStrategy"] = core.resolve_forward_references(
+    TimeSeriesAggregationStrategy, globalns=globals(), localns=locals()
+)
+globals()["TimeSeriesRollingAggregateWindow"] = core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
 )
-globals()['TransactionEdit'] = core.resolve_forward_references(TransactionEdit, globalns=globals(), localns=locals())
-globals()['ValueTypeConstraint'] = core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-globals()['ValueTypeFieldType'] = core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
+globals()["TransactionEdit"] = core.resolve_forward_references(
+    TransactionEdit, globalns=globals(), localns=locals()
+)
+globals()["ValueTypeConstraint"] = core.resolve_forward_references(
+    ValueTypeConstraint, globalns=globals(), localns=locals()
+)
+globals()["ValueTypeFieldType"] = core.resolve_forward_references(
+    ValueTypeFieldType, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AbsoluteTimeRange",

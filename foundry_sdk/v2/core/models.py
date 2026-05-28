@@ -692,7 +692,9 @@ The `palantir-internal-realm` is used for Users or Groups that are created in Fo
 """
 
 
-ReleaseStatus: typing_extensions.TypeAlias = typing.Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
+ReleaseStatus: typing_extensions.TypeAlias = typing.Literal[
+    "ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"
+]
 """The release status of the entity."""
 
 
@@ -954,11 +956,21 @@ UpdatedBy: typing_extensions.TypeAlias = UserId
 """The Foundry user who last updated this resource"""
 
 
-globals()['CustomMetadata'] = core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
-globals()['EmbeddingModel'] = core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
-globals()['FieldDataType'] = core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
-globals()['FilterType'] = core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
-globals()['TimeSeriesItemType'] = core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
+globals()["CustomMetadata"] = core.resolve_forward_references(
+    CustomMetadata, globalns=globals(), localns=locals()
+)
+globals()["EmbeddingModel"] = core.resolve_forward_references(
+    EmbeddingModel, globalns=globals(), localns=locals()
+)
+globals()["FieldDataType"] = core.resolve_forward_references(
+    FieldDataType, globalns=globals(), localns=locals()
+)
+globals()["FilterType"] = core.resolve_forward_references(
+    FilterType, globalns=globals(), localns=locals()
+)
+globals()["TimeSeriesItemType"] = core.resolve_forward_references(
+    TimeSeriesItemType, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AnyType",

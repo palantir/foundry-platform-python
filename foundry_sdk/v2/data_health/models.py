@@ -277,7 +277,9 @@ class MedianDeviation(core.ModelBase):
     deviation_threshold: float = pydantic.Field(alias=str("deviationThreshold"))  # type: ignore[literal-required]
 
 
-MedianDeviationBoundsType: typing_extensions.TypeAlias = typing.Literal["LOWER_BOUND", "UPPER_BOUND", "TWO_TAILED"]
+MedianDeviationBoundsType: typing_extensions.TypeAlias = typing.Literal[
+    "LOWER_BOUND", "UPPER_BOUND", "TWO_TAILED"
+]
 """The three types of median deviations a bounds type can have: - LOWER_BOUND – Tests for significant deviations below the median value, - UPPER_BOUND – Tests for significant deviations above the median value, - TWO_TAILED – Tests for significant deviations in either direction from the median value."""
 
 
@@ -692,9 +694,15 @@ The type of trend to validate:
 """
 
 
-globals()['CheckConfig'] = core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())
-globals()['ColumnValue'] = core.resolve_forward_references(ColumnValue, globalns=globals(), localns=locals())
-globals()['ReplaceCheckConfig'] = core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())
+globals()["CheckConfig"] = core.resolve_forward_references(
+    CheckConfig, globalns=globals(), localns=locals()
+)
+globals()["ColumnValue"] = core.resolve_forward_references(
+    ColumnValue, globalns=globals(), localns=locals()
+)
+globals()["ReplaceCheckConfig"] = core.resolve_forward_references(
+    ReplaceCheckConfig, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AllowedColumnValuesCheckConfig",

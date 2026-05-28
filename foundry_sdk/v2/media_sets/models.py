@@ -91,7 +91,9 @@ class AudioChunkOperation(core.ModelBase):
     type: typing.Literal["chunk"] = "chunk"
 
 
-AudioDecodeFormat: typing_extensions.TypeAlias = typing.Literal["FLAC", "MP2", "MP3", "MP4", "NIST_SPHERE", "OGG", "WAV", "WEBM"]
+AudioDecodeFormat: typing_extensions.TypeAlias = typing.Literal[
+    "FLAC", "MP2", "MP3", "MP4", "NIST_SPHERE", "OGG", "WAV", "WEBM"
+]
 """The format of an audio media item."""
 
 
@@ -449,7 +451,9 @@ class DicomMediaItemMetadata(core.ModelBase):
     type: typing.Literal["dicom"] = "dicom"
 
 
-DicomMediaType: typing_extensions.TypeAlias = typing.Literal["IMAGE", "MULTI_FRAME_IMAGE", "VIDEO", "STRUCTURED_REPORT"]
+DicomMediaType: typing_extensions.TypeAlias = typing.Literal[
+    "IMAGE", "MULTI_FRAME_IMAGE", "VIDEO", "STRUCTURED_REPORT"
+]
 """The type of DICOM media."""
 
 
@@ -492,7 +496,9 @@ class Dimensions(core.ModelBase):
     """The height of the image in pixels."""
 
 
-DocumentDecodeFormat: typing_extensions.TypeAlias = typing.Literal["PDF", "DOC", "DOCX", "TXT", "PPTX", "RTF"]
+DocumentDecodeFormat: typing_extensions.TypeAlias = typing.Literal[
+    "PDF", "DOC", "DOCX", "TXT", "PPTX", "RTF"
+]
 """The format of a document media item."""
 
 
@@ -1068,7 +1074,9 @@ class ImageTransformation(core.ModelBase):
     type: typing.Literal["image"] = "image"
 
 
-ImageryDecodeFormat: typing_extensions.TypeAlias = typing.Literal["BMP", "TIFF", "NITF", "JP2K", "JPG", "PNG", "WEBP"]
+ImageryDecodeFormat: typing_extensions.TypeAlias = typing.Literal[
+    "BMP", "TIFF", "NITF", "JP2K", "JPG", "PNG", "WEBP"
+]
 """The format of an imagery media item."""
 
 
@@ -1631,7 +1639,9 @@ class PageRange(core.ModelBase):
     """End page index (0-based, exclusive). If not provided, defaults to end of document."""
 
 
-PaletteInterpretation: typing_extensions.TypeAlias = typing.Literal["GRAY", "RGB", "RGBA", "CMYK", "HLS"]
+PaletteInterpretation: typing_extensions.TypeAlias = typing.Literal[
+    "GRAY", "RGB", "RGBA", "CMYK", "HLS"
+]
 """The palette interpretation of a band."""
 
 
@@ -1781,11 +1791,15 @@ class RotateImageOperation(core.ModelBase):
     type: typing.Literal["rotate"] = "rotate"
 
 
-RotationAngle: typing_extensions.TypeAlias = typing.Literal["DEGREE_90", "DEGREE_180", "DEGREE_270", "UNKNOWN"]
+RotationAngle: typing_extensions.TypeAlias = typing.Literal[
+    "DEGREE_90", "DEGREE_180", "DEGREE_270", "UNKNOWN"
+]
 """The rotation angle from EXIF orientation."""
 
 
-SceneScore: typing_extensions.TypeAlias = typing.Literal["MORE_SENSITIVE", "STANDARD", "LESS_SENSITIVE"]
+SceneScore: typing_extensions.TypeAlias = typing.Literal[
+    "MORE_SENSITIVE", "STANDARD", "LESS_SENSITIVE"
+]
 """The sensitivity threshold for scene detection."""
 
 
@@ -2211,7 +2225,9 @@ TransformationJobId: typing_extensions.TypeAlias = str
 """An identifier for a media item transformation job."""
 
 
-TransformationJobStatus: typing_extensions.TypeAlias = typing.Literal["PENDING", "FAILED", "SUCCESSFUL"]
+TransformationJobStatus: typing_extensions.TypeAlias = typing.Literal[
+    "PENDING", "FAILED", "SUCCESSFUL"
+]
 """The status of a transformation job."""
 
 
@@ -2447,29 +2463,75 @@ VideoToTextOperation: typing_extensions.TypeAlias = GetTimestampsForSceneFramesO
 """The operation to perform for video to text conversion."""
 
 
-globals()['AudioEncodeFormat'] = core.resolve_forward_references(AudioEncodeFormat, globalns=globals(), localns=locals())
-globals()['AudioOperation'] = core.resolve_forward_references(AudioOperation, globalns=globals(), localns=locals())
-globals()['AudioToTextOperation'] = core.resolve_forward_references(AudioToTextOperation, globalns=globals(), localns=locals())
-globals()['ContrastType'] = core.resolve_forward_references(ContrastType, globalns=globals(), localns=locals())
-globals()['DocumentToDocumentOperation'] = core.resolve_forward_references(DocumentToDocumentOperation, globalns=globals(), localns=locals())
-globals()['DocumentToImageOperation'] = core.resolve_forward_references(DocumentToImageOperation, globalns=globals(), localns=locals())
-globals()['DocumentToTextOperation'] = core.resolve_forward_references(DocumentToTextOperation, globalns=globals(), localns=locals())
-globals()['ImageOperation'] = core.resolve_forward_references(ImageOperation, globalns=globals(), localns=locals())
-globals()['ImageRegionPolygon'] = core.resolve_forward_references(ImageRegionPolygon, globalns=globals(), localns=locals())
-globals()['ImageToTextOperation'] = core.resolve_forward_references(ImageToTextOperation, globalns=globals(), localns=locals())
-globals()['ImageryEncodeFormat'] = core.resolve_forward_references(ImageryEncodeFormat, globalns=globals(), localns=locals())
-globals()['MailboxOrGroup'] = core.resolve_forward_references(MailboxOrGroup, globalns=globals(), localns=locals())
-globals()['MediaItemMetadata'] = core.resolve_forward_references(MediaItemMetadata, globalns=globals(), localns=locals())
-globals()['OcrLanguageOrScript'] = core.resolve_forward_references(OcrLanguageOrScript, globalns=globals(), localns=locals())
-globals()['OcrOutputFormat'] = core.resolve_forward_references(OcrOutputFormat, globalns=globals(), localns=locals())
-globals()['TrackedTransformationResponse'] = core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())
-globals()['TransactionPolicy'] = core.resolve_forward_references(TransactionPolicy, globalns=globals(), localns=locals())
-globals()['TranscribeTextEncodeFormat'] = core.resolve_forward_references(TranscribeTextEncodeFormat, globalns=globals(), localns=locals())
-globals()['Transformation'] = core.resolve_forward_references(Transformation, globalns=globals(), localns=locals())
-globals()['VideoEncodeFormat'] = core.resolve_forward_references(VideoEncodeFormat, globalns=globals(), localns=locals())
-globals()['VideoOperation'] = core.resolve_forward_references(VideoOperation, globalns=globals(), localns=locals())
-globals()['VideoToImageOperation'] = core.resolve_forward_references(VideoToImageOperation, globalns=globals(), localns=locals())
-globals()['VlmPreprocessingConfig'] = core.resolve_forward_references(VlmPreprocessingConfig, globalns=globals(), localns=locals())
+globals()["AudioEncodeFormat"] = core.resolve_forward_references(
+    AudioEncodeFormat, globalns=globals(), localns=locals()
+)
+globals()["AudioOperation"] = core.resolve_forward_references(
+    AudioOperation, globalns=globals(), localns=locals()
+)
+globals()["AudioToTextOperation"] = core.resolve_forward_references(
+    AudioToTextOperation, globalns=globals(), localns=locals()
+)
+globals()["ContrastType"] = core.resolve_forward_references(
+    ContrastType, globalns=globals(), localns=locals()
+)
+globals()["DocumentToDocumentOperation"] = core.resolve_forward_references(
+    DocumentToDocumentOperation, globalns=globals(), localns=locals()
+)
+globals()["DocumentToImageOperation"] = core.resolve_forward_references(
+    DocumentToImageOperation, globalns=globals(), localns=locals()
+)
+globals()["DocumentToTextOperation"] = core.resolve_forward_references(
+    DocumentToTextOperation, globalns=globals(), localns=locals()
+)
+globals()["ImageOperation"] = core.resolve_forward_references(
+    ImageOperation, globalns=globals(), localns=locals()
+)
+globals()["ImageRegionPolygon"] = core.resolve_forward_references(
+    ImageRegionPolygon, globalns=globals(), localns=locals()
+)
+globals()["ImageToTextOperation"] = core.resolve_forward_references(
+    ImageToTextOperation, globalns=globals(), localns=locals()
+)
+globals()["ImageryEncodeFormat"] = core.resolve_forward_references(
+    ImageryEncodeFormat, globalns=globals(), localns=locals()
+)
+globals()["MailboxOrGroup"] = core.resolve_forward_references(
+    MailboxOrGroup, globalns=globals(), localns=locals()
+)
+globals()["MediaItemMetadata"] = core.resolve_forward_references(
+    MediaItemMetadata, globalns=globals(), localns=locals()
+)
+globals()["OcrLanguageOrScript"] = core.resolve_forward_references(
+    OcrLanguageOrScript, globalns=globals(), localns=locals()
+)
+globals()["OcrOutputFormat"] = core.resolve_forward_references(
+    OcrOutputFormat, globalns=globals(), localns=locals()
+)
+globals()["TrackedTransformationResponse"] = core.resolve_forward_references(
+    TrackedTransformationResponse, globalns=globals(), localns=locals()
+)
+globals()["TransactionPolicy"] = core.resolve_forward_references(
+    TransactionPolicy, globalns=globals(), localns=locals()
+)
+globals()["TranscribeTextEncodeFormat"] = core.resolve_forward_references(
+    TranscribeTextEncodeFormat, globalns=globals(), localns=locals()
+)
+globals()["Transformation"] = core.resolve_forward_references(
+    Transformation, globalns=globals(), localns=locals()
+)
+globals()["VideoEncodeFormat"] = core.resolve_forward_references(
+    VideoEncodeFormat, globalns=globals(), localns=locals()
+)
+globals()["VideoOperation"] = core.resolve_forward_references(
+    VideoOperation, globalns=globals(), localns=locals()
+)
+globals()["VideoToImageOperation"] = core.resolve_forward_references(
+    VideoToImageOperation, globalns=globals(), localns=locals()
+)
+globals()["VlmPreprocessingConfig"] = core.resolve_forward_references(
+    VlmPreprocessingConfig, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AffineTransform",

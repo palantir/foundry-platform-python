@@ -883,10 +883,18 @@ SortDirection: typing_extensions.TypeAlias = typing.Literal["ASC", "DESC"]
 """SortDirection"""
 
 
-globals()['CheckpointedItem'] = core.resolve_forward_references(CheckpointedItem, globalns=globals(), localns=locals())
-globals()['CheckpointedItemId'] = core.resolve_forward_references(CheckpointedItemId, globalns=globals(), localns=locals())
-globals()['Justification'] = core.resolve_forward_references(Justification, globalns=globals(), localns=locals())
-globals()['SearchCheckpointRecordsFilter'] = core.resolve_forward_references(SearchCheckpointRecordsFilter, globalns=globals(), localns=locals())
+globals()["CheckpointedItem"] = core.resolve_forward_references(
+    CheckpointedItem, globalns=globals(), localns=locals()
+)
+globals()["CheckpointedItemId"] = core.resolve_forward_references(
+    CheckpointedItemId, globalns=globals(), localns=locals()
+)
+globals()["Justification"] = core.resolve_forward_references(
+    Justification, globalns=globals(), localns=locals()
+)
+globals()["SearchCheckpointRecordsFilter"] = core.resolve_forward_references(
+    SearchCheckpointRecordsFilter, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AcknowledgementJustification",

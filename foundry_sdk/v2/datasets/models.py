@@ -82,7 +82,9 @@ class CreateViewRequest(core.ModelBase):
     primary_key: typing.Optional[ViewPrimaryKey] = pydantic.Field(alias=str("primaryKey"), default=None)  # type: ignore[literal-required]
 
 
-DataframeReader: typing_extensions.TypeAlias = typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]
+DataframeReader: typing_extensions.TypeAlias = typing.Literal[
+    "AVRO", "CSV", "PARQUET", "DATASOURCE"
+]
 """The dataframe reader used for reading the dataset schema."""
 
 
@@ -154,7 +156,9 @@ GetDatasetJobsSortDirection: typing_extensions.TypeAlias = typing.Literal["ASCEN
 """GetDatasetJobsSortDirection"""
 
 
-GetDatasetJobsSortType: typing_extensions.TypeAlias = typing.Literal["BY_STARTED_TIME", "BY_FINISHED_TIME"]
+GetDatasetJobsSortType: typing_extensions.TypeAlias = typing.Literal[
+    "BY_STARTED_TIME", "BY_FINISHED_TIME"
+]
 """GetDatasetJobsSortType"""
 
 
@@ -167,7 +171,9 @@ class GetDatasetJobsTimeFilter(core.ModelBase):
     type: typing.Literal["timeFilter"] = "timeFilter"
 
 
-GetDatasetJobsTimeFilterField: typing_extensions.TypeAlias = typing.Literal["SUBMITTED_TIME", "FINISHED_TIME"]
+GetDatasetJobsTimeFilterField: typing_extensions.TypeAlias = typing.Literal[
+    "SUBMITTED_TIME", "FINISHED_TIME"
+]
 """GetDatasetJobsTimeFilterField"""
 
 
@@ -347,7 +353,9 @@ TransactionStatus: typing_extensions.TypeAlias = typing.Literal["ABORTED", "COMM
 """The status of a Transaction."""
 
 
-TransactionType: typing_extensions.TypeAlias = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
+TransactionType: typing_extensions.TypeAlias = typing.Literal[
+    "APPEND", "UPDATE", "SNAPSHOT", "DELETE"
+]
 """The type of a Transaction."""
 
 
@@ -418,8 +426,12 @@ PrimaryKeyResolutionStrategy: typing_extensions.TypeAlias = PrimaryKeyLatestWins
 """PrimaryKeyResolutionStrategy"""
 
 
-globals()['GetDatasetJobsQuery'] = core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())
-globals()['ViewPrimaryKeyResolution'] = core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
+globals()["GetDatasetJobsQuery"] = core.resolve_forward_references(
+    GetDatasetJobsQuery, globalns=globals(), localns=locals()
+)
+globals()["ViewPrimaryKeyResolution"] = core.resolve_forward_references(
+    ViewPrimaryKeyResolution, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AddBackingDatasetsRequest",
