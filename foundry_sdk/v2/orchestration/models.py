@@ -964,3 +964,5 @@ __all__ = [
     "UpstreamTarget",
     "UserScope",
 ]
+
+core.rebuild_pydantic_models(__name__)

@@ -6273,3 +6273,5 @@ __all__ = [
     "WithinDistanceOfQuery",
     "WithinPolygonQuery",
 ]
+
+core.rebuild_pydantic_models(__name__)

@@ -1760,3 +1760,5 @@ __all__ = [
     "ValueTypeApiName",
     "ValueTypeRid",
 ]
+
+core.rebuild_pydantic_models(__name__)

@@ -1098,3 +1098,5 @@ __all__ = [
     "VoidType",
     "ZoneId",
 ]
+
+core.rebuild_pydantic_models(__name__)

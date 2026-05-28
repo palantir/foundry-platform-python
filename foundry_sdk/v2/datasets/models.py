@@ -474,3 +474,5 @@ __all__ = [
     "ViewPrimaryKey",
     "ViewPrimaryKeyResolution",
 ]
+
+core.rebuild_pydantic_models(__name__)

@@ -1057,3 +1057,5 @@ __all__ = [
     "UserSearchFilter",
     "UserUsername",
 ]
+
+core.rebuild_pydantic_models(__name__)

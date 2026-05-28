@@ -782,3 +782,5 @@ __all__ = [
     "TrendConfig",
     "TrendType",
 ]
+
+core.rebuild_pydantic_models(__name__)

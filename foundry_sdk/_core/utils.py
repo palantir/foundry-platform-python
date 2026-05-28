@@ -119,6 +119,27 @@ def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> 
     return type_obj
 
 
+def rebuild_pydantic_models(module_name: str) -> None:
+    """Rebuild all pydantic BaseModel subclasses defined in *module_name*.
+
+    Call this at the end of each models.py (after all resolve_forward_references
+    calls) to ensure pydantic re-evaluates field annotations with the complete
+    namespace.  This is needed in Python 3.14+ where annotation evaluation
+    during class creation may encounter names that are not yet defined.
+
+    Usage: ``core.rebuild_pydantic_models(__name__)``
+    """
+    import sys
+
+    namespace = vars(sys.modules[module_name])
+    for obj in list(namespace.values()):
+        if isinstance(obj, type) and issubclass(obj, pydantic.BaseModel):
+            try:
+                obj.model_rebuild(_types_namespace=namespace)
+            except Exception:
+                pass
+
+
 def assert_non_empty_string(value: str, name: str) -> None:
     if not isinstance(value, str):
         raise TypeError(f"The {name} must be a string, not {type(value)}.")
