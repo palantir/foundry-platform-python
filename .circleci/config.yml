@@ -113,7 +113,7 @@ workflows:
           name: python-<< matrix.python_version>>
           matrix:
             parameters:
-              python_version: ["3.10", "3.11", "3.12", "3.13"]
+              python_version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
               pydantic_version: ["2.12"]
               httpx_version: ["0.28"]
       - test:
@@ -129,7 +129,7 @@ workflows:
           name: httpx-<< matrix.httpx_version >>
           matrix:
             parameters:
-              python_version: ["3.13"]
+              python_version: ["3.14"]
               pydantic_version: ["2.12"]
               httpx_version: ["0.25", "0.26", "0.27", "0.28"]
       - black:
@@ -141,6 +141,7 @@ workflows:
             - python-3.11
             - python-3.12
             - python-3.13
+            - python-3.14
 
             - pydantic-2.6
             - pydantic-2.7
