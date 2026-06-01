@@ -37,12 +37,14 @@ from foundry_sdk._core.context_and_environment_vars import HOSTNAME_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
 from foundry_sdk._core.context_and_environment_vars import SAMPLED_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import SAMPLED_VAR
+from foundry_sdk._core.context_and_environment_vars import SCENARIO_RID_VAR
 from foundry_sdk._core.context_and_environment_vars import SPAN_ID_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import SPAN_ID_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
 from foundry_sdk._core.context_and_environment_vars import TRACE_ID_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import TRACE_ID_VAR
+from foundry_sdk._core.context_and_environment_vars import TRANSACTION_ID_VAR
 from foundry_sdk._errors import ApiNotFoundError
 from foundry_sdk._errors import BadRequestError
 from foundry_sdk._errors import ConflictError
@@ -93,12 +95,14 @@ __all__ = [
     "HOSTNAME_ENV_VAR",
     "SAMPLED_ENV_VAR",
     "SAMPLED_VAR",
+    "SCENARIO_RID_VAR",
     "SPAN_ID_ENV_VAR",
     "SPAN_ID_VAR",
     "TOKEN_VAR",
     "TOKEN_ENV_VAR",
     "TRACE_ID_ENV_VAR",
     "TRACE_ID_VAR",
+    "TRANSACTION_ID_VAR",
     "PalantirException",
     "EnvironmentNotConfigured",
     "NotAuthenticated",
