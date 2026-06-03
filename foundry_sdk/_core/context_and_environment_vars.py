@@ -58,6 +58,12 @@ TRACE_ID_ENV_VARS: list[str] = [TRACE_ID_ENV_VAR]
 SPAN_ID_ENV_VARS: list[str] = [SPAN_ID_ENV_VAR]
 SAMPLED_ENV_VARS: list[str] = [SAMPLED_ENV_VAR]
 
+# Execution context variables
+TRANSACTION_ID_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_TRANSACTION_ID", default=None)
+SCENARIO_RID_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_SCENARIO_RID", default=None)
+TRANSACTION_ID_CONTEXT_VARS: list[ContextVar[Optional[str]]] = [TRANSACTION_ID_VAR]
+SCENARIO_RID_CONTEXT_VARS: list[ContextVar[Optional[str]]] = [SCENARIO_RID_VAR]
+
 T = TypeVar("T")
 
 
