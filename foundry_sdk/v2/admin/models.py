@@ -664,6 +664,23 @@ class OrganizationRoleAssignment(core.ModelBase):
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
 
+class ParseClassificationsRequest(core.ModelBase):
+    """ParseClassificationsRequest"""
+
+    classification_strings: typing.List[str] = pydantic.Field(alias=str("classificationStrings"))  # type: ignore[literal-required]
+    """The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted."""
+
+
+class ParseClassificationsResponse(core.ModelBase):
+    """ParseClassificationsResponse"""
+
+    parsed: typing.Dict[str, typing.List[core_models.MarkingId]]
+    """Map of valid classification strings to their component marking IDs. Strings that could not be parsed are absent from this map and appear in 'errors' instead."""
+
+    errors: typing.Dict[str, str]
+    """Map of classification strings that could not be parsed to a human-readable error message."""
+
+
 class PreregisterGroupRequest(core.ModelBase):
     """PreregisterGroupRequest"""
 
@@ -1026,6 +1043,8 @@ __all__ = [
     "OrganizationGuestMember",
     "OrganizationName",
     "OrganizationRoleAssignment",
+    "ParseClassificationsRequest",
+    "ParseClassificationsResponse",
     "PreregisterGroupRequest",
     "PreregisterUserRequest",
     "PrincipalFilterType",

@@ -439,6 +439,7 @@ class OntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/search",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -459,7 +460,6 @@ class OntologyObjectClient:
                     select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,
                 request_timeout=request_timeout,
@@ -914,6 +914,7 @@ class AsyncOntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/search",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -934,7 +935,6 @@ class AsyncOntologyObjectClient:
                     select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,
                 request_timeout=request_timeout,

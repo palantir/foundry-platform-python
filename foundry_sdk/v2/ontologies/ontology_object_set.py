@@ -119,6 +119,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -139,7 +140,6 @@ class OntologyObjectSetClient:
                     group_by=group_by,
                     accuracy=accuracy,
                     include_compute_usage=include_compute_usage,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
@@ -279,6 +279,7 @@ class OntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -315,6 +316,8 @@ class OntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
@@ -353,6 +356,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -459,6 +463,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadLinks",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -477,7 +482,6 @@ class OntologyObjectSetClient:
                     links=links,
                     page_token=page_token,
                     include_compute_usage=include_compute_usage,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetLinksResponseV2,
                 request_timeout=request_timeout,
@@ -497,6 +501,7 @@ class OntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -539,6 +544,8 @@ class OntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
@@ -579,6 +586,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "preview": preview,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
@@ -705,6 +713,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "preview": preview,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
@@ -729,7 +738,6 @@ class OntologyObjectSetClient:
                     page_size=page_size,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
                 request_timeout=request_timeout,
@@ -890,6 +898,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -910,7 +919,6 @@ class AsyncOntologyObjectSetClient:
                     group_by=group_by,
                     accuracy=accuracy,
                     include_compute_usage=include_compute_usage,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
@@ -1050,6 +1058,7 @@ class AsyncOntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -1086,6 +1095,8 @@ class AsyncOntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
@@ -1124,6 +1135,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -1230,6 +1242,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadLinks",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -1248,7 +1261,6 @@ class AsyncOntologyObjectSetClient:
                     links=links,
                     page_token=page_token,
                     include_compute_usage=include_compute_usage,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetLinksResponseV2,
                 request_timeout=request_timeout,
@@ -1268,6 +1280,7 @@ class AsyncOntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -1310,6 +1323,8 @@ class AsyncOntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
@@ -1350,6 +1365,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "preview": preview,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
@@ -1476,6 +1492,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces",
                 query_params={
                     "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
                     "preview": preview,
                     "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
@@ -1500,7 +1517,6 @@ class AsyncOntologyObjectSetClient:
                     page_size=page_size,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
-                    execute_in_memory_only=execute_in_memory_only,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
                 request_timeout=request_timeout,

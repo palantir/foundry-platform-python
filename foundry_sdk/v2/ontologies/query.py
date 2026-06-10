@@ -78,6 +78,7 @@ class QueryClient:
     ) -> ontologies_models.ExecuteQueryResponse:
         """
         Executes a Query using the given parameters. By default, the latest version of the Query is executed.
+        The latest version is the one that was most recently published, which may be a pre-release version.
 
         Optional parameters do not need to be supplied.
 
@@ -213,6 +214,7 @@ class AsyncQueryClient:
     ) -> typing.Awaitable[ontologies_models.ExecuteQueryResponse]:
         """
         Executes a Query using the given parameters. By default, the latest version of the Query is executed.
+        The latest version is the one that was most recently published, which may be a pre-release version.
 
         Optional parameters do not need to be supplied.
 

@@ -75,6 +75,10 @@ class ActionParameterArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
+ActionParameterRid = core.RID
+"""The unique resource identifier of an action parameter, useful for interacting with other Foundry APIs."""
+
+
 ActionParameterType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
@@ -123,11 +127,36 @@ ActionRid = core.RID
 """The unique resource identifier for an action."""
 
 
+ActionSectionRid = core.RID
+"""The unique resource identifier of an action section, useful for interacting with other Foundry APIs."""
+
+
 ActionTypeApiName = str
 """
 The name of the action type in the API. To find the API name for your Action Type, use the `List action types`
 endpoint or check the **Ontology Manager**.
 """
+
+
+class ActionTypeApiNameActionTypesQueryV2(core.ModelBase):
+    """Returns action types with an api name matching the given string predicate."""
+
+    value: FullTextStringPredicateV2
+    type: typing.Literal["actionTypeApiName"] = "actionTypeApiName"
+
+
+class ActionTypeDescriptionActionTypesQueryV2(core.ModelBase):
+    """Returns action types with a description matching the given string predicate."""
+
+    value: FullTextStringPredicateV2
+    type: typing.Literal["actionTypeDescription"] = "actionTypeDescription"
+
+
+class ActionTypeDisplayNameActionTypesQueryV2(core.ModelBase):
+    """Returns action types with a display name matching the given string predicate."""
+
+    value: FullTextStringPredicateV2
+    type: typing.Literal["actionTypeDisplayName"] = "actionTypeDisplayName"
 
 
 class ActionTypeFullMetadata(core.ModelBase):
@@ -137,8 +166,83 @@ class ActionTypeFullMetadata(core.ModelBase):
     full_logic_rules: typing.List[ActionLogicRule] = pydantic.Field(alias=str("fullLogicRules"))  # type: ignore[literal-required]
 
 
+ActionTypeFuzziness = typing_extensions.Annotated[
+    typing.Union["FuzzinessAuto", "FuzzinessOff"], pydantic.Field(discriminator="type")
+]
+"""
+Fuzziness setting applied to `contains` full-text string predicates in the search query. If not provided,
+`auto` is used.
+"""
+
+
+ActionTypeLogicRuleTypeFilter = typing.Literal[
+    "ADD_OBJECT",
+    "MODIFY_OBJECT",
+    "DELETE_OBJECT",
+    "ADD_LINK",
+    "DELETE_LINK",
+    "FUNCTION",
+    "BATCHED_FUNCTION",
+    "ADD_OR_MODIFY_OBJECT",
+    "ADD_OR_MODIFY_OBJECT_V2",
+]
+"""Filter action types by the type of logic rule they contain."""
+
+
+ActionTypePermissionModelFilter = typing.Literal[
+    "DATASOURCE_DERIVED_PERMISSIONS", "ONTOLOGY_ROLES", "COMPASS_PROJECT"
+]
+"""Filter action types by permission model."""
+
+
 ActionTypeRid = core.RID
 """The unique resource identifier of an action type, useful for interacting with other Foundry APIs."""
+
+
+class ActionTypeRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types with the given rid."""
+
+    value: ActionTypeRid
+    type: typing.Literal["actionTypeRid"] = "actionTypeRid"
+
+
+ActionTypeSearchJsonQueryV2 = typing_extensions.Annotated[
+    typing.Union[
+        "WebhookRidActionTypesQueryV2",
+        "HasActionLogActionTypesQueryV2",
+        "ActionTypeApiNameActionTypesQueryV2",
+        "OrActionTypesQueryV2",
+        "PermissionModelActionTypesQueryV2",
+        "HasWebhookActionTypesQueryV2",
+        "ActionTypeDisplayNameActionTypesQueryV2",
+        "AffectedLinkTypeRidActionTypesQueryV2",
+        "ActionTypeDescriptionActionTypesQueryV2",
+        "SectionRidActionTypesQueryV2",
+        "ParameterRidActionTypesQueryV2",
+        "ParameterNameActionTypesQueryV2",
+        "HasNotificationActionTypesQueryV2",
+        "FunctionRidActionTypesQueryV2",
+        "InputObjectTypeRidActionTypesQueryV2",
+        "RevertActionEnabledActionTypesQueryV2",
+        "LogicRuleActionTypesQueryV2",
+        "TypeClassesActionTypesQueryV2",
+        "AffectedInterfaceTypeRidActionTypesQueryV2",
+        "AndActionTypesQueryV2",
+        "ActionTypeRidActionTypesQueryV2",
+        "AffectedObjectTypeRidActionTypesQueryV2",
+        "StatusActionTypesQueryV2",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""Represents the search query for an action type search. Supports filters for various action type features."""
+
+
+ActionTypeSortByV2 = typing.Literal["actionTypeDisplayName"]
+"""Specifies the field to sort action types by."""
+
+
+ActionTypeStatusFilter = typing.Literal["EXPERIMENTAL", "ACTIVE", "DEPRECATED", "EXAMPLE"]
+"""Filter action types by status."""
 
 
 class ActionTypeV2(core.ModelBase):
@@ -207,6 +311,27 @@ class AddPropertyExpression(core.ModelBase):
     type: typing.Literal["add"] = "add"
 
 
+class AffectedInterfaceTypeRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types which edit the interface type with the given rid."""
+
+    value: InterfaceTypeRid
+    type: typing.Literal["affectedInterfaceTypeRid"] = "affectedInterfaceTypeRid"
+
+
+class AffectedLinkTypeRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types which edit the link type with the given rid."""
+
+    value: LinkTypeRid
+    type: typing.Literal["affectedLinkTypeRid"] = "affectedLinkTypeRid"
+
+
+class AffectedObjectTypeRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types which edit the object type with the given rid."""
+
+    value: ObjectTypeRid
+    type: typing.Literal["affectedObjectTypeRid"] = "affectedObjectTypeRid"
+
+
 class Affix(core.ModelBase):
     """Affix"""
 
@@ -222,14 +347,6 @@ class AggregateObjectSetRequestV2(core.ModelBase):
     group_by: typing.List[AggregationGroupByV2] = pydantic.Field(alias=str("groupBy"))  # type: ignore[literal-required]
     accuracy: typing.Optional[AggregationAccuracyRequest] = None
     include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
-    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
-    """
-    If true, the request fails with an error when it cannot be computed in-memory.
-    Use this to opt into fast failure on requests that would otherwise require
-    heavier computation.
-
-    Defaults to false.
-    """
 
 
 class AggregateObjectsRequestV2(core.ModelBase):
@@ -428,6 +545,13 @@ class AllOfRule(core.ModelBase):
     """If true, the matched intervals must occur in order."""
 
     type: typing.Literal["allOf"] = "allOf"
+
+
+class AndActionTypesQueryV2(core.ModelBase):
+    """Returns action types where every query is satisfied. An empty list matches all action types."""
+
+    value: typing.List[ActionTypeSearchJsonQueryV2]
+    type: typing.Literal["and"] = "and"
 
 
 class AndQueryV2(core.ModelBase):
@@ -1445,6 +1569,30 @@ FixedValuesMapKey = int
 """Integer key for fixed value mapping."""
 
 
+class FullTextStringContainsPredicate(core.ModelBase):
+    """
+    Matches strings which contain the given string or parts of the given string. The exact behaviour can vary
+    depending on the attribute searched for due to optimized text analysis.
+    """
+
+    value: str
+    type: typing.Literal["contains"] = "contains"
+
+
+class FullTextStringExactPredicate(core.ModelBase):
+    """Matches strings representing the same sequence of characters as the given string."""
+
+    value: str
+    type: typing.Literal["exact"] = "exact"
+
+
+FullTextStringPredicateV2 = typing_extensions.Annotated[
+    typing.Union["FullTextStringContainsPredicate", "FullTextStringExactPredicate"],
+    pydantic.Field(discriminator="type"),
+]
+"""A predicate for matching strings."""
+
+
 class FunctionLogicRule(core.ModelBase):
     """FunctionLogicRule"""
 
@@ -1462,11 +1610,36 @@ FunctionRid = core.RID
 """The unique resource identifier of a Function, useful for interacting with other Foundry APIs."""
 
 
+class FunctionRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types which use the function with the given rid."""
+
+    value: FunctionRid
+    type: typing.Literal["functionRid"] = "functionRid"
+
+
 FunctionVersion = str
 """
 The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional.
 Examples: `1.2.3`, `1.2.3-rc1`.
 """
+
+
+class FuzzinessAuto(core.ModelBase):
+    """
+    Fuzzy search is activated, which can help discover additional results based on small differences in
+    spelling, although some additional results may be less relevant.
+    """
+
+    type: typing.Literal["auto"] = "auto"
+
+
+class FuzzinessOff(core.ModelBase):
+    """
+    Fuzzy search is turned off. Matches generated by modifying one or more characters of the search query are
+    not returned.
+    """
+
+    type: typing.Literal["off"] = "off"
 
 
 class FuzzyRule(core.ModelBase):
@@ -1654,6 +1827,27 @@ class GteQueryV2(core.ModelBase):
     type: typing.Literal["gte"] = "gte"
 
 
+class HasActionLogActionTypesQueryV2(core.ModelBase):
+    """Returns action types based on whether they have an action log."""
+
+    value: bool
+    type: typing.Literal["hasActionLog"] = "hasActionLog"
+
+
+class HasNotificationActionTypesQueryV2(core.ModelBase):
+    """Returns action types based on whether they have a notification."""
+
+    value: bool
+    type: typing.Literal["hasNotification"] = "hasNotification"
+
+
+class HasWebhookActionTypesQueryV2(core.ModelBase):
+    """Returns action types based on whether they reference a webhook."""
+
+    value: bool
+    type: typing.Literal["hasWebhook"] = "hasWebhook"
+
+
 class HumanReadableFormat(core.ModelBase):
     """Formats the duration as a human-readable written string."""
 
@@ -1676,6 +1870,13 @@ class InQuery(core.ModelBase):
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: typing.List[PropertyValue]
     type: typing.Literal["in"] = "in"
+
+
+class InputObjectTypeRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types which reference the object type with the given rid as an input or product."""
+
+    value: ObjectTypeRid
+    type: typing.Literal["inputObjectTypeRid"] = "inputObjectTypeRid"
 
 
 class IntegerValue(core.ModelBase):
@@ -2305,14 +2506,6 @@ class LoadObjectSetLinksRequestV2(core.ModelBase):
     links: typing.List[LinkTypeApiName]
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
-    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
-    """
-    If true, the request fails with an error when it cannot be computed in-memory.
-    Use this to opt into fast failure on requests that would otherwise require
-    heavier computation.
-
-    Defaults to false.
-    """
 
 
 class LoadObjectSetLinksResponseV2(core.ModelBase):
@@ -2470,15 +2663,6 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     This defaults to false if not specified, which means you will always get the latest results.
     """
 
-    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
-    """
-    If true, the request fails with an error when it cannot be computed in-memory.
-    Use this to opt into fast failure on requests that would otherwise require
-    heavier computation.
-
-    Defaults to false.
-    """
-
 
 class LoadObjectSetV2ObjectsOrInterfacesResponse(core.ModelBase):
     """
@@ -2519,6 +2703,13 @@ LogicRule = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """LogicRule"""
+
+
+class LogicRuleActionTypesQueryV2(core.ModelBase):
+    """Returns action types which contain a logic rule of the given type."""
+
+    value: ActionTypeLogicRuleTypeFilter
+    type: typing.Literal["logicRule"] = "logicRule"
 
 
 LogicRuleArgument = typing_extensions.Annotated[
@@ -3622,6 +3813,13 @@ class OntologyValueType(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
+class OrActionTypesQueryV2(core.ModelBase):
+    """Returns action types where at least one query is satisfied. An empty list matches no action types."""
+
+    value: typing.List[ActionTypeSearchJsonQueryV2]
+    type: typing.Literal["or"] = "or"
+
+
 class OrQueryV2(core.ModelBase):
     """Returns objects where at least 1 query is satisfied."""
 
@@ -3708,12 +3906,33 @@ class ParameterIdArgument(core.ModelBase):
     type: typing.Literal["parameterId"] = "parameterId"
 
 
+class ParameterNameActionTypesQueryV2(core.ModelBase):
+    """Returns action types with a parameter whose name matches the given string predicate."""
+
+    value: FullTextStringPredicateV2
+    type: typing.Literal["parameterName"] = "parameterName"
+
+
 class ParameterOption(core.ModelBase):
     """A possible value for the parameter. This is defined in the **Ontology Manager** by Actions admins."""
 
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     value: typing.Optional[typing.Any] = None
     """An allowed configured value for a parameter within an action."""
+
+
+class ParameterRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types with a parameter matching the given parameter rid."""
+
+    value: ActionParameterRid
+    type: typing.Literal["parameterRid"] = "parameterRid"
+
+
+class PermissionModelActionTypesQueryV2(core.ModelBase):
+    """Returns action types with the given permission model."""
+
+    value: ActionTypePermissionModelFilter
+    type: typing.Literal["permissionModel"] = "permissionModel"
 
 
 Plaintext = str
@@ -4452,6 +4671,13 @@ ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
 """If not specified, defaults to `NONE`."""
 
 
+class RevertActionEnabledActionTypesQueryV2(core.ModelBase):
+    """Returns action types based on whether they are revertible."""
+
+    value: bool
+    type: typing.Literal["revertActionEnabled"] = "revertActionEnabled"
+
+
 class RidConstraint(core.ModelBase):
     """The string must be a valid RID (Resource Identifier)."""
 
@@ -4475,6 +4701,35 @@ SdkPackageRid = core.RID
 
 SdkVersion = str
 """SdkVersion"""
+
+
+class SearchActionTypesOrderByV2(core.ModelBase):
+    """
+    Specifies the ordering of action type search results by a field and an ordering direction. If not provided,
+    results are ordered by relevance of the match.
+    """
+
+    field: ActionTypeSortByV2
+    direction: typing.Optional[str] = None
+    """Specifies the ordering direction (can be either `asc` or `desc`)"""
+
+
+class SearchActionTypesRequestV2(core.ModelBase):
+    """SearchActionTypesRequestV2"""
+
+    where: typing.Optional[ActionTypeSearchJsonQueryV2] = None
+    order_by: typing.Optional[SearchActionTypesOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    fuzziness: typing.Optional[ActionTypeFuzziness] = None
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+
+
+class SearchActionTypesResponseV2(core.ModelBase):
+    """SearchActionTypesResponseV2"""
+
+    data: typing.List[ActionTypeV2]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
 
 
 SearchJsonQueryV2 = typing_extensions.Annotated[
@@ -4598,15 +4853,6 @@ class SearchObjectsRequestV2(core.ModelBase):
     This defaults to false if not specified, which means you will always get the latest results.
     """
 
-    execute_in_memory_only: typing.Optional[bool] = pydantic.Field(alias=str("executeInMemoryOnly"), default=None)  # type: ignore[literal-required]
-    """
-    If true, the request fails with an error when it cannot be computed in-memory.
-    Use this to opt into fast failure on requests that would otherwise require
-    heavier computation.
-
-    Defaults to false.
-    """
-
 
 class SearchObjectsResponseV2(core.ModelBase):
     """SearchObjectsResponseV2"""
@@ -4633,6 +4879,13 @@ class SearchOrderingV2(core.ModelBase):
     field: PropertyApiName
     direction: typing.Optional[str] = None
     """Specifies the ordering direction (can be either `asc` or `desc`)"""
+
+
+class SectionRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types with a section matching the given section rid."""
+
+    value: ActionSectionRid
+    type: typing.Literal["sectionRid"] = "sectionRid"
 
 
 SelectedPropertyApiName = str
@@ -4830,6 +5083,13 @@ class StaticArgument(core.ModelBase):
 
     value: DataValue
     type: typing.Literal["staticValue"] = "staticValue"
+
+
+class StatusActionTypesQueryV2(core.ModelBase):
+    """Returns action types with the given status."""
+
+    value: ActionTypeStatusFilter
+    type: typing.Literal["status"] = "status"
 
 
 StreamMessage = typing_extensions.Annotated[
@@ -5309,6 +5569,27 @@ class TypeClass(core.ModelBase):
     """The value of the type class."""
 
 
+class TypeClassPredicateV2(core.ModelBase):
+    """
+    A predicate for matching type classes. Matches a type class when `kind`, and `name` if provided, match the
+    corresponding attribute of the type class. If `name` is empty, only `kind` is required to match. You can
+    search for both parameter type classes and action type type classes.
+    """
+
+    kind: str
+    """Exact match predicate for the `kind` attribute of a type class."""
+
+    name: typing.Optional[str] = None
+    """Exact match predicate for the `name` attribute of a type class."""
+
+
+class TypeClassesActionTypesQueryV2(core.ModelBase):
+    """Returns action types whose type class satisfies the given type class predicate."""
+
+    value: TypeClassPredicateV2
+    type: typing.Literal["typeClasses"] = "typeClasses"
+
+
 TypeReferenceIdentifier = str
 """
 The unique identifier of a type reference. This identifier is used to look up the
@@ -5521,6 +5802,17 @@ Examples: 'myGroup:myFunction:latest', 'myGroup:myFunction:1.0.0', 'myFunction',
 """
 
 
+WebhookRid = core.RID
+"""The unique resource identifier of a webhook, useful for interacting with other Foundry APIs."""
+
+
+class WebhookRidActionTypesQueryV2(core.ModelBase):
+    """Returns action types which reference the webhook with the given rid."""
+
+    value: WebhookRid
+    type: typing.Literal["webhookRid"] = "webhookRid"
+
+
 class WildcardQuery(core.ModelBase):
     """
     Returns objects where the specified field matches the wildcard pattern provided.
@@ -5611,6 +5903,8 @@ WithinBoundingBoxPoint = geo_models.GeoPoint
 core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
 core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
+core.resolve_forward_references(ActionTypeFuzziness, globalns=globals(), localns=locals())
+core.resolve_forward_references(ActionTypeSearchJsonQueryV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
@@ -5630,6 +5924,7 @@ core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), l
 core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
 core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(FullTextStringPredicateV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
 core.resolve_forward_references(GeotemporalSeriesEntry, globalns=globals(), localns=locals())
 core.resolve_forward_references(
@@ -5709,13 +6004,25 @@ __all__ = [
     "ActionExecutionTime",
     "ActionLogicRule",
     "ActionParameterArrayType",
+    "ActionParameterRid",
     "ActionParameterType",
     "ActionParameterV2",
     "ActionResults",
     "ActionRid",
+    "ActionSectionRid",
     "ActionTypeApiName",
+    "ActionTypeApiNameActionTypesQueryV2",
+    "ActionTypeDescriptionActionTypesQueryV2",
+    "ActionTypeDisplayNameActionTypesQueryV2",
     "ActionTypeFullMetadata",
+    "ActionTypeFuzziness",
+    "ActionTypeLogicRuleTypeFilter",
+    "ActionTypePermissionModelFilter",
     "ActionTypeRid",
+    "ActionTypeRidActionTypesQueryV2",
+    "ActionTypeSearchJsonQueryV2",
+    "ActionTypeSortByV2",
+    "ActionTypeStatusFilter",
     "ActionTypeV2",
     "ActivePropertyTypeStatus",
     "AddLink",
@@ -5723,6 +6030,9 @@ __all__ = [
     "AddObject",
     "AddObjectEdit",
     "AddPropertyExpression",
+    "AffectedInterfaceTypeRidActionTypesQueryV2",
+    "AffectedLinkTypeRidActionTypesQueryV2",
+    "AffectedObjectTypeRidActionTypesQueryV2",
     "Affix",
     "AggregateObjectSetRequestV2",
     "AggregateObjectsRequestV2",
@@ -5743,6 +6053,7 @@ __all__ = [
     "AggregationRangesGroupingV2",
     "AggregationV2",
     "AllOfRule",
+    "AndActionTypesQueryV2",
     "AndQueryV2",
     "AnyOfRule",
     "ApplyActionMode",
@@ -5862,10 +6173,16 @@ __all__ = [
     "ExtractPropertyExpression",
     "FilterValue",
     "FixedValuesMapKey",
+    "FullTextStringContainsPredicate",
+    "FullTextStringExactPredicate",
+    "FullTextStringPredicateV2",
     "FunctionLogicRule",
     "FunctionParameterName",
     "FunctionRid",
+    "FunctionRidActionTypesQueryV2",
     "FunctionVersion",
+    "FuzzinessAuto",
+    "FuzzinessOff",
     "FuzzyRule",
     "FuzzyV2",
     "GeoJsonString",
@@ -5887,9 +6204,13 @@ __all__ = [
     "GroupMemberConstraint",
     "GtQueryV2",
     "GteQueryV2",
+    "HasActionLogActionTypesQueryV2",
+    "HasNotificationActionTypesQueryV2",
+    "HasWebhookActionTypesQueryV2",
     "HumanReadableFormat",
     "Icon",
     "InQuery",
+    "InputObjectTypeRidActionTypesQueryV2",
     "IntegerValue",
     "InterfaceDefinedPropertyType",
     "InterfaceLinkType",
@@ -5964,6 +6285,7 @@ __all__ = [
     "LoadObjectSetV2ObjectsOrInterfacesResponse",
     "LoadOntologyMetadataRequest",
     "LogicRule",
+    "LogicRuleActionTypesQueryV2",
     "LogicRuleArgument",
     "LongValue",
     "LtQueryV2",
@@ -6076,6 +6398,7 @@ __all__ = [
     "OntologyTransactionId",
     "OntologyV2",
     "OntologyValueType",
+    "OrActionTypesQueryV2",
     "OrQueryV2",
     "OrderBy",
     "OrderByDirection",
@@ -6083,7 +6406,10 @@ __all__ = [
     "ParameterEvaluationResult",
     "ParameterId",
     "ParameterIdArgument",
+    "ParameterNameActionTypesQueryV2",
     "ParameterOption",
+    "ParameterRidActionTypesQueryV2",
+    "PermissionModelActionTypesQueryV2",
     "Plaintext",
     "PolygonValue",
     "PostTransactionEditsRequest",
@@ -6161,11 +6487,15 @@ __all__ = [
     "RequestId",
     "ResolvedInterfacePropertyType",
     "ReturnEditsMode",
+    "RevertActionEnabledActionTypesQueryV2",
     "RidConstraint",
     "RollingAggregateWindowPoints",
     "SdkPackageName",
     "SdkPackageRid",
     "SdkVersion",
+    "SearchActionTypesOrderByV2",
+    "SearchActionTypesRequestV2",
+    "SearchActionTypesResponseV2",
     "SearchJsonQueryV2",
     "SearchObjectsForInterfaceRequest",
     "SearchObjectsRequestV2",
@@ -6173,6 +6503,7 @@ __all__ = [
     "SearchOrderByType",
     "SearchOrderByV2",
     "SearchOrderingV2",
+    "SectionRidActionTypesQueryV2",
     "SelectedPropertyApiName",
     "SelectedPropertyApproximateDistinctAggregation",
     "SelectedPropertyApproximatePercentileAggregation",
@@ -6192,6 +6523,7 @@ __all__ = [
     "SpatialFilterMode",
     "StartsWithQuery",
     "StaticArgument",
+    "StatusActionTypesQueryV2",
     "StreamMessage",
     "StreamTimeSeriesPointsRequest",
     "StreamTimeSeriesValuesRequest",
@@ -6243,6 +6575,8 @@ __all__ = [
     "TransactionEdit",
     "TwoDimensionalAggregation",
     "TypeClass",
+    "TypeClassPredicateV2",
+    "TypeClassesActionTypesQueryV2",
     "TypeReferenceIdentifier",
     "UnevaluableConstraint",
     "UniqueIdentifierArgument",
@@ -6267,6 +6601,8 @@ __all__ = [
     "ValueTypeStructType",
     "ValueTypeUnionType",
     "VersionedQueryTypeApiName",
+    "WebhookRid",
+    "WebhookRidActionTypesQueryV2",
     "WildcardQuery",
     "WithinBoundingBoxPoint",
     "WithinBoundingBoxQuery",

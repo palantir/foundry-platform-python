@@ -287,6 +287,57 @@ class MarkingClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def parse_classifications(
+        self,
+        *,
+        classification_strings: typing.List[str],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.ParseClassificationsResponse:
+        """
+        Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.
+        :type classification_strings: List[str]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.ParseClassificationsResponse
+
+        :raises CbacUnavailable: CBAC is not available.
+        :raises ParseClassificationsPermissionDenied: The provided token does not have permission to parse the given classification strings.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/parseClassifications",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.ParseClassificationsRequest(
+                    classification_strings=classification_strings,
+                ),
+                response_type=admin_models.ParseClassificationsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CbacUnavailable": admin_errors.CbacUnavailable,
+                    "ParseClassificationsPermissionDenied": admin_errors.ParseClassificationsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def replace(
         self,
         marking_id: core_models.MarkingId,
@@ -354,12 +405,16 @@ class _MarkingClientRaw:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.list = core.with_raw_response(list, client.list)
+        self.parse_classifications = core.with_raw_response(
+            parse_classifications, client.parse_classifications
+        )
         self.replace = core.with_raw_response(replace, client.replace)
 
 
@@ -369,12 +424,16 @@ class _MarkingClientStreaming:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.list = core.with_streaming_response(list, client.list)
+        self.parse_classifications = core.with_streaming_response(
+            parse_classifications, client.parse_classifications
+        )
         self.replace = core.with_streaming_response(replace, client.replace)
 
 
@@ -639,6 +698,57 @@ class AsyncMarkingClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def parse_classifications(
+        self,
+        *,
+        classification_strings: typing.List[str],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.ParseClassificationsResponse]:
+        """
+        Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.
+        :type classification_strings: List[str]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.ParseClassificationsResponse]
+
+        :raises CbacUnavailable: CBAC is not available.
+        :raises ParseClassificationsPermissionDenied: The provided token does not have permission to parse the given classification strings.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/parseClassifications",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.ParseClassificationsRequest(
+                    classification_strings=classification_strings,
+                ),
+                response_type=admin_models.ParseClassificationsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CbacUnavailable": admin_errors.CbacUnavailable,
+                    "ParseClassificationsPermissionDenied": admin_errors.ParseClassificationsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def replace(
         self,
         marking_id: core_models.MarkingId,
@@ -706,12 +816,16 @@ class _AsyncMarkingClientRaw:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.list = core.async_with_raw_response(list, client.list)
+        self.parse_classifications = core.async_with_raw_response(
+            parse_classifications, client.parse_classifications
+        )
         self.replace = core.async_with_raw_response(replace, client.replace)
 
 
@@ -721,10 +835,14 @@ class _AsyncMarkingClientStreaming:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.list = core.async_with_streaming_response(list, client.list)
+        self.parse_classifications = core.async_with_streaming_response(
+            parse_classifications, client.parse_classifications
+        )
         self.replace = core.async_with_streaming_response(replace, client.replace)

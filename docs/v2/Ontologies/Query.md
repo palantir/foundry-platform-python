@@ -5,7 +5,8 @@ Method | HTTP request | Release Stage |
 [**execute**](#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute | Stable |
 
 # **execute**
-Executes a Query using the given parameters. By default, the latest version of the Query is executed.
+Executes a Query using the given parameters. By default, the latest version of the Query is executed. 
+The latest version is the one that was most recently published, which may be a pre-release version.
 
 Optional parameters do not need to be supplied.
 

@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/admin/markings/{markingId} | Stable |
 [**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch | Stable |
 [**list**](#list) | **GET** /v2/admin/markings | Stable |
+[**parse_classifications**](#parse_classifications) | **POST** /v2/admin/markings/parseClassifications | Public Beta |
 [**replace**](#replace) | **PUT** /v2/admin/markings/{markingId} | Stable |
 
 # **create**
@@ -217,6 +218,58 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListMarkingsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **parse_classifications**
+Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**classification_strings** | List[str] | The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted. |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ParseClassificationsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[str] | The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.
+classification_strings = ["MTS//MNF", "MU"]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.admin.Marking.parse_classifications(
+        classification_strings=classification_strings, preview=preview
+    )
+    print("The parse_classifications response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Marking.parse_classifications: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ParseClassificationsResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

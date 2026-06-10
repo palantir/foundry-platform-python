@@ -276,6 +276,7 @@ Name | Type | Description  | Notes |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **load_property_securities** | Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
@@ -312,6 +313,8 @@ select = None
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
+# Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+execute_in_memory_only = None
 # Optional[IncludeComputeUsage]
 include_compute_usage = None
 # Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
@@ -347,6 +350,7 @@ try:
         select=select,
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         load_property_securities=load_property_securities,
         order_by=order_by,
@@ -513,6 +517,7 @@ Name | Type | Description  | Notes |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **load_property_securities** | Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
@@ -550,6 +555,8 @@ select = None
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
+# Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+execute_in_memory_only = None
 # Optional[IncludeComputeUsage]
 include_compute_usage = None
 # Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
@@ -587,6 +594,7 @@ try:
         select=select,
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         load_property_securities=load_property_securities,
         order_by=order_by,

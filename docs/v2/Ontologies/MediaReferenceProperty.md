@@ -18,6 +18,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the media reference property.  |  |
 **property** | PropertyApiName | The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -42,6 +43,8 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "profile_picture"
+# Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.
+branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -56,6 +59,7 @@ try:
         object_type,
         primary_key,
         property,
+        branch=branch,
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -92,6 +96,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the media reference property.  |  |
 **property** | PropertyApiName | The API name of the media reference backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -116,6 +121,8 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the media reference backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = None
+# Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.
+branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -130,6 +137,7 @@ try:
         object_type,
         primary_key,
         property,
+        branch=branch,
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,

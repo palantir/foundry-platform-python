@@ -211,7 +211,11 @@ class SqlQueryClient:
         :rtype: bytes
 
         :raises ExecuteOntologySqlQueryPermissionDenied: Could not executeOntology the SqlQuery.
+        :raises OntologyObjectTypeNotFound: The ontology query referenced an object type RID that does not exist or is not visible to the requesting user. Verify the RID (e.g. via list-object-types or get-object-type-details) and retry.
         :raises OntologyQueryFailed: The Ontology query failed.
+        :raises OntologyQueryInvalidObjectBackend: The ontology query references object types or link types indexed in Object Storage V1, which is incompatible with Ontology SQL. Migrate the entities to Object Storage V2 or remove them from the query.
+        :raises OntologyQueryNestedObjectSetTooLarge: The query references too many objects across joins, link lookups, or sub-queries. Narrow the scope (add filters, reduce joins, restrict object types) and retry. The actual and maximum object counts are returned as parameters.
+        :raises OntologyQueryStringColumnTooLong: A string column in the query result contains a value larger than the platform's per-cell size limit. Exclude or filter the column, or scope the query to skip the oversized rows.
         :raises QueryParseError: The query cannot be parsed.
         """
 
@@ -237,7 +241,11 @@ class SqlQueryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteOntologySqlQueryPermissionDenied": sql_queries_errors.ExecuteOntologySqlQueryPermissionDenied,
+                    "OntologyObjectTypeNotFound": sql_queries_errors.OntologyObjectTypeNotFound,
                     "OntologyQueryFailed": sql_queries_errors.OntologyQueryFailed,
+                    "OntologyQueryInvalidObjectBackend": sql_queries_errors.OntologyQueryInvalidObjectBackend,
+                    "OntologyQueryNestedObjectSetTooLarge": sql_queries_errors.OntologyQueryNestedObjectSetTooLarge,
+                    "OntologyQueryStringColumnTooLong": sql_queries_errors.OntologyQueryStringColumnTooLong,
                     "QueryParseError": sql_queries_errors.QueryParseError,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -578,7 +586,11 @@ class AsyncSqlQueryClient:
         :rtype: typing.Awaitable[bytes]
 
         :raises ExecuteOntologySqlQueryPermissionDenied: Could not executeOntology the SqlQuery.
+        :raises OntologyObjectTypeNotFound: The ontology query referenced an object type RID that does not exist or is not visible to the requesting user. Verify the RID (e.g. via list-object-types or get-object-type-details) and retry.
         :raises OntologyQueryFailed: The Ontology query failed.
+        :raises OntologyQueryInvalidObjectBackend: The ontology query references object types or link types indexed in Object Storage V1, which is incompatible with Ontology SQL. Migrate the entities to Object Storage V2 or remove them from the query.
+        :raises OntologyQueryNestedObjectSetTooLarge: The query references too many objects across joins, link lookups, or sub-queries. Narrow the scope (add filters, reduce joins, restrict object types) and retry. The actual and maximum object counts are returned as parameters.
+        :raises OntologyQueryStringColumnTooLong: A string column in the query result contains a value larger than the platform's per-cell size limit. Exclude or filter the column, or scope the query to skip the oversized rows.
         :raises QueryParseError: The query cannot be parsed.
         """
 
@@ -604,7 +616,11 @@ class AsyncSqlQueryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteOntologySqlQueryPermissionDenied": sql_queries_errors.ExecuteOntologySqlQueryPermissionDenied,
+                    "OntologyObjectTypeNotFound": sql_queries_errors.OntologyObjectTypeNotFound,
                     "OntologyQueryFailed": sql_queries_errors.OntologyQueryFailed,
+                    "OntologyQueryInvalidObjectBackend": sql_queries_errors.OntologyQueryInvalidObjectBackend,
+                    "OntologyQueryNestedObjectSetTooLarge": sql_queries_errors.OntologyQueryNestedObjectSetTooLarge,
+                    "OntologyQueryStringColumnTooLong": sql_queries_errors.OntologyQueryStringColumnTooLong,
                     "QueryParseError": sql_queries_errors.QueryParseError,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

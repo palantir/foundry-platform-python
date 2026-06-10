@@ -29,7 +29,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
-**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
+**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported. | [optional] |
 **version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
@@ -58,7 +58,7 @@ preview = None
 trace_parent = None
 # Optional[TraceState]
 trace_state = None
-# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
 transaction_id = None
 # Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
 version = None
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
-**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
+**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported. | [optional] |
 **version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
@@ -147,7 +147,7 @@ preview = None
 trace_parent = None
 # Optional[TraceState]
 trace_state = None
-# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
 transaction_id = None
 # Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
 version = None
@@ -394,7 +394,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
-**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
+**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported. | [optional] |
 **version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
@@ -425,7 +425,7 @@ preview = None
 trace_parent = None
 # Optional[TraceState]
 trace_state = None
-# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
 transaction_id = None
 # Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
 version = None

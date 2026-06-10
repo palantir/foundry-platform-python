@@ -1,0 +1,12 @@
+# WebhookRidActionTypesQueryV2
+
+Returns action types which reference the webhook with the given rid.
+
+## Properties
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
+**value** | WebhookRid | Yes |  |
+**type** | Literal["webhookRid"] | Yes | None |
+
+
+[[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)
