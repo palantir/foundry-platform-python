@@ -63,6 +63,7 @@ class MediaReferencePropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -80,6 +81,8 @@ class MediaReferencePropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -97,6 +100,7 @@ class MediaReferencePropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/content",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -128,6 +132,7 @@ class MediaReferencePropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -145,6 +150,8 @@ class MediaReferencePropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the media reference backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -162,6 +169,7 @@ class MediaReferencePropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/metadata",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -313,6 +321,7 @@ class AsyncMediaReferencePropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -330,6 +339,8 @@ class AsyncMediaReferencePropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -347,6 +358,7 @@ class AsyncMediaReferencePropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/content",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -378,6 +390,7 @@ class AsyncMediaReferencePropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -395,6 +408,8 @@ class AsyncMediaReferencePropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the media reference backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -412,6 +427,7 @@ class AsyncMediaReferencePropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/metadata",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,

@@ -98,7 +98,7 @@ class QueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
-        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
         :type transaction_id: Optional[TransactionId]
         :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
@@ -186,7 +186,7 @@ class QueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
-        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
         :type transaction_id: Optional[TransactionId]
         :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
@@ -455,7 +455,7 @@ class QueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
-        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
         :type transaction_id: Optional[TransactionId]
         :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
@@ -610,7 +610,7 @@ class AsyncQueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
-        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
         :type transaction_id: Optional[TransactionId]
         :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
@@ -698,7 +698,7 @@ class AsyncQueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
-        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
         :type transaction_id: Optional[TransactionId]
         :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
@@ -967,7 +967,7 @@ class AsyncQueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
-        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
         :type transaction_id: Optional[TransactionId]
         :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]

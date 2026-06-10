@@ -100,6 +100,25 @@ class GetStatusSqlQueryPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class OntologyObjectTypeNotFoundParameters(typing_extensions.TypedDict):
+    """
+    The ontology query referenced an object type RID that does not exist or
+    is not visible to the requesting user. Verify the RID (e.g. via
+    list-object-types or get-object-type-details) and retry.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectTypeRid: core.RID
+
+
+@dataclass
+class OntologyObjectTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["OntologyObjectTypeNotFound"]
+    parameters: OntologyObjectTypeNotFoundParameters
+    error_instance_id: str
+
+
 class OntologyQueryFailedParameters(typing_extensions.TypedDict):
     """The Ontology query failed."""
 
@@ -112,6 +131,66 @@ class OntologyQueryFailedParameters(typing_extensions.TypedDict):
 class OntologyQueryFailed(errors.InternalServerError):
     name: typing.Literal["OntologyQueryFailed"]
     parameters: OntologyQueryFailedParameters
+    error_instance_id: str
+
+
+class OntologyQueryInvalidObjectBackendParameters(typing_extensions.TypedDict):
+    """
+    The ontology query references object types or link types indexed in Object
+    Storage V1, which is incompatible with Ontology SQL. Migrate the entities
+    to Object Storage V2 or remove them from the query.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectTypeRids: typing.List[core.RID]
+    linkTypeRids: typing.List[core.RID]
+
+
+@dataclass
+class OntologyQueryInvalidObjectBackend(errors.BadRequestError):
+    name: typing.Literal["OntologyQueryInvalidObjectBackend"]
+    parameters: OntologyQueryInvalidObjectBackendParameters
+    error_instance_id: str
+
+
+class OntologyQueryNestedObjectSetTooLargeParameters(typing_extensions.TypedDict):
+    """
+    The query references too many objects across joins, link lookups, or
+    sub-queries. Narrow the scope (add filters, reduce joins, restrict
+    object types) and retry. The actual and maximum object counts are
+    returned as parameters.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    nestedObjectSetSize: core.Long
+    maxAllowedNestedObjectSetSize: core.Long
+
+
+@dataclass
+class OntologyQueryNestedObjectSetTooLarge(errors.BadRequestError):
+    name: typing.Literal["OntologyQueryNestedObjectSetTooLarge"]
+    parameters: OntologyQueryNestedObjectSetTooLargeParameters
+    error_instance_id: str
+
+
+class OntologyQueryStringColumnTooLongParameters(typing_extensions.TypedDict):
+    """
+    A string column in the query result contains a value larger than
+    the platform's per-cell size limit. Exclude or filter the column,
+    or scope the query to skip the oversized rows.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    columnName: str
+
+
+@dataclass
+class OntologyQueryStringColumnTooLong(errors.BadRequestError):
+    name: typing.Literal["OntologyQueryStringColumnTooLong"]
+    parameters: OntologyQueryStringColumnTooLongParameters
     error_instance_id: str
 
 
@@ -207,7 +286,11 @@ __all__ = [
     "ExecuteSqlQueryPermissionDenied",
     "GetResultsSqlQueryPermissionDenied",
     "GetStatusSqlQueryPermissionDenied",
+    "OntologyObjectTypeNotFound",
     "OntologyQueryFailed",
+    "OntologyQueryInvalidObjectBackend",
+    "OntologyQueryNestedObjectSetTooLarge",
+    "OntologyQueryStringColumnTooLong",
     "QueryCanceled",
     "QueryFailed",
     "QueryParseError",

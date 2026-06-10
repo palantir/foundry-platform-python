@@ -869,6 +869,21 @@ class OrganizationNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class ParseClassificationsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """The provided token does not have permission to parse the given classification strings."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    classificationStrings: typing.List[str]
+
+
+@dataclass
+class ParseClassificationsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ParseClassificationsPermissionDenied"]
+    parameters: ParseClassificationsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class PreregisterGroupPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not preregisterGroup the AuthenticationProvider."""
 
@@ -1347,6 +1362,7 @@ __all__ = [
     "OrganizationMarkingAdministerRoleNotSupported",
     "OrganizationNameAlreadyExists",
     "OrganizationNotFound",
+    "ParseClassificationsPermissionDenied",
     "PreregisterGroupPermissionDenied",
     "PreregisterUserPermissionDenied",
     "PrincipalNotFound",

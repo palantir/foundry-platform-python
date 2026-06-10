@@ -876,6 +876,32 @@ def admin_marking_op_list(
     click.echo(repr(result))
 
 
+@admin_marking.command("parse_classifications")
+@click.option(
+    "--classification_strings",
+    type=str,
+    required=True,
+    help="""The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_marking_op_parse_classifications(
+    client: FoundryClient,
+    classification_strings: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+    """
+    result = client.admin.Marking.parse_classifications(
+        classification_strings=json.loads(classification_strings),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_marking.command("replace")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--name", type=str, required=True, help="""""")
@@ -5656,7 +5682,7 @@ When provided with `version`, the specified version must exist on the branch.
     "--transaction_id",
     type=str,
     required=False,
-    help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.""",
 )
 @click.option(
     "--version",
@@ -5731,7 +5757,7 @@ function. When omitted, executes a global function.
     "--transaction_id",
     type=str,
     required=False,
-    help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.""",
 )
 @click.option(
     "--version",
@@ -5896,7 +5922,7 @@ function. When omitted, executes a global function.
     "--transaction_id",
     type=str,
     required=False,
-    help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.""",
 )
 @click.option(
     "--version",
@@ -8356,6 +8382,7 @@ def ontologies_query_op_execute(
 ):
     """
     Executes a Query using the given parameters. By default, the latest version of the Query is executed.
+    The latest version is the one that was most recently published, which may be a pre-release version.
 
     Optional parameters do not need to be supplied.
 
@@ -8977,6 +9004,17 @@ Branches are an experimental feature and not all workflows are supported.
 Setting this to true may improve performance of this endpoint for object types in OSV2.
 """,
 )
+@click.option(
+    "--execute_in_memory_only",
+    type=bool,
+    required=False,
+    help="""If true, the request fails with an error when it cannot be computed in-memory.
+Use this to opt into fast failure on requests that would otherwise require
+heavier computation.
+
+Defaults to false.
+""",
+)
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option(
     "--load_property_securities",
@@ -9061,6 +9099,7 @@ def ontologies_ontology_object_set_op_load(
     select: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
     load_property_securities: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -9092,6 +9131,7 @@ def ontologies_ontology_object_set_op_load(
         select=json.loads(select),
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         load_property_securities=load_property_securities,
         order_by=None if order_by is None else json.loads(order_by),
@@ -9239,6 +9279,17 @@ Branches are an experimental feature and not all workflows are supported.
 Setting this to true may improve performance of this endpoint for object types in OSV2.
 """,
 )
+@click.option(
+    "--execute_in_memory_only",
+    type=bool,
+    required=False,
+    help="""If true, the request fails with an error when it cannot be computed in-memory.
+Use this to opt into fast failure on requests that would otherwise require
+heavier computation.
+
+Defaults to false.
+""",
+)
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option(
     "--load_property_securities",
@@ -9330,6 +9381,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     select: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
     load_property_securities: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -9367,6 +9419,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         select=json.loads(select),
         branch=branch,
         exclude_rid=exclude_rid,
+        execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
         load_property_securities=load_property_securities,
         order_by=None if order_by is None else json.loads(order_by),
@@ -11373,6 +11426,62 @@ def ontologies_ontology_action_type_op_list(
     click.echo(repr(result))
 
 
+@ontologies_ontology_action_type.command("search")
+@click.argument("ontology", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to search the action types from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option("--fuzziness", type=str, required=False, help="""""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--where", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_ontology_action_type_op_search(
+    client: FoundryClient,
+    ontology: str,
+    branch: typing.Optional[str],
+    fuzziness: typing.Optional[str],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    where: typing.Optional[str],
+):
+    """
+    Search for action types in the given Ontology that match the provided filters. Results are returned by
+    relevance of the match unless an explicit `orderBy` is provided.
+
+    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+    results available, at least one result will be present in the response. Search results are eventually
+    consistent with the latest Ontology version and may lag slightly behind the last Ontology modification.
+
+    """
+    result = client.ontologies.Ontology.ActionType.search(
+        ontology=ontology,
+        branch=branch,
+        fuzziness=None if fuzziness is None else json.loads(fuzziness),
+        order_by=None if order_by is None else json.loads(order_by),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=None if where is None else json.loads(where),
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("media_reference_property")
 def ontologies_media_reference_property():
     pass
@@ -11383,6 +11492,13 @@ def ontologies_media_reference_property():
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--preview",
     type=bool,
@@ -11411,6 +11527,7 @@ def ontologies_media_reference_property_op_get_media_content(
     object_type: str,
     primary_key: str,
     property: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -11424,6 +11541,7 @@ def ontologies_media_reference_property_op_get_media_content(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
+        branch=branch,
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -11436,6 +11554,13 @@ def ontologies_media_reference_property_op_get_media_content(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--preview",
     type=bool,
@@ -11464,6 +11589,7 @@ def ontologies_media_reference_property_op_get_media_metadata(
     object_type: str,
     primary_key: str,
     property: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -11477,6 +11603,7 @@ def ontologies_media_reference_property_op_get_media_metadata(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
+        branch=branch,
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
