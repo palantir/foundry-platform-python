@@ -61,19 +61,19 @@ class AddOrganizationRoleAssignmentsRequest(core.ModelBase):
     role_assignments: typing.List[core_models.RoleAssignmentUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
 
 
-AttributeName = str
+AttributeName: typing_extensions.TypeAlias = str
 """AttributeName"""
 
 
-AttributeValue = str
+AttributeValue: typing_extensions.TypeAlias = str
 """AttributeValue"""
 
 
-AttributeValues = typing.List["AttributeValue"]
+AttributeValues: typing_extensions.TypeAlias = typing.List["AttributeValue"]
 """AttributeValues"""
 
 
-AuthenticationProtocol = typing_extensions.Annotated[
+AuthenticationProtocol: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["SamlAuthenticationProtocol", "OidcAuthenticationProtocol"],
     pydantic.Field(discriminator="type"),
 ]
@@ -98,15 +98,15 @@ class AuthenticationProvider(core.ModelBase):
     protocol: AuthenticationProtocol
 
 
-AuthenticationProviderEnabled = bool
+AuthenticationProviderEnabled: typing_extensions.TypeAlias = bool
 """Whether users can log in using this provider."""
 
 
-AuthenticationProviderName = str
+AuthenticationProviderName: typing_extensions.TypeAlias = str
 """AuthenticationProviderName"""
 
 
-AuthenticationProviderRid = core.RID
+AuthenticationProviderRid: typing_extensions.TypeAlias = core.RID
 """AuthenticationProviderRid"""
 
 
@@ -119,7 +119,7 @@ class CbacBanner(core.ModelBase):
     background_colors: typing.List[core_models.Color] = pydantic.Field(alias=str("backgroundColors"))  # type: ignore[literal-required]
 
 
-CbacBannerClassificationString = str
+CbacBannerClassificationString: typing_extensions.TypeAlias = str
 """CbacBannerClassificationString"""
 
 
@@ -142,11 +142,11 @@ class CbacMarkingRestrictions(core.ModelBase):
     """True if the provided markings constitute a valid classification, containing no disallowed markings and satisfying all required marking constraints."""
 
 
-CbacMarkingRestrictionsIsValid = bool
+CbacMarkingRestrictionsIsValid: typing_extensions.TypeAlias = bool
 """True if the provided markings constitute a valid classification, containing no disallowed markings and satisfying all required marking constraints."""
 
 
-CbacMarkingRestrictionsUserSatisfiesMarkings = bool
+CbacMarkingRestrictionsUserSatisfiesMarkings: typing_extensions.TypeAlias = bool
 """True if the current user satisfies the provided markings. The user must be a member of all conjunctive markings. The provided disjunctive markings are grouped by category, and the user must be a member of at least one marking in each group."""
 
 
@@ -161,11 +161,15 @@ class CertificateInfo(core.ModelBase):
     usage_type: CertificateUsageType = pydantic.Field(alias=str("usageType"))  # type: ignore[literal-required]
 
 
-CertificateUsageType = typing.Literal["ENCRYPTION", "SIGNING", "UNSPECIFIED"]
+CertificateUsageType: typing_extensions.TypeAlias = typing.Literal[
+    "ENCRYPTION", "SIGNING", "UNSPECIFIED"
+]
 """CertificateUsageType"""
 
 
-ClassificationBannerDisplayType = typing.Literal["BANNER_LINE", "PORTION_MARKING"]
+ClassificationBannerDisplayType: typing_extensions.TypeAlias = typing.Literal[
+    "BANNER_LINE", "PORTION_MARKING"
+]
 """The display type of the classification banner. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs"""
 
 
@@ -248,7 +252,7 @@ class Enrollment(core.ModelBase):
     created_time: typing.Optional[core_models.CreatedTime] = pydantic.Field(alias=str("createdTime"), default=None)  # type: ignore[literal-required]
 
 
-EnrollmentName = str
+EnrollmentName: typing_extensions.TypeAlias = str
 """EnrollmentName"""
 
 
@@ -355,7 +359,7 @@ class GroupMembership(core.ModelBase):
     group_id: core_models.GroupId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
 
 
-GroupMembershipExpiration = core.AwareDatetime
+GroupMembershipExpiration: typing_extensions.TypeAlias = core.AwareDatetime
 """GroupMembershipExpiration"""
 
 
@@ -369,7 +373,7 @@ class GroupMembershipExpirationPolicy(core.ModelBase):
     """Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added."""
 
 
-GroupName = str
+GroupName: typing_extensions.TypeAlias = str
 """The name of the Group."""
 
 
@@ -396,7 +400,7 @@ class Host(core.ModelBase):
     host_name: HostName = pydantic.Field(alias=str("hostName"))  # type: ignore[literal-required]
 
 
-HostName = str
+HostName: typing_extensions.TypeAlias = str
 """HostName"""
 
 
@@ -530,18 +534,18 @@ class MarkingCategory(core.ModelBase):
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
 
 
-MarkingCategoryDescription = str
+MarkingCategoryDescription: typing_extensions.TypeAlias = str
 """MarkingCategoryDescription"""
 
 
-MarkingCategoryId = str
+MarkingCategoryId: typing_extensions.TypeAlias = str
 """
 The ID of a marking category. For user-created categories, this will be a UUID. Markings associated with
 Organizations are placed in a category with ID "Organization".
 """
 
 
-MarkingCategoryName = str
+MarkingCategoryName: typing_extensions.TypeAlias = str
 """MarkingCategoryName"""
 
 
@@ -556,11 +560,11 @@ class MarkingCategoryPermissions(core.ModelBase):
     """If true, all users who are members of at least one of the Organizations from organizationRids can view the Markings in the category. If false, only users who are explicitly granted the VIEW role can view the Markings in the category."""
 
 
-MarkingCategoryPermissionsIsPublic = bool
+MarkingCategoryPermissionsIsPublic: typing_extensions.TypeAlias = bool
 """If true, all users who are members of at least one of the Organizations from organizationRids can view the Markings in the category. If false, only users who are explicitly granted the VIEW role can view the Markings in the category."""
 
 
-MarkingCategoryRole = typing.Literal["ADMINISTER", "VIEW"]
+MarkingCategoryRole: typing_extensions.TypeAlias = typing.Literal["ADMINISTER", "VIEW"]
 """
 Represents the operations that a user can perform with regards to a Marking Category.
   * ADMINISTER: The user can update a Marking Category's metadata and permissions
@@ -577,7 +581,7 @@ class MarkingCategoryRoleAssignment(core.ModelBase):
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
-MarkingCategoryType = typing.Literal["CONJUNCTIVE", "DISJUNCTIVE"]
+MarkingCategoryType: typing_extensions.TypeAlias = typing.Literal["CONJUNCTIVE", "DISJUNCTIVE"]
 """MarkingCategoryType"""
 
 
@@ -588,11 +592,11 @@ class MarkingMember(core.ModelBase):
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
-MarkingName = str
+MarkingName: typing_extensions.TypeAlias = str
 """MarkingName"""
 
 
-MarkingRole = typing.Literal["ADMINISTER", "DECLASSIFY", "USE"]
+MarkingRole: typing_extensions.TypeAlias = typing.Literal["ADMINISTER", "DECLASSIFY", "USE"]
 """
 Represents the operations that a user can perform with regards to a Marking.
   * ADMINISTER: The user can add and remove members from the Marking, update Marking Role Assignments, and change Marking metadata.
@@ -616,7 +620,7 @@ class MarkingRoleUpdate(core.ModelBase):
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
-MarkingType = typing.Literal["MANDATORY", "CBAC"]
+MarkingType: typing_extensions.TypeAlias = typing.Literal["MANDATORY", "CBAC"]
 """MarkingType"""
 
 
@@ -652,7 +656,7 @@ class OrganizationGuestMember(core.ModelBase):
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
-OrganizationName = str
+OrganizationName: typing_extensions.TypeAlias = str
 """OrganizationName"""
 
 
@@ -707,11 +711,11 @@ class PreregisterUserRequest(core.ModelBase):
     attributes: typing.Optional[typing.Dict[AttributeName, AttributeValues]] = None
 
 
-PrincipalFilterType = typing.Literal["queryString"]
+PrincipalFilterType: typing_extensions.TypeAlias = typing.Literal["queryString"]
 """PrincipalFilterType"""
 
 
-ProviderId = str
+ProviderId: typing_extensions.TypeAlias = str
 """A value that uniquely identifies a User or Group in an external authentication provider. This value is determined by the external authentication provider and must be unique per Realm."""
 
 
@@ -837,11 +841,11 @@ class Role(core.ModelBase):
     """A list of roles that this role inherits."""
 
 
-RoleDescription = str
+RoleDescription: typing_extensions.TypeAlias = str
 """RoleDescription"""
 
 
-RoleDisplayName = str
+RoleDisplayName: typing_extensions.TypeAlias = str
 """RoleDisplayName"""
 
 
@@ -951,12 +955,11 @@ class UserSearchFilter(core.ModelBase):
     value: str
 
 
-UserUsername = str
+UserUsername: typing_extensions.TypeAlias = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
-core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",

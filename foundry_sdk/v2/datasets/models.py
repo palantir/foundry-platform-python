@@ -82,7 +82,9 @@ class CreateViewRequest(core.ModelBase):
     primary_key: typing.Optional[ViewPrimaryKey] = pydantic.Field(alias=str("primaryKey"), default=None)  # type: ignore[literal-required]
 
 
-DataframeReader = typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]
+DataframeReader: typing_extensions.TypeAlias = typing.Literal[
+    "AVRO", "CSV", "PARQUET", "DATASOURCE"
+]
 """The dataframe reader used for reading the dataset schema."""
 
 
@@ -94,7 +96,7 @@ class Dataset(core.ModelBase):
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
 
-DatasetName = str
+DatasetName: typing_extensions.TypeAlias = str
 """DatasetName"""
 
 
@@ -107,7 +109,7 @@ class File(core.ModelBase):
     updated_time: FileUpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
 
 
-FileUpdatedTime = core.AwareDatetime
+FileUpdatedTime: typing_extensions.TypeAlias = core.AwareDatetime
 """FileUpdatedTime"""
 
 
@@ -118,7 +120,7 @@ class GetDatasetJobsAndFilter(core.ModelBase):
     type: typing.Literal["and"] = "and"
 
 
-GetDatasetJobsComparisonType = typing.Literal["GTE", "LT"]
+GetDatasetJobsComparisonType: typing_extensions.TypeAlias = typing.Literal["GTE", "LT"]
 """GetDatasetJobsComparisonType"""
 
 
@@ -129,7 +131,7 @@ class GetDatasetJobsOrFilter(core.ModelBase):
     type: typing.Literal["or"] = "or"
 
 
-GetDatasetJobsQuery = typing_extensions.Annotated[
+GetDatasetJobsQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["GetDatasetJobsOrFilter", "GetDatasetJobsAndFilter", "GetDatasetJobsTimeFilter"],
     pydantic.Field(discriminator="type"),
 ]
@@ -150,11 +152,13 @@ class GetDatasetJobsSort(core.ModelBase):
     sort_direction: GetDatasetJobsSortDirection = pydantic.Field(alias=str("sortDirection"))  # type: ignore[literal-required]
 
 
-GetDatasetJobsSortDirection = typing.Literal["ASCENDING", "DESCENDING"]
+GetDatasetJobsSortDirection: typing_extensions.TypeAlias = typing.Literal["ASCENDING", "DESCENDING"]
 """GetDatasetJobsSortDirection"""
 
 
-GetDatasetJobsSortType = typing.Literal["BY_STARTED_TIME", "BY_FINISHED_TIME"]
+GetDatasetJobsSortType: typing_extensions.TypeAlias = typing.Literal[
+    "BY_STARTED_TIME", "BY_FINISHED_TIME"
+]
 """GetDatasetJobsSortType"""
 
 
@@ -167,7 +171,9 @@ class GetDatasetJobsTimeFilter(core.ModelBase):
     type: typing.Literal["timeFilter"] = "timeFilter"
 
 
-GetDatasetJobsTimeFilterField = typing.Literal["SUBMITTED_TIME", "FINISHED_TIME"]
+GetDatasetJobsTimeFilterField: typing_extensions.TypeAlias = typing.Literal[
+    "SUBMITTED_TIME", "FINISHED_TIME"
+]
 """GetDatasetJobsTimeFilterField"""
 
 
@@ -318,7 +324,7 @@ class ReplaceBackingDatasetsRequest(core.ModelBase):
     backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
 
 
-TableExportFormat = typing.Literal["ARROW", "CSV"]
+TableExportFormat: typing_extensions.TypeAlias = typing.Literal["ARROW", "CSV"]
 """Format for tabular dataset export."""
 
 
@@ -335,19 +341,21 @@ class Transaction(core.ModelBase):
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
 
-TransactionCreatedTime = core.AwareDatetime
+TransactionCreatedTime: typing_extensions.TypeAlias = core.AwareDatetime
 """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
 
-TransactionRid = core.RID
+TransactionRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Transaction."""
 
 
-TransactionStatus = typing.Literal["ABORTED", "COMMITTED", "OPEN"]
+TransactionStatus: typing_extensions.TypeAlias = typing.Literal["ABORTED", "COMMITTED", "OPEN"]
 """The status of a Transaction."""
 
 
-TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
+TransactionType: typing_extensions.TypeAlias = typing.Literal[
+    "APPEND", "UPDATE", "SNAPSHOT", "DELETE"
+]
 """The type of a Transaction."""
 
 
@@ -407,19 +415,18 @@ class ViewPrimaryKey(core.ModelBase):
     """
 
 
-ViewPrimaryKeyResolution = typing_extensions.Annotated[
+ViewPrimaryKeyResolution: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PrimaryKeyResolutionUnique", "PrimaryKeyResolutionDuplicate"],
     pydantic.Field(discriminator="type"),
 ]
 """Specifies how primary key conflicts are resolved within the view."""
 
 
-PrimaryKeyResolutionStrategy = PrimaryKeyLatestWinsResolutionStrategy
+PrimaryKeyResolutionStrategy: typing_extensions.TypeAlias = PrimaryKeyLatestWinsResolutionStrategy
 """PrimaryKeyResolutionStrategy"""
 
 
-core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AddBackingDatasetsRequest",

@@ -27,7 +27,7 @@ from typing import TypeVar
 import pydantic
 from typing_extensions import Annotated
 
-RID = Annotated[
+RID: typing.TypeAlias = Annotated[
     str,
     pydantic.StringConstraints(
         pattern=r"^ri\.[a-z][a-z0-9-]*\.([a-z0-9][a-z0-9\-]*)?\.[a-z][a-z0-9-]*\.[a-zA-Z0-9._-]+$",
@@ -35,7 +35,7 @@ RID = Annotated[
 ]
 
 
-UUID = Annotated[
+UUID: typing.TypeAlias = Annotated[
     str,
     pydantic.StringConstraints(
         pattern=r"^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$",
@@ -43,7 +43,7 @@ UUID = Annotated[
 ]
 
 
-Long = Annotated[
+Long: typing.TypeAlias = Annotated[
     int,
     pydantic.PlainSerializer(
         lambda value: str(value),
@@ -56,7 +56,7 @@ Long = Annotated[
 """A long integer that is serialized to a string in JSON."""
 
 
-AwareDatetime = Annotated[
+AwareDatetime: typing.TypeAlias = Annotated[
     pydantic.AwareDatetime,
     pydantic.PlainSerializer(
         lambda value: value.astimezone(timezone.utc).isoformat(),
@@ -69,7 +69,7 @@ AwareDatetime = Annotated[
 """A datetime object that enforces timezones and is always serialized to UTC."""
 
 
-Timeout = Annotated[int, pydantic.Field(gt=0)]
+Timeout: typing.TypeAlias = Annotated[int, pydantic.Field(gt=0)]
 
 
 def remove_prefixes(text: str, prefixes: List[str]):
@@ -111,8 +111,31 @@ def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> 
         for arg in typing.get_args(type_obj)  # type: ignore
     )
 
-    setattr(type_obj, "__args__", args)
-    return type_obj
+    # Always reconstruct rather than mutating __args__ in place.
+    # On Python 3.14+, Union.__args__ is readonly: typing.Union was merged with
+    # typing.UnionType into a C-implemented variant that does not support mutation,
+    # so setattr raises AttributeError. See https://github.com/python/cpython/issues/132139
+    #
+    # We also avoid setattr for Annotated types (on all Python versions): setattr
+    # silently "succeeds" by creating a shadowing instance attribute, but
+    # typing.get_args() reads from __origin__ and __metadata__ directly and ignores
+    # __args__ entirely.
+    return typing.get_origin(type_obj)[args]
+
+
+def resolve_forward_references_in_module(module_name: str) -> None:
+    """Resolve forward references in all generic type aliases in a module.
+
+    Call as ``core.resolve_forward_references_in_module(__name__)`` at the end
+    of a models.py after all classes are defined.  Updates the module namespace
+    in place so pyright's view of each TypeAlias is undisturbed.
+    """
+    import sys
+
+    namespace = vars(sys.modules[module_name])
+    for name, obj in list(namespace.items()):
+        if typing.get_origin(obj) is not None:
+            namespace[name] = resolve_forward_references(obj, namespace, namespace)
 
 
 def assert_non_empty_string(value: str, name: str) -> None:

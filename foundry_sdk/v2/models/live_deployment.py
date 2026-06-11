@@ -14,7 +14,6 @@
 
 
 import typing
-from functools import cached_property
 
 import pydantic
 import typing_extensions
@@ -54,16 +53,6 @@ class LiveDeploymentClient:
 
         self.with_streaming_response = _LiveDeploymentClientStreaming(self)
         self.with_raw_response = _LiveDeploymentClientRaw(self)
-
-    @cached_property
-    def Function(self):
-        from foundry_sdk.v2.models.model_function import ModelFunctionClient
-
-        return ModelFunctionClient(
-            auth=self._auth,
-            hostname=self._hostname_supplier,
-            config=self._config,
-        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -361,16 +350,6 @@ class AsyncLiveDeploymentClient:
 
         self.with_streaming_response = _AsyncLiveDeploymentClientStreaming(self)
         self.with_raw_response = _AsyncLiveDeploymentClientRaw(self)
-
-    @cached_property
-    def Function(self):
-        from foundry_sdk.v2.models.model_function import AsyncModelFunctionClient
-
-        return AsyncModelFunctionClient(
-            auth=self._auth,
-            hostname=self._hostname_supplier,
-            config=self._config,
-        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call

@@ -23,7 +23,7 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk.v1.core import models as core_models
 
-ActionRid = core.RID
+ActionRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier for an action."""
 
 
@@ -39,14 +39,14 @@ class ActionType(core.ModelBase):
     operations: typing.List[LogicRule]
 
 
-ActionTypeApiName = str
+ActionTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the action type in the API. To find the API name for your Action Type, use the `List action types`
 endpoint or check the **Ontology Manager**.
 """
 
 
-ActionTypeRid = core.RID
+ActionTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an action type, useful for interacting with other Foundry APIs."""
 
 
@@ -73,7 +73,7 @@ class AggregateObjectsResponseItem(core.ModelBase):
     metrics: typing.List[AggregationMetricResult]
 
 
-Aggregation = typing_extensions.Annotated[
+Aggregation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ApproximateDistinctAggregation",
         "MinAggregation",
@@ -114,7 +114,7 @@ class AggregationFixedWidthGrouping(core.ModelBase):
     type: typing.Literal["fixedWidth"] = "fixedWidth"
 
 
-AggregationGroupBy = typing_extensions.Annotated[
+AggregationGroupBy: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AggregationDurationGrouping",
         "AggregationFixedWidthGrouping",
@@ -126,15 +126,15 @@ AggregationGroupBy = typing_extensions.Annotated[
 """Specifies a grouping for aggregation results."""
 
 
-AggregationGroupKey = str
+AggregationGroupKey: typing_extensions.TypeAlias = str
 """AggregationGroupKey"""
 
 
-AggregationGroupValue = typing.Any
+AggregationGroupValue: typing_extensions.TypeAlias = typing.Any
 """AggregationGroupValue"""
 
 
-AggregationMetricName = str
+AggregationMetricName: typing_extensions.TypeAlias = str
 """A user-specified alias for an aggregation metric name."""
 
 
@@ -201,7 +201,9 @@ class AnyTermQuery(core.ModelBase):
     type: typing.Literal["anyTerm"] = "anyTerm"
 
 
-ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
+ApplyActionMode: typing_extensions.TypeAlias = typing.Literal[
+    "VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"
+]
 """If not specified, defaults to `VALIDATE_AND_EXECUTE`."""
 
 
@@ -272,7 +274,7 @@ class ArraySizeConstraint(core.ModelBase):
     type: typing.Literal["arraySize"] = "arraySize"
 
 
-ArtifactRepositoryRid = core.RID
+ArtifactRepositoryRid: typing_extensions.TypeAlias = core.RID
 """ArtifactRepositoryRid"""
 
 
@@ -285,7 +287,7 @@ class Attachment(core.ModelBase):
     media_type: core_models.MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
 
 
-AttachmentRid = core.RID
+AttachmentRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an attachment."""
 
 
@@ -346,7 +348,7 @@ class CreateObjectRule(core.ModelBase):
     type: typing.Literal["createObject"] = "createObject"
 
 
-DataValue = typing.Any
+DataValue: typing_extensions.TypeAlias = typing.Any
 """
 Represents the value of data in the following format. Note that these values can be nested, for example an array of structs.
 | Type                                | JSON encoding                                         | Example                                                                                                                                                       |
@@ -404,11 +406,11 @@ class DeleteObjectRule(core.ModelBase):
     type: typing.Literal["deleteObject"] = "deleteObject"
 
 
-DerivedPropertyApiName = str
+DerivedPropertyApiName: typing_extensions.TypeAlias = str
 """The name of the derived property that will be returned."""
 
 
-Duration = str
+Duration: typing_extensions.TypeAlias = str
 """An ISO 8601 formatted duration."""
 
 
@@ -444,29 +446,29 @@ class ExecuteQueryResponse(core.ModelBase):
     value: DataValue
 
 
-FieldNameV1 = str
+FieldNameV1: typing_extensions.TypeAlias = str
 """A reference to an Ontology object property with the form `properties.{propertyApiName}`."""
 
 
-FilterValue = str
+FilterValue: typing_extensions.TypeAlias = str
 """
 Represents the value of a property filter. For instance, false is the FilterValue in
 `properties.{propertyApiName}.isNull=false`.
 """
 
 
-FunctionRid = core.RID
+FunctionRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of a Function, useful for interacting with other Foundry APIs."""
 
 
-FunctionVersion = str
+FunctionVersion: typing_extensions.TypeAlias = str
 """
 The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional.
 Examples: `1.2.3`, `1.2.3-rc1`.
 """
 
 
-Fuzzy = bool
+Fuzzy: typing_extensions.TypeAlias = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""
 
 
@@ -492,18 +494,18 @@ class GteQuery(core.ModelBase):
     type: typing.Literal["gte"] = "gte"
 
 
-InterfaceLinkTypeApiName = str
+InterfaceLinkTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the interface link type in the API. To find the API name for your Interface Link Type, check the 
 [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
 """
 
 
-InterfaceLinkTypeRid = core.RID
+InterfaceLinkTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an interface link type, useful for interacting with other Foundry APIs."""
 
 
-InterfacePropertyApiName = str
+InterfacePropertyApiName: typing_extensions.TypeAlias = str
 """
 The name of the interface property type in the API in lowerCamelCase format. To find the API name for your
 interface property type, use the `List interface types` endpoint and check the `allPropertiesV2` field or check
@@ -511,14 +513,14 @@ the **Ontology Manager**.
 """
 
 
-InterfaceTypeApiName = str
+InterfaceTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
 type, use the `List interface types` endpoint or check the **Ontology Manager**.
 """
 
 
-InterfaceTypeRid = core.RID
+InterfaceTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an interface, useful for interacting with other Foundry APIs."""
 
 
@@ -530,28 +532,28 @@ class IsNullQuery(core.ModelBase):
     type: typing.Literal["isNull"] = "isNull"
 
 
-LegacyObjectTypeId = str
+LegacyObjectTypeId: typing_extensions.TypeAlias = str
 """
 The unique ID of an object type. This is a legacy identifier and is not recommended for use in new applications.
 To find the ID for your Object Type, check the **Ontology Manager**.
 """
 
 
-LegacyPropertyId = str
+LegacyPropertyId: typing_extensions.TypeAlias = str
 """
 The unique ID of a property. This is a legacy identifier and is not recommended for use in new applications.
 To find the ID for your property, check the **Ontology Manager**.
 """
 
 
-LinkTypeApiName = str
+LinkTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager**
 application.
 """
 
 
-LinkTypeId = str
+LinkTypeId: typing_extensions.TypeAlias = str
 """The unique ID of a link type. To find the ID for your link type, check the **Ontology Manager** application."""
 
 
@@ -566,7 +568,7 @@ class LinkTypeSide(core.ModelBase):
     foreign_key_property_api_name: typing.Optional[PropertyApiName] = pydantic.Field(alias=str("foreignKeyPropertyApiName"), default=None)  # type: ignore[literal-required]
 
 
-LinkTypeSideCardinality = typing.Literal["ONE", "MANY"]
+LinkTypeSideCardinality: typing_extensions.TypeAlias = typing.Literal["ONE", "MANY"]
 """LinkTypeSideCardinality"""
 
 
@@ -624,7 +626,7 @@ class ListQueryTypesResponse(core.ModelBase):
     data: typing.List[QueryType]
 
 
-LogicRule = typing_extensions.Annotated[
+LogicRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
@@ -706,11 +708,11 @@ class ObjectQueryResultConstraint(core.ModelBase):
     type: typing.Literal["objectQueryResult"] = "objectQueryResult"
 
 
-ObjectRid = core.RID
+ObjectRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an object, useful for interacting with other Foundry APIs."""
 
 
-ObjectSetRid = core.RID
+ObjectSetRid: typing_extensions.TypeAlias = core.RID
 """ObjectSetRid"""
 
 
@@ -734,7 +736,7 @@ class ObjectType(core.ModelBase):
     rid: ObjectTypeRid
 
 
-ObjectTypeApiName = str
+ObjectTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the
 `List object types` endpoint or check the **Ontology Manager**.
@@ -752,11 +754,11 @@ class ObjectTypeLinkTypeApiNameMapping(core.ModelBase):
     """The list of link type API names scoped by the object type."""
 
 
-ObjectTypeRid = core.RID
+ObjectTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an object type, useful for interacting with other Foundry APIs."""
 
 
-ObjectTypeVisibility = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
+ObjectTypeVisibility: typing_extensions.TypeAlias = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
 """The suggested visibility of the object type."""
 
 
@@ -779,7 +781,7 @@ class Ontology(core.ModelBase):
     rid: OntologyRid
 
 
-OntologyApiName = str
+OntologyApiName: typing_extensions.TypeAlias = str
 """OntologyApiName"""
 
 
@@ -790,7 +792,7 @@ class OntologyArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-OntologyDataType = typing_extensions.Annotated[
+OntologyDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyStructType",
@@ -868,7 +870,7 @@ class OntologyObjectType(core.ModelBase):
     type: typing.Literal["object"] = "object"
 
 
-OntologyRid = core.RID
+OntologyRid: typing_extensions.TypeAlias = core.RID
 """
 The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the
 `List ontologies` endpoint or check the **Ontology Manager**.
@@ -904,7 +906,7 @@ class OrQuery(core.ModelBase):
     type: typing.Literal["or"] = "or"
 
 
-OrderBy = str
+OrderBy: typing_extensions.TypeAlias = str
 """
 A command representing the list of properties to order by. Properties should be delimited by commas and
 prefixed by `p` or `properties`. The format expected format is
@@ -928,7 +930,7 @@ class Parameter(core.ModelBase):
     required: bool
 
 
-ParameterEvaluatedConstraint = typing_extensions.Annotated[
+ParameterEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
         "OneOfConstraint",
@@ -974,7 +976,7 @@ class ParameterEvaluationResult(core.ModelBase):
     """Represents whether the parameter is a required input to the action."""
 
 
-ParameterId = str
+ParameterId: typing_extensions.TypeAlias = str
 """
 The unique identifier of the parameter. Parameters are used as inputs when an action or query is applied.
 Parameters can be viewed and managed in the **Ontology Manager**.
@@ -1005,7 +1007,7 @@ class PrefixQuery(core.ModelBase):
     type: typing.Literal["prefix"] = "prefix"
 
 
-PrimaryKeyValue = typing.Any
+PrimaryKeyValue: typing_extensions.TypeAlias = typing.Any
 """Represents the primary key value that is used as a unique identifier for an object."""
 
 
@@ -1018,14 +1020,14 @@ class Property(core.ModelBase):
     legacy_property_id: typing.Optional[LegacyPropertyId] = pydantic.Field(alias=str("legacyPropertyId"), default=None)  # type: ignore[literal-required]
 
 
-PropertyApiName = str
+PropertyApiName: typing_extensions.TypeAlias = str
 """
 The name of the property in the API. To find the API name for your property, use the `Get object type`
 endpoint or check the **Ontology Manager**.
 """
 
 
-PropertyFilter = str
+PropertyFilter: typing_extensions.TypeAlias = str
 """
 Represents a filter used on properties.
 
@@ -1055,18 +1057,18 @@ The following are a list of supported property filters:
 """
 
 
-PropertyId = str
+PropertyId: typing_extensions.TypeAlias = str
 """
 The immutable ID of a property. Property IDs are only used to identify properties in the **Ontology Manager**
 application and assign them API names. In every other case, API names should be used instead of property IDs.
 """
 
 
-PropertyTypeRid = core.RID
+PropertyTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of a property."""
 
 
-PropertyValue = typing.Any
+PropertyValue: typing_extensions.TypeAlias = typing.Any
 """
 Represents the value of a property in the following format.
 
@@ -1098,11 +1100,11 @@ Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer
 """
 
 
-PropertyValueEscapedString = str
+PropertyValueEscapedString: typing_extensions.TypeAlias = str
 """Represents the value of a property in string format. This is used in URL parameters."""
 
 
-QueryAggregationKeyType = typing_extensions.Annotated[
+QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -1117,7 +1119,7 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationRangeSubType = typing_extensions.Annotated[
+QueryAggregationRangeSubType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
@@ -1136,14 +1138,14 @@ class QueryAggregationRangeType(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-QueryAggregationValueType = typing_extensions.Annotated[
+QueryAggregationValueType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryApiName = str
+QueryApiName: typing_extensions.TypeAlias = str
 """The name of the Query in the API."""
 
 
@@ -1154,7 +1156,7 @@ class QueryArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-QueryDataType = typing_extensions.Annotated[
+QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyInterfaceObjectType",
@@ -1187,7 +1189,7 @@ QueryDataType = typing_extensions.Annotated[
 """A union of all the types supported by Ontology Query parameters or outputs."""
 
 
-QueryRuntimeErrorParameter = str
+QueryRuntimeErrorParameter: typing_extensions.TypeAlias = str
 """QueryRuntimeErrorParameter"""
 
 
@@ -1259,23 +1261,25 @@ class RangeConstraint(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
+ReturnEditsMode: typing_extensions.TypeAlias = typing.Literal[
+    "ALL", "ALL_V2_WITH_DELETIONS", "NONE"
+]
 """If not specified, defaults to `NONE`."""
 
 
-SdkPackageName = str
+SdkPackageName: typing_extensions.TypeAlias = str
 """SdkPackageName"""
 
 
-SdkPackageRid = core.RID
+SdkPackageRid: typing_extensions.TypeAlias = core.RID
 """SdkPackageRid"""
 
 
-SdkVersion = str
+SdkVersion: typing_extensions.TypeAlias = str
 """SdkVersion"""
 
 
-SearchJsonQuery = typing_extensions.Annotated[
+SearchJsonQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "OrQuery",
         "PrefixQuery",
@@ -1322,7 +1326,7 @@ class SearchOrderBy(core.ModelBase):
     fields: typing.List[SearchOrdering]
 
 
-SearchOrderByType = typing.Literal["fields", "relevance"]
+SearchOrderByType: typing_extensions.TypeAlias = typing.Literal["fields", "relevance"]
 """SearchOrderByType"""
 
 
@@ -1334,7 +1338,7 @@ class SearchOrdering(core.ModelBase):
     """Specifies the ordering direction (can be either `asc` or `desc`)"""
 
 
-SelectedPropertyApiName = str
+SelectedPropertyApiName: typing_extensions.TypeAlias = str
 """
 By default, whenever an object is requested, all of its properties are returned, except for properties of the 
 following types:
@@ -1358,14 +1362,14 @@ To find the API name for your property, use the `Get object type` endpoint or ch
 """
 
 
-SharedPropertyTypeApiName = str
+SharedPropertyTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the shared property type in the API in lowerCamelCase format. To find the API name for your
 shared property type, use the `List shared property types` endpoint or check the **Ontology Manager**.
 """
 
 
-SharedPropertyTypeRid = core.RID
+SharedPropertyTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an shared property type, useful for interacting with other Foundry APIs."""
 
 
@@ -1412,7 +1416,7 @@ class StructEvaluatedConstraint(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-StructFieldEvaluatedConstraint = typing_extensions.Annotated[
+StructFieldEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "OneOfConstraint",
         "RangeConstraint",
@@ -1448,7 +1452,7 @@ class StructFieldEvaluationResult(core.ModelBase):
     """Represents whether the parameter is a required input to the action."""
 
 
-StructParameterFieldApiName = str
+StructParameterFieldApiName: typing_extensions.TypeAlias = str
 """The unique identifier of the struct parameter field."""
 
 
@@ -1492,7 +1496,7 @@ class TwoDimensionalAggregation(core.ModelBase):
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
 
 
-TypeReferenceIdentifier = str
+TypeReferenceIdentifier: typing_extensions.TypeAlias = str
 """
 The unique identifier of a type reference. This identifier is used to look up the
 type definition in the `typeReferences` map of the enclosing Query.
@@ -1508,7 +1512,7 @@ class UnevaluableConstraint(core.ModelBase):
     type: typing.Literal["unevaluable"] = "unevaluable"
 
 
-UniqueIdentifierLinkId = core.UUID
+UniqueIdentifierLinkId: typing_extensions.TypeAlias = core.UUID
 """A reference to a UniqueIdentifierArgument linkId defined for this action type."""
 
 
@@ -1526,11 +1530,11 @@ class ValidateActionResponse(core.ModelBase):
     parameters: typing.Dict[ParameterId, ParameterEvaluationResult]
 
 
-ValidationResult = typing.Literal["VALID", "INVALID"]
+ValidationResult: typing_extensions.TypeAlias = typing.Literal["VALID", "INVALID"]
 """Represents the state of a validation."""
 
 
-ValueType = str
+ValueType: typing_extensions.TypeAlias = str
 """
 A string indicating the type of each data value. Note that these types can be nested, for example an array of
 structs.
@@ -1558,31 +1562,19 @@ structs.
 """
 
 
-ValueTypeApiName = str
+ValueTypeApiName: typing_extensions.TypeAlias = str
 """The name of the value type in the API in camelCase format."""
 
 
-ValueTypeRid = core.RID
+ValueTypeRid: typing_extensions.TypeAlias = core.RID
 """ValueTypeRid"""
 
 
-ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
+ArrayEntryEvaluatedConstraint: typing_extensions.TypeAlias = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "ActionRid",

@@ -68,6 +68,16 @@ class ModelClient:
         )
 
     @cached_property
+    def Function(self):
+        from foundry_sdk.v2.models.model_function import ModelFunctionClient
+
+        return ModelFunctionClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
+    @cached_property
     def Version(self):
         from foundry_sdk.v2.models.model_version import ModelVersionClient
 
@@ -304,6 +314,16 @@ class AsyncModelClient:
         from foundry_sdk.v2.models.experiment import AsyncExperimentClient
 
         return AsyncExperimentClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
+    @cached_property
+    def Function(self):
+        from foundry_sdk.v2.models.model_function import AsyncModelFunctionClient
+
+        return AsyncModelFunctionClient(
             auth=self._auth,
             hostname=self._hostname_supplier,
             config=self._config,

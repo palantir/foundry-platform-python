@@ -55,7 +55,7 @@ class AnthropicCharacterLocationCitation(core.ModelBase):
     type: typing.Literal["charLocation"] = "charLocation"
 
 
-AnthropicCompletionContent = typing_extensions.Annotated[
+AnthropicCompletionContent: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AnthropicCompletionToolUse",
         "AnthropicCompletionText",
@@ -108,7 +108,7 @@ class AnthropicCustomTool(core.ModelBase):
     type: typing.Literal["custom"] = "custom"
 
 
-AnthropicDisableParallelToolUse = bool
+AnthropicDisableParallelToolUse: typing_extensions.TypeAlias = bool
 """
 Whether to disable parallel tool use. Defaults to false. If set to true, the model will output 
 exactly one tool use.
@@ -138,14 +138,14 @@ class AnthropicDocumentCitations(core.ModelBase):
     enabled: bool
 
 
-AnthropicDocumentSource = typing_extensions.Annotated[
+AnthropicDocumentSource: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AnthropicBase64PdfDocumentSource", "AnthropicTextDocumentSource"],
     pydantic.Field(discriminator="type"),
 ]
 """AnthropicDocumentSource"""
 
 
-AnthropicEffort = typing.Literal["LOW", "MEDIUM", "HIGH", "MAX"]
+AnthropicEffort: typing_extensions.TypeAlias = typing.Literal["LOW", "MEDIUM", "HIGH", "MAX"]
 """
 https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking#effort
 
@@ -195,7 +195,9 @@ class AnthropicJsonSchemaOutputFormat(core.ModelBase):
     type: typing.Literal["jsonSchema"] = "jsonSchema"
 
 
-AnthropicMediaType = typing.Literal["IMAGE_JPEG", "IMAGE_PNG", "IMAGE_GIF", "IMAGE_WEBP"]
+AnthropicMediaType: typing_extensions.TypeAlias = typing.Literal[
+    "IMAGE_JPEG", "IMAGE_PNG", "IMAGE_GIF", "IMAGE_WEBP"
+]
 """AnthropicMediaType"""
 
 
@@ -206,7 +208,7 @@ class AnthropicMessage(core.ModelBase):
     role: AnthropicMessageRole
 
 
-AnthropicMessageContent = typing_extensions.Annotated[
+AnthropicMessageContent: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AnthropicImage",
         "AnthropicToolUse",
@@ -221,7 +223,7 @@ AnthropicMessageContent = typing_extensions.Annotated[
 """AnthropicMessageContent"""
 
 
-AnthropicMessageRole = typing.Literal["USER", "ASSISTANT"]
+AnthropicMessageRole: typing_extensions.TypeAlias = typing.Literal["USER", "ASSISTANT"]
 """AnthropicMessageRole"""
 
 
@@ -327,7 +329,7 @@ class AnthropicThinking(core.ModelBase):
     type: typing.Literal["thinking"] = "thinking"
 
 
-AnthropicThinkingConfig = typing_extensions.Annotated[
+AnthropicThinkingConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AnthropicDisabledThinking", "AnthropicEnabledThinking"],
     pydantic.Field(discriminator="type"),
 ]
@@ -343,7 +345,7 @@ class AnthropicTokenUsage(core.ModelBase):
     output_tokens: int = pydantic.Field(alias=str("outputTokens"))  # type: ignore[literal-required]
 
 
-AnthropicToolChoice = typing_extensions.Annotated[
+AnthropicToolChoice: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AnthropicAutoToolChoice",
         "AnthropicNoneToolChoice",
@@ -383,15 +385,15 @@ class AnthropicToolUse(core.ModelBase):
     type: typing.Literal["toolUse"] = "toolUse"
 
 
-JsonSchema = typing.Dict[str, typing.Any]
+JsonSchema: typing_extensions.TypeAlias = typing.Dict[str, typing.Any]
 """JsonSchema"""
 
 
-LanguageModelApiName = str
+LanguageModelApiName: typing_extensions.TypeAlias = str
 """The name of the LanguageModel in the API."""
 
 
-OpenAiEmbeddingInput = typing.List[str]
+OpenAiEmbeddingInput: typing_extensions.TypeAlias = typing.List[str]
 """OpenAiEmbeddingInput"""
 
 
@@ -434,45 +436,39 @@ class OpenAiEmbeddingsResponse(core.ModelBase):
     """Usage statistics for the request"""
 
 
-OpenAiEncodingFormat = typing.Literal["FLOAT", "BASE64"]
+OpenAiEncodingFormat: typing_extensions.TypeAlias = typing.Literal["FLOAT", "BASE64"]
 """OpenAiEncodingFormat"""
 
 
-AnthropicCacheControl = AnthropicEphemeralCacheControl
+AnthropicCacheControl: typing_extensions.TypeAlias = AnthropicEphemeralCacheControl
 """AnthropicCacheControl"""
 
 
-AnthropicCompletionCitation = AnthropicCharacterLocationCitation
+AnthropicCompletionCitation: typing_extensions.TypeAlias = AnthropicCharacterLocationCitation
 """AnthropicCompletionCitation"""
 
 
-AnthropicImageSource = AnthropicImageBase64Source
+AnthropicImageSource: typing_extensions.TypeAlias = AnthropicImageBase64Source
 """AnthropicImageSource"""
 
 
-AnthropicOutputFormat = AnthropicJsonSchemaOutputFormat
+AnthropicOutputFormat: typing_extensions.TypeAlias = AnthropicJsonSchemaOutputFormat
 """AnthropicOutputFormat"""
 
 
-AnthropicSystemMessage = AnthropicText
+AnthropicSystemMessage: typing_extensions.TypeAlias = AnthropicText
 """AnthropicSystemMessage"""
 
 
-AnthropicTool = AnthropicCustomTool
+AnthropicTool: typing_extensions.TypeAlias = AnthropicCustomTool
 """AnthropicTool"""
 
 
-AnthropicToolResultContent = AnthropicText
+AnthropicToolResultContent: typing_extensions.TypeAlias = AnthropicText
 """AnthropicToolResultContent"""
 
 
-core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())
-core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
-core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AnthropicAnyToolChoice",

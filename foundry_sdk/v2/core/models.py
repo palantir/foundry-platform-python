@@ -42,7 +42,7 @@ class AttachmentType(core.ModelBase):
     type: typing.Literal["attachment"] = "attachment"
 
 
-Attribution = str
+Attribution: typing_extensions.TypeAlias = str
 """Attribution for a request"""
 
 
@@ -64,11 +64,11 @@ class BranchMetadata(core.ModelBase):
     rid: FoundryBranch
 
 
-BranchName = str
+BranchName: typing_extensions.TypeAlias = str
 """The name of a Branch."""
 
 
-BuildRid = core.RID
+BuildRid: typing_extensions.TypeAlias = core.RID
 """The RID of a Build."""
 
 
@@ -78,11 +78,11 @@ class ByteType(core.ModelBase):
     type: typing.Literal["byte"] = "byte"
 
 
-CheckReportRid = core.RID
+CheckReportRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Data Health Check Report."""
 
 
-CheckRid = core.RID
+CheckRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Data Health Check."""
 
 
@@ -95,31 +95,31 @@ class CipherTextType(core.ModelBase):
     type: typing.Literal["cipherText"] = "cipherText"
 
 
-Color = str
+Color: typing_extensions.TypeAlias = str
 """The hex value of a color."""
 
 
-ColumnName = str
+ColumnName: typing_extensions.TypeAlias = str
 """The name of a column in a dataset."""
 
 
-ComputeSeconds = float
+ComputeSeconds: typing_extensions.TypeAlias = float
 """A measurement of compute usage expressed in [compute-seconds](https://palantir.com/docs/foundry/resource-management/usage-types#compute-second). For more information, please refer to the [Usage types](https://palantir.com/docs/foundry/resource-management/usage-types) documentation."""
 
 
-ContentLength = core.Long
+ContentLength: typing_extensions.TypeAlias = core.Long
 """ContentLength"""
 
 
-ContentType = str
+ContentType: typing_extensions.TypeAlias = str
 """ContentType"""
 
 
-CreatedTime = core.AwareDatetime
+CreatedTime: typing_extensions.TypeAlias = core.AwareDatetime
 """The time at which the resource was created."""
 
 
-CustomMetadata = typing.Dict[str, typing.Any]
+CustomMetadata: typing_extensions.TypeAlias = typing.Dict[str, typing.Any]
 """CustomMetadata"""
 
 
@@ -158,7 +158,7 @@ class DatasetFieldSchema(core.ModelBase):
     """Only used when field type is struct."""
 
 
-DatasetRid = core.RID
+DatasetRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Dataset."""
 
 
@@ -186,7 +186,7 @@ class DecimalType(core.ModelBase):
     type: typing.Literal["decimal"] = "decimal"
 
 
-DisplayName = str
+DisplayName: typing_extensions.TypeAlias = str
 """The display name of the entity."""
 
 
@@ -197,7 +197,7 @@ class Distance(core.ModelBase):
     unit: DistanceUnit
 
 
-DistanceUnit = typing.Literal[
+DistanceUnit: typing_extensions.TypeAlias = typing.Literal[
     "MILLIMETERS",
     "CENTIMETERS",
     "METERS",
@@ -227,17 +227,17 @@ class Duration(core.ModelBase):
     """The unit of duration."""
 
 
-DurationSeconds = core.Long
+DurationSeconds: typing_extensions.TypeAlias = core.Long
 """A duration of time measured in seconds."""
 
 
-EmbeddingModel = typing_extensions.Annotated[
+EmbeddingModel: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["LmsEmbeddingModel", "FoundryLiveDeployment"], pydantic.Field(discriminator="type")
 ]
 """EmbeddingModel"""
 
 
-EnrollmentRid = core.RID
+EnrollmentRid: typing_extensions.TypeAlias = core.RID
 """EnrollmentRid"""
 
 
@@ -251,7 +251,7 @@ class Field(core.ModelBase):
     schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
 
 
-FieldDataType = typing_extensions.Annotated[
+FieldDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructFieldType",
         "DateType",
@@ -274,7 +274,7 @@ FieldDataType = typing_extensions.Annotated[
 """FieldDataType"""
 
 
-FieldName = str
+FieldName: typing_extensions.TypeAlias = str
 """FieldName"""
 
 
@@ -286,14 +286,14 @@ class FieldSchema(core.ModelBase):
     data_type: FieldDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
 
-FilePath = str
+FilePath: typing_extensions.TypeAlias = str
 """
 The path to a File within Foundry. Paths are relative and must not start with a leading slash.
 Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`.
 """
 
 
-Filename = str
+Filename: typing_extensions.TypeAlias = str
 """The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""
 
 
@@ -366,7 +366,7 @@ class FilterStringType(core.ModelBase):
     type: typing.Literal["string"] = "string"
 
 
-FilterType = typing_extensions.Annotated[
+FilterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "FilterDateTimeType",
         "FilterDateType",
@@ -398,11 +398,11 @@ class FloatType(core.ModelBase):
     type: typing.Literal["float"] = "float"
 
 
-FolderRid = core.RID
+FolderRid: typing_extensions.TypeAlias = core.RID
 """FolderRid"""
 
 
-FoundryBranch = str
+FoundryBranch: typing_extensions.TypeAlias = str
 """The Foundry branch identifier, specifically its rid. Different identifier types may be used in the future as values."""
 
 
@@ -473,19 +473,19 @@ class GeotimeSeriesReferenceType(core.ModelBase):
     type: typing.Literal["geotimeSeriesReference"] = "geotimeSeriesReference"
 
 
-GroupId = core.UUID
+GroupId: typing_extensions.TypeAlias = core.UUID
 """A Foundry Group ID."""
 
 
-GroupName = str
+GroupName: typing_extensions.TypeAlias = str
 """The display name of a multipass group."""
 
 
-GroupRid = core.RID
+GroupRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a multipass group."""
 
 
-IncludeComputeUsage = bool
+IncludeComputeUsage: typing_extensions.TypeAlias = bool
 """
 Indicates whether the response should include compute usage details for the request. This feature is currently
 only available for OSDK applications.
@@ -499,7 +499,7 @@ class IntegerType(core.ModelBase):
     type: typing.Literal["integer"] = "integer"
 
 
-JobRid = core.RID
+JobRid: typing_extensions.TypeAlias = core.RID
 """The RID of a Job."""
 
 
@@ -510,7 +510,7 @@ class LmsEmbeddingModel(core.ModelBase):
     type: typing.Literal["lms"] = "lms"
 
 
-LmsEmbeddingModelValue = typing.Literal[
+LmsEmbeddingModelValue: typing_extensions.TypeAlias = typing.Literal[
     "OPENAI_TEXT_EMBEDDING_ADA_002",
     "TEXT_EMBEDDING_3_LARGE",
     "TEXT_EMBEDDING_3_SMALL",
@@ -535,7 +535,7 @@ class MapFieldType(core.ModelBase):
     type: typing.Literal["map"] = "map"
 
 
-MarkingId = str
+MarkingId: typing_extensions.TypeAlias = str
 """The ID of a security marking."""
 
 
@@ -546,7 +546,7 @@ class MarkingType(core.ModelBase):
     type: typing.Literal["marking"] = "marking"
 
 
-MarkingTypeValue = typing.Literal["CBAC", "MANDATORY"]
+MarkingTypeValue: typing_extensions.TypeAlias = typing.Literal["CBAC", "MANDATORY"]
 """
 The kind of marking applied by a marking property type.
 - `CBAC`: Classification-based access control markings.
@@ -554,7 +554,7 @@ The kind of marking applied by a marking property type.
 """
 
 
-MediaItemPath = str
+MediaItemPath: typing_extensions.TypeAlias = str
 """
 A user-specified identifier for a media item within a media set.
 Paths must be less than 256 characters long.
@@ -563,11 +563,11 @@ item which was written last is returned.
 """
 
 
-MediaItemReadToken = str
+MediaItemReadToken: typing_extensions.TypeAlias = str
 """A token that grants access to read specific media items."""
 
 
-MediaItemRid = core.RID
+MediaItemRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of an individual Media Item within a Media Set in Foundry."""
 
 
@@ -584,7 +584,7 @@ class MediaReferenceType(core.ModelBase):
     type: typing.Literal["mediaReference"] = "mediaReference"
 
 
-MediaSetRid = core.RID
+MediaSetRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Media Set in Foundry."""
 
 
@@ -604,18 +604,18 @@ class MediaSetViewItemWrapper(core.ModelBase):
     type: typing.Literal["mediaSetViewItem"] = "mediaSetViewItem"
 
 
-MediaSetViewRid = core.RID
+MediaSetViewRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a single View of a Media Set. A Media Set View is an independent collection of Media Items."""
 
 
-MediaType = str
+MediaType: typing_extensions.TypeAlias = str
 """
 The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
 Examples: `application/json`, `application/pdf`, `application/octet-stream`, `image/jpeg`
 """
 
 
-NetworkEgressPolicyRid = core.RID
+NetworkEgressPolicyRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Network Egress Policy."""
 
 
@@ -642,30 +642,30 @@ class NumericOrNonNumericType(core.ModelBase):
     type: typing.Literal["numericOrNonNumeric"] = "numericOrNonNumeric"
 
 
-Operation = str
+Operation: typing_extensions.TypeAlias = str
 """
 An operation that can be performed on a resource. Operations are used to define the permissions that a Role has.
 Operations are typically in the format `service:action`, where `service` is related to the type of resource and `action` is the action being performed.
 """
 
 
-OperationScope = str
+OperationScope: typing_extensions.TypeAlias = str
 """OperationScope"""
 
 
-OrderByDirection = typing.Literal["ASC", "DESC"]
+OrderByDirection: typing_extensions.TypeAlias = typing.Literal["ASC", "DESC"]
 """Specifies the ordering direction (can be either `ASC` or `DESC`)"""
 
 
-OrganizationRid = core.RID
+OrganizationRid: typing_extensions.TypeAlias = core.RID
 """OrganizationRid"""
 
 
-PageSize = int
+PageSize: typing_extensions.TypeAlias = int
 """The page size to use for the endpoint."""
 
 
-PageToken = str
+PageToken: typing_extensions.TypeAlias = str
 """
 The page token indicates where to start paging. This should be omitted from the first page's request.
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
@@ -673,26 +673,28 @@ and use it to populate the `pageToken` field of the next request.
 """
 
 
-PreviewMode = bool
+PreviewMode: typing_extensions.TypeAlias = bool
 """Enables the use of preview functionality."""
 
 
-PrincipalId = core.UUID
+PrincipalId: typing_extensions.TypeAlias = core.UUID
 """The ID of a Foundry Group or User."""
 
 
-PrincipalType = typing.Literal["USER", "GROUP"]
+PrincipalType: typing_extensions.TypeAlias = typing.Literal["USER", "GROUP"]
 """PrincipalType"""
 
 
-Realm = str
+Realm: typing_extensions.TypeAlias = str
 """
 Identifies which Realm a User or Group is a member of.
 The `palantir-internal-realm` is used for Users or Groups that are created in Foundry by administrators and not associated with any SSO provider.
 """
 
 
-ReleaseStatus = typing.Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
+ReleaseStatus: typing_extensions.TypeAlias = typing.Literal[
+    "ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"
+]
 """The release status of the entity."""
 
 
@@ -720,11 +722,11 @@ class RoleAssignmentUpdate(core.ModelBase):
     principal_id: PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
-RoleContext = typing.Literal["ORGANIZATION"]
+RoleContext: typing_extensions.TypeAlias = typing.Literal["ORGANIZATION"]
 """RoleContext"""
 
 
-RoleId = str
+RoleId: typing_extensions.TypeAlias = str
 """
 The unique ID for a Role. Roles are sets of permissions that grant different levels of access to resources.
 The default roles in Foundry are: Owner, Editor, Viewer, and Discoverer. See more about 
@@ -732,7 +734,7 @@ The default roles in Foundry are: Owner, Editor, Viewer, and Discoverer. See mor
 """
 
 
-RoleSetId = str
+RoleSetId: typing_extensions.TypeAlias = str
 """RoleSetId"""
 
 
@@ -742,11 +744,11 @@ class ScenarioReferenceType(core.ModelBase):
     type: typing.Literal["scenarioReference"] = "scenarioReference"
 
 
-ScheduleRid = core.RID
+ScheduleRid: typing_extensions.TypeAlias = core.RID
 """The RID of a Schedule."""
 
 
-SchemaFieldType = typing.Literal[
+SchemaFieldType: typing_extensions.TypeAlias = typing.Literal[
     "ARRAY",
     "BINARY",
     "BOOLEAN",
@@ -772,7 +774,7 @@ class ShortType(core.ModelBase):
     type: typing.Literal["short"] = "short"
 
 
-SizeBytes = core.Long
+SizeBytes: typing_extensions.TypeAlias = core.Long
 """The size of the file or attachment in bytes."""
 
 
@@ -811,7 +813,7 @@ class StringType(core.ModelBase):
     type: typing.Literal["string"] = "string"
 
 
-StructFieldName = str
+StructFieldName: typing_extensions.TypeAlias = str
 """The name of a field in a `Struct`."""
 
 
@@ -822,18 +824,18 @@ class StructFieldType(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-TableRid = core.RID
+TableRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Table."""
 
 
-TimeSeriesItemType = typing_extensions.Annotated[
+TimeSeriesItemType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringType", "DoubleType", "NumericOrNonNumericType"],
     pydantic.Field(discriminator="type"),
 ]
 """A union of the types supported by time series properties."""
 
 
-TimeUnit = typing.Literal[
+TimeUnit: typing_extensions.TypeAlias = typing.Literal[
     "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS"
 ]
 """TimeUnit"""
@@ -852,15 +854,15 @@ class TimestampType(core.ModelBase):
     type: typing.Literal["timestamp"] = "timestamp"
 
 
-TotalCount = core.Long
+TotalCount: typing_extensions.TypeAlias = core.Long
 """The total number of items across all pages."""
 
 
-TraceParent = str
+TraceParent: typing_extensions.TypeAlias = str
 """The W3C Trace Context `traceparent` header value used to propagate distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#traceparent-header for more details. Note the 16 byte trace ID encoded in the header must be derived from a time based uuid to be used within Foundry."""
 
 
-TraceState = str
+TraceState: typing_extensions.TypeAlias = str
 """The W3C Trace Context `tracestate` header value, which is used to propagate vendor specific distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#tracestate-header for more details."""
 
 
@@ -872,23 +874,23 @@ class UnsupportedType(core.ModelBase):
     type: typing.Literal["unsupported"] = "unsupported"
 
 
-UnsupportedTypeParamKey = str
+UnsupportedTypeParamKey: typing_extensions.TypeAlias = str
 """UnsupportedTypeParamKey"""
 
 
-UnsupportedTypeParamValue = str
+UnsupportedTypeParamValue: typing_extensions.TypeAlias = str
 """UnsupportedTypeParamValue"""
 
 
-UpdatedTime = core.AwareDatetime
+UpdatedTime: typing_extensions.TypeAlias = core.AwareDatetime
 """The time at which the resource was most recently updated."""
 
 
-UserId = core.UUID
+UserId: typing_extensions.TypeAlias = core.UUID
 """A Foundry User ID."""
 
 
-UserStatus = typing.Literal["ACTIVE", "DELETED"]
+UserStatus: typing_extensions.TypeAlias = typing.Literal["ACTIVE", "DELETED"]
 """Present status of user."""
 
 
@@ -901,7 +903,7 @@ class VectorSimilarityFunction(core.ModelBase):
     value: typing.Optional[VectorSimilarityFunctionValue] = None
 
 
-VectorSimilarityFunctionValue = typing.Literal[
+VectorSimilarityFunctionValue: typing_extensions.TypeAlias = typing.Literal[
     "COSINE_SIMILARITY", "DOT_PRODUCT", "EUCLIDEAN_DISTANCE"
 ]
 """VectorSimilarityFunctionValue"""
@@ -918,7 +920,7 @@ class VectorType(core.ModelBase):
     type: typing.Literal["vector"] = "vector"
 
 
-VersionId = core.UUID
+VersionId: typing_extensions.TypeAlias = core.UUID
 """The version identifier of a dataset schema."""
 
 
@@ -928,11 +930,11 @@ class VoidType(core.ModelBase):
     type: typing.Literal["void"] = "void"
 
 
-ZoneId = str
+ZoneId: typing_extensions.TypeAlias = str
 """A string representation of a java.time.ZoneId"""
 
 
-ChangeDataCaptureConfiguration = FullRowChangeDataCaptureConfiguration
+ChangeDataCaptureConfiguration: typing_extensions.TypeAlias = FullRowChangeDataCaptureConfiguration
 """
 Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
 least one key needs to be provided.
@@ -942,23 +944,19 @@ Foundry, see the [Change Data Capture](https://palantir.com/docs/foundry/data-in
 """
 
 
-CreatedBy = PrincipalId
+CreatedBy: typing_extensions.TypeAlias = PrincipalId
 """The Foundry user who created this resource"""
 
 
-Reference = MediaSetViewItemWrapper
+Reference: typing_extensions.TypeAlias = MediaSetViewItemWrapper
 """A union of the types supported by media reference properties."""
 
 
-UpdatedBy = UserId
+UpdatedBy: typing_extensions.TypeAlias = UserId
 """The Foundry user who last updated this resource"""
 
 
-core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
-core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
-core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AnyType",

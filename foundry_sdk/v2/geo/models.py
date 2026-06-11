@@ -23,7 +23,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 
-BBox = typing.List["Coordinate"]
+BBox: typing_extensions.TypeAlias = typing.List["Coordinate"]
 """
 A GeoJSON object MAY have a member named "bbox" to include
 information on the coordinate range for its Geometries, Features, or
@@ -35,7 +35,7 @@ of a bbox follows the axes order of geometries.
 """
 
 
-Coordinate = float
+Coordinate: typing_extensions.TypeAlias = float
 """Coordinate"""
 
 
@@ -70,7 +70,7 @@ class FeatureCollection(core.ModelBase):
     type: typing.Literal["FeatureCollection"] = "FeatureCollection"
 
 
-FeaturePropertyKey = str
+FeaturePropertyKey: typing_extensions.TypeAlias = str
 """FeaturePropertyKey"""
 
 
@@ -82,7 +82,7 @@ class GeoPoint(core.ModelBase):
     type: typing.Literal["Point"] = "Point"
 
 
-Geometry = typing_extensions.Annotated[
+Geometry: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "MultiPoint",
         "GeometryCollection",
@@ -120,13 +120,15 @@ class LineString(core.ModelBase):
     type: typing.Literal["LineString"] = "LineString"
 
 
-LineStringCoordinates = typing_extensions.Annotated[
+LineStringCoordinates: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.List["Position"], annotated_types.Len(min_length=2)
 ]
 """GeoJSon fundamental geometry construct, array of two or more positions."""
 
 
-LinearRing = typing_extensions.Annotated[typing.List["Position"], annotated_types.Len(min_length=4)]
+LinearRing: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.List["Position"], annotated_types.Len(min_length=4)
+]
 """
 A linear ring is a closed LineString with four or more positions.
 
@@ -174,7 +176,7 @@ class Polygon(core.ModelBase):
     type: typing.Literal["Polygon"] = "Polygon"
 
 
-Position = typing_extensions.Annotated[
+Position: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.List["Coordinate"], annotated_types.Len(min_length=2, max_length=3)
 ]
 """
@@ -195,15 +197,11 @@ elements MAY be ignored by parsers.
 """
 
 
-FeatureCollectionTypes = Feature
+FeatureCollectionTypes: typing_extensions.TypeAlias = Feature
 """FeatureCollectionTypes"""
 
 
-core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
-core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())
-core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())
-core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
-core.resolve_forward_references(Position, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "BBox",

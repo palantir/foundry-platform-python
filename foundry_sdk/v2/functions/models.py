@@ -41,7 +41,7 @@ class CancelExecutionResponse(core.ModelBase):
     id: ExecutionId
 
 
-DataValue = typing.Any
+DataValue: typing_extensions.TypeAlias = typing.Any
 """
 Represents the value of data in the following format. Note that these values can be nested, for example an array of structs.
 | Type                        | JSON encoding                                         | Example                                                                       |
@@ -96,7 +96,7 @@ class ExecuteAsyncQueryRequest(core.ModelBase):
     """
 
 
-ExecuteQueryAsyncResponse = typing_extensions.Annotated[
+ExecuteQueryAsyncResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ExecutionSubmitted", "ExecutionCompleted"], pydantic.Field(discriminator="type")
 ]
 """Response from submitting a query for async execution."""
@@ -130,7 +130,7 @@ class ExecutionCompleted(core.ModelBase):
     type: typing.Literal["completed"] = "completed"
 
 
-ExecutionId = str
+ExecutionId: typing_extensions.TypeAlias = str
 """Unique identifier for an async query execution."""
 
 
@@ -144,11 +144,11 @@ class ExecutionSubmitted(core.ModelBase):
     type: typing.Literal["submitted"] = "submitted"
 
 
-FunctionRid = core.RID
+FunctionRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of a Function, useful for interacting with other Foundry APIs."""
 
 
-FunctionVersion = str
+FunctionVersion: typing_extensions.TypeAlias = str
 """
 The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional.
 Examples: `1.2.3`, `1.2.3-rc1`.
@@ -177,7 +177,7 @@ class GetByRidQueriesBatchResponse(core.ModelBase):
     data: typing.List[Query]
 
 
-GetExecutionResultResponse = typing_extensions.Annotated[
+GetExecutionResultResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["RunningExecution", "SucceededExecution"], pydantic.Field(discriminator="type")
 ]
 """Poll response for an async query execution."""
@@ -218,7 +218,7 @@ class NullableConstraint(core.ModelBase):
     type: typing.Literal["nullable"] = "nullable"
 
 
-NullableConstraintValue = typing.Literal["NULLABLE", "NOT_NULLABLE"]
+NullableConstraintValue: typing_extensions.TypeAlias = typing.Literal["NULLABLE", "NOT_NULLABLE"]
 """NullableConstraintValue"""
 
 
@@ -230,7 +230,7 @@ class Parameter(core.ModelBase):
     required: bool
 
 
-ParameterId = str
+ParameterId: typing_extensions.TypeAlias = str
 """
 The unique identifier of the parameter. Parameters are used as inputs when an action or query is applied.
 Parameters can be viewed and managed in the **Ontology Manager**.
@@ -250,7 +250,7 @@ class Query(core.ModelBase):
     type_references: typing.Optional[typing.Dict[TypeReferenceIdentifier, QueryDataType]] = pydantic.Field(alias=str("typeReferences"), default=None)  # type: ignore[literal-required]
 
 
-QueryAggregationKeyType = typing_extensions.Annotated[
+QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -265,7 +265,7 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationRangeSubType = typing_extensions.Annotated[
+QueryAggregationRangeSubType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
@@ -284,14 +284,14 @@ class QueryAggregationRangeType(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-QueryAggregationValueType = typing_extensions.Annotated[
+QueryAggregationValueType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryApiName = str
+QueryApiName: typing_extensions.TypeAlias = str
 """The name of the Query in the API."""
 
 
@@ -302,7 +302,7 @@ class QueryArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-QueryDataType = typing_extensions.Annotated[
+QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "QueryStructType",
@@ -331,7 +331,7 @@ QueryDataType = typing_extensions.Annotated[
 """A union of all the types supported by Query parameters or outputs."""
 
 
-QueryRuntimeErrorParameter = str
+QueryRuntimeErrorParameter: typing_extensions.TypeAlias = str
 """QueryRuntimeErrorParameter"""
 
 
@@ -429,11 +429,11 @@ class StructConstraint(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-StructFieldApiName = str
+StructFieldApiName: typing_extensions.TypeAlias = str
 """StructFieldApiName"""
 
 
-StructFieldName = str
+StructFieldName: typing_extensions.TypeAlias = str
 """The name of a field in a `Struct`."""
 
 
@@ -459,7 +459,7 @@ class ThreeDimensionalAggregation(core.ModelBase):
     type: typing.Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
 
 
-TransactionId = str
+TransactionId: typing_extensions.TypeAlias = str
 """The ID identifying a transaction."""
 
 
@@ -471,7 +471,7 @@ class TwoDimensionalAggregation(core.ModelBase):
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
 
 
-TypeReferenceIdentifier = str
+TypeReferenceIdentifier: typing_extensions.TypeAlias = str
 """
 The unique identifier of a type reference. This identifier is used to look up the
 type definition in the `typeReferences` map of the enclosing Query.
@@ -497,11 +497,11 @@ class ValueType(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-ValueTypeApiName = str
+ValueTypeApiName: typing_extensions.TypeAlias = str
 """The registered API name for the value type."""
 
 
-ValueTypeConstraint = typing_extensions.Annotated[
+ValueTypeConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructConstraint",
         "StructV1Constraint",
@@ -520,7 +520,7 @@ ValueTypeConstraint = typing_extensions.Annotated[
 """ValueTypeConstraint"""
 
 
-ValueTypeDataType = typing_extensions.Annotated[
+ValueTypeDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ValueTypeDataTypeDateType",
         "ValueTypeDataTypeStructType",
@@ -641,7 +641,7 @@ class ValueTypeDataTypeStructElement(core.ModelBase):
     field_type: ValueTypeDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
 
 
-ValueTypeDataTypeStructFieldIdentifier = str
+ValueTypeDataTypeStructFieldIdentifier: typing_extensions.TypeAlias = str
 """ValueTypeDataTypeStructFieldIdentifier"""
 
 
@@ -673,7 +673,7 @@ class ValueTypeDataTypeValueTypeReference(core.ModelBase):
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
 
 
-ValueTypeDescription = str
+ValueTypeDescription: typing_extensions.TypeAlias = str
 """A description of the value type."""
 
 
@@ -685,15 +685,15 @@ class ValueTypeReference(core.ModelBase):
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
 
 
-ValueTypeRid = core.RID
+ValueTypeRid: typing_extensions.TypeAlias = core.RID
 """The RID of a value type that has been registered in the Ontology."""
 
 
-ValueTypeVersion = str
+ValueTypeVersion: typing_extensions.TypeAlias = str
 """The version of a value type that has been registered in the Ontology."""
 
 
-ValueTypeVersionId = core.UUID
+ValueTypeVersionId: typing_extensions.TypeAlias = core.UUID
 """The version ID of a value type that has been registered in the Ontology."""
 
 
@@ -710,14 +710,7 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-core.resolve_forward_references(ExecuteQueryAsyncResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(GetExecutionResultResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "ArrayConstraint",

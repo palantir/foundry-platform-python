@@ -71,7 +71,7 @@ class AddProjectResourceReferencesRequest(core.ModelBase):
     resources: typing.List[AddResourceReferenceRequest]
 
 
-AddResourceReferenceRequest = typing_extensions.Annotated[
+AddResourceReferenceRequest: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AddExternalResourceReferenceRequest", "AddFilesystemResourceReferenceRequest"],
     pydantic.Field(discriminator="type"),
 ]
@@ -154,7 +154,7 @@ class Everyone(core.ModelBase):
     type: typing.Literal["everyone"] = "everyone"
 
 
-FileSystemId = str
+FileSystemId: typing_extensions.TypeAlias = str
 """The ID of the filesystem that will be used for all projects in the Space."""
 
 
@@ -200,11 +200,11 @@ class Folder(core.ModelBase):
     """
 
 
-FolderRid = core.RID
+FolderRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Folder."""
 
 
-FolderType = typing.Literal["FOLDER", "SPACE", "PROJECT"]
+FolderType: typing_extensions.TypeAlias = typing.Literal["FOLDER", "SPACE", "PROJECT"]
 """
 A folder can be a regular Folder, a
 [Project](https://palantir.com/docs/foundry/getting-started/projects-and-resources/#projects) or a
@@ -249,7 +249,7 @@ class GetResourcesBatchResponse(core.ModelBase):
     data: typing.Dict[ResourceRid, Resource]
 
 
-IsDirectlyApplied = bool
+IsDirectlyApplied: typing_extensions.TypeAlias = bool
 """
 Boolean flag to indicate if the marking is directly applied to the resource, or if it's applied
 to a parent resource and inherited by the current resource.
@@ -393,7 +393,7 @@ class ProjectFilesystemResourceReference(core.ModelBase):
     type: typing.Literal["filesystem"] = "filesystem"
 
 
-ProjectResourceLevelRoleGrantsAllowed = bool
+ProjectResourceLevelRoleGrantsAllowed: typing_extensions.TypeAlias = bool
 """Whether role grants are allowed on individual resources within the Project."""
 
 
@@ -403,7 +403,7 @@ class ProjectResourceReference(core.ModelBase):
     reference: ProjectResourceReferenceUnion
 
 
-ProjectResourceReferenceType = typing.Literal["EXTERNAL", "FILESYSTEM"]
+ProjectResourceReferenceType: typing_extensions.TypeAlias = typing.Literal["EXTERNAL", "FILESYSTEM"]
 """
 A type of resource that has been referenced. A FILESYSTEM resource is anything that you can find in a Foundry
 file tree within a project. An EXTERNAL resource exists outside of the Foundry filesystem, such as a spark
@@ -411,7 +411,7 @@ profile or an LLM model.
 """
 
 
-ProjectResourceReferenceUnion = typing_extensions.Annotated[
+ProjectResourceReferenceUnion: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ProjectExternalResourceReference", "ProjectFilesystemResourceReference"],
     pydantic.Field(discriminator="type"),
 ]
@@ -421,19 +421,19 @@ the current project that has been imported to the given project.
 """
 
 
-ProjectRid = core.RID
+ProjectRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Project."""
 
 
-ProjectTemplateRid = core.RID
+ProjectTemplateRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a project template."""
 
 
-ProjectTemplateVariableId = str
+ProjectTemplateVariableId: typing_extensions.TypeAlias = str
 """An identifier for a variable used in a project template."""
 
 
-ProjectTemplateVariableValue = str
+ProjectTemplateVariableValue: typing_extensions.TypeAlias = str
 """The value assigned to a variable used in a project template."""
 
 
@@ -551,15 +551,15 @@ class Resource(core.ModelBase):
     """The Space Resource Identifier (RID) that the Resource lives in."""
 
 
-ResourceDisplayName = str
+ResourceDisplayName: typing_extensions.TypeAlias = str
 """The display name of the Resource"""
 
 
-ResourcePath = str
+ResourcePath: typing_extensions.TypeAlias = str
 """The full path to the resource, including the resource name itself"""
 
 
-ResourceRid = core.RID
+ResourceRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Resource."""
 
 
@@ -577,19 +577,19 @@ class ResourceRoleIdentifier(core.ModelBase):
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
 
-ResourceRolePrincipal = typing_extensions.Annotated[
+ResourceRolePrincipal: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PrincipalWithId", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
 
-ResourceRolePrincipalIdentifier = typing_extensions.Annotated[
+ResourceRolePrincipalIdentifier: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PrincipalIdOnly", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """A principal for resource role operations that doesn't require specifying the principal type."""
 
 
-ResourceType = pydantic.SkipValidation[
+ResourceType: typing_extensions.TypeAlias = pydantic.SkipValidation[
     typing.Literal[
         "AIP_PROFILE",
         "AIP_AGENTS_AGENT",
@@ -710,15 +710,17 @@ class Space(core.ModelBase):
     """The maven identifier used as the prefix to the maven coordinate that uniquely identifies resources published from this space. This is only present if configured in control panel in the space settings."""
 
 
-SpaceMavenIdentifier = str
+SpaceMavenIdentifier: typing_extensions.TypeAlias = str
 """The maven identifier used as the prefix to the maven coordinate that uniquely identifies resources published from this space."""
 
 
-SpaceRid = core.RID
+SpaceRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Space."""
 
 
-TrashStatus = typing.Literal["DIRECTLY_TRASHED", "ANCESTOR_TRASHED", "NOT_TRASHED"]
+TrashStatus: typing_extensions.TypeAlias = typing.Literal[
+    "DIRECTLY_TRASHED", "ANCESTOR_TRASHED", "NOT_TRASHED"
+]
 """
 Values:
   - **DIRECTLY_TRASHED**: The resource was specifically trashed by a user. It can be restored directly.
@@ -727,16 +729,11 @@ Values:
 """
 
 
-UsageAccountRid = core.RID
+UsageAccountRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-core.resolve_forward_references(AddResourceReferenceRequest, globalns=globals(), localns=locals())
-core.resolve_forward_references(ProjectResourceReferenceUnion, globalns=globals(), localns=locals())
-core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
-)
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AccessRequirements",

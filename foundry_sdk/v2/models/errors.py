@@ -73,7 +73,7 @@ class CreateModelFunctionPermissionDeniedParameters(typing_extensions.TypedDict)
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    liveDeploymentRid: models_models.LiveDeploymentRid
+    modelRid: models_models.ModelRid
 
 
 @dataclass
@@ -190,11 +190,11 @@ class ExperimentSeriesNotFound(errors.NotFoundError):
 
 
 class FunctionAlreadyExistsParameters(typing_extensions.TypedDict):
-    """A function already exists for this live deployment."""
+    """A function already exists for this model."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    liveDeploymentRid: models_models.LiveDeploymentRid
+    modelRid: models_models.ModelRid
 
 
 @dataclass
@@ -484,7 +484,7 @@ class ModelFunctionNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    liveDeploymentRid: models_models.LiveDeploymentRid
+    modelRid: models_models.ModelRid
 
 
 @dataclass
@@ -668,7 +668,7 @@ class ReplaceModelFunctionPermissionDeniedParameters(typing_extensions.TypedDict
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    liveDeploymentRid: models_models.LiveDeploymentRid
+    modelRid: models_models.ModelRid
 
 
 @dataclass
