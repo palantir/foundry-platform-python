@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
@@ -36,7 +37,7 @@ class ListVersionsResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
-Subdomain = str
+Subdomain: typing_extensions.TypeAlias = str
 """A subdomain from which a website is served."""
 
 
@@ -47,7 +48,7 @@ class ThirdPartyApplication(core.ModelBase):
     """An RID identifying a third-party application created in Developer Console."""
 
 
-ThirdPartyApplicationRid = core.RID
+ThirdPartyApplicationRid: typing_extensions.TypeAlias = core.RID
 """An RID identifying a third-party application created in Developer Console."""
 
 
@@ -58,7 +59,7 @@ class Version(core.ModelBase):
     """The semantic version of the Website."""
 
 
-VersionVersion = str
+VersionVersion: typing_extensions.TypeAlias = str
 """The semantic version of the Website."""
 
 
@@ -71,6 +72,8 @@ class Website(core.ModelBase):
     subdomains: typing.List[Subdomain]
     """The subdomains from which the Website is currently served."""
 
+
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "DeployWebsiteRequest",

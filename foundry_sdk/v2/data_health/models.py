@@ -80,7 +80,7 @@ class Check(core.ModelBase):
     """The timestamp when the Check was last updated."""
 
 
-CheckConfig = typing_extensions.Annotated[
+CheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "NumericColumnRangeCheckConfig",
         "JobStatusCheckConfig",
@@ -104,11 +104,11 @@ CheckConfig = typing_extensions.Annotated[
 """Configuration of a check."""
 
 
-CheckGroupRid = core.RID
+CheckGroupRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a CheckGroup."""
 
 
-CheckIntent = str
+CheckIntent: typing_extensions.TypeAlias = str
 """A note about why the Check was set up."""
 
 
@@ -123,7 +123,7 @@ class CheckReport(core.ModelBase):
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
 
-CheckReportLimit = int
+CheckReportLimit: typing_extensions.TypeAlias = int
 """
 The maximum number of check reports to return in a single request.
 
@@ -142,7 +142,7 @@ class CheckResult(core.ModelBase):
     """Further details about the result of the check."""
 
 
-CheckResultStatus = typing.Literal[
+CheckResultStatus: typing_extensions.TypeAlias = typing.Literal[
     "PASSED", "FAILED", "WARNING", "ERROR", "NOT_APPLICABLE", "NOT_COMPUTABLE"
 ]
 """The status of a check report execution."""
@@ -162,7 +162,7 @@ class ColumnInfo(core.ModelBase):
     column_type: typing.Optional[core_models.SchemaFieldType] = pydantic.Field(alias=str("columnType"), default=None)  # type: ignore[literal-required]
 
 
-ColumnName = str
+ColumnName: typing_extensions.TypeAlias = str
 """ColumnName"""
 
 
@@ -182,7 +182,7 @@ class ColumnTypeConfig(core.ModelBase):
     severity: SeverityLevel
 
 
-ColumnValue = typing_extensions.Annotated[
+ColumnValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DateColumnValue", "BooleanColumnValue", "StringColumnValue", "NumericColumnValue"
     ],
@@ -249,7 +249,7 @@ class GetLatestCheckReportsResponse(core.ModelBase):
     """The list of check reports."""
 
 
-IgnoreEmptyTransactions = bool
+IgnoreEmptyTransactions: typing_extensions.TypeAlias = bool
 """Whether empty transactions should be ignored when calculating time since last updated. If true (default), only transactions with actual data changes are considered."""
 
 
@@ -277,7 +277,9 @@ class MedianDeviation(core.ModelBase):
     deviation_threshold: float = pydantic.Field(alias=str("deviationThreshold"))  # type: ignore[literal-required]
 
 
-MedianDeviationBoundsType = typing.Literal["LOWER_BOUND", "UPPER_BOUND", "TWO_TAILED"]
+MedianDeviationBoundsType: typing_extensions.TypeAlias = typing.Literal[
+    "LOWER_BOUND", "UPPER_BOUND", "TWO_TAILED"
+]
 """The three types of median deviations a bounds type can have: - LOWER_BOUND – Tests for significant deviations below the median value, - UPPER_BOUND – Tests for significant deviations above the median value, - TWO_TAILED – Tests for significant deviations in either direction from the median value."""
 
 
@@ -372,7 +374,7 @@ class PercentageCheckConfig(core.ModelBase):
     median_deviation: typing.Optional[MedianDeviationConfig] = pydantic.Field(alias=str("medianDeviation"), default=None)  # type: ignore[literal-required]
 
 
-PercentageValue = float
+PercentageValue: typing_extensions.TypeAlias = float
 """
 A percentage value in the range 0.0 to 100.0.
 
@@ -427,7 +429,7 @@ class ReplaceBuildStatusCheckConfig(core.ModelBase):
     type: typing.Literal["buildStatus"] = "buildStatus"
 
 
-ReplaceCheckConfig = typing_extensions.Annotated[
+ReplaceCheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ReplaceNumericColumnRangeCheckConfig",
         "ReplaceJobStatusCheckConfig",
@@ -585,7 +587,7 @@ class SchemaComparisonConfig(core.ModelBase):
     severity: SeverityLevel
 
 
-SchemaComparisonType = typing.Literal[
+SchemaComparisonType: typing_extensions.TypeAlias = typing.Literal[
     "EXACT_MATCH_ORDERED_COLUMNS",
     "EXACT_MATCH_UNORDERED_COLUMNS",
     "COLUMN_ADDITIONS_ALLOWED",
@@ -608,7 +610,7 @@ class SchemaInfo(core.ModelBase):
     columns: typing.List[ColumnInfo]
 
 
-SeverityLevel = typing.Literal["MODERATE", "CRITICAL"]
+SeverityLevel: typing_extensions.TypeAlias = typing.Literal["MODERATE", "CRITICAL"]
 """The severity level of the check. Possible values are MODERATE or CRITICAL."""
 
 
@@ -679,7 +681,7 @@ class TrendConfig(core.ModelBase):
     severity: SeverityLevel
 
 
-TrendType = typing.Literal[
+TrendType: typing_extensions.TypeAlias = typing.Literal[
     "NON_INCREASING", "NON_DECREASING", "STRICTLY_INCREASING", "STRICTLY_DECREASING", "CONSTANT"
 ]
 """
@@ -692,9 +694,7 @@ The type of trend to validate:
 """
 
 
-core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(ColumnValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AllowedColumnValuesCheckConfig",

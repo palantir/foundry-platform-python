@@ -16,7 +16,10 @@
 from __future__ import annotations
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
+
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = []

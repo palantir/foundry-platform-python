@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 
@@ -34,7 +35,7 @@ class AttachmentType(core.ModelBase):
     type: typing.Literal["attachment"] = "attachment"
 
 
-Attribution = str
+Attribution: typing_extensions.TypeAlias = str
 """Attribution for a request"""
 
 
@@ -65,11 +66,11 @@ class CipherTextType(core.ModelBase):
     type: typing.Literal["cipherText"] = "cipherText"
 
 
-ContentLength = core.Long
+ContentLength: typing_extensions.TypeAlias = core.Long
 """ContentLength"""
 
 
-ContentType = str
+ContentType: typing_extensions.TypeAlias = str
 """ContentType"""
 
 
@@ -91,11 +92,11 @@ class DecimalType(core.ModelBase):
     type: typing.Literal["decimal"] = "decimal"
 
 
-DisplayName = str
+DisplayName: typing_extensions.TypeAlias = str
 """The display name of the entity."""
 
 
-DistanceUnit = typing.Literal[
+DistanceUnit: typing_extensions.TypeAlias = typing.Literal[
     "MILLIMETERS",
     "CENTIMETERS",
     "METERS",
@@ -115,14 +116,14 @@ class DoubleType(core.ModelBase):
     type: typing.Literal["double"] = "double"
 
 
-FilePath = str
+FilePath: typing_extensions.TypeAlias = str
 """
 The path to a File within Foundry. Paths are relative and must not start with a leading slash.
 Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`.
 """
 
 
-Filename = str
+Filename: typing_extensions.TypeAlias = str
 """The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""
 
 
@@ -132,11 +133,11 @@ class FloatType(core.ModelBase):
     type: typing.Literal["float"] = "float"
 
 
-FolderRid = core.RID
+FolderRid: typing_extensions.TypeAlias = core.RID
 """FolderRid"""
 
 
-FoundryBranch = str
+FoundryBranch: typing_extensions.TypeAlias = str
 """The Foundry branch identifier, specifically its rid. Different identifier types may be used in the future as values."""
 
 
@@ -159,7 +160,7 @@ class MarkingType(core.ModelBase):
     type: typing.Literal["marking"] = "marking"
 
 
-MarkingTypeValue = typing.Literal["CBAC", "MANDATORY"]
+MarkingTypeValue: typing_extensions.TypeAlias = typing.Literal["CBAC", "MANDATORY"]
 """
 The kind of marking applied by a marking property type.
 - `CBAC`: Classification-based access control markings.
@@ -173,7 +174,7 @@ class MediaReferenceType(core.ModelBase):
     type: typing.Literal["mediaReference"] = "mediaReference"
 
 
-MediaType = str
+MediaType: typing_extensions.TypeAlias = str
 """
 The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
 Examples: `application/json`, `application/pdf`, `application/octet-stream`, `image/jpeg`
@@ -186,15 +187,15 @@ class NullType(core.ModelBase):
     type: typing.Literal["null"] = "null"
 
 
-OperationScope = str
+OperationScope: typing_extensions.TypeAlias = str
 """OperationScope"""
 
 
-PageSize = int
+PageSize: typing_extensions.TypeAlias = int
 """The page size to use for the endpoint."""
 
 
-PageToken = str
+PageToken: typing_extensions.TypeAlias = str
 """
 The page token indicates where to start paging. This should be omitted from the first page's request.
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
@@ -202,11 +203,13 @@ and use it to populate the `pageToken` field of the next request.
 """
 
 
-PreviewMode = bool
+PreviewMode: typing_extensions.TypeAlias = bool
 """Enables the use of preview functionality."""
 
 
-ReleaseStatus = typing.Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
+ReleaseStatus: typing_extensions.TypeAlias = typing.Literal[
+    "ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"
+]
 """The release status of the entity."""
 
 
@@ -216,7 +219,7 @@ class ShortType(core.ModelBase):
     type: typing.Literal["short"] = "short"
 
 
-SizeBytes = core.Long
+SizeBytes: typing_extensions.TypeAlias = core.Long
 """The size of the file or attachment in bytes."""
 
 
@@ -226,7 +229,7 @@ class StringType(core.ModelBase):
     type: typing.Literal["string"] = "string"
 
 
-StructFieldName = str
+StructFieldName: typing_extensions.TypeAlias = str
 """The name of a field in a `Struct`."""
 
 
@@ -236,15 +239,15 @@ class TimestampType(core.ModelBase):
     type: typing.Literal["timestamp"] = "timestamp"
 
 
-TotalCount = core.Long
+TotalCount: typing_extensions.TypeAlias = core.Long
 """The total number of items across all pages."""
 
 
-TraceParent = str
+TraceParent: typing_extensions.TypeAlias = str
 """The W3C Trace Context `traceparent` header value used to propagate distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#traceparent-header for more details. Note the 16 byte trace ID encoded in the header must be derived from a time based uuid to be used within Foundry."""
 
 
-TraceState = str
+TraceState: typing_extensions.TypeAlias = str
 """The W3C Trace Context `tracestate` header value, which is used to propagate vendor specific distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#tracestate-header for more details."""
 
 
@@ -256,11 +259,11 @@ class UnsupportedType(core.ModelBase):
     type: typing.Literal["unsupported"] = "unsupported"
 
 
-UnsupportedTypeParamKey = str
+UnsupportedTypeParamKey: typing_extensions.TypeAlias = str
 """UnsupportedTypeParamKey"""
 
 
-UnsupportedTypeParamValue = str
+UnsupportedTypeParamValue: typing_extensions.TypeAlias = str
 """UnsupportedTypeParamValue"""
 
 
@@ -269,6 +272,8 @@ class VoidType(core.ModelBase):
 
     type: typing.Literal["void"] = "void"
 
+
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AnyType",

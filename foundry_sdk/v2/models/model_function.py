@@ -60,7 +60,7 @@ class ModelFunctionClient:
     @errors.handle_unexpected
     def create(
         self,
-        live_deployment_rid: models_models.LiveDeploymentRid,
+        model_rid: models_models.ModelRid,
         *,
         api_name: models_models.ModelFunctionApiName,
         display_name: models_models.ModelFunctionDisplayName,
@@ -71,9 +71,9 @@ class ModelFunctionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> models_models.ModelFunction:
         """
-        Creates a function for the live deployment.
-        :param live_deployment_rid:
-        :type live_deployment_rid: LiveDeploymentRid
+        Creates a function for the model.
+        :param model_rid:
+        :type model_rid: ModelRid
         :param api_name:
         :type api_name: ModelFunctionApiName
         :param display_name:
@@ -90,24 +90,23 @@ class ModelFunctionClient:
         :rtype: models_models.ModelFunction
 
         :raises CreateModelFunctionPermissionDenied: Could not create the ModelFunction.
-        :raises FunctionAlreadyExists: A function already exists for this live deployment.
+        :raises FunctionAlreadyExists: A function already exists for this model.
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
-        :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
+        :raises ModelNotFound: The given Model could not be found.
         :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
-        :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/function",
+                resource_path="/v2/models/{modelRid}/function",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "liveDeploymentRid": live_deployment_rid,
+                    "modelRid": model_rid,
                 },
                 header_params={
                     "Content-Type": "application/json",
@@ -125,11 +124,10 @@ class ModelFunctionClient:
                     "CreateModelFunctionPermissionDenied": models_errors.CreateModelFunctionPermissionDenied,
                     "FunctionAlreadyExists": models_errors.FunctionAlreadyExists,
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
-                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
-                    "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -140,16 +138,16 @@ class ModelFunctionClient:
     @errors.handle_unexpected
     def get(
         self,
-        live_deployment_rid: models_models.LiveDeploymentRid,
+        model_rid: models_models.ModelRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> models_models.ModelFunction:
         """
-        Gets the function for the live deployment.
-        :param live_deployment_rid:
-        :type live_deployment_rid: LiveDeploymentRid
+        Gets the function for the model.
+        :param model_rid:
+        :type model_rid: ModelRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -157,20 +155,19 @@ class ModelFunctionClient:
         :return: Returns the result object.
         :rtype: models_models.ModelFunction
 
-        :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelFunctionNotFound: The given ModelFunction could not be found.
-        :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
+        :raises ModelNotFound: The given Model could not be found.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="GET",
-                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/function",
+                resource_path="/v2/models/{modelRid}/function",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "liveDeploymentRid": live_deployment_rid,
+                    "modelRid": model_rid,
                 },
                 header_params={
                     "Accept": "application/json",
@@ -179,9 +176,8 @@ class ModelFunctionClient:
                 response_type=models_models.ModelFunction,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelFunctionNotFound": models_errors.ModelFunctionNotFound,
-                    "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
+                    "ModelNotFound": models_errors.ModelNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -192,7 +188,7 @@ class ModelFunctionClient:
     @errors.handle_unexpected
     def replace(
         self,
-        live_deployment_rid: models_models.LiveDeploymentRid,
+        model_rid: models_models.ModelRid,
         *,
         api_name: models_models.ModelFunctionApiName,
         is_row_wise: models_models.ModelFunctionIsRowWise,
@@ -202,9 +198,9 @@ class ModelFunctionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> models_models.ModelFunction:
         """
-        Replaces the function for the live deployment.
-        :param live_deployment_rid:
-        :type live_deployment_rid: LiveDeploymentRid
+        Replaces the function for the model.
+        :param model_rid:
+        :type model_rid: ModelRid
         :param api_name:
         :type api_name: ModelFunctionApiName
         :param is_row_wise:
@@ -219,24 +215,23 @@ class ModelFunctionClient:
         :rtype: models_models.ModelFunction
 
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
-        :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
         :raises ModelFunctionNotFound: The given ModelFunction could not be found.
+        :raises ModelNotFound: The given Model could not be found.
         :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
         :raises ReplaceModelFunctionPermissionDenied: Could not replace the ModelFunction.
-        :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="PUT",
-                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/function",
+                resource_path="/v2/models/{modelRid}/function",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "liveDeploymentRid": live_deployment_rid,
+                    "modelRid": model_rid,
                 },
                 header_params={
                     "Content-Type": "application/json",
@@ -251,13 +246,12 @@ class ModelFunctionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
-                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
                     "ModelFunctionNotFound": models_errors.ModelFunctionNotFound,
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
                     "ReplaceModelFunctionPermissionDenied": models_errors.ReplaceModelFunctionPermissionDenied,
-                    "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -320,7 +314,7 @@ class AsyncModelFunctionClient:
     @errors.handle_unexpected
     def create(
         self,
-        live_deployment_rid: models_models.LiveDeploymentRid,
+        model_rid: models_models.ModelRid,
         *,
         api_name: models_models.ModelFunctionApiName,
         display_name: models_models.ModelFunctionDisplayName,
@@ -331,9 +325,9 @@ class AsyncModelFunctionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[models_models.ModelFunction]:
         """
-        Creates a function for the live deployment.
-        :param live_deployment_rid:
-        :type live_deployment_rid: LiveDeploymentRid
+        Creates a function for the model.
+        :param model_rid:
+        :type model_rid: ModelRid
         :param api_name:
         :type api_name: ModelFunctionApiName
         :param display_name:
@@ -350,24 +344,23 @@ class AsyncModelFunctionClient:
         :rtype: typing.Awaitable[models_models.ModelFunction]
 
         :raises CreateModelFunctionPermissionDenied: Could not create the ModelFunction.
-        :raises FunctionAlreadyExists: A function already exists for this live deployment.
+        :raises FunctionAlreadyExists: A function already exists for this model.
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
-        :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
+        :raises ModelNotFound: The given Model could not be found.
         :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
-        :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/function",
+                resource_path="/v2/models/{modelRid}/function",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "liveDeploymentRid": live_deployment_rid,
+                    "modelRid": model_rid,
                 },
                 header_params={
                     "Content-Type": "application/json",
@@ -385,11 +378,10 @@ class AsyncModelFunctionClient:
                     "CreateModelFunctionPermissionDenied": models_errors.CreateModelFunctionPermissionDenied,
                     "FunctionAlreadyExists": models_errors.FunctionAlreadyExists,
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
-                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
-                    "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -400,16 +392,16 @@ class AsyncModelFunctionClient:
     @errors.handle_unexpected
     def get(
         self,
-        live_deployment_rid: models_models.LiveDeploymentRid,
+        model_rid: models_models.ModelRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[models_models.ModelFunction]:
         """
-        Gets the function for the live deployment.
-        :param live_deployment_rid:
-        :type live_deployment_rid: LiveDeploymentRid
+        Gets the function for the model.
+        :param model_rid:
+        :type model_rid: ModelRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -417,20 +409,19 @@ class AsyncModelFunctionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[models_models.ModelFunction]
 
-        :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelFunctionNotFound: The given ModelFunction could not be found.
-        :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
+        :raises ModelNotFound: The given Model could not be found.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="GET",
-                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/function",
+                resource_path="/v2/models/{modelRid}/function",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "liveDeploymentRid": live_deployment_rid,
+                    "modelRid": model_rid,
                 },
                 header_params={
                     "Accept": "application/json",
@@ -439,9 +430,8 @@ class AsyncModelFunctionClient:
                 response_type=models_models.ModelFunction,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelFunctionNotFound": models_errors.ModelFunctionNotFound,
-                    "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
+                    "ModelNotFound": models_errors.ModelNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -452,7 +442,7 @@ class AsyncModelFunctionClient:
     @errors.handle_unexpected
     def replace(
         self,
-        live_deployment_rid: models_models.LiveDeploymentRid,
+        model_rid: models_models.ModelRid,
         *,
         api_name: models_models.ModelFunctionApiName,
         is_row_wise: models_models.ModelFunctionIsRowWise,
@@ -462,9 +452,9 @@ class AsyncModelFunctionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[models_models.ModelFunction]:
         """
-        Replaces the function for the live deployment.
-        :param live_deployment_rid:
-        :type live_deployment_rid: LiveDeploymentRid
+        Replaces the function for the model.
+        :param model_rid:
+        :type model_rid: ModelRid
         :param api_name:
         :type api_name: ModelFunctionApiName
         :param is_row_wise:
@@ -479,24 +469,23 @@ class AsyncModelFunctionClient:
         :rtype: typing.Awaitable[models_models.ModelFunction]
 
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
-        :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
         :raises ModelFunctionNotFound: The given ModelFunction could not be found.
+        :raises ModelNotFound: The given Model could not be found.
         :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
         :raises ReplaceModelFunctionPermissionDenied: Could not replace the ModelFunction.
-        :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="PUT",
-                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/function",
+                resource_path="/v2/models/{modelRid}/function",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "liveDeploymentRid": live_deployment_rid,
+                    "modelRid": model_rid,
                 },
                 header_params={
                     "Content-Type": "application/json",
@@ -511,13 +500,12 @@ class AsyncModelFunctionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
-                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
                     "ModelFunctionNotFound": models_errors.ModelFunctionNotFound,
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
                     "ReplaceModelFunctionPermissionDenied": models_errors.ReplaceModelFunctionPermissionDenied,
-                    "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

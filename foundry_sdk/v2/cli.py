@@ -7578,6 +7578,95 @@ def models_model_model_version_op_list(
     click.echo(repr(result))
 
 
+@models_model.group("model_function")
+def models_model_model_function():
+    pass
+
+
+@models_model_model_function.command("create")
+@click.argument("model_rid", type=str, required=True)
+@click.option("--api_name", type=str, required=True, help="""""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option("--is_row_wise", type=bool, required=True, help="""""")
+@click.option("--ontology_binding", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_model_function_op_create(
+    client: FoundryClient,
+    model_rid: str,
+    api_name: str,
+    display_name: str,
+    is_row_wise: bool,
+    ontology_binding: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a function for the model.
+    """
+    result = client.models.Model.Function.create(
+        model_rid=model_rid,
+        api_name=api_name,
+        display_name=display_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_model_function.command("get")
+@click.argument("model_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_model_function_op_get(
+    client: FoundryClient,
+    model_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets the function for the model.
+    """
+    result = client.models.Model.Function.get(
+        model_rid=model_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_model_function.command("replace")
+@click.argument("model_rid", type=str, required=True)
+@click.option("--api_name", type=str, required=True, help="""""")
+@click.option("--is_row_wise", type=bool, required=True, help="""""")
+@click.option("--ontology_binding", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_model_function_op_replace(
+    client: FoundryClient,
+    model_rid: str,
+    api_name: str,
+    is_row_wise: bool,
+    ontology_binding: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replaces the function for the model.
+    """
+    result = client.models.Model.Function.replace(
+        model_rid=model_rid,
+        api_name=api_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @models_model.group("experiment")
 def models_model_experiment():
     pass
@@ -7940,95 +8029,6 @@ def models_live_deployment_op_transform_json(
     result = client.models.LiveDeployment.transform_json(
         live_deployment_rid=live_deployment_rid,
         input=json.loads(input),
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@models_live_deployment.group("model_function")
-def models_live_deployment_model_function():
-    pass
-
-
-@models_live_deployment_model_function.command("create")
-@click.argument("live_deployment_rid", type=str, required=True)
-@click.option("--api_name", type=str, required=True, help="""""")
-@click.option("--display_name", type=str, required=True, help="""""")
-@click.option("--is_row_wise", type=bool, required=True, help="""""")
-@click.option("--ontology_binding", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def models_live_deployment_model_function_op_create(
-    client: FoundryClient,
-    live_deployment_rid: str,
-    api_name: str,
-    display_name: str,
-    is_row_wise: bool,
-    ontology_binding: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Creates a function for the live deployment.
-    """
-    result = client.models.LiveDeployment.Function.create(
-        live_deployment_rid=live_deployment_rid,
-        api_name=api_name,
-        display_name=display_name,
-        is_row_wise=is_row_wise,
-        ontology_binding=ontology_binding,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@models_live_deployment_model_function.command("get")
-@click.argument("live_deployment_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def models_live_deployment_model_function_op_get(
-    client: FoundryClient,
-    live_deployment_rid: str,
-    preview: typing.Optional[bool],
-):
-    """
-    Gets the function for the live deployment.
-    """
-    result = client.models.LiveDeployment.Function.get(
-        live_deployment_rid=live_deployment_rid,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@models_live_deployment_model_function.command("replace")
-@click.argument("live_deployment_rid", type=str, required=True)
-@click.option("--api_name", type=str, required=True, help="""""")
-@click.option("--is_row_wise", type=bool, required=True, help="""""")
-@click.option("--ontology_binding", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def models_live_deployment_model_function_op_replace(
-    client: FoundryClient,
-    live_deployment_rid: str,
-    api_name: str,
-    is_row_wise: bool,
-    ontology_binding: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Replaces the function for the live deployment.
-    """
-    result = client.models.LiveDeployment.Function.replace(
-        live_deployment_rid=live_deployment_rid,
-        api_name=api_name,
-        is_row_wise=is_row_wise,
-        ontology_binding=ontology_binding,
         preview=preview,
     )
     click.echo(repr(result))

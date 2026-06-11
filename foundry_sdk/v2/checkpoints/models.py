@@ -54,15 +54,15 @@ class ApprovalsMetadata(core.ModelBase):
     approvals_subtask_ids: typing.List[ApprovalsSubtaskId] = pydantic.Field(alias=str("approvalsSubtaskIds"))  # type: ignore[literal-required]
 
 
-ApprovalsSubtaskId = str
+ApprovalsSubtaskId: typing_extensions.TypeAlias = str
 """Identifier of an Approvals subtask tied to the checkpoint."""
 
 
-ApprovalsTaskId = str
+ApprovalsTaskId: typing_extensions.TypeAlias = str
 """Identifier of an Approvals task tied to the checkpoint."""
 
 
-CheckpointType = typing.Literal[
+CheckpointType: typing_extensions.TypeAlias = typing.Literal[
     "CONTOUR_CREATE",
     "CONTOUR_EXPORT",
     "HUBBLE_EXPORT",
@@ -211,7 +211,7 @@ class CheckpointedIssueRid(core.ModelBase):
     type: typing.Literal["checkpointedIssueRid"] = "checkpointedIssueRid"
 
 
-CheckpointedItem = typing_extensions.Annotated[
+CheckpointedItem: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "CheckpointedIssue",
         "CheckpointedJob",
@@ -238,7 +238,7 @@ CheckpointedItem = typing_extensions.Annotated[
 """Snapshot of the entity that was captured in a checkpoint."""
 
 
-CheckpointedItemId = typing_extensions.Annotated[
+CheckpointedItemId: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "CheckpointedJobRid",
         "CheckpointedMarkingId",
@@ -439,7 +439,7 @@ class CheckpointedPrincipalId(core.ModelBase):
     type: typing.Literal["checkpointedPrincipalId"] = "checkpointedPrincipalId"
 
 
-CheckpointedPrincipalRole = typing.Literal[
+CheckpointedPrincipalRole: typing_extensions.TypeAlias = typing.Literal[
     "SOURCE_SHARE_RECIPIENT",
     "TARGET_GROUP",
     "GROUP_MEMBER",
@@ -471,7 +471,7 @@ class CheckpointedResourceRid(core.ModelBase):
     type: typing.Literal["checkpointedResourceRid"] = "checkpointedResourceRid"
 
 
-CheckpointedResourceType = typing.Literal[
+CheckpointedResourceType: typing_extensions.TypeAlias = typing.Literal[
     "CONTOUR_ANALYSIS",
     "CONTOUR_SOURCE_DATASET",
     "DATA_CONNECTION_SYNC",
@@ -553,7 +553,7 @@ class CheckpointedTokenId(core.ModelBase):
     type: typing.Literal["checkpointedTokenId"] = "checkpointedTokenId"
 
 
-CheckpointedTokenType = typing.Literal["USER_TOKEN"]
+CheckpointedTokenType: typing_extensions.TypeAlias = typing.Literal["USER_TOKEN"]
 """The type of token that was captured as part of a checkpoint."""
 
 
@@ -595,7 +595,7 @@ class CheckpointedVersionedObjectSet(core.ModelBase):
     object_types: typing.List[CheckpointedOntologyWithObjectTypes] = pydantic.Field(alias=str("objectTypes"))  # type: ignore[literal-required]
 
 
-ConfigRid = core.RID
+ConfigRid: typing_extensions.TypeAlias = core.RID
 """Identifier of the checkpoint configuration that produced a record."""
 
 
@@ -639,11 +639,11 @@ class GetRecordsBatchResponse(core.ModelBase):
     data: typing.Dict[RecordRid, Record]
 
 
-InteractionRid = core.RID
+InteractionRid: typing_extensions.TypeAlias = core.RID
 """Identifier of the interaction associated with a record."""
 
 
-Justification = typing_extensions.Annotated[
+Justification: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ResponseJustification",
         "DropdownJustification",
@@ -655,19 +655,19 @@ Justification = typing_extensions.Annotated[
 """Justification submitted by the user to pass a checkpoint."""
 
 
-JustificationMatchType = typing.Literal["EXACT", "CONTAINS"]
+JustificationMatchType: typing_extensions.TypeAlias = typing.Literal["EXACT", "CONTAINS"]
 """Determines how free-text justification input should be matched."""
 
 
-NamespaceRid = core.RID
+NamespaceRid: typing_extensions.TypeAlias = core.RID
 """Identifier of the namespace associated with a checkpoint."""
 
 
-OrganizationRid = core.RID
+OrganizationRid: typing_extensions.TypeAlias = core.RID
 """Identifier of the organization associated with a checkpoint."""
 
 
-ProjectRid = core.RID
+ProjectRid: typing_extensions.TypeAlias = core.RID
 """Identifier of the project that scoped a checkpoint."""
 
 
@@ -708,11 +708,11 @@ class Record(core.ModelBase):
     approvals_metadata: typing.Optional[ApprovalsMetadata] = pydantic.Field(alias=str("approvalsMetadata"), default=None)  # type: ignore[literal-required]
 
 
-RecordCreatedAt = core.AwareDatetime
+RecordCreatedAt: typing_extensions.TypeAlias = core.AwareDatetime
 """The time at which the checkpoint record was created."""
 
 
-RecordRid = core.RID
+RecordRid: typing_extensions.TypeAlias = core.RID
 """Identifier of a checkpoint record."""
 
 
@@ -723,7 +723,7 @@ class RedactableString(core.ModelBase):
     redaction_type: typing.Optional[RedactionType] = pydantic.Field(alias=str("redactionType"), default=None)  # type: ignore[literal-required]
 
 
-RedactionType = typing.Literal["USER_REDACTED", "RESOURCE_REDACTED"]
+RedactionType: typing_extensions.TypeAlias = typing.Literal["USER_REDACTED", "RESOURCE_REDACTED"]
 """Indicates why a string value was redacted."""
 
 
@@ -745,7 +745,7 @@ class ResponseJustification(core.ModelBase):
     type: typing.Literal["responseJustification"] = "responseJustification"
 
 
-Scope = typing.Literal["USER_SCOPED", "RESOURCE_SCOPED"]
+Scope: typing_extensions.TypeAlias = typing.Literal["USER_SCOPED", "RESOURCE_SCOPED"]
 """Indicates whether the checkpoint was scoped to a user or resource."""
 
 
@@ -771,7 +771,7 @@ class SearchCheckpointRecordsEqualsFilter(core.ModelBase):
     type: typing.Literal["eq"] = "eq"
 
 
-SearchCheckpointRecordsEqualsFilterField = typing.Literal[
+SearchCheckpointRecordsEqualsFilterField: typing_extensions.TypeAlias = typing.Literal[
     "recordRid",
     "configRid",
     "checkpointType",
@@ -785,7 +785,7 @@ SearchCheckpointRecordsEqualsFilterField = typing.Literal[
 """Fields that support equality filtering."""
 
 
-SearchCheckpointRecordsFilter = typing_extensions.Annotated[
+SearchCheckpointRecordsFilter: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "SearchCheckpointRecordsNotFilter",
         "SearchCheckpointRecordsOrFilter",
@@ -809,7 +809,7 @@ class SearchCheckpointRecordsGteFilter(core.ModelBase):
     type: typing.Literal["gte"] = "gte"
 
 
-SearchCheckpointRecordsGteFilterField = typing.Literal["createdAt"]
+SearchCheckpointRecordsGteFilterField: typing_extensions.TypeAlias = typing.Literal["createdAt"]
 """Fields that support greater-than-or-equal filtering."""
 
 
@@ -821,7 +821,7 @@ class SearchCheckpointRecordsLtFilter(core.ModelBase):
     type: typing.Literal["lt"] = "lt"
 
 
-SearchCheckpointRecordsLtFilterField = typing.Literal["createdAt"]
+SearchCheckpointRecordsLtFilterField: typing_extensions.TypeAlias = typing.Literal["createdAt"]
 """Fields that support less-than filtering."""
 
 
@@ -861,7 +861,7 @@ class SearchCheckpointRecordsTextSearchFilter(core.ModelBase):
     type: typing.Literal["textSearch"] = "textSearch"
 
 
-SearchCheckpointRecordsTextSearchFilterField = typing.Literal[
+SearchCheckpointRecordsTextSearchFilterField: typing_extensions.TypeAlias = typing.Literal[
     "justificationResponse", "justificationSelectedOption", "justificationAdditionalResponse"
 ]
 """Fields that support text search filtering."""
@@ -879,14 +879,11 @@ class SearchRecordsRequest(core.ModelBase):
     """Chronological order of creation time for records to be returned in. Defaults to reverse chronological order (DESC)."""
 
 
-SortDirection = typing.Literal["ASC", "DESC"]
+SortDirection: typing_extensions.TypeAlias = typing.Literal["ASC", "DESC"]
 """SortDirection"""
 
 
-core.resolve_forward_references(CheckpointedItem, globalns=globals(), localns=locals())
-core.resolve_forward_references(CheckpointedItemId, globalns=globals(), localns=locals())
-core.resolve_forward_references(Justification, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchCheckpointRecordsFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AcknowledgementJustification",

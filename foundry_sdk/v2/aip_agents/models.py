@@ -43,7 +43,7 @@ class Agent(core.ModelBase):
     """
 
 
-AgentMarkdownResponse = str
+AgentMarkdownResponse: typing_extensions.TypeAlias = str
 """The final answer for an exchange. Responses are formatted using markdown."""
 
 
@@ -63,7 +63,7 @@ class AgentMetadata(core.ModelBase):
     """Prompts to show to the user as example messages to start a conversation with the Agent."""
 
 
-AgentRid = core.RID
+AgentRid: typing_extensions.TypeAlias = core.RID
 """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
 
@@ -94,7 +94,7 @@ class AgentVersionDetails(core.ModelBase):
     """The minor version of the Agent. Incremented every time the Agent is saved."""
 
 
-AgentVersionString = str
+AgentVersionString: typing_extensions.TypeAlias = str
 """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
 
@@ -219,7 +219,7 @@ class GetRagContextForSessionRequest(core.ModelBase):
     """Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval."""
 
 
-InputContext = typing_extensions.Annotated[
+InputContext: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["FunctionRetrievedContext", "ObjectContext"], pydantic.Field(discriminator="type")
 ]
 """Custom retrieved [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) to provide to an Agent for continuing a session."""
@@ -239,7 +239,7 @@ class ListSessionsResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
-MessageId = core.UUID
+MessageId: typing_extensions.TypeAlias = core.UUID
 """
 An ephemeral client-generated Universally Unique Identifier (UUID) to identify a message for streamed session responses.
 This can be used by clients to cancel a streamed exchange.
@@ -303,31 +303,31 @@ class Parameter(core.ModelBase):
     """
 
 
-ParameterAccessMode = typing.Literal["READ_ONLY", "READ_WRITE"]
+ParameterAccessMode: typing_extensions.TypeAlias = typing.Literal["READ_ONLY", "READ_WRITE"]
 """
 READ_ONLY: Allows the variable to be read by the Agent, but the Agent cannot generate updates for it.
 READ_WRITE: Allows the variable to be read and updated by the Agent.
 """
 
 
-ParameterId = str
+ParameterId: typing_extensions.TypeAlias = str
 """The unique identifier for a variable configured in the application state of an Agent in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
 
-ParameterType = typing_extensions.Annotated[
+ParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringParameter", "ObjectSetParameter"], pydantic.Field(discriminator="type")
 ]
 """ParameterType"""
 
 
-ParameterValue = typing_extensions.Annotated[
+ParameterValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringParameterValue", "ObjectSetParameterValue"],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/chatbot-studio/application-state/) of an Agent."""
 
 
-ParameterValueUpdate = typing_extensions.Annotated[
+ParameterValueUpdate: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringParameterValue", "ObjectSetParameterValueUpdate"],
     pydantic.Field(discriminator="type"),
 ]
@@ -453,7 +453,7 @@ class SessionMetadata(core.ModelBase):
     """
 
 
-SessionRid = core.RID
+SessionRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of the conversation session."""
 
 
@@ -485,14 +485,14 @@ class SessionTrace(core.ModelBase):
     """
 
 
-SessionTraceId = core.UUID
+SessionTraceId: typing_extensions.TypeAlias = core.UUID
 """
 The unique identifier for a trace. The trace lists the sequence of steps that an Agent took to arrive at an
 answer. For example, a trace may include steps such as context retrieval and tool calls.
 """
 
 
-SessionTraceStatus = typing.Literal["IN_PROGRESS", "COMPLETE"]
+SessionTraceStatus: typing_extensions.TypeAlias = typing.Literal["IN_PROGRESS", "COMPLETE"]
 """SessionTraceStatus"""
 
 
@@ -587,18 +587,18 @@ class ToolCallInput(core.ModelBase):
     inputs: typing.Dict[ToolInputName, ToolInputValue]
 
 
-ToolCallOutput = typing_extensions.Annotated[
+ToolCallOutput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["SuccessToolCallOutput", "FailureToolCallOutput"],
     pydantic.Field(discriminator="type"),
 ]
 """The output of a tool call."""
 
 
-ToolInputName = str
+ToolInputName: typing_extensions.TypeAlias = str
 """The name of a tool input parameter."""
 
 
-ToolInputValue = typing_extensions.Annotated[
+ToolInputValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringToolInputValue", "RidToolInputValue"], pydantic.Field(discriminator="type")
 ]
 """A tool input value, which can be either a string or a Resource Identifier (RID)."""
@@ -614,14 +614,14 @@ class ToolMetadata(core.ModelBase):
     """The type of the tool that was called."""
 
 
-ToolOutputValue = typing_extensions.Annotated[
+ToolOutputValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringToolOutputValue", "RidToolOutputValue"],
     pydantic.Field(discriminator="type"),
 ]
 """A tool output value, which can be either a string or a Resource Identifier (RID)."""
 
 
-ToolType = typing.Literal[
+ToolType: typing_extensions.TypeAlias = typing.Literal[
     "FUNCTION",
     "ACTION",
     "ONTOLOGY_SEMANTIC_SEARCH",
@@ -651,13 +651,7 @@ class UserTextInput(core.ModelBase):
     """The user message text."""
 
 
-core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "Agent",

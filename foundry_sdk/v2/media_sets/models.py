@@ -91,11 +91,13 @@ class AudioChunkOperation(core.ModelBase):
     type: typing.Literal["chunk"] = "chunk"
 
 
-AudioDecodeFormat = typing.Literal["FLAC", "MP2", "MP3", "MP4", "NIST_SPHERE", "OGG", "WAV", "WEBM"]
+AudioDecodeFormat: typing_extensions.TypeAlias = typing.Literal[
+    "FLAC", "MP2", "MP3", "MP4", "NIST_SPHERE", "OGG", "WAV", "WEBM"
+]
 """The format of an audio media item."""
 
 
-AudioEncodeFormat = typing_extensions.Annotated[
+AudioEncodeFormat: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["Mp3Format", "WavEncodeFormat", "TsAudioContainerFormat"],
     pydantic.Field(discriminator="type"),
 ]
@@ -113,7 +115,7 @@ class AudioMediaItemMetadata(core.ModelBase):
     type: typing.Literal["audio"] = "audio"
 
 
-AudioOperation = typing_extensions.Annotated[
+AudioOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AudioChannelOperation", "AudioChunkOperation", "ConvertAudioOperation"],
     pydantic.Field(discriminator="type"),
 ]
@@ -133,7 +135,7 @@ class AudioSpecification(core.ModelBase):
     """Number of audio channels in the audio stream."""
 
 
-AudioToTextOperation = typing_extensions.Annotated[
+AudioToTextOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["TranscribeOperation", "WaveformOperation"], pydantic.Field(discriminator="type")
 ]
 """The operation to perform for audio to text conversion."""
@@ -153,7 +155,7 @@ class AudioTransformation(core.ModelBase):
     type: typing.Literal["audio"] = "audio"
 
 
-AvailableEmbeddingModelIds = typing.Literal["GOOGLE_SIGLIP_2"]
+AvailableEmbeddingModelIds: typing_extensions.TypeAlias = typing.Literal["GOOGLE_SIGLIP_2"]
 """Available embedding models that can be used with the service."""
 
 
@@ -198,14 +200,14 @@ class BoundingBoxGeometry(core.ModelBase):
     type: typing.Literal["boundingBox"] = "boundingBox"
 
 
-BranchName = str
+BranchName: typing_extensions.TypeAlias = str
 """
 A name for a media set branch. Valid branch names must be (a) non-empty, (b) less than 256 characters, and 
 (c) not a valid ResourceIdentifier.
 """
 
 
-BranchRid = core.RID
+BranchRid: typing_extensions.TypeAlias = core.RID
 """A resource identifier that identifies a branch of a media set."""
 
 
@@ -246,7 +248,7 @@ class Color(core.ModelBase):
     """Alpha component (0-1, where 0 is transparent and 1 is opaque)."""
 
 
-ColorInterpretation = typing.Literal[
+ColorInterpretation: typing_extensions.TypeAlias = typing.Literal[
     "UNDEFINED",
     "GRAY",
     "PALETTE_INDEX",
@@ -328,7 +330,7 @@ class ContrastRayleigh(core.ModelBase):
     type: typing.Literal["rayleigh"] = "rayleigh"
 
 
-ContrastType = typing_extensions.Annotated[
+ContrastType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ContrastEqualize", "ContrastRayleigh", "ContrastBinarize"],
     pydantic.Field(discriminator="type"),
 ]
@@ -395,7 +397,7 @@ class CropImageOperation(core.ModelBase):
     type: typing.Literal["crop"] = "crop"
 
 
-DataType = typing.Literal[
+DataType: typing_extensions.TypeAlias = typing.Literal[
     "UNDEFINED",
     "BYTE",
     "UINT16",
@@ -427,7 +429,7 @@ class DecryptImageOperation(core.ModelBase):
     type: typing.Literal["decrypt"] = "decrypt"
 
 
-DicomDataElementKey = str
+DicomDataElementKey: typing_extensions.TypeAlias = str
 """The key of a DICOM data element."""
 
 
@@ -449,7 +451,9 @@ class DicomMediaItemMetadata(core.ModelBase):
     type: typing.Literal["dicom"] = "dicom"
 
 
-DicomMediaType = typing.Literal["IMAGE", "MULTI_FRAME_IMAGE", "VIDEO", "STRUCTURED_REPORT"]
+DicomMediaType: typing_extensions.TypeAlias = typing.Literal[
+    "IMAGE", "MULTI_FRAME_IMAGE", "VIDEO", "STRUCTURED_REPORT"
+]
 """The type of DICOM media."""
 
 
@@ -492,7 +496,9 @@ class Dimensions(core.ModelBase):
     """The height of the image in pixels."""
 
 
-DocumentDecodeFormat = typing.Literal["PDF", "DOC", "DOCX", "TXT", "PPTX", "RTF"]
+DocumentDecodeFormat: typing_extensions.TypeAlias = typing.Literal[
+    "PDF", "DOC", "DOCX", "TXT", "PPTX", "RTF"
+]
 """The format of a document media item."""
 
 
@@ -522,7 +528,7 @@ class DocumentMediaItemMetadata(core.ModelBase):
     type: typing.Literal["document"] = "document"
 
 
-DocumentToDocumentOperation = typing_extensions.Annotated[
+DocumentToDocumentOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["SlicePdfRangeOperation", "ConvertDocumentOperation"],
     pydantic.Field(discriminator="type"),
 ]
@@ -537,7 +543,7 @@ class DocumentToDocumentTransformation(core.ModelBase):
     type: typing.Literal["documentToDocument"] = "documentToDocument"
 
 
-DocumentToImageOperation = typing_extensions.Annotated[
+DocumentToImageOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["RenderPageToFitBoundingBoxOperation", "RenderPageOperation"],
     pydantic.Field(discriminator="type"),
 ]
@@ -552,7 +558,7 @@ class DocumentToImageTransformation(core.ModelBase):
     type: typing.Literal["documentToImage"] = "documentToImage"
 
 
-DocumentToTextOperation = typing_extensions.Annotated[
+DocumentToTextOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ExtractTableOfContentsOperation",
         "GetPdfPageDimensionsOperation",
@@ -592,7 +598,7 @@ class EmailAttachment(core.ModelBase):
     """The verified MIME type of the attachment."""
 
 
-EmailDecodeFormat = typing.Literal["EML"]
+EmailDecodeFormat: typing_extensions.TypeAlias = typing.Literal["EML"]
 """The format of an email media item."""
 
 
@@ -634,7 +640,7 @@ class EmailToAttachmentTransformation(core.ModelBase):
     type: typing.Literal["emailToAttachment"] = "emailToAttachment"
 
 
-EmailToTextEncodeFormat = typing.Literal["TEXT", "HTML"]
+EmailToTextEncodeFormat: typing_extensions.TypeAlias = typing.Literal["TEXT", "HTML"]
 """The output format for email body extraction."""
 
 
@@ -808,7 +814,7 @@ class ExtractVlmTextOperation(core.ModelBase):
     type: typing.Literal["extractVlmText"] = "extractVlmText"
 
 
-FlipAxis = typing.Literal["HORIZONTAL", "VERTICAL", "UNKNOWN"]
+FlipAxis: typing_extensions.TypeAlias = typing.Literal["HORIZONTAL", "VERTICAL", "UNKNOWN"]
 """The flip axis from EXIF orientation."""
 
 
@@ -953,11 +959,11 @@ class GroupWrapper(core.ModelBase):
     type: typing.Literal["group"] = "group"
 
 
-ImageAttributeDomain = str
+ImageAttributeDomain: typing_extensions.TypeAlias = str
 """The domain of an image attribute."""
 
 
-ImageAttributeKey = str
+ImageAttributeKey: typing_extensions.TypeAlias = str
 """The key of an image attribute within a domain."""
 
 
@@ -975,7 +981,7 @@ class ImageOcrOperation(core.ModelBase):
     type: typing.Literal["ocr"] = "ocr"
 
 
-ImageOperation = typing_extensions.Annotated[
+ImageOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "RotateImageOperation",
         "ResizeToFitBoundingBoxOperation",
@@ -1003,7 +1009,7 @@ class ImagePixelCoordinate(core.ModelBase):
     """Coordinate on the y-axis (height)."""
 
 
-ImageRegionPolygon = typing.List["ImagePixelCoordinate"]
+ImageRegionPolygon: typing_extensions.TypeAlias = typing.List["ImagePixelCoordinate"]
 """
 Polygon drawn by connecting adjacent coordinates in the list with straight lines.
 A line is drawn between the last and first coordinates in the list to create a closed shape.
@@ -1041,7 +1047,7 @@ class ImageToEmbeddingTransformation(core.ModelBase):
     type: typing.Literal["imageToEmbedding"] = "imageToEmbedding"
 
 
-ImageToTextOperation = typing_extensions.Annotated[
+ImageToTextOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ImageExtractLayoutAwareContentOperation", "ImageOcrOperation"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1068,11 +1074,13 @@ class ImageTransformation(core.ModelBase):
     type: typing.Literal["image"] = "image"
 
 
-ImageryDecodeFormat = typing.Literal["BMP", "TIFF", "NITF", "JP2K", "JPG", "PNG", "WEBP"]
+ImageryDecodeFormat: typing_extensions.TypeAlias = typing.Literal[
+    "BMP", "TIFF", "NITF", "JP2K", "JPG", "PNG", "WEBP"
+]
 """The format of an imagery media item."""
 
 
-ImageryEncodeFormat = typing_extensions.Annotated[
+ImageryEncodeFormat: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["JpgFormat", "TiffFormat", "PngFormat", "WebpFormat"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1137,7 +1145,7 @@ class LayoutAwarePreprocessingWrapper(core.ModelBase):
     type: typing.Literal["layoutAware"] = "layoutAware"
 
 
-LogicalTimestamp = core.Long
+LogicalTimestamp: typing_extensions.TypeAlias = core.Long
 """
 A number representing a logical ordering to be used for transactions, etc.
 This can be interpreted as a timestamp in microseconds, but may differ slightly from system clock time due 
@@ -1157,7 +1165,7 @@ class Mailbox(core.ModelBase):
     """The email address of the mailbox."""
 
 
-MailboxOrGroup = typing_extensions.Annotated[
+MailboxOrGroup: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["MailboxWrapper", "GroupWrapper"], pydantic.Field(discriminator="type")
 ]
 """Either a mailbox or a group of mailboxes."""
@@ -1178,7 +1186,7 @@ class MediaAttribution(core.ModelBase):
     """The timestamp when the media item was created, in ISO 8601 timestamp format."""
 
 
-MediaItemMetadata = typing_extensions.Annotated[
+MediaItemMetadata: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DocumentMediaItemMetadata",
         "ImageryMediaItemMetadata",
@@ -1198,11 +1206,11 @@ duration for audio/video, page count for documents, etc.
 """
 
 
-MediaItemXmlFormat = typing.Literal["DOCX", "XLSX", "PPTX"]
+MediaItemXmlFormat: typing_extensions.TypeAlias = typing.Literal["DOCX", "XLSX", "PPTX"]
 """Format of the media item attempted to be decoded based on the XML structure."""
 
 
-MediaSchema = typing.Literal[
+MediaSchema: typing_extensions.TypeAlias = typing.Literal[
     "AUDIO",
     "DICOM",
     "DOCUMENT",
@@ -1223,7 +1231,7 @@ class MkvVideoContainerFormat(core.ModelBase):
     type: typing.Literal["mkv"] = "mkv"
 
 
-Modality = typing.Literal[
+Modality: typing_extensions.TypeAlias = typing.Literal[
     "AR",
     "ASMT",
     "AU",
@@ -1319,7 +1327,7 @@ https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html
 """
 
 
-Model3dDecodeFormat = typing.Literal["LAS", "PLY", "OBJ"]
+Model3dDecodeFormat: typing_extensions.TypeAlias = typing.Literal["LAS", "PLY", "OBJ"]
 """The format of a 3D model media item."""
 
 
@@ -1334,7 +1342,7 @@ class Model3dMediaItemMetadata(core.ModelBase):
     type: typing.Literal["model3d"] = "model3d"
 
 
-Model3dType = typing.Literal["POINT_CLOUD", "MESH"]
+Model3dType: typing_extensions.TypeAlias = typing.Literal["POINT_CLOUD", "MESH"]
 """The type of 3D model representation."""
 
 
@@ -1380,7 +1388,7 @@ class OcrHocrOutputFormat(core.ModelBase):
     type: typing.Literal["hocr"] = "hocr"
 
 
-OcrLanguage = typing.Literal[
+OcrLanguage: typing_extensions.TypeAlias = typing.Literal[
     "AFR",
     "AMH",
     "ARA",
@@ -1508,7 +1516,7 @@ OcrLanguage = typing.Literal[
 """Language codes for OCR."""
 
 
-OcrLanguageOrScript = typing_extensions.Annotated[
+OcrLanguageOrScript: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["OcrLanguageWrapper", "OcrScriptWrapper"], pydantic.Field(discriminator="type")
 ]
 """Either a specific language or a script for OCR."""
@@ -1521,7 +1529,7 @@ class OcrLanguageWrapper(core.ModelBase):
     type: typing.Literal["language"] = "language"
 
 
-OcrMode = typing.Literal["AUTO", "ELECTRONIC", "SCAN"]
+OcrMode: typing_extensions.TypeAlias = typing.Literal["AUTO", "ELECTRONIC", "SCAN"]
 """OCR mode for document extraction."""
 
 
@@ -1545,7 +1553,7 @@ class OcrOnPagesOperation(core.ModelBase):
     type: typing.Literal["ocrOnPages"] = "ocrOnPages"
 
 
-OcrOutputFormat = typing_extensions.Annotated[
+OcrOutputFormat: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["OcrHocrOutputFormat", "OcrTextOutputFormat"], pydantic.Field(discriminator="type")
 ]
 """The output format for OCR results."""
@@ -1559,7 +1567,7 @@ class OcrParameters(core.ModelBase):
     """The languages or scripts to use for OCR."""
 
 
-OcrScript = typing.Literal[
+OcrScript: typing_extensions.TypeAlias = typing.Literal[
     "ARABIC",
     "ARMENIAN",
     "BENGALI",
@@ -1631,7 +1639,9 @@ class PageRange(core.ModelBase):
     """End page index (0-based, exclusive). If not provided, defaults to end of document."""
 
 
-PaletteInterpretation = typing.Literal["GRAY", "RGB", "RGBA", "CMYK", "HLS"]
+PaletteInterpretation: typing_extensions.TypeAlias = typing.Literal[
+    "GRAY", "RGB", "RGBA", "CMYK", "HLS"
+]
 """The palette interpretation of a band."""
 
 
@@ -1641,7 +1651,7 @@ class PdfFormat(core.ModelBase):
     type: typing.Literal["pdf"] = "pdf"
 
 
-PerformanceMode = typing.Literal["MORE_ECONOMICAL", "MORE_PERFORMANT"]
+PerformanceMode: typing_extensions.TypeAlias = typing.Literal["MORE_ECONOMICAL", "MORE_PERFORMANT"]
 """The performance mode for transcription."""
 
 
@@ -1770,7 +1780,7 @@ class ResizeToFitBoundingBoxOperation(core.ModelBase):
     type: typing.Literal["resizeToFitBoundingBox"] = "resizeToFitBoundingBox"
 
 
-ResizingMode = typing.Literal["RESIZING", "FIT_INTO_BOUNDING_BOX"]
+ResizingMode: typing_extensions.TypeAlias = typing.Literal["RESIZING", "FIT_INTO_BOUNDING_BOX"]
 """Image resizing strategy."""
 
 
@@ -1781,11 +1791,15 @@ class RotateImageOperation(core.ModelBase):
     type: typing.Literal["rotate"] = "rotate"
 
 
-RotationAngle = typing.Literal["DEGREE_90", "DEGREE_180", "DEGREE_270", "UNKNOWN"]
+RotationAngle: typing_extensions.TypeAlias = typing.Literal[
+    "DEGREE_90", "DEGREE_180", "DEGREE_270", "UNKNOWN"
+]
 """The rotation angle from EXIF orientation."""
 
 
-SceneScore = typing.Literal["MORE_SENSITIVE", "STANDARD", "LESS_SENSITIVE"]
+SceneScore: typing_extensions.TypeAlias = typing.Literal[
+    "MORE_SENSITIVE", "STANDARD", "LESS_SENSITIVE"
+]
 """The sensitivity threshold for scene detection."""
 
 
@@ -1807,7 +1821,7 @@ class SlicePdfRangeOperation(core.ModelBase):
     type: typing.Literal["slicePdfRange"] = "slicePdfRange"
 
 
-SpreadsheetDecodeFormat = typing.Literal["XLSX"]
+SpreadsheetDecodeFormat: typing_extensions.TypeAlias = typing.Literal["XLSX"]
 """The format of a spreadsheet media item."""
 
 
@@ -1843,7 +1857,7 @@ class TarFormat(core.ModelBase):
     type: typing.Literal["tar"] = "tar"
 
 
-TextOutputFormat = typing.Literal["TEXT", "MARKDOWN", "HTML"]
+TextOutputFormat: typing_extensions.TypeAlias = typing.Literal["TEXT", "MARKDOWN", "HTML"]
 """Format in which to return extracted text."""
 
 
@@ -1883,7 +1897,7 @@ class TrackedTransformationPendingResponse(core.ModelBase):
     type: typing.Literal["pending"] = "pending"
 
 
-TrackedTransformationResponse = typing_extensions.Annotated[
+TrackedTransformationResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "TrackedTransformationPendingResponse",
         "TrackedTransformationFailedResponse",
@@ -1900,11 +1914,11 @@ class TrackedTransformationSuccessfulResponse(core.ModelBase):
     type: typing.Literal["successful"] = "successful"
 
 
-TransactionId = core.UUID
+TransactionId: typing_extensions.TypeAlias = core.UUID
 """An identifier which represents a transaction on a media set."""
 
 
-TransactionPolicy = typing_extensions.Annotated[
+TransactionPolicy: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["BatchTransactionsTransactionPolicy", "NoTransactionsTransactionPolicy"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1938,14 +1952,14 @@ class TranscribeOperation(core.ModelBase):
     type: typing.Literal["transcribe"] = "transcribe"
 
 
-TranscribeTextEncodeFormat = typing_extensions.Annotated[
+TranscribeTextEncodeFormat: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PlainTextNoSegmentData", "TranscribeJson", "Pttml"],
     pydantic.Field(discriminator="type"),
 ]
 """The output format for transcription results."""
 
 
-TranscriptionLanguage = typing.Literal[
+TranscriptionLanguage: typing_extensions.TypeAlias = typing.Literal[
     "AF",
     "AM",
     "AR",
@@ -2178,7 +2192,7 @@ class TransformMediaItemResponse(core.ModelBase):
     job_id: TransformationJobId = pydantic.Field(alias=str("jobId"))  # type: ignore[literal-required]
 
 
-Transformation = typing_extensions.Annotated[
+Transformation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "EmailToTextTransformation",
         "ImageTransformation",
@@ -2207,11 +2221,13 @@ and any parameters required for the operation.
 """
 
 
-TransformationJobId = str
+TransformationJobId: typing_extensions.TypeAlias = str
 """An identifier for a media item transformation job."""
 
 
-TransformationJobStatus = typing.Literal["PENDING", "FAILED", "SUCCESSFUL"]
+TransformationJobStatus: typing_extensions.TypeAlias = typing.Literal[
+    "PENDING", "FAILED", "SUCCESSFUL"
+]
 """The status of a transformation job."""
 
 
@@ -2259,11 +2275,11 @@ class VideoChunkOperation(core.ModelBase):
     type: typing.Literal["chunk"] = "chunk"
 
 
-VideoDecodeFormat = typing.Literal["MP4", "MKV", "MOV", "TS"]
+VideoDecodeFormat: typing_extensions.TypeAlias = typing.Literal["MP4", "MKV", "MOV", "TS"]
 """The format of a video media item."""
 
 
-VideoEncodeFormat = typing_extensions.Annotated[
+VideoEncodeFormat: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "Mp4VideoContainerFormat",
         "MovVideoContainerFormat",
@@ -2286,7 +2302,7 @@ class VideoMediaItemMetadata(core.ModelBase):
     type: typing.Literal["video"] = "video"
 
 
-VideoOperation = typing_extensions.Annotated[
+VideoOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["TranscodeOperation", "VideoChunkOperation"], pydantic.Field(discriminator="type")
 ]
 """The operation to perform on the video."""
@@ -2318,7 +2334,7 @@ class VideoToAudioTransformation(core.ModelBase):
     type: typing.Literal["videoToAudio"] = "videoToAudio"
 
 
-VideoToImageOperation = typing_extensions.Annotated[
+VideoToImageOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ExtractFirstFrameOperation", "ExtractFramesAtTimestampsOperation"],
     pydantic.Field(discriminator="type"),
 ]
@@ -2348,7 +2364,7 @@ class VideoTransformation(core.ModelBase):
     type: typing.Literal["video"] = "video"
 
 
-VlmPreprocessingConfig = typing_extensions.Annotated[
+VlmPreprocessingConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["LayoutAwarePreprocessingWrapper", "ExtractTextPreprocessingWrapper"],
     pydantic.Field(discriminator="type"),
 ]
@@ -2383,93 +2399,71 @@ class WebpFormat(core.ModelBase):
     type: typing.Literal["webp"] = "webp"
 
 
-AnnotateGeometry = BoundingBoxGeometry
+AnnotateGeometry: typing_extensions.TypeAlias = BoundingBoxGeometry
 """The geometry for an annotation."""
 
 
-ArchiveEncodeFormat = TarFormat
+ArchiveEncodeFormat: typing_extensions.TypeAlias = TarFormat
 """The output format for encoding archives."""
 
 
-AudioChannelLayout = NumberOfChannels
+AudioChannelLayout: typing_extensions.TypeAlias = NumberOfChannels
 """The audio channel layout configuration."""
 
 
-DicomMetaInformation = DicomMetaInformationV1
+DicomMetaInformation: typing_extensions.TypeAlias = DicomMetaInformationV1
 """DICOM meta information."""
 
 
-DicomToImageOperation = RenderImageLayerOperation
+DicomToImageOperation: typing_extensions.TypeAlias = RenderImageLayerOperation
 """The operation to perform for DICOM to image conversion."""
 
 
-DocumentEncodeFormat = PdfFormat
+DocumentEncodeFormat: typing_extensions.TypeAlias = PdfFormat
 """The output format for encoding documents."""
 
 
-EmailToAttachmentOperation = GetEmailAttachmentOperation
+EmailToAttachmentOperation: typing_extensions.TypeAlias = GetEmailAttachmentOperation
 """The operation to perform for email to attachment extraction."""
 
 
-EmailToTextOperation = GetEmailBodyOperation
+EmailToTextOperation: typing_extensions.TypeAlias = GetEmailBodyOperation
 """The operation to perform for email to text extraction."""
 
 
-ImageToDocumentOperation = CreatePdfOperation
+ImageToDocumentOperation: typing_extensions.TypeAlias = CreatePdfOperation
 """The operation to perform for image to document conversion."""
 
 
-ImageToEmbeddingOperation = GenerateEmbeddingOperation
+ImageToEmbeddingOperation: typing_extensions.TypeAlias = GenerateEmbeddingOperation
 """The operation to perform for image to embedding conversion."""
 
 
-LanguageModelLocator = ApiNameLocatorWrapper
+LanguageModelLocator: typing_extensions.TypeAlias = ApiNameLocatorWrapper
 """Locator for identifying a language model."""
 
 
-LlmSpec = ChatLlmSpecWrapper
+LlmSpec: typing_extensions.TypeAlias = ChatLlmSpecWrapper
 """Specification for language model requests."""
 
 
-SpreadsheetToTextOperation = ConvertSheetToJsonOperation
+SpreadsheetToTextOperation: typing_extensions.TypeAlias = ConvertSheetToJsonOperation
 """The operation to perform for spreadsheet to text conversion."""
 
 
-VideoToArchiveOperation = ExtractSceneFramesOperation
+VideoToArchiveOperation: typing_extensions.TypeAlias = ExtractSceneFramesOperation
 """The operation to perform for video to archive conversion."""
 
 
-VideoToAudioOperation = ExtractAudioOperation
+VideoToAudioOperation: typing_extensions.TypeAlias = ExtractAudioOperation
 """The operation to perform for video to audio conversion."""
 
 
-VideoToTextOperation = GetTimestampsForSceneFramesOperation
+VideoToTextOperation: typing_extensions.TypeAlias = GetTimestampsForSceneFramesOperation
 """The operation to perform for video to text conversion."""
 
 
-core.resolve_forward_references(AudioEncodeFormat, globalns=globals(), localns=locals())
-core.resolve_forward_references(AudioOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(AudioToTextOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(ContrastType, globalns=globals(), localns=locals())
-core.resolve_forward_references(DocumentToDocumentOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(DocumentToImageOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(DocumentToTextOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(ImageOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(ImageRegionPolygon, globalns=globals(), localns=locals())
-core.resolve_forward_references(ImageToTextOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(ImageryEncodeFormat, globalns=globals(), localns=locals())
-core.resolve_forward_references(MailboxOrGroup, globalns=globals(), localns=locals())
-core.resolve_forward_references(MediaItemMetadata, globalns=globals(), localns=locals())
-core.resolve_forward_references(OcrLanguageOrScript, globalns=globals(), localns=locals())
-core.resolve_forward_references(OcrOutputFormat, globalns=globals(), localns=locals())
-core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(TransactionPolicy, globalns=globals(), localns=locals())
-core.resolve_forward_references(TranscribeTextEncodeFormat, globalns=globals(), localns=locals())
-core.resolve_forward_references(Transformation, globalns=globals(), localns=locals())
-core.resolve_forward_references(VideoEncodeFormat, globalns=globals(), localns=locals())
-core.resolve_forward_references(VideoOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(VideoToImageOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(VlmPreprocessingConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AffineTransform",

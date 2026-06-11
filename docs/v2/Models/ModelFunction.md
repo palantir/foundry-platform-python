@@ -2,18 +2,18 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/function | Private Beta |
-[**get**](#get) | **GET** /v2/models/liveDeployments/{liveDeploymentRid}/function | Private Beta |
-[**replace**](#replace) | **PUT** /v2/models/liveDeployments/{liveDeploymentRid}/function | Private Beta |
+[**create**](#create) | **POST** /v2/models/{modelRid}/function | Private Beta |
+[**get**](#get) | **GET** /v2/models/{modelRid}/function | Private Beta |
+[**replace**](#replace) | **PUT** /v2/models/{modelRid}/function | Private Beta |
 
 # **create**
-Creates a function for the live deployment.
+Creates a function for the model.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**live_deployment_rid** | LiveDeploymentRid |  |  |
+**model_rid** | ModelRid |  |  |
 **api_name** | ModelFunctionApiName |  |  |
 **display_name** | ModelFunctionDisplayName |  |  |
 **is_row_wise** | ModelFunctionIsRowWise |  |  |
@@ -32,8 +32,8 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# LiveDeploymentRid
-live_deployment_rid = None
+# ModelRid
+model_rid = None
 # ModelFunctionApiName
 api_name = "myModelFunction"
 # ModelFunctionDisplayName
@@ -47,8 +47,8 @@ preview = None
 
 
 try:
-    api_response = client.models.LiveDeployment.Function.create(
-        live_deployment_rid,
+    api_response = client.models.Model.Function.create(
+        model_rid,
         api_name=api_name,
         display_name=display_name,
         is_row_wise=is_row_wise,
@@ -76,13 +76,13 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-Gets the function for the live deployment.
+Gets the function for the model.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**live_deployment_rid** | LiveDeploymentRid |  |  |
+**model_rid** | ModelRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -97,14 +97,14 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# LiveDeploymentRid
-live_deployment_rid = None
+# ModelRid
+model_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = client.models.LiveDeployment.Function.get(live_deployment_rid, preview=preview)
+    api_response = client.models.Model.Function.get(model_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -126,13 +126,13 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **replace**
-Replaces the function for the live deployment.
+Replaces the function for the model.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**live_deployment_rid** | LiveDeploymentRid |  |  |
+**model_rid** | ModelRid |  |  |
 **api_name** | ModelFunctionApiName |  |  |
 **is_row_wise** | ModelFunctionIsRowWise |  |  |
 **ontology_binding** | Optional[OntologyRid] |  | [optional] |
@@ -150,8 +150,8 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# LiveDeploymentRid
-live_deployment_rid = None
+# ModelRid
+model_rid = None
 # ModelFunctionApiName
 api_name = "myModelFunction"
 # ModelFunctionIsRowWise
@@ -163,8 +163,8 @@ preview = None
 
 
 try:
-    api_response = client.models.LiveDeployment.Function.replace(
-        live_deployment_rid,
+    api_response = client.models.Model.Function.replace(
+        model_rid,
         api_name=api_name,
         is_row_wise=is_row_wise,
         ontology_binding=ontology_binding,

@@ -38,7 +38,7 @@ class CanceledQueryStatus(core.ModelBase):
     type: typing.Literal["canceled"] = "canceled"
 
 
-ColumnType = typing_extensions.Annotated[
+ColumnType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "StructColumnType",
@@ -136,7 +136,7 @@ class MapColumnType(core.ModelBase):
     type: typing.Literal["map"] = "map"
 
 
-MapParameterKey = str
+MapParameterKey: typing_extensions.TypeAlias = str
 """A key for a map parameter value."""
 
 
@@ -218,11 +218,11 @@ class ParameterMapValue(core.ModelBase):
     type: typing.Literal["map"] = "map"
 
 
-ParameterMapping = typing.Dict["ParameterName", "ParameterValue"]
+ParameterMapping: typing_extensions.TypeAlias = typing.Dict["ParameterName", "ParameterValue"]
 """A mapping of named parameters to their values."""
 
 
-ParameterName = str
+ParameterName: typing_extensions.TypeAlias = str
 """The name of a SQL query parameter."""
 
 
@@ -260,7 +260,7 @@ class ParameterTimestampValue(core.ModelBase):
     type: typing.Literal["timestamp"] = "timestamp"
 
 
-ParameterValue = typing_extensions.Annotated[
+ParameterValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ParameterDateValue",
         "ParameterStructValue",
@@ -283,7 +283,7 @@ ParameterValue = typing_extensions.Annotated[
 """A typed parameter value for SQL query execution."""
 
 
-Parameters = typing_extensions.Annotated[
+Parameters: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["UnnamedParameterValues", "NamedParameterMapping"],
     pydantic.Field(discriminator="type"),
 ]
@@ -293,7 +293,7 @@ or named parameter mappings.
 """
 
 
-QueryStatus = typing_extensions.Annotated[
+QueryStatus: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "RunningQueryStatus", "CanceledQueryStatus", "FailedQueryStatus", "SucceededQueryStatus"
     ],
@@ -309,11 +309,11 @@ class RunningQueryStatus(core.ModelBase):
     type: typing.Literal["running"] = "running"
 
 
-SerializationFormat = typing.Literal["ARROW", "CSV"]
+SerializationFormat: typing_extensions.TypeAlias = typing.Literal["ARROW", "CSV"]
 """Format for SQL query result serialization."""
 
 
-SqlQueryId = str
+SqlQueryId: typing_extensions.TypeAlias = str
 """The identifier of a SQL Query."""
 
 
@@ -338,7 +338,7 @@ class StructElement(core.ModelBase):
     struct_element_value: ParameterValue = pydantic.Field(alias=str("structElementValue"))  # type: ignore[literal-required]
 
 
-StructElementName = typing_extensions.Annotated[
+StructElementName: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StructFieldRid", "StructFieldKeyValue"], pydantic.Field(discriminator="type")
 ]
 """The name of a struct element."""
@@ -372,12 +372,7 @@ class UnnamedParameterValues(core.ModelBase):
     type: typing.Literal["unnamedParameterValues"] = "unnamedParameterValues"
 
 
-core.resolve_forward_references(ColumnType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterMapping, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(Parameters, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
-core.resolve_forward_references(StructElementName, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "AnyColumnType",

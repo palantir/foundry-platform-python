@@ -42,7 +42,7 @@ class CommitSubscriberOffsetsRequest(core.ModelBase):
     """
 
 
-Compressed = bool
+Compressed: typing_extensions.TypeAlias = bool
 """
 Compression helps reduce the size of the data being sent, resulting in lower network usage and
 storage, at the cost of some additional CPU usage for compression and decompression. This stream type
@@ -176,11 +176,11 @@ class EarliestPosition(core.ModelBase):
     type: typing.Literal["earliest"] = "earliest"
 
 
-GetEndOffsetsResponse = typing.Dict["PartitionId", core.Long]
+GetEndOffsetsResponse: typing_extensions.TypeAlias = typing.Dict["PartitionId", core.Long]
 """The end offsets for each partition of a stream."""
 
 
-GetRecordsResponse = typing.List["RecordWithOffset"]
+GetRecordsResponse: typing_extensions.TypeAlias = typing.List["RecordWithOffset"]
 """A list of records from a stream with their offsets."""
 
 
@@ -194,19 +194,19 @@ class LatestPosition(core.ModelBase):
     type: typing.Literal["latest"] = "latest"
 
 
-PartitionId = str
+PartitionId: typing_extensions.TypeAlias = str
 """The identifier for a partition of a Foundry stream."""
 
 
-PartitionOffsets = typing.Dict["PartitionId", core.Long]
+PartitionOffsets: typing_extensions.TypeAlias = typing.Dict["PartitionId", core.Long]
 """A map of partition IDs to offsets."""
 
 
-PartitionRecords = typing.List["RecordWithOffset"]
+PartitionRecords: typing_extensions.TypeAlias = typing.List["RecordWithOffset"]
 """Records from a single partition with their offsets."""
 
 
-PartitionsCount = int
+PartitionsCount: typing_extensions.TypeAlias = int
 """The number of partitions for a Foundry stream."""
 
 
@@ -242,7 +242,7 @@ class PublishRecordsToStreamRequest(core.ModelBase):
     """
 
 
-ReadPosition = typing_extensions.Annotated[
+ReadPosition: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["SpecificPosition", "EarliestPosition", "LatestPosition"],
     pydantic.Field(discriminator="type"),
 ]
@@ -292,7 +292,7 @@ class ReadSubscriberRecordsResponse(core.ModelBase):
     """Records grouped by partition ID."""
 
 
-Record = typing.Dict[str, typing.Optional[typing.Any]]
+Record: typing_extensions.TypeAlias = typing.Dict[str, typing.Optional[typing.Any]]
 """A record to be published to a stream."""
 
 
@@ -391,7 +391,7 @@ class Stream(core.ModelBase):
     """Whether or not compression is enabled for the stream. Defaults to false."""
 
 
-StreamType = typing.Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]
+StreamType: typing_extensions.TypeAlias = typing.Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]
 """
 LOW_LATENCY: The default stream type. Recommended for most use cases.
 
@@ -443,20 +443,15 @@ class Subscriber(core.ModelBase):
     """Timestamp when the subscriber was registered."""
 
 
-SubscriberId = str
+SubscriberId: typing_extensions.TypeAlias = str
 """A unique identifier for a stream subscriber. Must be unique within the scope of a stream."""
 
 
-ViewRid = core.RID
+ViewRid: typing_extensions.TypeAlias = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(PartitionOffsets, globalns=globals(), localns=locals())
-core.resolve_forward_references(PartitionRecords, globalns=globals(), localns=locals())
-core.resolve_forward_references(ReadPosition, globalns=globals(), localns=locals())
-core.resolve_forward_references(Record, globalns=globals(), localns=locals())
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "CommitSubscriberOffsetsRequest",

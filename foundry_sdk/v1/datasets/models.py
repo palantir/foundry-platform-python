@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v1.core import models as core_models
@@ -30,7 +31,7 @@ class Branch(core.ModelBase):
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
 
 
-BranchId = str
+BranchId: typing_extensions.TypeAlias = str
 """The identifier (name) of a Branch."""
 
 
@@ -62,11 +63,11 @@ class Dataset(core.ModelBase):
     parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
 
-DatasetName = str
+DatasetName: typing_extensions.TypeAlias = str
 """DatasetName"""
 
 
-DatasetRid = core.RID
+DatasetRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Dataset."""
 
 
@@ -94,7 +95,7 @@ class ListFilesResponse(core.ModelBase):
     data: typing.List[File]
 
 
-TableExportFormat = typing.Literal["ARROW", "CSV"]
+TableExportFormat: typing_extensions.TypeAlias = typing.Literal["ARROW", "CSV"]
 """Format for tabular dataset export."""
 
 
@@ -111,17 +112,21 @@ class Transaction(core.ModelBase):
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
 
-TransactionRid = core.RID
+TransactionRid: typing_extensions.TypeAlias = core.RID
 """The Resource Identifier (RID) of a Transaction."""
 
 
-TransactionStatus = typing.Literal["ABORTED", "COMMITTED", "OPEN"]
+TransactionStatus: typing_extensions.TypeAlias = typing.Literal["ABORTED", "COMMITTED", "OPEN"]
 """The status of a Transaction."""
 
 
-TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
+TransactionType: typing_extensions.TypeAlias = typing.Literal[
+    "APPEND", "UPDATE", "SNAPSHOT", "DELETE"
+]
 """The type of a Transaction."""
 
+
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "Branch",

@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
@@ -52,15 +53,15 @@ class DevModeSnapshot(core.ModelBase):
     """The dev mode settings for each widget set, keyed by widget set RID."""
 
 
-DevModeSnapshotId = str
+DevModeSnapshotId: typing_extensions.TypeAlias = str
 """A content-addressed identifier for a dev mode settings snapshot."""
 
 
-DevModeStatus = typing.Literal["ENABLED", "PAUSED", "DISABLED"]
+DevModeStatus: typing_extensions.TypeAlias = typing.Literal["ENABLED", "PAUSED", "DISABLED"]
 """The user's global development mode status for widget sets."""
 
 
-FilePath = str
+FilePath: typing_extensions.TypeAlias = str
 """A locator for a specific file in a widget set's release directory."""
 
 
@@ -81,11 +82,11 @@ class OntologySdkInputSpec(core.ModelBase):
     """The version of the Ontology SDK."""
 
 
-OntologySdkPackageRid = core.RID
+OntologySdkPackageRid: typing_extensions.TypeAlias = core.RID
 """A Resource Identifier (RID) identifying an Ontology SDK package."""
 
 
-OntologySdkVersion = str
+OntologySdkVersion: typing_extensions.TypeAlias = str
 """A limited semver version string of the format major.minor.patch."""
 
 
@@ -113,7 +114,7 @@ class ReleaseLocator(core.ModelBase):
     """The version of the repository storing the backing files."""
 
 
-ReleaseVersion = str
+ReleaseVersion: typing_extensions.TypeAlias = str
 """The semantic version of the widget set."""
 
 
@@ -130,11 +131,11 @@ class Repository(core.ModelBase):
     """
 
 
-RepositoryRid = core.RID
+RepositoryRid: typing_extensions.TypeAlias = core.RID
 """A Resource Identifier (RID) identifying a repository."""
 
 
-RepositoryVersion = str
+RepositoryVersion: typing_extensions.TypeAlias = str
 """A semantic version of a repository storing backing files."""
 
 
@@ -158,7 +159,7 @@ class ScriptEntrypoint(core.ModelBase):
     """
 
 
-ScriptType = typing.Literal["DEFAULT", "MODULE"]
+ScriptType: typing_extensions.TypeAlias = typing.Literal["DEFAULT", "MODULE"]
 """ScriptType"""
 
 
@@ -215,7 +216,7 @@ class WidgetDevModeSettingsV2(core.ModelBase):
     """The entrypoint CSS files for the widget."""
 
 
-WidgetId = str
+WidgetId: typing_extensions.TypeAlias = str
 """
 Human readable ID for a widget. Must be unique within a widget set.
 Considered unsafe as it may contain user defined data.
@@ -227,7 +228,7 @@ Considered unsafe as it may contain user defined data.
 """
 
 
-WidgetRid = core.RID
+WidgetRid: typing_extensions.TypeAlias = core.RID
 """A Resource Identifier (RID) identifying a widget."""
 
 
@@ -287,9 +288,11 @@ class WidgetSetInputSpec(core.ModelBase):
     """The Ontology SDK specifications used by the widget set."""
 
 
-WidgetSetRid = core.RID
+WidgetSetRid: typing_extensions.TypeAlias = core.RID
 """A Resource Identifier (RID) identifying a widget set."""
 
+
+core.resolve_forward_references_in_module(__name__)
 
 __all__ = [
     "DevModeSettings",
