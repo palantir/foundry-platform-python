@@ -388,6 +388,7 @@ Name | Type | Description  | Notes |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**reference_signing_options** | Optional[ReferenceSigningOptions] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
@@ -424,6 +425,8 @@ order_by = None
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[ReferenceSigningOptions]
+reference_signing_options = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -447,6 +450,7 @@ try:
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
+        reference_signing_options=reference_signing_options,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=select_v2,

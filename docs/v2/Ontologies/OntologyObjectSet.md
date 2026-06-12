@@ -282,6 +282,7 @@ Name | Type | Description  | Notes |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**reference_signing_options** | Optional[ReferenceSigningOptions] |  | [optional] |
 **scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
@@ -325,6 +326,8 @@ order_by = None
 page_size = 10000
 # Optional[PageToken]
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
+# Optional[ReferenceSigningOptions]
+reference_signing_options = None
 # Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.
 scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -356,6 +359,7 @@ try:
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
+        reference_signing_options=reference_signing_options,
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -524,6 +528,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**reference_signing_options** | Optional[ReferenceSigningOptions] |  | [optional] |
 **scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
@@ -569,6 +574,8 @@ page_size = 10000
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[ReferenceSigningOptions]
+reference_signing_options = None
 # Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.
 scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -601,6 +608,7 @@ try:
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        reference_signing_options=reference_signing_options,
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -662,6 +670,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**reference_signing_options** | Optional[ReferenceSigningOptions] |  | [optional] |
 **scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the objects or interfaces from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
@@ -703,6 +712,8 @@ page_size = 10000
 page_token = "v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv"
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[ReferenceSigningOptions]
+reference_signing_options = None
 # Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the objects or interfaces from.
 scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -733,6 +744,7 @@ try:
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        reference_signing_options=reference_signing_options,
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
