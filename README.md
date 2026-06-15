@@ -2766,6 +2766,7 @@ Namespace | Name | Import |
 **Ontologies** | [RangesConstraint](docs/v2/Ontologies/models/RangesConstraint.md) | `from foundry_sdk.v2.ontologies.models import RangesConstraint` |
 **Ontologies** | [Reason](docs/v2/Ontologies/models/Reason.md) | `from foundry_sdk.v2.ontologies.models import Reason` |
 **Ontologies** | [ReasonType](docs/v2/Ontologies/models/ReasonType.md) | `from foundry_sdk.v2.ontologies.models import ReasonType` |
+**Ontologies** | [ReferenceSigningOptions](docs/v2/Ontologies/models/ReferenceSigningOptions.md) | `from foundry_sdk.v2.ontologies.models import ReferenceSigningOptions` |
 **Ontologies** | [ReferenceUpdate](docs/v2/Ontologies/models/ReferenceUpdate.md) | `from foundry_sdk.v2.ontologies.models import ReferenceUpdate` |
 **Ontologies** | [ReferenceValue](docs/v2/Ontologies/models/ReferenceValue.md) | `from foundry_sdk.v2.ontologies.models import ReferenceValue` |
 **Ontologies** | [RefreshObjectSet](docs/v2/Ontologies/models/RefreshObjectSet.md) | `from foundry_sdk.v2.ontologies.models import RefreshObjectSet` |
@@ -3902,6 +3903,7 @@ Namespace | Name | Import |
 **Ontologies** | NotCipherFormatted | `from foundry_sdk.v2.ontologies.errors import NotCipherFormatted` |
 **Ontologies** | ObjectAlreadyExists | `from foundry_sdk.v2.ontologies.errors import ObjectAlreadyExists` |
 **Ontologies** | ObjectChanged | `from foundry_sdk.v2.ontologies.errors import ObjectChanged` |
+**Ontologies** | ObjectEditMissingPrimaryKey | `from foundry_sdk.v2.ontologies.errors import ObjectEditMissingPrimaryKey` |
 **Ontologies** | ObjectNotFound | `from foundry_sdk.v2.ontologies.errors import ObjectNotFound` |
 **Ontologies** | ObjectSetNotFound | `from foundry_sdk.v2.ontologies.errors import ObjectSetNotFound` |
 **Ontologies** | ObjectsExceededLimit | `from foundry_sdk.v2.ontologies.errors import ObjectsExceededLimit` |
@@ -4229,6 +4231,7 @@ Namespace | Name | Import |
 **Ontologies** | NotCipherFormatted | `from foundry_sdk.v1.ontologies.errors import NotCipherFormatted` |
 **Ontologies** | ObjectAlreadyExists | `from foundry_sdk.v1.ontologies.errors import ObjectAlreadyExists` |
 **Ontologies** | ObjectChanged | `from foundry_sdk.v1.ontologies.errors import ObjectChanged` |
+**Ontologies** | ObjectEditMissingPrimaryKey | `from foundry_sdk.v1.ontologies.errors import ObjectEditMissingPrimaryKey` |
 **Ontologies** | ObjectNotFound | `from foundry_sdk.v1.ontologies.errors import ObjectNotFound` |
 **Ontologies** | ObjectSetNotFound | `from foundry_sdk.v1.ontologies.errors import ObjectSetNotFound` |
 **Ontologies** | ObjectsExceededLimit | `from foundry_sdk.v1.ontologies.errors import ObjectsExceededLimit` |

@@ -285,6 +285,9 @@ class OntologyObjectSetClient:
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -328,6 +331,8 @@ class OntologyObjectSetClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -382,6 +387,7 @@ class OntologyObjectSetClient:
                     load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
@@ -508,6 +514,9 @@ class OntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -558,6 +567,8 @@ class OntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -613,6 +624,7 @@ class OntologyObjectSetClient:
                     load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
                 request_timeout=request_timeout,
@@ -637,6 +649,9 @@ class OntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -685,6 +700,8 @@ class OntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param scenario_rid: The resource identifier of an ontology scenario to load the objects or interfaces from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -738,6 +755,7 @@ class OntologyObjectSetClient:
                     page_size=page_size,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
                 request_timeout=request_timeout,
@@ -1064,6 +1082,9 @@ class AsyncOntologyObjectSetClient:
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -1107,6 +1128,8 @@ class AsyncOntologyObjectSetClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -1161,6 +1184,7 @@ class AsyncOntologyObjectSetClient:
                     load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
@@ -1287,6 +1311,9 @@ class AsyncOntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -1337,6 +1364,8 @@ class AsyncOntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -1392,6 +1421,7 @@ class AsyncOntologyObjectSetClient:
                     load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
                 request_timeout=request_timeout,
@@ -1416,6 +1446,9 @@ class AsyncOntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -1464,6 +1497,8 @@ class AsyncOntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param scenario_rid: The resource identifier of an ontology scenario to load the objects or interfaces from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -1517,6 +1552,7 @@ class AsyncOntologyObjectSetClient:
                     page_size=page_size,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
                 request_timeout=request_timeout,

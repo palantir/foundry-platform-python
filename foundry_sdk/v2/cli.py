@@ -9030,6 +9030,7 @@ This feature is experimental and not yet generally available.
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
+@click.option("--reference_signing_options", type=str, required=False, help="""""")
 @click.option(
     "--scenario_rid",
     type=str,
@@ -9105,6 +9106,7 @@ def ontologies_ontology_object_set_op_load(
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    reference_signing_options: typing.Optional[str],
     scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -9137,6 +9139,9 @@ def ontologies_ontology_object_set_op_load(
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
+        reference_signing_options=(
+            None if reference_signing_options is None else json.loads(reference_signing_options)
+        ),
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -9312,6 +9317,7 @@ This feature is experimental and not yet generally available.
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option("--reference_signing_options", type=str, required=False, help="""""")
 @click.option(
     "--scenario_rid",
     type=str,
@@ -9388,6 +9394,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
+    reference_signing_options: typing.Optional[str],
     scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -9426,6 +9433,9 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        reference_signing_options=(
+            None if reference_signing_options is None else json.loads(reference_signing_options)
+        ),
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -9479,6 +9489,7 @@ Defaults to false.
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option("--reference_signing_options", type=str, required=False, help="""""")
 @click.option(
     "--scenario_rid",
     type=str,
@@ -9553,6 +9564,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
+    reference_signing_options: typing.Optional[str],
     scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -9591,6 +9603,9 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        reference_signing_options=(
+            None if reference_signing_options is None else json.loads(reference_signing_options)
+        ),
         scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -9949,6 +9964,7 @@ Defaults to false.
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
+@click.option("--reference_signing_options", type=str, required=False, help="""""")
 @click.option(
     "--sdk_package_rid",
     type=str,
@@ -9994,6 +10010,7 @@ def ontologies_ontology_object_op_search(
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    reference_signing_options: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
@@ -10036,6 +10053,9 @@ def ontologies_ontology_object_op_search(
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
+        reference_signing_options=(
+            None if reference_signing_options is None else json.loads(reference_signing_options)
+        ),
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),

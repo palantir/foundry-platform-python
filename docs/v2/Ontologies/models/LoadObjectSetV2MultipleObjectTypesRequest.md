@@ -16,6 +16,7 @@ Represents the API POST body when loading an `ObjectSet`. Used on the `/loadObje
 **load_property_securities** | Optional[bool] | No | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.  |
 **snapshot** | Optional[bool] | No | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  |
 **include_compute_usage** | Optional[IncludeComputeUsage] | No |  |
+**reference_signing_options** | Optional[ReferenceSigningOptions] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -1612,6 +1612,25 @@ class ObjectChanged(errors.ConflictError):
     error_instance_id: str
 
 
+class ObjectEditMissingPrimaryKeyParameters(typing_extensions.TypedDict):
+    """
+    An add object edit in the transaction did not include the object's primary key property. The primary key
+    property must be provided when creating an object.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: ontologies_models.ObjectTypeApiName
+    primaryKey: ontologies_models.PropertyApiName
+
+
+@dataclass
+class ObjectEditMissingPrimaryKey(errors.BadRequestError):
+    name: typing.Literal["ObjectEditMissingPrimaryKey"]
+    parameters: ObjectEditMissingPrimaryKeyParameters
+    error_instance_id: str
+
+
 class ObjectNotFoundParameters(typing_extensions.TypedDict):
     """The requested object is not found, or the client token does not have access to it."""
 
@@ -2584,6 +2603,7 @@ __all__ = [
     "NotCipherFormatted",
     "ObjectAlreadyExists",
     "ObjectChanged",
+    "ObjectEditMissingPrimaryKey",
     "ObjectNotFound",
     "ObjectSetNotFound",
     "ObjectTypeNotFound",

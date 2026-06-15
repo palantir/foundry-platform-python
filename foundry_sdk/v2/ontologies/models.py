@@ -2574,6 +2574,7 @@ class LoadObjectSetRequestV2(core.ModelBase):
     """
 
     include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+    reference_signing_options: typing.Optional[ReferenceSigningOptions] = pydantic.Field(alias=str("referenceSigningOptions"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetResponseV2(core.ModelBase):
@@ -2626,6 +2627,7 @@ class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
     """
 
     include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+    reference_signing_options: typing.Optional[ReferenceSigningOptions] = pydantic.Field(alias=str("referenceSigningOptions"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
@@ -2682,6 +2684,8 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
     This defaults to false if not specified, which means you will always get the latest results.
     """
+
+    reference_signing_options: typing.Optional[ReferenceSigningOptions] = pydantic.Field(alias=str("referenceSigningOptions"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2ObjectsOrInterfacesResponse(core.ModelBase):
@@ -4541,6 +4545,21 @@ ReasonType: typing_extensions.TypeAlias = typing.Literal["USER_CLOSED", "CHANNEL
 """Represents the reason a subscription was closed."""
 
 
+class ReferenceSigningOptions(core.ModelBase):
+    """Options for signing references in the response."""
+
+    sign_media_references: typing.Optional[bool] = pydantic.Field(alias=str("signMediaReferences"), default=None)  # type: ignore[literal-required]
+    """
+    If set to true, the response will include a `token` on each `MediaReference` value that can be used to
+    access the referenced media item directly. This enables item-level access control: the caller
+    does not need view access on the parent media set, only access to the object whose property holds the
+    reference.
+
+    Only applies to media references backed by a media set view. Arrays of media references are
+    not signed. Defaults to false if not set.
+    """
+
+
 class ReferenceUpdate(core.ModelBase):
     """
     The updated data value associated with an object instance's external reference. The object instance
@@ -4888,6 +4907,8 @@ class SearchObjectsRequestV2(core.ModelBase):
     Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
     This defaults to false if not specified, which means you will always get the latest results.
     """
+
+    reference_signing_options: typing.Optional[ReferenceSigningOptions] = pydantic.Field(alias=str("referenceSigningOptions"), default=None)  # type: ignore[literal-required]
 
 
 class SearchObjectsResponseV2(core.ModelBase):
@@ -6413,6 +6434,7 @@ __all__ = [
     "RangesConstraint",
     "Reason",
     "ReasonType",
+    "ReferenceSigningOptions",
     "ReferenceUpdate",
     "ReferenceValue",
     "RefreshObjectSet",

@@ -366,6 +366,9 @@ class OntologyObjectClient:
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -417,6 +420,8 @@ class OntologyObjectClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -460,6 +465,7 @@ class OntologyObjectClient:
                     select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,
                 request_timeout=request_timeout,
@@ -841,6 +847,9 @@ class AsyncOntologyObjectClient:
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        reference_signing_options: typing.Optional[
+            ontologies_models.ReferenceSigningOptions
+        ] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -892,6 +901,8 @@ class AsyncOntologyObjectClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param reference_signing_options:
+        :type reference_signing_options: Optional[ReferenceSigningOptions]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -935,6 +946,7 @@ class AsyncOntologyObjectClient:
                     select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
+                    reference_signing_options=reference_signing_options,
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,
                 request_timeout=request_timeout,
