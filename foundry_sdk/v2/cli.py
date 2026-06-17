@@ -7973,6 +7973,42 @@ def models_live_deployment_op_get(
     click.echo(repr(result))
 
 
+@models_live_deployment.command("list")
+@click.option(
+    "--model_rid",
+    type=str,
+    required=True,
+    help="""The Resource Identifier (RID) of the Model to list live deployments for.""",
+)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""If provided, only return the live deployment associated with this branch.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_list(
+    client: FoundryClient,
+    model_rid: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Lists direct live deployments for the specified Model, optionally filtered by branch. Only direct deployments (those tracking the latest model version on a branch) are returned.
+
+    """
+    result = client.models.LiveDeployment.list(
+        model_rid=model_rid,
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @models_live_deployment.command("replace")
 @click.argument("live_deployment_rid", type=str, required=True)
 @click.option(
@@ -8012,15 +8048,21 @@ def models_live_deployment_op_replace(
     help="""The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data.
 """,
 )
+@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option("--trace_parent", type=str, required=False, help="""""")
+@click.option("--trace_state", type=str, required=False, help="""""")
 @click.pass_obj
 def models_live_deployment_op_transform_json(
     client: FoundryClient,
     live_deployment_rid: str,
     input: str,
+    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
 ):
     """
     Performs inference on the live deployment.
@@ -8029,7 +8071,10 @@ def models_live_deployment_op_transform_json(
     result = client.models.LiveDeployment.transform_json(
         live_deployment_rid=live_deployment_rid,
         input=json.loads(input),
+        attribution=attribution,
         preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     click.echo(repr(result))
 
@@ -10859,6 +10904,50 @@ def ontologies_ontology_query_type_op_get(
     click.echo(repr(result))
 
 
+@ontologies_ontology_query_type.command("get_by_rid_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the query type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_query_type_op_get_by_rid_batch(
+    client: FoundryClient,
+    ontology: str,
+    requests: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a list of query types by RID in bulk.
+
+    Query types are filtered from the response if they don't exist or the requesting token lacks the required
+    permissions.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.QueryType.get_by_rid_batch(
+        ontology=ontology,
+        requests=json.loads(requests),
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
@@ -12006,6 +12095,13 @@ def ontologies_attachment_property():
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12026,6 +12122,7 @@ def ontologies_attachment_property_op_get_attachment(
     object_type: str,
     primary_key: str,
     property: str,
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -12038,6 +12135,7 @@ def ontologies_attachment_property_op_get_attachment(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -12050,6 +12148,13 @@ def ontologies_attachment_property_op_get_attachment(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.argument("attachment_rid", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--sdk_package_rid",
     type=str,
@@ -12072,6 +12177,7 @@ def ontologies_attachment_property_op_get_attachment_by_rid(
     primary_key: str,
     property: str,
     attachment_rid: str,
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -12085,6 +12191,7 @@ def ontologies_attachment_property_op_get_attachment_by_rid(
         primary_key=primary_key,
         property=property,
         attachment_rid=attachment_rid,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -12096,6 +12203,13 @@ def ontologies_attachment_property_op_get_attachment_by_rid(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--sdk_package_rid",
     type=str,
@@ -12117,6 +12231,7 @@ def ontologies_attachment_property_op_read_attachment(
     object_type: str,
     primary_key: str,
     property: str,
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -12129,6 +12244,7 @@ def ontologies_attachment_property_op_read_attachment(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -12141,6 +12257,13 @@ def ontologies_attachment_property_op_read_attachment(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.argument("attachment_rid", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--sdk_package_rid",
     type=str,
@@ -12163,6 +12286,7 @@ def ontologies_attachment_property_op_read_attachment_by_rid(
     primary_key: str,
     property: str,
     attachment_rid: str,
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -12178,6 +12302,7 @@ def ontologies_attachment_property_op_read_attachment_by_rid(
         primary_key=primary_key,
         property=property,
         attachment_rid=attachment_rid,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )

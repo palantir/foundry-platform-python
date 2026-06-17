@@ -1790,6 +1790,28 @@ class GetOutgoingLinkTypesByObjectTypeRidBatchResponse(core.ModelBase):
     data: typing.Dict[ObjectTypeRid, typing.List[LinkTypeSideV2]]
 
 
+class GetQueryTypeByRidBatchRequest(core.ModelBase):
+    """GetQueryTypeByRidBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetQueryTypeByRidBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+
+
+class GetQueryTypeByRidBatchRequestElement(core.ModelBase):
+    """GetQueryTypeByRidBatchRequestElement"""
+
+    query_type_rid: FunctionRid = pydantic.Field(alias=str("queryTypeRid"))  # type: ignore[literal-required]
+    function_version: typing.Optional[FunctionVersion] = pydantic.Field(alias=str("functionVersion"), default=None)  # type: ignore[literal-required]
+
+
+class GetQueryTypeByRidBatchResponse(core.ModelBase):
+    """GetQueryTypeByRidBatchResponse"""
+
+    data: typing.List[QueryTypeV2]
+
+
 class GetSelectedPropertyOperation(core.ModelBase):
     """
     Gets a single value of a property. Throws if the target object set is on the MANY side of the link and could
@@ -6162,6 +6184,9 @@ __all__ = [
     "GetOutgoingLinkTypesByObjectTypeRidBatchRequest",
     "GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement",
     "GetOutgoingLinkTypesByObjectTypeRidBatchResponse",
+    "GetQueryTypeByRidBatchRequest",
+    "GetQueryTypeByRidBatchRequestElement",
+    "GetQueryTypeByRidBatchResponse",
     "GetSelectedPropertyOperation",
     "GreatestPropertyExpression",
     "GroupMemberConstraint",

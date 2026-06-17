@@ -3,6 +3,7 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} | Stable |
+[**get_by_rid_batch**](#get_by_rid_batch) | **POST** /v2/ontologies/{ontology}/queryTypes/getByRidBatch | Private Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/queryTypes | Stable |
 
 # **get**
@@ -68,6 +69,70 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | QueryTypeV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_by_rid_batch**
+Gets a list of query types by RID in bulk.
+
+Query types are filtered from the response if they don't exist or the requesting token lacks the required
+permissions.
+
+The maximum batch size for this endpoint is 100.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**requests** | List[GetQueryTypeByRidBatchRequestElement] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the query type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**GetQueryTypeByRidBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# List[GetQueryTypeByRidBatchRequestElement]
+requests = None
+# Optional[FoundryBranch] | The Foundry branch to load the query type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = client.ontologies.Ontology.QueryType.get_by_rid_batch(
+        ontology, requests=requests, branch=branch, preview=preview
+    )
+    print("The get_by_rid_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling QueryType.get_by_rid_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetQueryTypeByRidBatchResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
