@@ -170,6 +170,58 @@ class LiveDeploymentClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def list(
+        self,
+        *,
+        model_rid: models_models.ModelRid,
+        branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> models_models.ListLiveDeploymentsResponse:
+        """
+        Lists direct live deployments for the specified Model, optionally filtered by branch. Only direct deployments (those tracking the latest model version on a branch) are returned.
+
+        :param model_rid: The Resource Identifier (RID) of the Model to list live deployments for.
+        :type model_rid: ModelRid
+        :param branch: If provided, only return the live deployment associated with this branch.
+        :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: models_models.ListLiveDeploymentsResponse
+
+        :raises ModelNotFound: The given Model could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/models/liveDeployments",
+                query_params={
+                    "modelRid": model_rid,
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=models_models.ListLiveDeploymentsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def replace(
         self,
         live_deployment_rid: models_models.LiveDeploymentRid,
@@ -240,7 +292,10 @@ class LiveDeploymentClient:
         live_deployment_rid: models_models.LiveDeploymentRid,
         *,
         input: typing.Dict[str, typing.Any],
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> models_models.TransformLiveDeploymentResponse:
@@ -251,8 +306,14 @@ class LiveDeploymentClient:
         :type live_deployment_rid: LiveDeploymentRid
         :param input: The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data.
         :type input: Dict[str, Any]
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -276,6 +337,9 @@ class LiveDeploymentClient:
                     "liveDeploymentRid": live_deployment_rid,
                 },
                 header_params={
+                    "attribution": attribution,
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -300,11 +364,13 @@ class _LiveDeploymentClientRaw:
     def __init__(self, client: LiveDeploymentClient) -> None:
         def create(_: models_models.LiveDeployment): ...
         def get(_: models_models.LiveDeployment): ...
+        def list(_: models_models.ListLiveDeploymentsResponse): ...
         def replace(_: models_models.LiveDeployment): ...
         def transform_json(_: models_models.TransformLiveDeploymentResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
+        self.list = core.with_raw_response(list, client.list)
         self.replace = core.with_raw_response(replace, client.replace)
         self.transform_json = core.with_raw_response(transform_json, client.transform_json)
 
@@ -313,11 +379,13 @@ class _LiveDeploymentClientStreaming:
     def __init__(self, client: LiveDeploymentClient) -> None:
         def create(_: models_models.LiveDeployment): ...
         def get(_: models_models.LiveDeployment): ...
+        def list(_: models_models.ListLiveDeploymentsResponse): ...
         def replace(_: models_models.LiveDeployment): ...
         def transform_json(_: models_models.TransformLiveDeploymentResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.list = core.with_streaming_response(list, client.list)
         self.replace = core.with_streaming_response(replace, client.replace)
         self.transform_json = core.with_streaming_response(transform_json, client.transform_json)
 
@@ -467,6 +535,58 @@ class AsyncLiveDeploymentClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def list(
+        self,
+        *,
+        model_rid: models_models.ModelRid,
+        branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[models_models.ListLiveDeploymentsResponse]:
+        """
+        Lists direct live deployments for the specified Model, optionally filtered by branch. Only direct deployments (those tracking the latest model version on a branch) are returned.
+
+        :param model_rid: The Resource Identifier (RID) of the Model to list live deployments for.
+        :type model_rid: ModelRid
+        :param branch: If provided, only return the live deployment associated with this branch.
+        :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[models_models.ListLiveDeploymentsResponse]
+
+        :raises ModelNotFound: The given Model could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/models/liveDeployments",
+                query_params={
+                    "modelRid": model_rid,
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=models_models.ListLiveDeploymentsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def replace(
         self,
         live_deployment_rid: models_models.LiveDeploymentRid,
@@ -537,7 +657,10 @@ class AsyncLiveDeploymentClient:
         live_deployment_rid: models_models.LiveDeploymentRid,
         *,
         input: typing.Dict[str, typing.Any],
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[models_models.TransformLiveDeploymentResponse]:
@@ -548,8 +671,14 @@ class AsyncLiveDeploymentClient:
         :type live_deployment_rid: LiveDeploymentRid
         :param input: The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data.
         :type input: Dict[str, Any]
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -573,6 +702,9 @@ class AsyncLiveDeploymentClient:
                     "liveDeploymentRid": live_deployment_rid,
                 },
                 header_params={
+                    "attribution": attribution,
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -597,11 +729,13 @@ class _AsyncLiveDeploymentClientRaw:
     def __init__(self, client: AsyncLiveDeploymentClient) -> None:
         def create(_: models_models.LiveDeployment): ...
         def get(_: models_models.LiveDeployment): ...
+        def list(_: models_models.ListLiveDeploymentsResponse): ...
         def replace(_: models_models.LiveDeployment): ...
         def transform_json(_: models_models.TransformLiveDeploymentResponse): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
+        self.list = core.async_with_raw_response(list, client.list)
         self.replace = core.async_with_raw_response(replace, client.replace)
         self.transform_json = core.async_with_raw_response(transform_json, client.transform_json)
 
@@ -610,11 +744,13 @@ class _AsyncLiveDeploymentClientStreaming:
     def __init__(self, client: AsyncLiveDeploymentClient) -> None:
         def create(_: models_models.LiveDeployment): ...
         def get(_: models_models.LiveDeployment): ...
+        def list(_: models_models.ListLiveDeploymentsResponse): ...
         def replace(_: models_models.LiveDeployment): ...
         def transform_json(_: models_models.TransformLiveDeploymentResponse): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.list = core.async_with_streaming_response(list, client.list)
         self.replace = core.async_with_streaming_response(replace, client.replace)
         self.transform_json = core.async_with_streaming_response(
             transform_json, client.transform_json

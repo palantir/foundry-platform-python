@@ -428,6 +428,13 @@ class JsonSchemaValidationError(core.ModelBase):
     type: typing.Literal["jsonSchemaValidationFailure"] = "jsonSchemaValidationFailure"
 
 
+class ListLiveDeploymentsResponse(core.ModelBase):
+    """ListLiveDeploymentsResponse"""
+
+    data: typing.List[LiveDeployment]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
 class ListModelStudioConfigVersionsResponse(core.ModelBase):
     """ListModelStudioConfigVersionsResponse"""
 
@@ -462,6 +469,9 @@ class LiveDeployment(core.ModelBase):
     rid: LiveDeploymentRid
     model_version: LiveDeploymentModelVersion = pydantic.Field(alias=str("modelVersion"))  # type: ignore[literal-required]
     """The currently deployed model version."""
+
+    branch: typing.Optional[core_models.BranchName] = None
+    """The model branch this deployment tracks. Present for direct deployments that follow the latest model version on a branch; absent for deployment types that are not branch-scoped."""
 
     runtime_configuration: LiveDeploymentRuntimeConfiguration = pydantic.Field(alias=str("runtimeConfiguration"))  # type: ignore[literal-required]
     """The compute resource configuration for the deployment."""
@@ -1588,6 +1598,7 @@ __all__ = [
     "InvalidResourceConfigurationError",
     "InvalidTabularFormatError",
     "JsonSchemaValidationError",
+    "ListLiveDeploymentsResponse",
     "ListModelStudioConfigVersionsResponse",
     "ListModelStudioRunsResponse",
     "ListModelStudioTrainersResponse",

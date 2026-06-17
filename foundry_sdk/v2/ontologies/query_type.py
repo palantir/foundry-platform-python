@@ -15,6 +15,7 @@
 
 import typing
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -113,6 +114,69 @@ class QueryTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_by_rid_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetQueryTypeByRidBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.GetQueryTypeByRidBatchResponse:
+        """
+        Gets a list of query types by RID in bulk.
+
+        Query types are filtered from the response if they don't exist or the requesting token lacks the required
+        permissions.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetQueryTypeByRidBatchRequestElement]
+        :param branch: The Foundry branch to load the query type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.GetQueryTypeByRidBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/queryTypes/getByRidBatch",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetQueryTypeByRidBatchRequest(
+                    requests=requests,
+                ),
+                response_type=ontologies_models.GetQueryTypeByRidBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -170,18 +234,24 @@ class QueryTypeClient:
 class _QueryTypeClientRaw:
     def __init__(self, client: QueryTypeClient) -> None:
         def get(_: ontologies_models.QueryTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetQueryTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListQueryTypesResponseV2): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
         self.list = core.with_raw_response(list, client.list)
 
 
 class _QueryTypeClientStreaming:
     def __init__(self, client: QueryTypeClient) -> None:
         def get(_: ontologies_models.QueryTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetQueryTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListQueryTypesResponseV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.get_by_rid_batch = core.with_streaming_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.list = core.with_streaming_response(list, client.list)
 
 
@@ -274,6 +344,69 @@ class AsyncQueryTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_by_rid_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetQueryTypeByRidBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.GetQueryTypeByRidBatchResponse]:
+        """
+        Gets a list of query types by RID in bulk.
+
+        Query types are filtered from the response if they don't exist or the requesting token lacks the required
+        permissions.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetQueryTypeByRidBatchRequestElement]
+        :param branch: The Foundry branch to load the query type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.GetQueryTypeByRidBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/queryTypes/getByRidBatch",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetQueryTypeByRidBatchRequest(
+                    requests=requests,
+                ),
+                response_type=ontologies_models.GetQueryTypeByRidBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -331,16 +464,24 @@ class AsyncQueryTypeClient:
 class _AsyncQueryTypeClientRaw:
     def __init__(self, client: AsyncQueryTypeClient) -> None:
         def get(_: ontologies_models.QueryTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetQueryTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListQueryTypesResponseV2): ...
 
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_by_rid_batch = core.async_with_raw_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.list = core.async_with_raw_response(list, client.list)
 
 
 class _AsyncQueryTypeClientStreaming:
     def __init__(self, client: AsyncQueryTypeClient) -> None:
         def get(_: ontologies_models.QueryTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetQueryTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListQueryTypesResponseV2): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_by_rid_batch = core.async_with_streaming_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.list = core.async_with_streaming_response(list, client.list)

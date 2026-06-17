@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/models/liveDeployments | Private Beta |
 [**get**](#get) | **GET** /v2/models/liveDeployments/{liveDeploymentRid} | Private Beta |
+[**list**](#list) | **GET** /v2/models/liveDeployments | Private Beta |
 [**replace**](#replace) | **PUT** /v2/models/liveDeployments/{liveDeploymentRid} | Private Beta |
 [**transform_json**](#transform_json) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/transformJson | Public Beta |
 
@@ -122,6 +123,62 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **list**
+Lists direct live deployments for the specified Model, optionally filtered by branch. Only direct deployments (those tracking the latest model version on a branch) are returned.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**model_rid** | ModelRid | The Resource Identifier (RID) of the Model to list live deployments for. |  |
+**branch** | Optional[BranchName] | If provided, only return the live deployment associated with this branch.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListLiveDeploymentsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# ModelRid | The Resource Identifier (RID) of the Model to list live deployments for.
+model_rid = None
+# Optional[BranchName] | If provided, only return the live deployment associated with this branch.
+branch = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.models.LiveDeployment.list(
+        model_rid=model_rid, branch=branch, preview=preview
+    )
+    print("The list response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling LiveDeployment.list: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListLiveDeploymentsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **replace**
 Updates the runtime configuration of the live deployment. The deployment will apply the new configuration to the running replicas.
 
@@ -194,7 +251,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **live_deployment_rid** | LiveDeploymentRid |  |  |
 **input** | Dict[str, Any] | The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data.  |  |
+**attribution** | Optional[Attribution] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**trace_parent** | Optional[TraceParent] |  | [optional] |
+**trace_state** | Optional[TraceState] |  | [optional] |
 
 ### Return type
 **TransformLiveDeploymentResponse**
@@ -212,13 +272,24 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 live_deployment_rid = None
 # Dict[str, Any] | The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data.
 input = {"input_df": [{"feature_1": 1.0, "feature_2": 2}]}
+# Optional[Attribution]
+attribution = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
+# Optional[TraceParent]
+trace_parent = None
+# Optional[TraceState]
+trace_state = None
 
 
 try:
     api_response = client.models.LiveDeployment.transform_json(
-        live_deployment_rid, input=input, preview=preview
+        live_deployment_rid,
+        input=input,
+        attribution=attribution,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     print("The transform_json response:\n")
     pprint(api_response)

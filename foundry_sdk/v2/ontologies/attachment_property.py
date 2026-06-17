@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -62,6 +63,7 @@ class AttachmentPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -78,6 +80,8 @@ class AttachmentPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -93,6 +97,7 @@ class AttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -124,6 +129,7 @@ class AttachmentPropertyClient:
         property: ontologies_models.PropertyApiName,
         attachment_rid: ontologies_models.AttachmentRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -142,6 +148,8 @@ class AttachmentPropertyClient:
         :type property: PropertyApiName
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -157,6 +165,7 @@ class AttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -188,6 +197,7 @@ class AttachmentPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -204,6 +214,8 @@ class AttachmentPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -219,6 +231,7 @@ class AttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -250,6 +263,7 @@ class AttachmentPropertyClient:
         property: ontologies_models.PropertyApiName,
         attachment_rid: ontologies_models.AttachmentRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -270,6 +284,8 @@ class AttachmentPropertyClient:
         :type property: PropertyApiName
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -285,6 +301,7 @@ class AttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -380,6 +397,7 @@ class AsyncAttachmentPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -396,6 +414,8 @@ class AsyncAttachmentPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -411,6 +431,7 @@ class AsyncAttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -442,6 +463,7 @@ class AsyncAttachmentPropertyClient:
         property: ontologies_models.PropertyApiName,
         attachment_rid: ontologies_models.AttachmentRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -460,6 +482,8 @@ class AsyncAttachmentPropertyClient:
         :type property: PropertyApiName
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -475,6 +499,7 @@ class AsyncAttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -506,6 +531,7 @@ class AsyncAttachmentPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -522,6 +548,8 @@ class AsyncAttachmentPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -537,6 +565,7 @@ class AsyncAttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -568,6 +597,7 @@ class AsyncAttachmentPropertyClient:
         property: ontologies_models.PropertyApiName,
         attachment_rid: ontologies_models.AttachmentRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -588,6 +618,8 @@ class AsyncAttachmentPropertyClient:
         :type property: PropertyApiName
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -603,6 +635,7 @@ class AsyncAttachmentPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },

@@ -2172,6 +2172,7 @@ Namespace | Name | Import |
 **Models** | [InvalidResourceConfigurationError](docs/v2/Models/models/InvalidResourceConfigurationError.md) | `from foundry_sdk.v2.models.models import InvalidResourceConfigurationError` |
 **Models** | [InvalidTabularFormatError](docs/v2/Models/models/InvalidTabularFormatError.md) | `from foundry_sdk.v2.models.models import InvalidTabularFormatError` |
 **Models** | [JsonSchemaValidationError](docs/v2/Models/models/JsonSchemaValidationError.md) | `from foundry_sdk.v2.models.models import JsonSchemaValidationError` |
+**Models** | [ListLiveDeploymentsResponse](docs/v2/Models/models/ListLiveDeploymentsResponse.md) | `from foundry_sdk.v2.models.models import ListLiveDeploymentsResponse` |
 **Models** | [ListModelStudioConfigVersionsResponse](docs/v2/Models/models/ListModelStudioConfigVersionsResponse.md) | `from foundry_sdk.v2.models.models import ListModelStudioConfigVersionsResponse` |
 **Models** | [ListModelStudioRunsResponse](docs/v2/Models/models/ListModelStudioRunsResponse.md) | `from foundry_sdk.v2.models.models import ListModelStudioRunsResponse` |
 **Models** | [ListModelStudioTrainersResponse](docs/v2/Models/models/ListModelStudioTrainersResponse.md) | `from foundry_sdk.v2.models.models import ListModelStudioTrainersResponse` |
@@ -2494,6 +2495,9 @@ Namespace | Name | Import |
 **Ontologies** | [GetOutgoingLinkTypesByObjectTypeRidBatchRequest](docs/v2/Ontologies/models/GetOutgoingLinkTypesByObjectTypeRidBatchRequest.md) | `from foundry_sdk.v2.ontologies.models import GetOutgoingLinkTypesByObjectTypeRidBatchRequest` |
 **Ontologies** | [GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement](docs/v2/Ontologies/models/GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement.md) | `from foundry_sdk.v2.ontologies.models import GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement` |
 **Ontologies** | [GetOutgoingLinkTypesByObjectTypeRidBatchResponse](docs/v2/Ontologies/models/GetOutgoingLinkTypesByObjectTypeRidBatchResponse.md) | `from foundry_sdk.v2.ontologies.models import GetOutgoingLinkTypesByObjectTypeRidBatchResponse` |
+**Ontologies** | [GetQueryTypeByRidBatchRequest](docs/v2/Ontologies/models/GetQueryTypeByRidBatchRequest.md) | `from foundry_sdk.v2.ontologies.models import GetQueryTypeByRidBatchRequest` |
+**Ontologies** | [GetQueryTypeByRidBatchRequestElement](docs/v2/Ontologies/models/GetQueryTypeByRidBatchRequestElement.md) | `from foundry_sdk.v2.ontologies.models import GetQueryTypeByRidBatchRequestElement` |
+**Ontologies** | [GetQueryTypeByRidBatchResponse](docs/v2/Ontologies/models/GetQueryTypeByRidBatchResponse.md) | `from foundry_sdk.v2.ontologies.models import GetQueryTypeByRidBatchResponse` |
 **Ontologies** | [GetSelectedPropertyOperation](docs/v2/Ontologies/models/GetSelectedPropertyOperation.md) | `from foundry_sdk.v2.ontologies.models import GetSelectedPropertyOperation` |
 **Ontologies** | [GreatestPropertyExpression](docs/v2/Ontologies/models/GreatestPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import GreatestPropertyExpression` |
 **Ontologies** | [GroupMemberConstraint](docs/v2/Ontologies/models/GroupMemberConstraint.md) | `from foundry_sdk.v2.ontologies.models import GroupMemberConstraint` |
