@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/models/modelStudioTrainers/{modelStudioTrainerTrainerId} | Private Beta |
-[**list**](#list) | **GET** /v2/models/modelStudioTrainers | Private Beta |
+[**get**](#get) | **GET** /v2/models/modelStudioTrainers/{modelStudioTrainerTrainerId} | Public Beta |
+[**list**](#list) | **GET** /v2/models/modelStudioTrainers | Public Beta |
 
 # **get**
 Gets details about a specific trainer by its ID and optional version.

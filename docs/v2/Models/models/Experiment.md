@@ -12,7 +12,7 @@ Experiment
 **source** | ExperimentSource | Yes |  |
 **status** | ExperimentStatus | Yes |  |
 **status_message** | Optional[str] | No |  |
-**branch** | ExperimentBranch | Yes |  |
+**branch** | BranchName | Yes |  |
 **parameters** | List[Parameter] | Yes |  |
 **series** | List[SeriesAggregations] | Yes |  |
 **summary_metrics** | List[SummaryMetric] | Yes |  |

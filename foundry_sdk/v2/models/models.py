@@ -141,7 +141,7 @@ class CreateModelVersionRequest(core.ModelBase):
 class DatasetInput(core.ModelBase):
     """Dataset input configuration."""
 
-    rid: core.RID
+    rid: core_models.DatasetRid
     """The RID of the input dataset."""
 
     column_mapping: typing.Dict[ColumnTypeSpecId, typing.List[core_models.ColumnName]] = pydantic.Field(alias=str("columnMapping"))  # type: ignore[literal-required]
@@ -159,7 +159,7 @@ class DatasetInput(core.ModelBase):
 class DatasetSchemaNotFoundError(core.ModelBase):
     """A schema could not be found for the specified dataset."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the dataset whose schema was not found."""
 
     type: typing.Literal["datasetSchemaNotFound"] = "datasetSchemaNotFound"
@@ -245,7 +245,7 @@ class Experiment(core.ModelBase):
     source: ExperimentSource
     status: ExperimentStatus
     status_message: typing.Optional[str] = pydantic.Field(alias=str("statusMessage"), default=None)  # type: ignore[literal-required]
-    branch: ExperimentBranch
+    branch: core_models.BranchName
     parameters: typing.List[Parameter]
     series: typing.List[SeriesAggregations]
     summary_metrics: typing.List[SummaryMetric] = pydantic.Field(alias=str("summaryMetrics"))  # type: ignore[literal-required]
@@ -273,10 +273,6 @@ class ExperimentAuthoringSource(core.ModelBase):
 
     stemma_rid: core.RID = pydantic.Field(alias=str("stemmaRid"))  # type: ignore[literal-required]
     type: typing.Literal["authoring"] = "authoring"
-
-
-ExperimentBranch: typing_extensions.TypeAlias = str
-"""ExperimentBranch"""
 
 
 class ExperimentCodeWorkspaceSource(core.ModelBase):
@@ -317,7 +313,7 @@ ExperimentTagText: typing_extensions.TypeAlias = str
 class FieldValidationError(core.ModelBase):
     """A dataset column type is not compatible with the trainer's supported column types."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the dataset containing the invalid field."""
 
     field_name: typing.Optional[str] = pydantic.Field(alias=str("fieldName"), default=None)  # type: ignore[literal-required]
@@ -432,7 +428,6 @@ class ListLiveDeploymentsResponse(core.ModelBase):
     """ListLiveDeploymentsResponse"""
 
     data: typing.List[LiveDeployment]
-    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
 class ListModelStudioConfigVersionsResponse(core.ModelBase):
@@ -453,7 +448,6 @@ class ListModelStudioTrainersResponse(core.ModelBase):
     """ListModelStudioTrainersResponse"""
 
     data: typing.List[ModelStudioTrainer]
-    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
 class ListModelVersionsResponse(core.ModelBase):
@@ -568,7 +562,7 @@ class LiveDeploymentStatus(core.ModelBase):
 class MissingRequiredDatasetColumnError(core.ModelBase):
     """The user-provided dataset is missing a column required by the trainer."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the dataset missing the required column."""
 
     column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
@@ -583,7 +577,7 @@ class MissingRequiredDatasetColumnError(core.ModelBase):
 class MissingWorkerConfigInputDatasetColumnMappingError(core.ModelBase):
     """The provided worker config input dataset is missing a column mapping required by the trainer."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the dataset with the missing column mapping."""
 
     column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
@@ -771,7 +765,7 @@ ModelName: typing_extensions.TypeAlias = str
 class ModelOutput(core.ModelBase):
     """Model output configuration."""
 
-    model_rid: core.RID = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
+    model_rid: ModelRid = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
     """The RID of the output model."""
 
     type: typing.Literal["model"] = "model"
@@ -870,13 +864,13 @@ ModelStudioRunJobRid: typing_extensions.TypeAlias = core.RID
 class ModelStudioRunModelOutput(core.ModelBase):
     """Resolved model output details for a Model Studio run."""
 
-    model_rid: core.RID = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
+    model_rid: ModelRid = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
     """The RID of the model."""
 
-    model_version_rid: core.RID = pydantic.Field(alias=str("modelVersionRid"))  # type: ignore[literal-required]
+    model_version_rid: ModelVersionRid = pydantic.Field(alias=str("modelVersionRid"))  # type: ignore[literal-required]
     """The RID of the model version created by this run."""
 
-    experiment_rid: typing.Optional[core.RID] = pydantic.Field(alias=str("experimentRid"), default=None)  # type: ignore[literal-required]
+    experiment_rid: typing.Optional[ExperimentRid] = pydantic.Field(alias=str("experimentRid"), default=None)  # type: ignore[literal-required]
     """The RID of the experiment associated with this run, if any."""
 
     type: typing.Literal["model"] = "model"
@@ -893,7 +887,7 @@ class ModelStudioTrainer(core.ModelBase):
     """Human-readable name of the trainer."""
 
     type: TrainerType
-    """The type/category of this trainer (e.g., TABULAR_CLASSIFICATION, TIME_SERIES)."""
+    """The category of machine learning task this trainer is designed to solve."""
 
     description: TrainerDescription
     """Description of what this trainer does and its capabilities."""
@@ -1012,7 +1006,7 @@ ModelVersionSource: typing_extensions.TypeAlias = typing_extensions.Annotated[
 class MultipleColumnsNotAllowedForTrainerError(core.ModelBase):
     """Multiple columns were mapped but the trainer only allows a single column for this spec."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the dataset with multiple columns mapped."""
 
     column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
@@ -1423,8 +1417,8 @@ TrainerDescription: typing_extensions.TypeAlias = str
 """Description of what a trainer does and its capabilities."""
 
 
-TrainerId: typing_extensions.TypeAlias = str
-"""The identifier for a trainer."""
+TrainerId: typing_extensions.TypeAlias = core.RID
+"""The Resource Identifier (RID) of a trainer."""
 
 
 TrainerInputsSpecification: typing_extensions.TypeAlias = typing.Any
@@ -1443,8 +1437,15 @@ TrainerSchemaDefinition: typing_extensions.TypeAlias = typing.Any
 """JSON schema defining the custom configuration parameters for a trainer."""
 
 
-TrainerType: typing_extensions.TypeAlias = str
-"""The type/category of a trainer."""
+TrainerType: typing_extensions.TypeAlias = typing.Literal[
+    "GENERIC",
+    "TIME_SERIES",
+    "TABULAR_REGRESSION",
+    "TABULAR_CLASSIFICATION",
+    "LLM_FINETUNING",
+    "VLM_FINETUNING",
+]
+"""The category of machine learning task a trainer is designed to solve. This determines the kind of modeling problem the trainer addresses and the shape of the inputs and outputs it expects."""
 
 
 TrainerVersion: typing_extensions.TypeAlias = str
@@ -1487,7 +1488,7 @@ class TypeMismatchError(core.ModelBase):
 class UnknownColumnSpecIdInConfigColumnMappingError(core.ModelBase):
     """The worker config column mapping contains an unknown column spec ID not found in the trainer's column specification."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the dataset containing the unknown column mapping."""
 
     column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
@@ -1580,7 +1581,6 @@ __all__ = [
     "ExperimentArtifactMetadata",
     "ExperimentArtifactName",
     "ExperimentAuthoringSource",
-    "ExperimentBranch",
     "ExperimentCodeWorkspaceSource",
     "ExperimentRid",
     "ExperimentSdkSource",

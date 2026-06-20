@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/models/liveDeployments | Private Beta |
-[**get**](#get) | **GET** /v2/models/liveDeployments/{liveDeploymentRid} | Private Beta |
-[**list**](#list) | **GET** /v2/models/liveDeployments | Private Beta |
-[**replace**](#replace) | **PUT** /v2/models/liveDeployments/{liveDeploymentRid} | Private Beta |
+[**create**](#create) | **POST** /v2/models/liveDeployments | Public Beta |
+[**get**](#get) | **GET** /v2/models/liveDeployments/{liveDeploymentRid} | Public Beta |
+[**list**](#list) | **GET** /v2/models/liveDeployments | Public Beta |
+[**replace**](#replace) | **PUT** /v2/models/liveDeployments/{liveDeploymentRid} | Public Beta |
 [**transform_json**](#transform_json) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/transformJson | Public Beta |
 
 # **create**

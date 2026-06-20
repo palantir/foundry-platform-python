@@ -5,7 +5,7 @@ The worker config column mapping contains an unknown column spec ID not found in
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | Yes | The RID of the dataset containing the unknown column mapping. |
+**dataset_rid** | DatasetRid | Yes | The RID of the dataset containing the unknown column mapping. |
 **column_type_spec_id** | ColumnTypeSpecId | Yes | The unknown column type spec ID. |
 **type** | Literal["unknownColumnSpecIdInConfigColumnMapping"] | Yes | None |
 

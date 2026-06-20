@@ -5,7 +5,7 @@ Model output configuration.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**model_rid** | RID | Yes | The RID of the output model. |
+**model_rid** | ModelRid | Yes | The RID of the output model. |
 **type** | Literal["model"] | Yes | None |
 
 

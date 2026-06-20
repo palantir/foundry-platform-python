@@ -408,7 +408,6 @@ class ListAuthenticationProvidersResponse(core.ModelBase):
     """ListAuthenticationProvidersResponse"""
 
     data: typing.List[AuthenticationProvider]
-    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
 class ListAvailableOrganizationRolesResponse(core.ModelBase):
@@ -427,7 +426,6 @@ class ListEnrollmentRoleAssignmentsResponse(core.ModelBase):
     """ListEnrollmentRoleAssignmentsResponse"""
 
     data: typing.List[EnrollmentRoleAssignment]
-    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
 class ListGroupMembersResponse(core.ModelBase):
@@ -490,14 +488,12 @@ class ListOrganizationGuestMembersResponse(core.ModelBase):
     """ListOrganizationGuestMembersResponse"""
 
     data: typing.List[OrganizationGuestMember]
-    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
 class ListOrganizationRoleAssignmentsResponse(core.ModelBase):
     """ListOrganizationRoleAssignmentsResponse"""
 
     data: typing.List[OrganizationRoleAssignment]
-    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
 class ListUsersResponse(core.ModelBase):

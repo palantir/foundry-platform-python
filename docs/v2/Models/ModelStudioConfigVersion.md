@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/models/modelStudios/{modelStudioRid}/configVersions | Private Beta |
-[**get**](#get) | **GET** /v2/models/modelStudios/{modelStudioRid}/configVersions/{modelStudioConfigVersionVersion} | Private Beta |
-[**latest**](#latest) | **GET** /v2/models/modelStudios/{modelStudioRid}/configVersions/latest | Private Beta |
-[**list**](#list) | **GET** /v2/models/modelStudios/{modelStudioRid}/configVersions | Private Beta |
+[**create**](#create) | **POST** /v2/models/modelStudios/{modelStudioRid}/configVersions | Public Beta |
+[**get**](#get) | **GET** /v2/models/modelStudios/{modelStudioRid}/configVersions/{modelStudioConfigVersionVersion} | Public Beta |
+[**latest**](#latest) | **GET** /v2/models/modelStudios/{modelStudioRid}/configVersions/latest | Public Beta |
+[**list**](#list) | **GET** /v2/models/modelStudios/{modelStudioRid}/configVersions | Public Beta |
 
 # **create**
 Creates a new Model Studio configuration version.
@@ -37,13 +37,29 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 # ModelStudioRid
 model_studio_rid = None
 # ModelStudioConfigVersionName | Human readable name of the configuration version and experiment.
-name = None
+name = "Initial configuration"
 # ResourceConfiguration | The compute resources allocated for training runs.
-resources = {"gpu": "A100"}
+resources = {"memory": "4G", "cpu": "2"}
 # TrainerId | The identifier of the trainer to use for this configuration.
-trainer_id = "autogluon"
+trainer_id = "ri.models..trainer.autogluon_tabular_regression"
 # ModelStudioWorkerConfig | The worker configuration including inputs, outputs, and custom settings.
-worker_config = None
+worker_config = {
+    "outputs": {
+        "model": {
+            "type": "model",
+            "modelRid": "ri.models.main.model.a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        }
+    },
+    "inputs": {
+        "input_df": {
+            "type": "dataset",
+            "rid": "ri.foundry.main.dataset.a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "columnMapping": {"target_column": ["target"]},
+            "ignoreColumns": [],
+            "selectColumns": [],
+        }
+    },
+}
 # Optional[str] | Changelog describing changes in this version.
 changelog = None
 # Optional[PreviewMode] | Enables the use of preview functionality.

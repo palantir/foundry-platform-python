@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**json**](#json) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/artifactTables/{experimentArtifactTableName}/json | Private Beta |
-[**parquet**](#parquet) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/artifactTables/{experimentArtifactTableName}/parquet | Private Beta |
+[**json**](#json) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/artifactTables/{experimentArtifactTableName}/json | Public Beta |
+[**parquet**](#parquet) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/artifactTables/{experimentArtifactTableName}/parquet | Public Beta |
 
 # **json**
 Read table data from an experiment artifact as a streamed binary response containing JSON.

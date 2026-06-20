@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/models/{modelRid}/experiments/{experimentRid} | Private Beta |
-[**search**](#search) | **POST** /v2/models/{modelRid}/experiments/search | Private Beta |
+[**get**](#get) | **GET** /v2/models/{modelRid}/experiments/{experimentRid} | Public Beta |
+[**search**](#search) | **POST** /v2/models/{modelRid}/experiments/search | Public Beta |
 
 # **get**
 Retrieve a single experiment with all metadata, parameters, series metadata, and summary metrics.

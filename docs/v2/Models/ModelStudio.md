@@ -2,9 +2,9 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/models/modelStudios | Private Beta |
-[**get**](#get) | **GET** /v2/models/modelStudios/{modelStudioRid} | Private Beta |
-[**launch**](#launch) | **POST** /v2/models/modelStudios/{modelStudioRid}/launch | Private Beta |
+[**create**](#create) | **POST** /v2/models/modelStudios | Public Beta |
+[**get**](#get) | **GET** /v2/models/modelStudios/{modelStudioRid} | Public Beta |
+[**launch**](#launch) | **POST** /v2/models/modelStudios/{modelStudioRid}/launch | Public Beta |
 
 # **create**
 Creates a new Model Studio.

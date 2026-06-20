@@ -5,7 +5,7 @@ The provided worker config input dataset is missing a column mapping required by
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | Yes | The RID of the dataset with the missing column mapping. |
+**dataset_rid** | DatasetRid | Yes | The RID of the dataset with the missing column mapping. |
 **column_type_spec_id** | ColumnTypeSpecId | Yes | The column type spec ID for the missing column. |
 **type** | Literal["missingWorkerConfigInputDatasetColumnMapping"] | Yes | None |
 

@@ -8,7 +8,7 @@ ModelStudioTrainer
 **trainer_id** | TrainerId | Yes |  |
 **version** | TrainerVersion | Yes | The version of this trainer. |
 **name** | TrainerName | Yes | Human-readable name of the trainer. |
-**type** | TrainerType | Yes | The type/category of this trainer (e.g., TABULAR_CLASSIFICATION, TIME_SERIES). |
+**type** | TrainerType | Yes | The category of machine learning task this trainer is designed to solve. |
 **description** | TrainerDescription | Yes | Description of what this trainer does and its capabilities. |
 **custom_config_schema** | TrainerSchemaDefinition | Yes | JSON schema defining the custom configuration parameters for this trainer. |
 **inputs** | TrainerInputsSpecification | Yes | Input specifications for this trainer. |

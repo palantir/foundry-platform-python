@@ -2,7 +2,7 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**list**](#list) | **GET** /v2/models/modelStudios/{modelStudioRid}/runs | Private Beta |
+[**list**](#list) | **GET** /v2/models/modelStudios/{modelStudioRid}/runs | Public Beta |
 
 # **list**
 Lists all runs for a Model Studio.

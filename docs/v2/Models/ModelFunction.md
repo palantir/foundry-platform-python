@@ -2,9 +2,9 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/models/{modelRid}/function | Private Beta |
-[**get**](#get) | **GET** /v2/models/{modelRid}/function | Private Beta |
-[**replace**](#replace) | **PUT** /v2/models/{modelRid}/function | Private Beta |
+[**create**](#create) | **POST** /v2/models/{modelRid}/function | Public Beta |
+[**get**](#get) | **GET** /v2/models/{modelRid}/function | Public Beta |
+[**replace**](#replace) | **PUT** /v2/models/{modelRid}/function | Public Beta |
 
 # **create**
 Creates a function for the model.
