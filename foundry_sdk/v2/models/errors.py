@@ -717,7 +717,7 @@ class TrainerNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    trainerId: str
+    trainerId: models_models.TrainerId
 
 
 @dataclass

@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**json**](#json) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/json | Private Beta |
-[**parquet**](#parquet) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/parquet | Private Beta |
+[**json**](#json) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/json | Public Beta |
+[**parquet**](#parquet) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/parquet | Public Beta |
 
 # **json**
 Retrieve raw time-series data for a single series in JSON format.

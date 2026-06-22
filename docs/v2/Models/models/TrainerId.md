@@ -1,10 +1,10 @@
 # TrainerId
 
-The identifier for a trainer.
+The Resource Identifier (RID) of a trainer.
 
 ## Type
 ```python
-str
+RID
 ```
 
 

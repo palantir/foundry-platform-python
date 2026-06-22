@@ -17,4 +17,4 @@
 # using the autorelease bot
 __version__ = "0.0.0"
 
-__openapi_document_version__ = "1.1656.0"
+__openapi_document_version__ = "1.1665.0"

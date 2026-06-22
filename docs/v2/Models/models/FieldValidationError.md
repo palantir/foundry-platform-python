@@ -5,7 +5,7 @@ A dataset column type is not compatible with the trainer's supported column type
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | Yes | The RID of the dataset containing the invalid field. |
+**dataset_rid** | DatasetRid | Yes | The RID of the dataset containing the invalid field. |
 **field_name** | Optional[str] | No | The name of the dataset column or field that failed validation. |
 **field_type** | str | Yes | The type of the dataset field. |
 **type** | Literal["fieldValidationFailure"] | Yes | None |
