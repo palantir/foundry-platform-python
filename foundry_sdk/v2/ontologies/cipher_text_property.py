@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -62,6 +63,7 @@ class CipherTextPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.DecryptionResult:
@@ -76,6 +78,8 @@ class CipherTextPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -86,7 +90,9 @@ class CipherTextPropertyClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/ciphertexts/{property}/decrypt",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectType": object_type,
@@ -158,6 +164,7 @@ class AsyncCipherTextPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.DecryptionResult]:
@@ -172,6 +179,8 @@ class AsyncCipherTextPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -182,7 +191,9 @@ class AsyncCipherTextPropertyClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/ciphertexts/{property}/decrypt",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectType": object_type,

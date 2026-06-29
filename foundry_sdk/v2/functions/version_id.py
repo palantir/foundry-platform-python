@@ -67,7 +67,7 @@ class VersionIdClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> functions_models.VersionId:
         """
-        Gets a specific value type with the given RID. The specified version is returned.
+        Gets a specific version of a value type with the given RID and version ID.
 
         :param value_type_rid:
         :type value_type_rid: ValueTypeRid
@@ -164,7 +164,7 @@ class AsyncVersionIdClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[functions_models.VersionId]:
         """
-        Gets a specific value type with the given RID. The specified version is returned.
+        Gets a specific version of a value type with the given RID and version ID.
 
         :param value_type_rid:
         :type value_type_rid: ValueTypeRid

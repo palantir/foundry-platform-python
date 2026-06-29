@@ -16,6 +16,7 @@ Represents an object type in the Ontology.
 **rid** | ObjectTypeRid | Yes |  |
 **title_property** | PropertyApiName | Yes |  |
 **visibility** | Optional[ObjectTypeVisibility] | No |  |
+**aliases** | List[str] | Yes | Alternative names (synonyms) for the object type, usable as search terms. This field is only populated on the get-by-RID read paths (e.g. `getObjectTypeV2`); it is always empty on the `listObjectTypesV2` endpoint.  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

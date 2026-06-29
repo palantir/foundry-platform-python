@@ -17,6 +17,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the timeseries property.  |  |
 **property_name** | PropertyApiName | The API name of the timeseries property. To find the API name for your property value bank property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
@@ -40,6 +41,8 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the timeseries property. To find the API name for your property value bank property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property_name = "performance"
+# Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.
+branch = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -52,6 +55,7 @@ try:
         object_type,
         primary_key,
         property_name,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -87,6 +91,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
 **property** | PropertyApiName | The API name of the time series backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **range** | Optional[TimeRange] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -111,6 +116,8 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the time series backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = None
+# Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.
+branch = None
 # Optional[TimeRange]
 range = {
     "type": "relative",
@@ -129,6 +136,7 @@ try:
         object_type,
         primary_key,
         property,
+        branch=branch,
         range=range,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,

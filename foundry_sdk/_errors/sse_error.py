@@ -13,8 +13,12 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from foundry_sdk._errors.palantir_exception import PalantirException
 
-__openapi_document_version__ = "1.1680.0"
+
+class SseContentTypeError(PalantirException):
+    """The server response was not a ``text/event-stream`` as required for SSE consumption."""
+
+
+class SseEventDecodeError(PalantirException):
+    """An SSE event's ``data`` could not be parsed as JSON or decoded into the expected event type."""

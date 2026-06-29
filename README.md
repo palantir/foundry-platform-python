@@ -828,6 +828,11 @@ Namespace | Resource | Operation | HTTP request |
 **Filesystem** | ResourceRole | [**list**](docs/v2/Filesystem/ResourceRole.md#list) | **GET** /v2/filesystem/resources/{resourceRid}/roles |
 **Filesystem** | ResourceRole | [**remove**](docs/v2/Filesystem/ResourceRole.md#remove) | **POST** /v2/filesystem/resources/{resourceRid}/roles/remove |
 **Filesystem** | Space | [**list**](docs/v2/Filesystem/Space.md#list) | **GET** /v2/filesystem/spaces |
+**Functions** | Query | [**execute**](docs/v2/Functions/Query.md#execute) | **POST** /v2/functions/queries/{queryApiName}/execute |
+**Functions** | Query | [**get**](docs/v2/Functions/Query.md#get) | **GET** /v2/functions/queries/{queryApiName} |
+**Functions** | Query | [**get_by_rid**](docs/v2/Functions/Query.md#get_by_rid) | **GET** /v2/functions/queries/getByRid |
+**Functions** | Query | [**get_by_rid_batch**](docs/v2/Functions/Query.md#get_by_rid_batch) | **POST** /v2/functions/queries/getByRidBatch |
+**Functions** | Query | [**streaming_execute**](docs/v2/Functions/Query.md#streaming_execute) | **POST** /v2/functions/queries/{queryApiName}/streamingExecute |
 **MediaSets** | MediaSet | [**abort**](docs/v2/MediaSets/MediaSet.md#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort |
 **MediaSets** | MediaSet | [**clear**](docs/v2/MediaSets/MediaSet.md#clear) | **DELETE** /v2/mediasets/{mediaSetRid}/items/clearAtPath |
 **MediaSets** | MediaSet | [**commit**](docs/v2/MediaSets/MediaSet.md#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit |
@@ -1816,7 +1821,11 @@ Namespace | Name | Import |
 **Functions** | [RegexConstraint](docs/v2/Functions/models/RegexConstraint.md) | `from foundry_sdk.v2.functions.models import RegexConstraint` |
 **Functions** | [RidConstraint](docs/v2/Functions/models/RidConstraint.md) | `from foundry_sdk.v2.functions.models import RidConstraint` |
 **Functions** | [RunningExecution](docs/v2/Functions/models/RunningExecution.md) | `from foundry_sdk.v2.functions.models import RunningExecution` |
+**Functions** | [StreamingExecuteEventsQueryRequest](docs/v2/Functions/models/StreamingExecuteEventsQueryRequest.md) | `from foundry_sdk.v2.functions.models import StreamingExecuteEventsQueryRequest` |
 **Functions** | [StreamingExecuteQueryRequest](docs/v2/Functions/models/StreamingExecuteQueryRequest.md) | `from foundry_sdk.v2.functions.models import StreamingExecuteQueryRequest` |
+**Functions** | [StreamingExecuteQueryResponse](docs/v2/Functions/models/StreamingExecuteQueryResponse.md) | `from foundry_sdk.v2.functions.models import StreamingExecuteQueryResponse` |
+**Functions** | [StreamingQueryData](docs/v2/Functions/models/StreamingQueryData.md) | `from foundry_sdk.v2.functions.models import StreamingQueryData` |
+**Functions** | [StreamingQueryError](docs/v2/Functions/models/StreamingQueryError.md) | `from foundry_sdk.v2.functions.models import StreamingQueryError` |
 **Functions** | [StructConstraint](docs/v2/Functions/models/StructConstraint.md) | `from foundry_sdk.v2.functions.models import StructConstraint` |
 **Functions** | [StructFieldApiName](docs/v2/Functions/models/StructFieldApiName.md) | `from foundry_sdk.v2.functions.models import StructFieldApiName` |
 **Functions** | [StructFieldName](docs/v2/Functions/models/StructFieldName.md) | `from foundry_sdk.v2.functions.models import StructFieldName` |
@@ -3051,6 +3060,7 @@ Namespace | Name | Import |
 **SqlQueries** | [ParameterValue](docs/v2/SqlQueries/models/ParameterValue.md) | `from foundry_sdk.v2.sql_queries.models import ParameterValue` |
 **SqlQueries** | [QueryStatus](docs/v2/SqlQueries/models/QueryStatus.md) | `from foundry_sdk.v2.sql_queries.models import QueryStatus` |
 **SqlQueries** | [RunningQueryStatus](docs/v2/SqlQueries/models/RunningQueryStatus.md) | `from foundry_sdk.v2.sql_queries.models import RunningQueryStatus` |
+**SqlQueries** | [ScenarioRid](docs/v2/SqlQueries/models/ScenarioRid.md) | `from foundry_sdk.v2.sql_queries.models import ScenarioRid` |
 **SqlQueries** | [SerializationFormat](docs/v2/SqlQueries/models/SerializationFormat.md) | `from foundry_sdk.v2.sql_queries.models import SerializationFormat` |
 **SqlQueries** | [SqlQueryId](docs/v2/SqlQueries/models/SqlQueryId.md) | `from foundry_sdk.v2.sql_queries.models import SqlQueryId` |
 **SqlQueries** | [StructColumnFieldType](docs/v2/SqlQueries/models/StructColumnFieldType.md) | `from foundry_sdk.v2.sql_queries.models import StructColumnFieldType` |
@@ -3844,6 +3854,7 @@ Namespace | Name | Import |
 **Ontologies** | ActionTypeNotFound | `from foundry_sdk.v2.ontologies.errors import ActionTypeNotFound` |
 **Ontologies** | ActionValidationFailed | `from foundry_sdk.v2.ontologies.errors import ActionValidationFailed` |
 **Ontologies** | AggregationAccuracyNotSupported | `from foundry_sdk.v2.ontologies.errors import AggregationAccuracyNotSupported` |
+**Ontologies** | AggregationDepthExceededLimit | `from foundry_sdk.v2.ontologies.errors import AggregationDepthExceededLimit` |
 **Ontologies** | AggregationGroupCountExceededLimit | `from foundry_sdk.v2.ontologies.errors import AggregationGroupCountExceededLimit` |
 **Ontologies** | AggregationMemoryExceededLimit | `from foundry_sdk.v2.ontologies.errors import AggregationMemoryExceededLimit` |
 **Ontologies** | AggregationMetricNotSupported | `from foundry_sdk.v2.ontologies.errors import AggregationMetricNotSupported` |
@@ -3922,9 +3933,12 @@ Namespace | Name | Import |
 **Ontologies** | MarketplaceSdkObjectMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkObjectMappingNotFound` |
 **Ontologies** | MarketplaceSdkPropertyMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkPropertyMappingNotFound` |
 **Ontologies** | MarketplaceSdkQueryMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkQueryMappingNotFound` |
+**Ontologies** | MediaUploadDestinationNotConfigured | `from foundry_sdk.v2.ontologies.errors import MediaUploadDestinationNotConfigured` |
+**Ontologies** | MediaUploadPropertyNotBackedByMediaSetView | `from foundry_sdk.v2.ontologies.errors import MediaUploadPropertyNotBackedByMediaSetView` |
 **Ontologies** | MissingParameter | `from foundry_sdk.v2.ontologies.errors import MissingParameter` |
 **Ontologies** | MissingValueTypeReference | `from foundry_sdk.v2.ontologies.errors import MissingValueTypeReference` |
 **Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry_sdk.v2.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
+**Ontologies** | MultipleMediaUploadDestinations | `from foundry_sdk.v2.ontologies.errors import MultipleMediaUploadDestinations` |
 **Ontologies** | MultiplePropertyValuesNotSupported | `from foundry_sdk.v2.ontologies.errors import MultiplePropertyValuesNotSupported` |
 **Ontologies** | NotCipherFormatted | `from foundry_sdk.v2.ontologies.errors import NotCipherFormatted` |
 **Ontologies** | ObjectAlreadyExists | `from foundry_sdk.v2.ontologies.errors import ObjectAlreadyExists` |
@@ -4172,6 +4186,7 @@ Namespace | Name | Import |
 **Ontologies** | ActionTypeNotFound | `from foundry_sdk.v1.ontologies.errors import ActionTypeNotFound` |
 **Ontologies** | ActionValidationFailed | `from foundry_sdk.v1.ontologies.errors import ActionValidationFailed` |
 **Ontologies** | AggregationAccuracyNotSupported | `from foundry_sdk.v1.ontologies.errors import AggregationAccuracyNotSupported` |
+**Ontologies** | AggregationDepthExceededLimit | `from foundry_sdk.v1.ontologies.errors import AggregationDepthExceededLimit` |
 **Ontologies** | AggregationGroupCountExceededLimit | `from foundry_sdk.v1.ontologies.errors import AggregationGroupCountExceededLimit` |
 **Ontologies** | AggregationMemoryExceededLimit | `from foundry_sdk.v1.ontologies.errors import AggregationMemoryExceededLimit` |
 **Ontologies** | AggregationMetricNotSupported | `from foundry_sdk.v1.ontologies.errors import AggregationMetricNotSupported` |
@@ -4250,9 +4265,12 @@ Namespace | Name | Import |
 **Ontologies** | MarketplaceSdkObjectMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkObjectMappingNotFound` |
 **Ontologies** | MarketplaceSdkPropertyMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkPropertyMappingNotFound` |
 **Ontologies** | MarketplaceSdkQueryMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkQueryMappingNotFound` |
+**Ontologies** | MediaUploadDestinationNotConfigured | `from foundry_sdk.v1.ontologies.errors import MediaUploadDestinationNotConfigured` |
+**Ontologies** | MediaUploadPropertyNotBackedByMediaSetView | `from foundry_sdk.v1.ontologies.errors import MediaUploadPropertyNotBackedByMediaSetView` |
 **Ontologies** | MissingParameter | `from foundry_sdk.v1.ontologies.errors import MissingParameter` |
 **Ontologies** | MissingValueTypeReference | `from foundry_sdk.v1.ontologies.errors import MissingValueTypeReference` |
 **Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry_sdk.v1.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
+**Ontologies** | MultipleMediaUploadDestinations | `from foundry_sdk.v1.ontologies.errors import MultipleMediaUploadDestinations` |
 **Ontologies** | MultiplePropertyValuesNotSupported | `from foundry_sdk.v1.ontologies.errors import MultiplePropertyValuesNotSupported` |
 **Ontologies** | NotCipherFormatted | `from foundry_sdk.v1.ontologies.errors import NotCipherFormatted` |
 **Ontologies** | ObjectAlreadyExists | `from foundry_sdk.v1.ontologies.errors import ObjectAlreadyExists` |

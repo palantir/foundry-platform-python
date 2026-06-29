@@ -5644,7 +5644,7 @@ def functions_value_type_version_id_op_get(
     preview: typing.Optional[bool],
 ):
     """
-    Gets a specific value type with the given RID. The specified version is returned.
+    Gets a specific version of a value type with the given RID and version ID.
 
     """
     result = client.functions.ValueType.VersionId.get(
@@ -5705,12 +5705,14 @@ def functions_query_op_execute(
     version: typing.Optional[str],
 ):
     """
-    Executes a Query using the given parameters. By default, this executes the latest version of the query.
+    Executes a Query and returns the result as a single JSON object. By default, this executes
+    the latest version of the query. The latest version is the one that was most recently
+    published, which may be a pre-release version.
 
-    This endpoint is maintained for backward compatibility only.
-
-    For all new implementations, use the `streamingExecute` endpoint, which supports all function types
-    and provides enhanced functionality.
+    This endpoint executes global (non-ontology-scoped) query functions. For ontology-scoped
+    functions, use the equivalent endpoint under
+    `/v2/ontologies/{ontology}/queries/{queryApiName}/execute`. For streaming or incremental
+    result delivery, use `streamingExecute`.
 
     """
     result = client.functions.Query.execute(
@@ -5946,30 +5948,23 @@ def functions_query_op_streaming_execute(
     version: typing.Optional[str],
 ):
     """
-    Executes a Query using the given parameters, returning results as an NDJSON stream. By default, this executes the latest version of the query.
+    Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
+    By default, this executes the latest version of the query. The latest version is the one
+    that was most recently published, which may be a pre-release version.
 
-    This endpoint supports all Query functions. The endpoint name 'streamingExecute' refers to the NDJSON
-    streaming response format. Both streaming and non-streaming functions can use this endpoint.
-    Non-streaming functions return a single-line NDJSON response, while streaming functions return multi-line NDJSON responses.
-    This is the recommended endpoint for all query execution.
+    This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
+    `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
+    result values, or an error (`type: error`) emitted before stream termination if execution
+    fails. Non-streaming functions emit a single data event containing the entire result;
+    streaming functions emit a data event per batch as results become available.
 
-    The response is returned as a binary stream in NDJSON (Newline Delimited JSON) format, where each line
-    is a StreamingExecuteQueryResponse containing either a data batch or an error.
-
-    For a function returning a list of 5 records with a batch size of 3, the response stream would contain
-    two lines. The first line contains the first 3 items, and the second line contains the remaining 2 items:
-
-    ```
-    {"type":"data","value":[{"productId":"SKU-001","price":29.99},{"productId":"SKU-002","price":49.99},{"productId":"SKU-003","price":19.99}]}
-    {"type":"data","value":[{"productId":"SKU-004","price":39.99},{"productId":"SKU-005","price":59.99}]}
-    ```
-
-    Each line is a separate JSON object followed by a newline character. Clients should parse the stream
-    line-by-line to process results as they arrive. If an error occurs during execution, the stream will
-    contain an error line:
+    Per the Server-Sent Events specification, each event is terminated by a blank line:
 
     ```
-    {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+    data: {"type":"data","value":[{"productId":"SKU-001","price":29.99}]}
+
+    data: {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+
     ```
 
     """
@@ -5985,7 +5980,96 @@ def functions_query_op_streaming_execute(
         transaction_id=transaction_id,
         version=version,
     )
-    click.echo(result)
+    click.echo(repr(result))
+
+
+@functions_query.command("streaming_execute_events")
+@click.argument("query_api_name", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--attribution", type=str, required=False, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+When provided without `version`, the latest version on this branch is used.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
+    "--ontology",
+    type=str,
+    required=False,
+    help="""Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+function. When omitted, executes a global function.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option("--trace_parent", type=str, required=False, help="""""")
+@click.option("--trace_state", type=str, required=False, help="""""")
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.""",
+)
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+""",
+)
+@click.pass_obj
+def functions_query_op_streaming_execute_events(
+    client: FoundryClient,
+    query_api_name: str,
+    parameters: str,
+    attribution: typing.Optional[str],
+    branch: typing.Optional[str],
+    ontology: typing.Optional[str],
+    preview: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
+    transaction_id: typing.Optional[str],
+    version: typing.Optional[str],
+):
+    """
+    Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
+    By default, this executes the latest version of the query. The latest version is the one
+    that was most recently published, which may be a pre-release version.
+
+    This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
+    `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
+    result values, or an error (`type: error`) emitted before stream termination if execution
+    fails. Non-streaming functions emit a single data event containing the entire result;
+    streaming functions emit a data event per batch as results become available.
+
+    Per the Server-Sent Events specification, each event is terminated by a blank line:
+
+    ```
+    data: {"type":"data","value":[{"productId":"SKU-001","price":29.99}]}
+
+    data: {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+
+    ```
+
+    """
+    result = client.functions.Query.streaming_execute_events(
+        query_api_name=query_api_name,
+        parameters=json.loads(parameters),
+        attribution=attribution,
+        branch=branch,
+        ontology=ontology,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
+        transaction_id=transaction_id,
+        version=version,
+    )
+    click.echo(repr(result))
 
 
 @functions.group("execution")
@@ -8095,6 +8179,13 @@ def ontologies_time_series_value_bank_property():
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property_name", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -8115,6 +8206,7 @@ def ontologies_time_series_value_bank_property_op_get_latest_value(
     object_type: str,
     primary_key: str,
     property_name: str,
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -8127,6 +8219,7 @@ def ontologies_time_series_value_bank_property_op_get_latest_value(
         object_type=object_type,
         primary_key=primary_key,
         property_name=property_name,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -8138,6 +8231,13 @@ def ontologies_time_series_value_bank_property_op_get_latest_value(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
 @click.option("--range", type=str, required=False, help="""""")
 @click.option(
     "--sdk_package_rid",
@@ -8160,6 +8260,7 @@ def ontologies_time_series_value_bank_property_op_stream_values(
     object_type: str,
     primary_key: str,
     property: str,
+    branch: typing.Optional[str],
     range: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -8173,6 +8274,7 @@ def ontologies_time_series_value_bank_property_op_stream_values(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
+        branch=branch,
         range=None if range is None else json.loads(range),
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -11335,6 +11437,9 @@ def ontologies_ontology_object_type_op_list(
     more results available, at least one result will be present in the
     response.
 
+    Note: the `aliases` field is not populated on this endpoint and will always be empty. To retrieve object type
+    aliases, use the get-by-RID read paths (e.g. `getObjectTypeV2`).
+
     """
     result = client.ontologies.Ontology.ObjectType.list(
         ontology=ontology,
@@ -12063,6 +12168,13 @@ def ontologies_cipher_text_property():
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_cipher_text_property_op_decrypt(
     client: FoundryClient,
@@ -12070,6 +12182,7 @@ def ontologies_cipher_text_property_op_decrypt(
     object_type: str,
     primary_key: str,
     property: str,
+    branch: typing.Optional[str],
 ):
     """
     Decrypt the value of a ciphertext property.
@@ -12080,6 +12193,7 @@ def ontologies_cipher_text_property_op_decrypt(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
+        branch=branch,
     )
     click.echo(repr(result))
 
@@ -13491,6 +13605,13 @@ def sql_queries_sql_query_op_execute(
 """,
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query against. If not specified, the default (main) branch is used.
+""",
+)
+@click.option(
     "--dry_run",
     type=bool,
     required=False,
@@ -13515,14 +13636,23 @@ or a named parameter mapping.
     help="""Maximum number of rows to return.
 """,
 )
+@click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The scenario to evaluate the query against. If not specified, no scenario is applied.
+""",
+)
 @click.pass_obj
 def sql_queries_sql_query_op_execute_ontology(
     client: FoundryClient,
     query: str,
+    branch: typing.Optional[str],
     dry_run: typing.Optional[bool],
     parameters: typing.Optional[str],
     preview: typing.Optional[bool],
     row_limit: typing.Optional[int],
+    scenario_rid: typing.Optional[str],
 ):
     """
     Executes a SQL query against the Ontology. Results are returned synchronously in
@@ -13531,10 +13661,12 @@ def sql_queries_sql_query_op_execute_ontology(
     """
     result = client.sql_queries.SqlQuery.execute_ontology(
         query=query,
+        branch=branch,
         dry_run=dry_run,
         parameters=None if parameters is None else json.loads(parameters),
         preview=preview,
         row_limit=row_limit,
+        scenario_rid=scenario_rid,
     )
     click.echo(result)
 

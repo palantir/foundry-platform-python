@@ -87,6 +87,12 @@ class ExecuteOntologySqlQueryRequest(core.ModelBase):
     dry_run: typing.Optional[bool] = pydantic.Field(alias=str("dryRun"), default=None)  # type: ignore[literal-required]
     """If true, parse and validate the query without executing it. Defaults to false."""
 
+    branch: typing.Optional[core_models.FoundryBranch] = None
+    """The Foundry branch to execute the query against. If not specified, the default (main) branch is used."""
+
+    scenario_rid: typing.Optional[ScenarioRid] = pydantic.Field(alias=str("scenarioRid"), default=None)  # type: ignore[literal-required]
+    """The scenario to evaluate the query against. If not specified, no scenario is applied."""
+
 
 class ExecuteSqlQueryRequest(core.ModelBase):
     """ExecuteSqlQueryRequest"""
@@ -309,6 +315,10 @@ class RunningQueryStatus(core.ModelBase):
     type: typing.Literal["running"] = "running"
 
 
+ScenarioRid: typing_extensions.TypeAlias = core.RID
+"""The rid of a scenario to evaluate the query against."""
+
+
 SerializationFormat: typing_extensions.TypeAlias = typing.Literal["ARROW", "CSV"]
 """Format for SQL query result serialization."""
 
@@ -407,6 +417,7 @@ __all__ = [
     "Parameters",
     "QueryStatus",
     "RunningQueryStatus",
+    "ScenarioRid",
     "SerializationFormat",
     "SqlQueryId",
     "StructColumnFieldType",

@@ -16,6 +16,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the CipherText property.  |  |
 **property** | PropertyApiName | The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **DecryptionResult**
@@ -37,11 +38,13 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
+# Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
     api_response = client.ontologies.CipherTextProperty.decrypt(
-        ontology, object_type, primary_key, property
+        ontology, object_type, primary_key, property, branch=branch
     )
     print("The decrypt response:\n")
     pprint(api_response)

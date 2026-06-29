@@ -459,6 +459,9 @@ class ObjectTypeClient:
         more results available, at least one result will be present in the
         response.
 
+        Note: the `aliases` field is not populated on this endpoint and will always be empty. To retrieve object type
+        aliases, use the get-by-RID read paths (e.g. `getObjectTypeV2`).
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
@@ -1053,6 +1056,9 @@ class AsyncObjectTypeClient:
         Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are
         more results available, at least one result will be present in the
         response.
+
+        Note: the `aliases` field is not populated on this endpoint and will always be empty. To retrieve object type
+        aliases, use the get-by-RID read paths (e.g. `getObjectTypeV2`).
 
         :param ontology:
         :type ontology: OntologyIdentifier
