@@ -190,6 +190,25 @@ class AggregationAccuracyNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class AggregationDepthExceededLimitParameters(typing_extensions.TypedDict):
+    """
+    The aggregation request contains too many levels of nested groupings. This can be fixed by reducing the
+    number of nested groupings in your request.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    depth: int
+    depthLimit: int
+
+
+@dataclass
+class AggregationDepthExceededLimit(errors.BadRequestError):
+    name: typing.Literal["AggregationDepthExceededLimit"]
+    parameters: AggregationDepthExceededLimitParameters
+    error_instance_id: str
+
+
 class AggregationGroupCountExceededLimitParameters(typing_extensions.TypedDict):
     """
     The number of groups in the aggregations grouping exceeded the allowed limit. This can typically be fixed by
@@ -1496,6 +1515,45 @@ class MarketplaceSdkQueryMappingNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MediaUploadDestinationNotConfiguredParameters(typing_extensions.TypedDict):
+    """
+    The media reference property is backed by multiple media set views, and none of them are marked as the upload
+    destination for this property. Set an upload destination on exactly one of the backing media set views for
+    this property in Ontology Manager.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: ontologies_models.ObjectTypeApiName
+    property: ontologies_models.PropertyApiName
+
+
+@dataclass
+class MediaUploadDestinationNotConfigured(errors.BadRequestError):
+    name: typing.Literal["MediaUploadDestinationNotConfigured"]
+    parameters: MediaUploadDestinationNotConfiguredParameters
+    error_instance_id: str
+
+
+class MediaUploadPropertyNotBackedByMediaSetViewParameters(typing_extensions.TypedDict):
+    """
+    The property is not backed by any media set view datasource and cannot accept media uploads. Add a media set
+    view datasource that includes this property in Ontology Manager.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: ontologies_models.ObjectTypeApiName
+    property: ontologies_models.PropertyApiName
+
+
+@dataclass
+class MediaUploadPropertyNotBackedByMediaSetView(errors.BadRequestError):
+    name: typing.Literal["MediaUploadPropertyNotBackedByMediaSetView"]
+    parameters: MediaUploadPropertyNotBackedByMediaSetViewParameters
+    error_instance_id: str
+
+
 class MissingParameterParameters(typing_extensions.TypedDict):
     """
     Required parameters are missing. Please look at the `parameters` field to see which required parameters are
@@ -1542,6 +1600,26 @@ class MultipleGroupByOnFieldNotSupportedParameters(typing_extensions.TypedDict):
 class MultipleGroupByOnFieldNotSupported(errors.BadRequestError):
     name: typing.Literal["MultipleGroupByOnFieldNotSupported"]
     parameters: MultipleGroupByOnFieldNotSupportedParameters
+    error_instance_id: str
+
+
+class MultipleMediaUploadDestinationsParameters(typing_extensions.TypedDict):
+    """
+    The media reference property has multiple media set views marked as upload destinations. At most one media
+    source per property should be configured as the upload destination. This typically indicates an inconsistent
+    object type configuration; review the backing media sources for this property in Ontology Manager.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: ontologies_models.ObjectTypeApiName
+    property: ontologies_models.PropertyApiName
+
+
+@dataclass
+class MultipleMediaUploadDestinations(errors.BadRequestError):
+    name: typing.Literal["MultipleMediaUploadDestinations"]
+    parameters: MultipleMediaUploadDestinationsParameters
     error_instance_id: str
 
 
@@ -2518,6 +2596,7 @@ __all__ = [
     "ActionTypeNotFound",
     "ActionValidationFailed",
     "AggregationAccuracyNotSupported",
+    "AggregationDepthExceededLimit",
     "AggregationGroupCountExceededLimit",
     "AggregationMemoryExceededLimit",
     "AggregationMetricNotSupported",
@@ -2596,9 +2675,12 @@ __all__ = [
     "MarketplaceSdkObjectMappingNotFound",
     "MarketplaceSdkPropertyMappingNotFound",
     "MarketplaceSdkQueryMappingNotFound",
+    "MediaUploadDestinationNotConfigured",
+    "MediaUploadPropertyNotBackedByMediaSetView",
     "MissingParameter",
     "MissingValueTypeReference",
     "MultipleGroupByOnFieldNotSupported",
+    "MultipleMediaUploadDestinations",
     "MultiplePropertyValuesNotSupported",
     "NotCipherFormatted",
     "ObjectAlreadyExists",

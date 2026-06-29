@@ -440,6 +440,9 @@ Each page may be smaller or larger than the requested page size. However, it is 
 more results available, at least one result will be present in the
 response.
 
+Note: the `aliases` field is not populated on this endpoint and will always be empty. To retrieve object type
+aliases, use the get-by-RID read paths (e.g. `getObjectTypeV2`).
+
 
 ### Parameters
 

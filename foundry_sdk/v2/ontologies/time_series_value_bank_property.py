@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -62,6 +63,7 @@ class TimeSeriesValueBankPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property_name: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -78,6 +80,8 @@ class TimeSeriesValueBankPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property_name: The API name of the timeseries property. To find the API name for your property value bank property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property_name: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -93,6 +97,7 @@ class TimeSeriesValueBankPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{propertyName}/latestValue",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -123,6 +128,7 @@ class TimeSeriesValueBankPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         range: typing.Optional[ontologies_models.TimeRange] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -140,6 +146,8 @@ class TimeSeriesValueBankPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the time series backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param range:
         :type range: Optional[TimeRange]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -157,6 +165,7 @@ class TimeSeriesValueBankPropertyClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamValues",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -240,6 +249,7 @@ class AsyncTimeSeriesValueBankPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property_name: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -256,6 +266,8 @@ class AsyncTimeSeriesValueBankPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property_name: The API name of the timeseries property. To find the API name for your property value bank property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property_name: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -271,6 +283,7 @@ class AsyncTimeSeriesValueBankPropertyClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{propertyName}/latestValue",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -301,6 +314,7 @@ class AsyncTimeSeriesValueBankPropertyClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         range: typing.Optional[ontologies_models.TimeRange] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -318,6 +332,8 @@ class AsyncTimeSeriesValueBankPropertyClient:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the time series backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param range:
         :type range: Optional[TimeRange]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -335,6 +351,7 @@ class AsyncTimeSeriesValueBankPropertyClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamValues",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },

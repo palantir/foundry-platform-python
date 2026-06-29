@@ -77,12 +77,14 @@ class QueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> functions_models.ExecuteQueryResponse:
         """
-        Executes a Query using the given parameters. By default, this executes the latest version of the query.
+        Executes a Query and returns the result as a single JSON object. By default, this executes
+        the latest version of the query. The latest version is the one that was most recently
+        published, which may be a pre-release version.
 
-        This endpoint is maintained for backward compatibility only.
-
-        For all new implementations, use the `streamingExecute` endpoint, which supports all function types
-        and provides enhanced functionality.
+        This endpoint executes global (non-ontology-scoped) query functions. For ontology-scoped
+        functions, use the equivalent endpoint under
+        `/v2/ontologies/{ontology}/queries/{queryApiName}/execute`. For streaming or incremental
+        result delivery, use `streamingExecute`.
 
         :param query_api_name:
         :type query_api_name: QueryApiName
@@ -411,32 +413,25 @@ class QueryClient:
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> bytes:
+    ) -> core.SseContextManager[functions_models.StreamingExecuteQueryResponse]:
         """
-        Executes a Query using the given parameters, returning results as an NDJSON stream. By default, this executes the latest version of the query.
+        Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
+        By default, this executes the latest version of the query. The latest version is the one
+        that was most recently published, which may be a pre-release version.
 
-        This endpoint supports all Query functions. The endpoint name 'streamingExecute' refers to the NDJSON
-        streaming response format. Both streaming and non-streaming functions can use this endpoint.
-        Non-streaming functions return a single-line NDJSON response, while streaming functions return multi-line NDJSON responses.
-        This is the recommended endpoint for all query execution.
+        This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
+        `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
+        result values, or an error (`type: error`) emitted before stream termination if execution
+        fails. Non-streaming functions emit a single data event containing the entire result;
+        streaming functions emit a data event per batch as results become available.
 
-        The response is returned as a binary stream in NDJSON (Newline Delimited JSON) format, where each line
-        is a StreamingExecuteQueryResponse containing either a data batch or an error.
-
-        For a function returning a list of 5 records with a batch size of 3, the response stream would contain
-        two lines. The first line contains the first 3 items, and the second line contains the remaining 2 items:
-
-        ```
-        {"type":"data","value":[{"productId":"SKU-001","price":29.99},{"productId":"SKU-002","price":49.99},{"productId":"SKU-003","price":19.99}]}
-        {"type":"data","value":[{"productId":"SKU-004","price":39.99},{"productId":"SKU-005","price":59.99}]}
-        ```
-
-        Each line is a separate JSON object followed by a newline character. Clients should parse the stream
-        line-by-line to process results as they arrive. If an error occurs during execution, the stream will
-        contain an error line:
+        Per the Server-Sent Events specification, each event is terminated by a blank line:
 
         ```
-        {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+        data: {"type":"data","value":[{"productId":"SKU-001","price":29.99}]}
+
+        data: {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+
         ```
 
         :param query_api_name:
@@ -462,7 +457,7 @@ class QueryClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: bytes
+        :rtype: core.SseContextManager[functions_models.StreamingExecuteQueryResponse]
 
         :raises StreamingExecuteQueryPermissionDenied: Could not streamingExecute the Query.
         """
@@ -483,7 +478,7 @@ class QueryClient:
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
-                    "Accept": "application/octet-stream",
+                    "Accept": "text/event-stream",
                 },
                 body=functions_models.StreamingExecuteQueryRequest(
                     ontology=ontology,
@@ -491,12 +486,114 @@ class QueryClient:
                     version=version,
                     branch=branch,
                 ),
-                response_type=bytes,
+                response_type=functions_models.StreamingExecuteQueryResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "StreamingExecuteQueryPermissionDenied": functions_errors.StreamingExecuteQueryPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "SSE"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def streaming_execute_events(
+        self,
+        query_api_name: functions_models.QueryApiName,
+        *,
+        parameters: typing.Dict[
+            functions_models.ParameterId, typing.Optional[functions_models.DataValue]
+        ],
+        attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
+        version: typing.Optional[functions_models.FunctionVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.SseContextManager[functions_models.StreamingExecuteQueryResponse]:
+        """
+        Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
+        By default, this executes the latest version of the query. The latest version is the one
+        that was most recently published, which may be a pre-release version.
+
+        This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
+        `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
+        result values, or an error (`type: error`) emitted before stream termination if execution
+        fails. Non-streaming functions emit a single data event containing the entire result;
+        streaming functions emit a data event per batch as results become available.
+
+        Per the Server-Sent Events specification, each event is terminated by a blank line:
+
+        ```
+        data: {"type":"data","value":[{"productId":"SKU-001","price":29.99}]}
+
+        data: {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+
+        ```
+
+        :param query_api_name:
+        :type query_api_name: QueryApiName
+        :param parameters:
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution:
+        :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
+        :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
+        :type ontology: Optional[OntologyIdentifier]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
+        :type transaction_id: Optional[TransactionId]
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+        :type version: Optional[FunctionVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.SseContextManager[functions_models.StreamingExecuteQueryResponse]
+
+        :raises StreamingExecuteEventsQueryPermissionDenied: Could not streamingExecuteEvents the Query.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/functions/queries/{queryApiName}/streamingExecuteEvents",
+                query_params={
+                    "preview": preview,
+                    "transactionId": transaction_id,
+                },
+                path_params={
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "attribution": attribution,
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
+                    "Content-Type": "application/json",
+                    "Accept": "text/event-stream",
+                },
+                body=functions_models.StreamingExecuteEventsQueryRequest(
+                    ontology=ontology,
+                    parameters=parameters,
+                    version=version,
+                    branch=branch,
+                ),
+                response_type=functions_models.StreamingExecuteQueryResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "StreamingExecuteEventsQueryPermissionDenied": functions_errors.StreamingExecuteEventsQueryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode", "SSE"),
             ),
         )
 
@@ -508,7 +605,8 @@ class _QueryClientRaw:
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
-        def streaming_execute(_: bytes): ...
+        def streaming_execute(_: functions_models.StreamingExecuteQueryResponse): ...
+        def streaming_execute_events(_: functions_models.StreamingExecuteQueryResponse): ...
 
         self.execute = core.with_raw_response(execute, client.execute)
         self.execute_async = core.with_raw_response(execute_async, client.execute_async)
@@ -516,6 +614,9 @@ class _QueryClientRaw:
         self.get_by_rid = core.with_raw_response(get_by_rid, client.get_by_rid)
         self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
         self.streaming_execute = core.with_raw_response(streaming_execute, client.streaming_execute)
+        self.streaming_execute_events = core.with_raw_response(
+            streaming_execute_events, client.streaming_execute_events
+        )
 
 
 class _QueryClientStreaming:
@@ -525,7 +626,8 @@ class _QueryClientStreaming:
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
-        def streaming_execute(_: bytes): ...
+        def streaming_execute(_: functions_models.StreamingExecuteQueryResponse): ...
+        def streaming_execute_events(_: functions_models.StreamingExecuteQueryResponse): ...
 
         self.execute = core.with_streaming_response(execute, client.execute)
         self.execute_async = core.with_streaming_response(execute_async, client.execute_async)
@@ -534,8 +636,9 @@ class _QueryClientStreaming:
         self.get_by_rid_batch = core.with_streaming_response(
             get_by_rid_batch, client.get_by_rid_batch
         )
-        self.streaming_execute = core.with_streaming_response(
-            streaming_execute, client.streaming_execute
+        self.streaming_execute = core.with_sse_response(streaming_execute, client.streaming_execute)
+        self.streaming_execute_events = core.with_sse_response(
+            streaming_execute_events, client.streaming_execute_events
         )
 
 
@@ -589,12 +692,14 @@ class AsyncQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[functions_models.ExecuteQueryResponse]:
         """
-        Executes a Query using the given parameters. By default, this executes the latest version of the query.
+        Executes a Query and returns the result as a single JSON object. By default, this executes
+        the latest version of the query. The latest version is the one that was most recently
+        published, which may be a pre-release version.
 
-        This endpoint is maintained for backward compatibility only.
-
-        For all new implementations, use the `streamingExecute` endpoint, which supports all function types
-        and provides enhanced functionality.
+        This endpoint executes global (non-ontology-scoped) query functions. For ontology-scoped
+        functions, use the equivalent endpoint under
+        `/v2/ontologies/{ontology}/queries/{queryApiName}/execute`. For streaming or incremental
+        result delivery, use `streamingExecute`.
 
         :param query_api_name:
         :type query_api_name: QueryApiName
@@ -923,32 +1028,25 @@ class AsyncQueryClient:
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[bytes]:
+    ) -> core.AsyncSseContextManager[functions_models.StreamingExecuteQueryResponse]:
         """
-        Executes a Query using the given parameters, returning results as an NDJSON stream. By default, this executes the latest version of the query.
+        Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
+        By default, this executes the latest version of the query. The latest version is the one
+        that was most recently published, which may be a pre-release version.
 
-        This endpoint supports all Query functions. The endpoint name 'streamingExecute' refers to the NDJSON
-        streaming response format. Both streaming and non-streaming functions can use this endpoint.
-        Non-streaming functions return a single-line NDJSON response, while streaming functions return multi-line NDJSON responses.
-        This is the recommended endpoint for all query execution.
+        This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
+        `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
+        result values, or an error (`type: error`) emitted before stream termination if execution
+        fails. Non-streaming functions emit a single data event containing the entire result;
+        streaming functions emit a data event per batch as results become available.
 
-        The response is returned as a binary stream in NDJSON (Newline Delimited JSON) format, where each line
-        is a StreamingExecuteQueryResponse containing either a data batch or an error.
-
-        For a function returning a list of 5 records with a batch size of 3, the response stream would contain
-        two lines. The first line contains the first 3 items, and the second line contains the remaining 2 items:
-
-        ```
-        {"type":"data","value":[{"productId":"SKU-001","price":29.99},{"productId":"SKU-002","price":49.99},{"productId":"SKU-003","price":19.99}]}
-        {"type":"data","value":[{"productId":"SKU-004","price":39.99},{"productId":"SKU-005","price":59.99}]}
-        ```
-
-        Each line is a separate JSON object followed by a newline character. Clients should parse the stream
-        line-by-line to process results as they arrive. If an error occurs during execution, the stream will
-        contain an error line:
+        Per the Server-Sent Events specification, each event is terminated by a blank line:
 
         ```
-        {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+        data: {"type":"data","value":[{"productId":"SKU-001","price":29.99}]}
+
+        data: {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+
         ```
 
         :param query_api_name:
@@ -974,7 +1072,7 @@ class AsyncQueryClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: typing.Awaitable[bytes]
+        :rtype: core.AsyncSseContextManager[functions_models.StreamingExecuteQueryResponse]
 
         :raises StreamingExecuteQueryPermissionDenied: Could not streamingExecute the Query.
         """
@@ -995,7 +1093,7 @@ class AsyncQueryClient:
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
-                    "Accept": "application/octet-stream",
+                    "Accept": "text/event-stream",
                 },
                 body=functions_models.StreamingExecuteQueryRequest(
                     ontology=ontology,
@@ -1003,12 +1101,114 @@ class AsyncQueryClient:
                     version=version,
                     branch=branch,
                 ),
-                response_type=bytes,
+                response_type=functions_models.StreamingExecuteQueryResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "StreamingExecuteQueryPermissionDenied": functions_errors.StreamingExecuteQueryPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "SSE"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def streaming_execute_events(
+        self,
+        query_api_name: functions_models.QueryApiName,
+        *,
+        parameters: typing.Dict[
+            functions_models.ParameterId, typing.Optional[functions_models.DataValue]
+        ],
+        attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
+        version: typing.Optional[functions_models.FunctionVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.AsyncSseContextManager[functions_models.StreamingExecuteQueryResponse]:
+        """
+        Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
+        By default, this executes the latest version of the query. The latest version is the one
+        that was most recently published, which may be a pre-release version.
+
+        This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
+        `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
+        result values, or an error (`type: error`) emitted before stream termination if execution
+        fails. Non-streaming functions emit a single data event containing the entire result;
+        streaming functions emit a data event per batch as results become available.
+
+        Per the Server-Sent Events specification, each event is terminated by a blank line:
+
+        ```
+        data: {"type":"data","value":[{"productId":"SKU-001","price":29.99}]}
+
+        data: {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+
+        ```
+
+        :param query_api_name:
+        :type query_api_name: QueryApiName
+        :param parameters:
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution:
+        :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
+        :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
+        :type ontology: Optional[OntologyIdentifier]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported.
+        :type transaction_id: Optional[TransactionId]
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+        :type version: Optional[FunctionVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.AsyncSseContextManager[functions_models.StreamingExecuteQueryResponse]
+
+        :raises StreamingExecuteEventsQueryPermissionDenied: Could not streamingExecuteEvents the Query.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/functions/queries/{queryApiName}/streamingExecuteEvents",
+                query_params={
+                    "preview": preview,
+                    "transactionId": transaction_id,
+                },
+                path_params={
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "attribution": attribution,
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
+                    "Content-Type": "application/json",
+                    "Accept": "text/event-stream",
+                },
+                body=functions_models.StreamingExecuteEventsQueryRequest(
+                    ontology=ontology,
+                    parameters=parameters,
+                    version=version,
+                    branch=branch,
+                ),
+                response_type=functions_models.StreamingExecuteQueryResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "StreamingExecuteEventsQueryPermissionDenied": functions_errors.StreamingExecuteEventsQueryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode", "SSE"),
             ),
         )
 
@@ -1020,7 +1220,8 @@ class _AsyncQueryClientRaw:
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
-        def streaming_execute(_: bytes): ...
+        def streaming_execute(_: functions_models.StreamingExecuteQueryResponse): ...
+        def streaming_execute_events(_: functions_models.StreamingExecuteQueryResponse): ...
 
         self.execute = core.async_with_raw_response(execute, client.execute)
         self.execute_async = core.async_with_raw_response(execute_async, client.execute_async)
@@ -1032,6 +1233,9 @@ class _AsyncQueryClientRaw:
         self.streaming_execute = core.async_with_raw_response(
             streaming_execute, client.streaming_execute
         )
+        self.streaming_execute_events = core.async_with_raw_response(
+            streaming_execute_events, client.streaming_execute_events
+        )
 
 
 class _AsyncQueryClientStreaming:
@@ -1041,7 +1245,8 @@ class _AsyncQueryClientStreaming:
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
-        def streaming_execute(_: bytes): ...
+        def streaming_execute(_: functions_models.StreamingExecuteQueryResponse): ...
+        def streaming_execute_events(_: functions_models.StreamingExecuteQueryResponse): ...
 
         self.execute = core.async_with_streaming_response(execute, client.execute)
         self.execute_async = core.async_with_streaming_response(execute_async, client.execute_async)
@@ -1050,6 +1255,9 @@ class _AsyncQueryClientStreaming:
         self.get_by_rid_batch = core.async_with_streaming_response(
             get_by_rid_batch, client.get_by_rid_batch
         )
-        self.streaming_execute = core.async_with_streaming_response(
+        self.streaming_execute = core.async_with_sse_response(
             streaming_execute, client.streaming_execute
+        )
+        self.streaming_execute_events = core.async_with_sse_response(
+            streaming_execute_events, client.streaming_execute_events
         )

@@ -22,10 +22,12 @@ from foundry_sdk._core.api_client import SdkInternal as SdkInternal
 from foundry_sdk._core.api_client import StreamedApiResponse as StreamedApiResponse
 from foundry_sdk._core.api_client import StreamingContextManager as StreamingContextManager  # NOQA
 from foundry_sdk._core.api_client import async_with_raw_response as async_with_raw_response  # NOQA
+from foundry_sdk._core.api_client import async_with_sse_response as async_with_sse_response  # NOQA
 from foundry_sdk._core.api_client import (
     async_with_streaming_response as async_with_streaming_response,
 )  # NOQA
 from foundry_sdk._core.api_client import with_raw_response as with_raw_response
+from foundry_sdk._core.api_client import with_sse_response as with_sse_response
 from foundry_sdk._core.api_client import with_streaming_response as with_streaming_response  # NOQA
 from foundry_sdk._core.auth_utils import Auth as Auth
 from foundry_sdk._core.client_init_helpers import (
@@ -48,6 +50,11 @@ from foundry_sdk._core.resource_iterator import (
 )  # NOQA
 from foundry_sdk._core.resource_iterator import PageIterator as PageIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator as ResourceIterator
+from foundry_sdk._core.sse import AsyncSseApiResponse as AsyncSseApiResponse
+from foundry_sdk._core.sse import AsyncSseContextManager as AsyncSseContextManager
+from foundry_sdk._core.sse import SseApiResponse as SseApiResponse
+from foundry_sdk._core.sse import SseContextManager as SseContextManager
+from foundry_sdk._core.sse import SseEvent as SseEvent
 from foundry_sdk._core.table import ArrowTableResponse as ArrowTableResponse
 from foundry_sdk._core.table import ParquetTableResponse as ParquetTableResponse
 from foundry_sdk._core.table import TableResponse as TableResponse

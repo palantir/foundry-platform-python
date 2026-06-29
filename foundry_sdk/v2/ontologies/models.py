@@ -3640,6 +3640,11 @@ class ObjectTypeV2(core.ModelBase):
     rid: ObjectTypeRid
     title_property: PropertyApiName = pydantic.Field(alias=str("titleProperty"))  # type: ignore[literal-required]
     visibility: typing.Optional[ObjectTypeVisibility] = None
+    aliases: typing.List[str]
+    """
+    Alternative names (synonyms) for the object type, usable as search terms. This field is only populated on
+    the get-by-RID read paths (e.g. `getObjectTypeV2`); it is always empty on the `listObjectTypesV2` endpoint.
+    """
 
 
 ObjectTypeVisibility: typing_extensions.TypeAlias = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]

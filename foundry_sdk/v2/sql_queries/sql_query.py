@@ -184,10 +184,12 @@ class SqlQueryClient:
         self,
         *,
         query: str,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         dry_run: typing.Optional[bool] = None,
         parameters: typing.Optional[sql_queries_models.Parameters] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         row_limit: typing.Optional[int] = None,
+        scenario_rid: typing.Optional[sql_queries_models.ScenarioRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -197,6 +199,8 @@ class SqlQueryClient:
 
         :param query: The SQL query to execute.
         :type query: str
+        :param branch: The Foundry branch to execute the query against. If not specified, the default (main) branch is used.
+        :type branch: Optional[FoundryBranch]
         :param dry_run: If true, parse and validate the query without executing it. Defaults to false.
         :type dry_run: Optional[bool]
         :param parameters: Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
@@ -205,6 +209,8 @@ class SqlQueryClient:
         :type preview: Optional[PreviewMode]
         :param row_limit: Maximum number of rows to return.
         :type row_limit: Optional[int]
+        :param scenario_rid: The scenario to evaluate the query against. If not specified, no scenario is applied.
+        :type scenario_rid: Optional[ScenarioRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -236,6 +242,8 @@ class SqlQueryClient:
                     parameters=parameters,
                     row_limit=row_limit,
                     dry_run=dry_run,
+                    branch=branch,
+                    scenario_rid=scenario_rid,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
@@ -559,10 +567,12 @@ class AsyncSqlQueryClient:
         self,
         *,
         query: str,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         dry_run: typing.Optional[bool] = None,
         parameters: typing.Optional[sql_queries_models.Parameters] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         row_limit: typing.Optional[int] = None,
+        scenario_rid: typing.Optional[sql_queries_models.ScenarioRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[bytes]:
@@ -572,6 +582,8 @@ class AsyncSqlQueryClient:
 
         :param query: The SQL query to execute.
         :type query: str
+        :param branch: The Foundry branch to execute the query against. If not specified, the default (main) branch is used.
+        :type branch: Optional[FoundryBranch]
         :param dry_run: If true, parse and validate the query without executing it. Defaults to false.
         :type dry_run: Optional[bool]
         :param parameters: Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
@@ -580,6 +592,8 @@ class AsyncSqlQueryClient:
         :type preview: Optional[PreviewMode]
         :param row_limit: Maximum number of rows to return.
         :type row_limit: Optional[int]
+        :param scenario_rid: The scenario to evaluate the query against. If not specified, no scenario is applied.
+        :type scenario_rid: Optional[ScenarioRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -611,6 +625,8 @@ class AsyncSqlQueryClient:
                     parameters=parameters,
                     row_limit=row_limit,
                     dry_run=dry_run,
+                    branch=branch,
+                    scenario_rid=scenario_rid,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,

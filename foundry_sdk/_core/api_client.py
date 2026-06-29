@@ -27,6 +27,7 @@ from datetime import timezone
 from inspect import isclass
 from random import Random
 from random import SystemRandom
+from typing import TYPE_CHECKING
 from typing import Any
 from typing import AsyncIterator
 from typing import Awaitable
@@ -88,6 +89,11 @@ from foundry_sdk._errors import WriteTimeout
 from foundry_sdk._errors import deserialize_error
 from foundry_sdk._errors.palantir_qos_exception import QoSDueTo
 from foundry_sdk._errors.palantir_qos_exception import QoSRetryHint
+
+# Imported under TYPE_CHECKING to avoid a circular import: sse.py imports from this module.
+if TYPE_CHECKING:
+    from foundry_sdk._core.sse import AsyncSseContextManager
+    from foundry_sdk._core.sse import SseContextManager
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
 
@@ -167,7 +173,35 @@ def async_with_streaming_response(
     )
 
 
-ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING", "ARROW_TABLE", "PARQUET_TABLE"]
+def with_sse_response(
+    # See explanation in "with_raw_response" for why we need to the "response_type" parameter
+    response_type: Callable[[R], None],
+    func: Callable[AnyParameters, Any],
+) -> Callable[AnyParameters, "SseContextManager[R]"]:
+    return cast(
+        "Callable[AnyParameters, SseContextManager[R]]",
+        functools.partial(func, _sdk_internal={"response_mode": "SSE"}),  # type: ignore
+    )
+
+
+def async_with_sse_response(
+    # See explanation in "with_raw_response" for why we need to the "response_type" parameter
+    response_type: Callable[[R], None],
+    func: Callable[AnyParameters, Any],
+) -> Callable[AnyParameters, "AsyncSseContextManager[R]"]:
+    return cast(
+        "Callable[AnyParameters, AsyncSseContextManager[R]]",
+        functools.partial(func, _sdk_internal={"response_mode": "SSE"}),  # type: ignore
+    )
+
+
+ResponseMode = Literal[
+    "DECODED", "ITERATOR", "RAW", "STREAMING", "ARROW_TABLE", "PARQUET_TABLE", "SSE"
+]
+
+# Response modes whose body is streamed off the wire rather than buffered. These must enable httpx
+# streaming on the request and be fully read before an error response can be inspected.
+_STREAMED_RESPONSE_MODES = ("STREAMING", "SSE")
 
 
 # The SdkInternal dictionary is a flexible way to pass additional information to the API client
@@ -202,6 +236,29 @@ def _get_is_optional(_type: ValueType) -> Tuple[bool, ValueType]:
 def _get_type_adapter(_type: ValueType) -> pydantic.TypeAdapter:
     """Get a cached TypeAdapter for the given type"""
     return pydantic.TypeAdapter(_type)
+
+
+def _decode_value(response_type: ValueType, data: Any) -> Any:
+    """Deserialize an already-parsed JSON value into ``response_type``.
+
+    Shared by ``BaseApiResponse.decode`` (whole-body decoding) and the SSE runtime (per-event
+    decoding). ``data`` must already be a parsed JSON value (e.g. from ``json.loads``).
+    """
+    _, _type = _get_is_optional(response_type)
+    origin_type = _get_annotated_origin(_type)
+
+    if _type is None:
+        return None
+
+    if origin_type is Any:
+        return data
+
+    # Check if the type is a BaseModel class
+    if isclass(origin_type) and issubclass(origin_type, pydantic.BaseModel):
+        return origin_type.model_validate(data)
+
+    adapter = _get_type_adapter(_type)
+    return adapter.validate_python(data)
 
 
 @dataclass(frozen=True)
@@ -309,17 +366,7 @@ class BaseApiResponse(Generic[T]):
         if origin_type is bytes:
             return cast(T, self._response.content)
 
-        data = self.json()
-
-        if origin_type is Any:
-            return data
-
-        # Check if the type is a BaseModel class
-        if isclass(origin_type) and issubclass(origin_type, pydantic.BaseModel):
-            return cast(T, origin_type.model_validate(data))
-
-        adapter = _get_type_adapter(_type)
-        return cast(T, adapter.validate_python(data))
+        return cast(T, _decode_value(self._request_info.response_type, self.json()))
 
 
 class ApiResponse(Generic[T], BaseApiResponse[T]):
@@ -730,7 +777,7 @@ class ApiClient(BaseApiClient):
 
                 return self._session.send(
                     request=request,
-                    stream=response_mode == "STREAMING",
+                    stream=response_mode in _STREAMED_RESPONSE_MODES,
                 )
 
             res = self._auth.execute_with_token(make_request)
@@ -740,6 +787,10 @@ class ApiClient(BaseApiClient):
 
         if response_mode == "STREAMING":
             return StreamingContextManager(request_info, api_response)
+        elif response_mode == "SSE":
+            from foundry_sdk._core.sse import SseContextManager
+
+            return SseContextManager(request_info, api_response)
         elif response_mode == "ARROW_TABLE":
             if res.content == b"":
                 return None
@@ -763,7 +814,7 @@ class ApiClient(BaseApiClient):
         # wait for the entire response to be streamed back before we can access
         # the content. If we don't do this, accessing "text" or calling ".json()"
         # will raise an exception.
-        if request_info.response_mode == "STREAMING":
+        if request_info.response_mode in _STREAMED_RESPONSE_MODES:
             res.read()
 
         self._handle_error(request_info, res)
@@ -819,6 +870,13 @@ class AsyncApiClient(BaseApiClient):
                 request_info,
                 self._async_call_api(request_info, response_mode="STREAMING"),
             )
+        elif response_mode == "SSE":
+            from foundry_sdk._core.sse import AsyncSseContextManager
+
+            return AsyncSseContextManager(
+                request_info,
+                self._async_call_api(request_info, response_mode="SSE"),
+            )
         else:
             return self._async_call_api(request_info, response_mode)
 
@@ -835,14 +893,16 @@ class AsyncApiClient(BaseApiClient):
                     timeout=self._get_timeout(request_info),
                 )
 
-                return await self._client.send(request=request, stream=response_mode == "STREAMING")
+                return await self._client.send(
+                    request=request, stream=response_mode in _STREAMED_RESPONSE_MODES
+                )
 
             res = await self._auth.execute_with_token(make_request)
 
         await self._check_for_errors(request_info, res)
         api_response: AsyncApiResponse[Any] = AsyncApiResponse(request_info, res)
 
-        if response_mode == "RAW" or response_mode == "STREAMING":
+        if response_mode in ("RAW", *_STREAMED_RESPONSE_MODES):
             return api_response
         elif response_mode == "ARROW_TABLE":
             if res.content == b"":
@@ -865,7 +925,7 @@ class AsyncApiClient(BaseApiClient):
         # wait for the entire response to be streamed back before we can access
         # the content. If we don't do this, accessing "text" or calling ".json()"
         # will raise an exception.
-        if request_info.response_mode == "STREAMING":
+        if request_info.response_mode in _STREAMED_RESPONSE_MODES:
             await res.aread()
 
         self._handle_error(request_info, res)

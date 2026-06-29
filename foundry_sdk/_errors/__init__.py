@@ -51,6 +51,8 @@ from foundry_sdk._errors.palantir_rpc_exception import (
 )  # NOQA
 from foundry_sdk._errors.sdk_internal_error import SDKInternalError as SDKInternalError
 from foundry_sdk._errors.sdk_internal_error import handle_unexpected as handle_unexpected  # NOQA
+from foundry_sdk._errors.sse_error import SseContentTypeError as SseContentTypeError
+from foundry_sdk._errors.sse_error import SseEventDecodeError as SseEventDecodeError
 from foundry_sdk._errors.stream_error import StreamConsumedError as StreamConsumedError
 from foundry_sdk._errors.timeout_error import ConnectTimeout as ConnectTimeout
 from foundry_sdk._errors.timeout_error import ReadTimeout as ReadTimeout

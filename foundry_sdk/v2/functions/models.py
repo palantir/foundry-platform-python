@@ -401,6 +401,27 @@ class RunningExecution(core.ModelBase):
     type: typing.Literal["running"] = "running"
 
 
+class StreamingExecuteEventsQueryRequest(core.ModelBase):
+    """StreamingExecuteEventsQueryRequest"""
+
+    ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None
+    """
+    Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+    function. When omitted, executes a global function.
+    """
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+    version: typing.Optional[FunctionVersion] = None
+    """The version of the query to execute. When used with `branch`, the specified version must exist on the branch."""
+
+    branch: typing.Optional[core_models.FoundryBranch] = None
+    """
+    The Foundry branch to execute the query from. If not specified, the default branch is used.
+    When provided without `version`, the latest version on this branch is used.
+    When provided with `version`, the specified version must exist on the branch.
+    """
+
+
 class StreamingExecuteQueryRequest(core.ModelBase):
     """StreamingExecuteQueryRequest"""
 
@@ -420,6 +441,30 @@ class StreamingExecuteQueryRequest(core.ModelBase):
     When provided without `version`, the latest version on this branch is used.
     When provided with `version`, the specified version must exist on the branch.
     """
+
+
+StreamingExecuteQueryResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["StreamingQueryData", "StreamingQueryError"], pydantic.Field(discriminator="type")
+]
+"""A single message in a streaming Query execution response. Each message contains either a data batch or an error."""
+
+
+class StreamingQueryData(core.ModelBase):
+    """A batch of query results."""
+
+    value: DataValue
+    type: typing.Literal["data"] = "data"
+
+
+class StreamingQueryError(core.ModelBase):
+    """An error that occurred during query execution."""
+
+    error_code: str = pydantic.Field(alias=str("errorCode"))  # type: ignore[literal-required]
+    error_name: str = pydantic.Field(alias=str("errorName"))  # type: ignore[literal-required]
+    error_instance_id: str = pydantic.Field(alias=str("errorInstanceId"))  # type: ignore[literal-required]
+    error_description: typing.Optional[str] = pydantic.Field(alias=str("errorDescription"), default=None)  # type: ignore[literal-required]
+    parameters: typing.Dict[str, typing.Any]
+    type: typing.Literal["error"] = "error"
 
 
 class StructConstraint(core.ModelBase):
@@ -754,7 +799,11 @@ __all__ = [
     "RegexConstraint",
     "RidConstraint",
     "RunningExecution",
+    "StreamingExecuteEventsQueryRequest",
     "StreamingExecuteQueryRequest",
+    "StreamingExecuteQueryResponse",
+    "StreamingQueryData",
+    "StreamingQueryError",
     "StructConstraint",
     "StructFieldApiName",
     "StructFieldName",

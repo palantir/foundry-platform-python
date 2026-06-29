@@ -126,10 +126,12 @@ Executes a SQL query against the Ontology. Results are returned synchronously in
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query** | str | The SQL query to execute.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to execute the query against. If not specified, the default (main) branch is used.  | [optional] |
 **dry_run** | Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.  | [optional] |
 **parameters** | Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **row_limit** | Optional[int] | Maximum number of rows to return.  | [optional] |
+**scenario_rid** | Optional[ScenarioRid] | The scenario to evaluate the query against. If not specified, no scenario is applied.  | [optional] |
 
 ### Return type
 **bytes**
@@ -145,6 +147,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # str | The SQL query to execute.
 query = "SELECT * FROM ri.ontology.main.object-type.xxx"
+# Optional[FoundryBranch] | The Foundry branch to execute the query against. If not specified, the default (main) branch is used.
+branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 # Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.
 dry_run = None
 # Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
@@ -153,11 +157,19 @@ parameters = None
 preview = None
 # Optional[int] | Maximum number of rows to return.
 row_limit = None
+# Optional[ScenarioRid] | The scenario to evaluate the query against. If not specified, no scenario is applied.
+scenario_rid = "ri.actions..scenario.0000-0000"
 
 
 try:
     api_response = client.sql_queries.SqlQuery.execute_ontology(
-        query=query, dry_run=dry_run, parameters=parameters, preview=preview, row_limit=row_limit
+        query=query,
+        branch=branch,
+        dry_run=dry_run,
+        parameters=parameters,
+        preview=preview,
+        row_limit=row_limit,
+        scenario_rid=scenario_rid,
     )
     print("The execute_ontology response:\n")
     pprint(api_response)
