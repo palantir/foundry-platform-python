@@ -63,6 +63,7 @@ class ObjectTypeClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ObjectTypeV2:
@@ -75,6 +76,8 @@ class ObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -87,6 +90,7 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                 },
                 path_params={
                     "ontology": ontology,
@@ -264,6 +268,7 @@ class ObjectTypeClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -279,6 +284,8 @@ class ObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -297,6 +304,7 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -447,6 +455,7 @@ class ObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -466,6 +475,8 @@ class ObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -482,6 +493,7 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -661,6 +673,7 @@ class AsyncObjectTypeClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ObjectTypeV2]:
@@ -673,6 +686,8 @@ class AsyncObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -685,6 +700,7 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                 },
                 path_params={
                     "ontology": ontology,
@@ -862,6 +878,7 @@ class AsyncObjectTypeClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -877,6 +894,8 @@ class AsyncObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -895,6 +914,7 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -1045,6 +1065,7 @@ class AsyncObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -1064,6 +1085,8 @@ class AsyncObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -1080,6 +1103,7 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },

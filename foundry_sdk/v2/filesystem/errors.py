@@ -98,6 +98,21 @@ class AddResourceRolesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class AddResourceTagsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not add the ResourceTag."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    resourceRid: filesystem_models.ResourceRid
+
+
+@dataclass
+class AddResourceTagsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddResourceTagsPermissionDenied"]
+    parameters: AddResourceTagsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class CircularDependencyParameters(typing_extensions.TypedDict):
     """The requested operation would result in a circular dependency in the folder hierarchy. For example, moving a folder into one of its descendants."""
 
@@ -112,7 +127,7 @@ class CircularDependency(errors.BadRequestError):
 
 
 class CreateFolderOutsideProjectNotSupportedParameters(typing_extensions.TypedDict):
-    """The given Resource is not a folder."""
+    """The given resource is not a folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -396,7 +411,7 @@ class InvalidDescription(errors.BadRequestError):
 
 class InvalidDisplayNameParameters(typing_extensions.TypedDict):
     """
-    The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be
+    The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be
     less than or equal to 700 characters.
     """
 
@@ -413,7 +428,7 @@ class InvalidDisplayName(errors.BadRequestError):
 
 
 class InvalidFolderParameters(typing_extensions.TypedDict):
-    """The given Resource is not a Folder."""
+    """The given resource is not a Folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -865,6 +880,21 @@ class RemoveResourceRolesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class RemoveResourceTagsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not remove the ResourceTag."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    resourceRid: filesystem_models.ResourceRid
+
+
+@dataclass
+class RemoveResourceTagsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveResourceTagsPermissionDenied"]
+    parameters: RemoveResourceTagsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ReplaceFolderPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the Folder."""
 
@@ -940,7 +970,7 @@ class ResourceNameAlreadyExists(errors.ConflictError):
 
 
 class ResourceNotDirectlyTrashedParameters(typing_extensions.TypedDict):
-    """The Resource is not directly trashed."""
+    """The resource is not directly trashed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -970,7 +1000,7 @@ class ResourceNotFound(errors.NotFoundError):
 
 
 class ResourceNotTrashedParameters(typing_extensions.TypedDict):
-    """The Resource should be directly trashed before being permanently deleted."""
+    """The resource should be directly trashed before being permanently deleted."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1083,6 +1113,21 @@ class SpaceNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class TagNotFoundParameters(typing_extensions.TypedDict):
+    """At least one of the provided tag RIDs could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    tagRids: typing.List[filesystem_models.TagRid]
+
+
+@dataclass
+class TagNotFound(errors.NotFoundError):
+    name: typing.Literal["TagNotFound"]
+    parameters: TagNotFoundParameters
+    error_instance_id: str
+
+
 class TemplateGroupNameConflictParameters(typing_extensions.TypedDict):
     """Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups."""
 
@@ -1114,7 +1159,7 @@ class TemplateMarkingNameConflict(errors.ConflictError):
 
 
 class TrashingAutosavedResourcesNotSupportedParameters(typing_extensions.TypedDict):
-    """Auto-saved Resources cannot be trashed."""
+    """Auto-saved resources cannot be trashed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1129,7 +1174,7 @@ class TrashingAutosavedResourcesNotSupported(errors.BadRequestError):
 
 
 class TrashingHiddenResourcesNotSupportedParameters(typing_extensions.TypedDict):
-    """Hidden Resources cannot be trashed."""
+    """Hidden resources cannot be trashed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1177,6 +1222,7 @@ __all__ = [
     "AddOrganizationsPermissionDenied",
     "AddProjectResourceReferencesPermissionDenied",
     "AddResourceRolesPermissionDenied",
+    "AddResourceTagsPermissionDenied",
     "CircularDependency",
     "CreateFolderOutsideProjectNotSupported",
     "CreateFolderPermissionDenied",
@@ -1228,6 +1274,7 @@ __all__ = [
     "RemoveOrganizationsPermissionDenied",
     "RemoveProjectResourceReferencesPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
+    "RemoveResourceTagsPermissionDenied",
     "ReplaceFolderPermissionDenied",
     "ReplaceProjectPermissionDenied",
     "ReplaceSpacePermissionDenied",
@@ -1243,6 +1290,7 @@ __all__ = [
     "SpaceNameInvalid",
     "SpaceNotEmpty",
     "SpaceNotFound",
+    "TagNotFound",
     "TemplateGroupNameConflict",
     "TemplateMarkingNameConflict",
     "TrashingAutosavedResourcesNotSupported",

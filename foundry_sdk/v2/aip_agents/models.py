@@ -246,6 +246,10 @@ This can be used by clients to cancel a streamed exchange.
 """
 
 
+ModelPurpose: typing_extensions.TypeAlias = typing.Literal["PRIMARY_AGENT", "QUESTION_SUGGESTER"]
+"""The purpose for which a language model is configured on an Agent."""
+
+
 class ObjectContext(core.ModelBase):
     """Details of relevant retrieved object instances for a user's message to include as additional context in the prompt to the Agent."""
 
@@ -675,6 +679,7 @@ __all__ = [
     "ListAgentVersionsResponse",
     "ListSessionsResponse",
     "MessageId",
+    "ModelPurpose",
     "ObjectContext",
     "ObjectSetParameter",
     "ObjectSetParameterValue",

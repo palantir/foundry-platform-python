@@ -371,6 +371,12 @@ def test_filesystem_v2_resource_role_import():
     assert ResourceRoleClient is not None
 
 
+def test_filesystem_v2_resource_tag_import():
+    from foundry_sdk.v2.filesystem.resource_tag import ResourceTagClient
+
+    assert ResourceTagClient is not None
+
+
 def test_filesystem_v2_space_import():
     from foundry_sdk.v2.filesystem.space import SpaceClient
 

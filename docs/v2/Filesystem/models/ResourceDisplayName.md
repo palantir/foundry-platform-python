@@ -1,6 +1,6 @@
 # ResourceDisplayName
 
-The display name of the Resource
+The display name of the resource
 
 ## Type
 ```python

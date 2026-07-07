@@ -9,7 +9,7 @@ Method | HTTP request | Release Stage |
 [**replace**](#replace) | **PUT** /v2/filesystem/folders/{folderRid} | Private Beta |
 
 # **children**
-List all child Resources of the Folder.
+List all child resources of the Folder.
 
 This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
 provided, this page size will also be used as the default.

@@ -262,13 +262,13 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_by_path**
-Get a Resource by its absolute path.
+Get a resource by its absolute path.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**path** | ResourcePath | The path to the Resource. The leading slash is optional. |  |
+**path** | ResourcePath | The path to the resource. The leading slash is optional. |  |
 
 ### Return type
 **Resource**
@@ -282,7 +282,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# ResourcePath | The path to the Resource. The leading slash is optional.
+# ResourcePath | The path to the resource. The leading slash is optional.
 path = "/My Organization-abcd/My Important Project/My Dataset"
 
 
@@ -309,7 +309,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_by_path_batch**
-Gets multiple Resources by their absolute paths.
+Gets multiple resources by their absolute paths.
 Returns a list of resources. If a path does not exist, is inaccessible, or refers to 
 a root folder or space, it will not be included in the response.
 At most 1,000 paths should be requested at once.
@@ -418,7 +418,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **permanently_delete**
-Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
+Permanently delete the given resource from the trash. If the resource is not directly trashed, a
 `ResourceNotTrashed` error will be thrown.
 
 

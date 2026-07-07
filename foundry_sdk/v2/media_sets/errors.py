@@ -273,6 +273,63 @@ class TemporaryMediaUploadUnknownFailure(errors.InternalServerError):
     error_instance_id: str
 
 
+class TransformationImageTooLargeForOcrParameters(typing_extensions.TypedDict):
+    """The image or document page dimensions exceeded the maximum supported by the OCR model."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationImageTooLargeForOcr(errors.BadRequestError):
+    name: typing.Literal["TransformationImageTooLargeForOcr"]
+    parameters: TransformationImageTooLargeForOcrParameters
+    error_instance_id: str
+
+
+class TransformationModelContextWindowExceededParameters(typing_extensions.TypedDict):
+    """The transformation input exceeded the model's maximum context window."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    inputTokenCount: typing_extensions.NotRequired[int]
+    maxTokens: typing_extensions.NotRequired[int]
+
+
+@dataclass
+class TransformationModelContextWindowExceeded(errors.BadRequestError):
+    name: typing.Literal["TransformationModelContextWindowExceeded"]
+    parameters: TransformationModelContextWindowExceededParameters
+    error_instance_id: str
+
+
+class TransformationModelNotAvailableParameters(typing_extensions.TypedDict):
+    """The requested model is not available or the caller does not have permission to use it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationModelNotAvailable(errors.BadRequestError):
+    name: typing.Literal["TransformationModelNotAvailable"]
+    parameters: TransformationModelNotAvailableParameters
+    error_instance_id: str
+
+
+class TransformationModelNotSupportedParameters(typing_extensions.TypedDict):
+    """The requested model is not supported for this transformation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelId: typing_extensions.NotRequired[str]
+
+
+@dataclass
+class TransformationModelNotSupported(errors.BadRequestError):
+    name: typing.Literal["TransformationModelNotSupported"]
+    parameters: TransformationModelNotSupportedParameters
+    error_instance_id: str
+
+
 class TransformationNotFoundParameters(typing_extensions.TypedDict):
     """The requested transformation could not be found."""
 
@@ -358,6 +415,10 @@ __all__ = [
     "MissingMediaItemPath",
     "TemporaryMediaUploadInsufficientPermissions",
     "TemporaryMediaUploadUnknownFailure",
+    "TransformationImageTooLargeForOcr",
+    "TransformationModelContextWindowExceeded",
+    "TransformationModelNotAvailable",
+    "TransformationModelNotSupported",
     "TransformationNotFound",
     "TransformationUnavailable",
     "TransformedMediaItemNotFound",

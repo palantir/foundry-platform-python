@@ -22,6 +22,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_datasources** | Optional[bool] | When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.  | [optional] |
 
 ### Return type
 **ObjectTypeV2**
@@ -41,10 +42,14 @@ ontology = "palantir"
 object_type = "employee"
 # Optional[FoundryBranch] | The Foundry branch to load the object type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.
+include_datasources = None
 
 
 try:
-    api_response = client.ontologies.Ontology.ObjectType.get(ontology, object_type, branch=branch)
+    api_response = client.ontologies.Ontology.ObjectType.get(
+        ontology, object_type, branch=branch, include_datasources=include_datasources
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -236,6 +241,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_datasources** | Optional[bool] | When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -258,6 +264,8 @@ ontology = "palantir"
 object_type = "employee"
 # Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | When set to `true`, the `datasources` field on the returned object type is populated with the datasources backing it. Defaults to `false`.
+include_datasources = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -271,6 +279,7 @@ try:
         ontology,
         object_type,
         branch=branch,
+        include_datasources=include_datasources,
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -450,6 +459,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_datasources** | Optional[bool] | When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -469,6 +479,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # Optional[FoundryBranch] | The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+include_datasources = None
 # Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
@@ -477,7 +489,11 @@ page_token = None
 
 try:
     for object_type in client.ontologies.Ontology.ObjectType.list(
-        ontology, branch=branch, page_size=page_size, page_token=page_token
+        ontology,
+        branch=branch,
+        include_datasources=include_datasources,
+        page_size=page_size,
+        page_token=page_token,
     ):
         pprint(object_type)
 except foundry_sdk.PalantirRPCException as e:

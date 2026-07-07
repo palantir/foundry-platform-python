@@ -159,7 +159,7 @@ class SpaceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
-        Delete the space. This will only work if the Space is empty, meaning any Projects or Resources have been deleted first.
+        Delete the space. This will only work if the Space is empty, meaning any Projects or resources have been deleted first.
 
         :param space_rid:
         :type space_rid: SpaceRid
@@ -530,7 +530,7 @@ class AsyncSpaceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
-        Delete the space. This will only work if the Space is empty, meaning any Projects or Resources have been deleted first.
+        Delete the space. This will only work if the Space is empty, meaning any Projects or resources have been deleted first.
 
         :param space_rid:
         :type space_rid: SpaceRid

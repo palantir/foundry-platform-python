@@ -107,6 +107,75 @@ class OntologyScenarioClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def list_scenario_conflicting_objects(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        scenario_rid: ontologies_models.OntologyScenarioRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.ResourceIterator[ontologies_models.ObjectLocator]:
+        """
+        Returns the list of objects with edits that conflict with edits to the scenario's base for a specific object
+        type. A conflict occurs when an object has been edited both within the scenario and on the scenario's base
+        after the scenario was created. Only objects that the user has permission to view are returned.
+
+        Conflict detection takes into account changes that are not reflected in the user-visible object data.
+        As a result, this endpoint may report false positives. An object may be returned as conflicting even if
+        its data has not actually changed on the scenario's base.
+
+        Each page may be smaller than the requested page size.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param scenario_rid: The unique resource identifier of the scenario.
+        :type scenario_rid: OntologyScenarioRid
+        :param object_type: The API name of the object type.
+        :type object_type: ObjectTypeApiName
+        :param page_size: The maximum number of objects to examine when searching for conflicts. This bounds the work performed per call; it is not a guarantee on the number of conflicting objects returned, which may be smaller. Each page may be smaller than this value.
+        :type page_size: Optional[PageSize]
+        :param page_token: The page token to use for pagination.
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.ResourceIterator[ontologies_models.ObjectLocator]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/conflicting",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "scenarioRid": scenario_rid,
+                    "objectType": object_type,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=ontologies_models.ListScenarioConflictingObjectsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list_scenario_edited_entity_types(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -399,6 +468,9 @@ class OntologyScenarioClient:
 class _OntologyScenarioClientRaw:
     def __init__(self, client: OntologyScenarioClient) -> None:
         def create_scenario(_: ontologies_models.CreateOntologyScenarioResponse): ...
+        def list_scenario_conflicting_objects(
+            _: ontologies_models.ListScenarioConflictingObjectsResponse,
+        ): ...
         def list_scenario_edited_entity_types(
             _: ontologies_models.ListScenarioEditedEntityTypesResponse,
         ): ...
@@ -414,6 +486,9 @@ class _OntologyScenarioClientRaw:
         ): ...
 
         self.create_scenario = core.with_raw_response(create_scenario, client.create_scenario)
+        self.list_scenario_conflicting_objects = core.with_raw_response(
+            list_scenario_conflicting_objects, client.list_scenario_conflicting_objects
+        )
         self.list_scenario_edited_entity_types = core.with_raw_response(
             list_scenario_edited_entity_types, client.list_scenario_edited_entity_types
         )
@@ -434,6 +509,9 @@ class _OntologyScenarioClientRaw:
 class _OntologyScenarioClientStreaming:
     def __init__(self, client: OntologyScenarioClient) -> None:
         def create_scenario(_: ontologies_models.CreateOntologyScenarioResponse): ...
+        def list_scenario_conflicting_objects(
+            _: ontologies_models.ListScenarioConflictingObjectsResponse,
+        ): ...
         def list_scenario_edited_entity_types(
             _: ontologies_models.ListScenarioEditedEntityTypesResponse,
         ): ...
@@ -449,6 +527,9 @@ class _OntologyScenarioClientStreaming:
         ): ...
 
         self.create_scenario = core.with_streaming_response(create_scenario, client.create_scenario)
+        self.list_scenario_conflicting_objects = core.with_streaming_response(
+            list_scenario_conflicting_objects, client.list_scenario_conflicting_objects
+        )
         self.list_scenario_edited_entity_types = core.with_streaming_response(
             list_scenario_edited_entity_types, client.list_scenario_edited_entity_types
         )
@@ -543,6 +624,75 @@ class AsyncOntologyScenarioClient:
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list_scenario_conflicting_objects(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        scenario_rid: ontologies_models.OntologyScenarioRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.AsyncResourceIterator[ontologies_models.ObjectLocator]:
+        """
+        Returns the list of objects with edits that conflict with edits to the scenario's base for a specific object
+        type. A conflict occurs when an object has been edited both within the scenario and on the scenario's base
+        after the scenario was created. Only objects that the user has permission to view are returned.
+
+        Conflict detection takes into account changes that are not reflected in the user-visible object data.
+        As a result, this endpoint may report false positives. An object may be returned as conflicting even if
+        its data has not actually changed on the scenario's base.
+
+        Each page may be smaller than the requested page size.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param scenario_rid: The unique resource identifier of the scenario.
+        :type scenario_rid: OntologyScenarioRid
+        :param object_type: The API name of the object type.
+        :type object_type: ObjectTypeApiName
+        :param page_size: The maximum number of objects to examine when searching for conflicts. This bounds the work performed per call; it is not a guarantee on the number of conflicting objects returned, which may be smaller. Each page may be smaller than this value.
+        :type page_size: Optional[PageSize]
+        :param page_token: The page token to use for pagination.
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.AsyncResourceIterator[ontologies_models.ObjectLocator]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/conflicting",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "scenarioRid": scenario_rid,
+                    "objectType": object_type,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=ontologies_models.ListScenarioConflictingObjectsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
 
@@ -841,6 +991,9 @@ class AsyncOntologyScenarioClient:
 class _AsyncOntologyScenarioClientRaw:
     def __init__(self, client: AsyncOntologyScenarioClient) -> None:
         def create_scenario(_: ontologies_models.CreateOntologyScenarioResponse): ...
+        def list_scenario_conflicting_objects(
+            _: ontologies_models.ListScenarioConflictingObjectsResponse,
+        ): ...
         def list_scenario_edited_entity_types(
             _: ontologies_models.ListScenarioEditedEntityTypesResponse,
         ): ...
@@ -856,6 +1009,9 @@ class _AsyncOntologyScenarioClientRaw:
         ): ...
 
         self.create_scenario = core.async_with_raw_response(create_scenario, client.create_scenario)
+        self.list_scenario_conflicting_objects = core.async_with_raw_response(
+            list_scenario_conflicting_objects, client.list_scenario_conflicting_objects
+        )
         self.list_scenario_edited_entity_types = core.async_with_raw_response(
             list_scenario_edited_entity_types, client.list_scenario_edited_entity_types
         )
@@ -876,6 +1032,9 @@ class _AsyncOntologyScenarioClientRaw:
 class _AsyncOntologyScenarioClientStreaming:
     def __init__(self, client: AsyncOntologyScenarioClient) -> None:
         def create_scenario(_: ontologies_models.CreateOntologyScenarioResponse): ...
+        def list_scenario_conflicting_objects(
+            _: ontologies_models.ListScenarioConflictingObjectsResponse,
+        ): ...
         def list_scenario_edited_entity_types(
             _: ontologies_models.ListScenarioEditedEntityTypesResponse,
         ): ...
@@ -892,6 +1051,9 @@ class _AsyncOntologyScenarioClientStreaming:
 
         self.create_scenario = core.async_with_streaming_response(
             create_scenario, client.create_scenario
+        )
+        self.list_scenario_conflicting_objects = core.async_with_streaming_response(
+            list_scenario_conflicting_objects, client.list_scenario_conflicting_objects
         )
         self.list_scenario_edited_entity_types = core.async_with_streaming_response(
             list_scenario_edited_entity_types, client.list_scenario_edited_entity_types

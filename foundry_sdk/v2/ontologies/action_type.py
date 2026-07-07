@@ -63,6 +63,8 @@ class ActionTypeClient:
         action_type: ontologies_models.ActionTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ActionTypeV2:
@@ -75,6 +77,10 @@ class ActionTypeClient:
         :type action_type: ActionTypeApiName
         :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -87,6 +93,8 @@ class ActionTypeClient:
                 resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
                 query_params={
                     "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -418,6 +426,8 @@ class AsyncActionTypeClient:
         action_type: ontologies_models.ActionTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ActionTypeV2]:
@@ -430,6 +440,10 @@ class AsyncActionTypeClient:
         :type action_type: ActionTypeApiName
         :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -442,6 +456,8 @@ class AsyncActionTypeClient:
                 resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
                 query_params={
                     "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,

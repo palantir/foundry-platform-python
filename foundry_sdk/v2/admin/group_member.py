@@ -154,6 +154,7 @@ class GroupMemberClient:
         :raises ExpirationForTransitiveGroupMembersNotSupported: You cannot pass includeExpirations if transitive is true.
         :raises GroupNotFound: The given Group could not be found.
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises ListGroupMembersPermissionDenied: The provided token does not have permission to view the members of the given group.
         """
 
         return self._api_client.call_api(
@@ -179,6 +180,7 @@ class GroupMemberClient:
                     "ExpirationForTransitiveGroupMembersNotSupported": admin_errors.ExpirationForTransitiveGroupMembersNotSupported,
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "ListGroupMembersPermissionDenied": admin_errors.ListGroupMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -383,6 +385,7 @@ class AsyncGroupMemberClient:
         :raises ExpirationForTransitiveGroupMembersNotSupported: You cannot pass includeExpirations if transitive is true.
         :raises GroupNotFound: The given Group could not be found.
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises ListGroupMembersPermissionDenied: The provided token does not have permission to view the members of the given group.
         """
 
         return self._api_client.call_api(
@@ -408,6 +411,7 @@ class AsyncGroupMemberClient:
                     "ExpirationForTransitiveGroupMembersNotSupported": admin_errors.ExpirationForTransitiveGroupMembersNotSupported,
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "ListGroupMembersPermissionDenied": admin_errors.ListGroupMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),

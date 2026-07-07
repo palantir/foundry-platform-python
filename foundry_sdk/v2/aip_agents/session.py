@@ -120,6 +120,7 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.SessionExchangeResult
 
+        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
         :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
@@ -136,6 +137,7 @@ class SessionClient:
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
+        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -162,6 +164,7 @@ class SessionClient:
                 response_type=aip_agents_models.SessionExchangeResult,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ActionTypeNotFound": aip_agents_errors.ActionTypeNotFound,
                     "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "BlockingContinueSessionPermissionDenied": aip_agents_errors.BlockingContinueSessionPermissionDenied,
@@ -178,6 +181,7 @@ class SessionClient:
                     "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
+                    "UnsupportedLanguageModelRid": aip_agents_errors.UnsupportedLanguageModelRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -281,6 +285,7 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.Session
 
+        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         :raises CreateSessionPermissionDenied: Could not create the Session.
@@ -291,6 +296,7 @@ class SessionClient:
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
+        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -313,6 +319,7 @@ class SessionClient:
                 response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ActionTypeNotFound": aip_agents_errors.ActionTypeNotFound,
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
                     "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
@@ -323,6 +330,7 @@ class SessionClient:
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
                     "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
+                    "UnsupportedLanguageModelRid": aip_agents_errors.UnsupportedLanguageModelRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -625,6 +633,7 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: bytes
 
+        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
@@ -635,6 +644,7 @@ class SessionClient:
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
+        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -662,6 +672,7 @@ class SessionClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ActionTypeNotFound": aip_agents_errors.ActionTypeNotFound,
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
                     "InvalidParameter": aip_agents_errors.InvalidParameter,
@@ -672,6 +683,7 @@ class SessionClient:
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
                     "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,
+                    "UnsupportedLanguageModelRid": aip_agents_errors.UnsupportedLanguageModelRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -883,6 +895,7 @@ class AsyncSessionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[aip_agents_models.SessionExchangeResult]
 
+        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
         :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
@@ -899,6 +912,7 @@ class AsyncSessionClient:
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
+        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -925,6 +939,7 @@ class AsyncSessionClient:
                 response_type=aip_agents_models.SessionExchangeResult,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ActionTypeNotFound": aip_agents_errors.ActionTypeNotFound,
                     "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "BlockingContinueSessionPermissionDenied": aip_agents_errors.BlockingContinueSessionPermissionDenied,
@@ -941,6 +956,7 @@ class AsyncSessionClient:
                     "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
+                    "UnsupportedLanguageModelRid": aip_agents_errors.UnsupportedLanguageModelRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -1044,6 +1060,7 @@ class AsyncSessionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[aip_agents_models.Session]
 
+        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         :raises CreateSessionPermissionDenied: Could not create the Session.
@@ -1054,6 +1071,7 @@ class AsyncSessionClient:
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
+        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -1076,6 +1094,7 @@ class AsyncSessionClient:
                 response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ActionTypeNotFound": aip_agents_errors.ActionTypeNotFound,
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
                     "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
@@ -1086,6 +1105,7 @@ class AsyncSessionClient:
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
                     "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
+                    "UnsupportedLanguageModelRid": aip_agents_errors.UnsupportedLanguageModelRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -1388,6 +1408,7 @@ class AsyncSessionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[bytes]
 
+        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
@@ -1398,6 +1419,7 @@ class AsyncSessionClient:
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
+        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -1425,6 +1447,7 @@ class AsyncSessionClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ActionTypeNotFound": aip_agents_errors.ActionTypeNotFound,
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
                     "InvalidParameter": aip_agents_errors.InvalidParameter,
@@ -1435,6 +1458,7 @@ class AsyncSessionClient:
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
                     "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,
+                    "UnsupportedLanguageModelRid": aip_agents_errors.UnsupportedLanguageModelRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

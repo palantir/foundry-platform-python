@@ -24,6 +24,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.geo import models as geo_models
 
 
@@ -869,6 +870,17 @@ class CenterPoint(core.ModelBase):
     distance: core_models.Distance
 
 
+ColumnName: typing_extensions.TypeAlias = str
+"""The name of a column in a tabular datasource."""
+
+
+class ColumnPropertyMapping(core.ModelBase):
+    """A property bound to a single column in the backing datasource."""
+
+    column: ColumnName
+    type: typing.Literal["column"] = "column"
+
+
 ConjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List["MarkingId"]
 """
 The conjunctive set of markings required to access the property value. 
@@ -1147,6 +1159,14 @@ Represents the value of data in the following format. Note that these values can
 """
 
 
+DatasourceBranchId: typing_extensions.TypeAlias = str
+"""The id of a datasource branch. Branch ids are user supplied strings, not RIDs."""
+
+
+DatasourceRid: typing_extensions.TypeAlias = core.RID
+"""Randomly generated identifier for an object type's datasource."""
+
+
 class DateValue(core.ModelBase):
     """DateValue"""
 
@@ -1343,6 +1363,10 @@ DerivedPropertyDefinition: typing_extensions.TypeAlias = typing_extensions.Annot
 """Definition of a derived property."""
 
 
+DirectSourceRid: typing_extensions.TypeAlias = core.RID
+"""The RID of a direct-write source backing an object type."""
+
+
 DisjunctiveMarkingSummary: typing_extensions.TypeAlias = typing.List[typing.List["MarkingId"]]
 """
 The disjunctive set of markings required to access the property value.
@@ -1424,6 +1448,12 @@ EditHistoryEdit: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["CreateEdit", "DeleteEdit", "ModifyEdit"], pydantic.Field(discriminator="type")
 ]
 """EditHistoryEdit"""
+
+
+class EditOnlyPropertyMapping(core.ModelBase):
+    """A property on an object type that is permissioned to a tabular datasource, but the contents are only populated through Actions."""
+
+    type: typing.Literal["editOnly"] = "editOnly"
 
 
 EditsHistoryFilter: typing_extensions.TypeAlias = typing_extensions.Annotated[
@@ -1712,6 +1742,10 @@ A single geotemporal data point. Each entry is a map from property API names to 
 entries include "time" (ISO 8601 timestamp) and "position" (GeoPoint), and may include additional geotemporal
 series metadata fields such as speed, heading, or altitude.
 """
+
+
+GeotimeSeriesIntegrationRid: typing_extensions.TypeAlias = core.RID
+"""The unique resource identifier of a geotime integration."""
 
 
 class GeotimeSeriesValue(core.ModelBase):
@@ -2448,6 +2482,15 @@ class ListQueryTypesResponseV2(core.ModelBase):
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     data: typing.List[QueryTypeV2]
+
+
+class ListScenarioConflictingObjectsResponse(core.ModelBase):
+    """The objects that have a conflicting edit within a scenario for a given object type."""
+
+    data: typing.List[ObjectLocator]
+    """The list of objects that have a conflicting edit within the scenario."""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
 class ListScenarioEditedEntityTypesResponse(core.ModelBase):
@@ -3211,6 +3254,13 @@ class ObjectLoadingResponseOptions(core.ModelBase):
     """
 
 
+class ObjectLocator(core.ModelBase):
+    """An object identifier containing an object type API name and primary key."""
+
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    primary_key_value: PrimaryKeyValue = pydantic.Field(alias=str("primaryKeyValue"))  # type: ignore[literal-required]
+
+
 class ObjectParameterPropertyArgument(core.ModelBase):
     """Represents an object parameter property argument in a logic rule."""
 
@@ -3531,6 +3581,71 @@ The name of the object type in the API in camelCase format. To find the API name
 """
 
 
+class ObjectTypeDatasetDatasource(core.ModelBase):
+    """An object type datasource backed by a Foundry dataset."""
+
+    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch: typing.Optional[DatasourceBranchId] = None
+    property_mapping: typing.Dict[PropertyApiName, PropertyTypeMappingInfo] = pydantic.Field(alias=str("propertyMapping"))  # type: ignore[literal-required]
+    """
+    A mapping from property API name to a description of how that property is bound to the dataset. Properties
+    whose mapping info cannot be modeled are omitted.
+    """
+
+    type: typing.Literal["dataset"] = "dataset"
+
+
+class ObjectTypeDatasource(core.ModelBase):
+    """
+    A datasource that supplies property values for an object type. Each object type can have one or more
+    datasources; together they back all of the object type's properties. The `definition` carries the RID of the
+    backing Foundry resource (for example, the dataset RID for a dataset-backed object type), enabling callers to
+    navigate from an object type to its backing data.
+    """
+
+    rid: DatasourceRid
+    definition: ObjectTypeDatasourceDefinition
+
+
+ObjectTypeDatasourceDefinition: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union[
+        "ObjectTypeTimeSeriesDatasource",
+        "ObjectTypeUnsupportedDatasource",
+        "ObjectTypeRestrictedViewDatasource",
+        "ObjectTypeStreamDatasource",
+        "ObjectTypeMediaSetViewDatasource",
+        "ObjectTypeDirectDatasource",
+        "ObjectTypeGeotimeSeriesDatasource",
+        "ObjectTypeEditsOnlyDatasource",
+        "ObjectTypeDatasetDatasource",
+        "ObjectTypeTableDatasource",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The definition of an object type datasource, identifying the kind of Foundry resource that backs the object
+type.
+"""
+
+
+class ObjectTypeDirectDatasource(core.ModelBase):
+    """
+    An object type datasource backed by a direct-write source. Property values are written directly to the
+    datasource rather than being read from a separate Foundry resource. Unlike an edits-only datasource, a direct
+    datasource has a backing source that values are written to by some writer. An edits-only datasource has no
+    backing source at all and its properties are populated solely via Actions.
+    """
+
+    direct_source_rid: DirectSourceRid = pydantic.Field(alias=str("directSourceRid"))  # type: ignore[literal-required]
+    property_mapping: typing.Dict[PropertyApiName, PropertyTypeMappingInfo] = pydantic.Field(alias=str("propertyMapping"))  # type: ignore[literal-required]
+    """
+    A mapping from property API name to a description of how that property is bound to the direct datasource.
+    Properties whose mapping info cannot be modeled are omitted.
+    """
+
+    type: typing.Literal["direct"] = "direct"
+
+
 class ObjectTypeEdits(core.ModelBase):
     """ObjectTypeEdits"""
 
@@ -3573,6 +3688,18 @@ class ObjectTypeEditsHistoryResponse(core.ModelBase):
     """Token for retrieving the next page of results"""
 
 
+class ObjectTypeEditsOnlyDatasource(core.ModelBase):
+    """
+    An object type datasource that is not backed by any external Foundry resource. All properties on the object type
+    can only be populated via Actions. Other datasources have edit only *properties*, which are permissioned to the
+    backing tabular datasource. This datasource has no backing tabular datasource and is a true edit only object
+    type. Note that this datasource type is incompatible with any other datasource and all the properties on the
+    object type are backed by it.
+    """
+
+    type: typing.Literal["editsOnly"] = "editsOnly"
+
+
 class ObjectTypeFullMetadata(core.ModelBase):
     """ObjectTypeFullMetadata"""
 
@@ -3589,6 +3716,19 @@ class ObjectTypeFullMetadata(core.ModelBase):
     A map from shared property type API name to backing local property API name for the shared property types 
     present on this object type.
     """
+
+
+class ObjectTypeGeotimeSeriesDatasource(core.ModelBase):
+    """
+    An object type datasource backed by a Geotime series integration, providing values for Geotime series reference
+    properties.
+    """
+
+    geotime_series_integration_rid: GeotimeSeriesIntegrationRid = pydantic.Field(alias=str("geotimeSeriesIntegrationRid"))  # type: ignore[literal-required]
+    properties: typing.List[PropertyApiName]
+    """The set of properties that are bound to the Geotime series."""
+
+    type: typing.Literal["geotimeSeries"] = "geotimeSeries"
 
 
 ObjectTypeId: typing_extensions.TypeAlias = str
@@ -3616,8 +3756,90 @@ class ObjectTypeLinkTypeApiNameMapping(core.ModelBase):
     """The list of link type API names scoped by the object type."""
 
 
+class ObjectTypeMediaSetViewDatasource(core.ModelBase):
+    """An object type datasource backed by a Foundry media set view, providing media for media reference properties."""
+
+    media_set_view_rid: core_models.MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
+    properties: typing.List[PropertyApiName]
+    """The set of properties that are bound to the media view."""
+
+    type: typing.Literal["mediaSetView"] = "mediaSetView"
+
+
+class ObjectTypeRestrictedViewDatasource(core.ModelBase):
+    """An object type datasource backed by a Foundry restricted view."""
+
+    restricted_view_rid: RestrictedViewRid = pydantic.Field(alias=str("restrictedViewRid"))  # type: ignore[literal-required]
+    property_mapping: typing.Dict[PropertyApiName, PropertyTypeMappingInfo] = pydantic.Field(alias=str("propertyMapping"))  # type: ignore[literal-required]
+    """
+    A mapping from property API name to a description of how that property is bound to the restricted view.
+    Properties whose mapping info cannot be modeled are omitted.
+    """
+
+    type: typing.Literal["restrictedView"] = "restrictedView"
+
+
 ObjectTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an object type, useful for interacting with other Foundry APIs."""
+
+
+class ObjectTypeStreamDatasource(core.ModelBase):
+    """An object type datasource backed by a Foundry stream."""
+
+    stream_rid: StreamRid = pydantic.Field(alias=str("streamRid"))  # type: ignore[literal-required]
+    branch: typing.Optional[DatasourceBranchId] = None
+    property_mapping: typing.Dict[PropertyApiName, PropertyTypeMappingInfo] = pydantic.Field(alias=str("propertyMapping"))  # type: ignore[literal-required]
+    """
+    A mapping from property API name to a description of how that property is bound to the stream. Properties
+    whose mapping info cannot be modeled are omitted.
+    """
+
+    type: typing.Literal["stream"] = "stream"
+
+
+class ObjectTypeTableDatasource(core.ModelBase):
+    """An object type datasource backed by a Foundry table."""
+
+    table_rid: TableRid = pydantic.Field(alias=str("tableRid"))  # type: ignore[literal-required]
+    branch: typing.Optional[DatasourceBranchId] = None
+    property_mapping: typing.Dict[PropertyApiName, PropertyTypeMappingInfo] = pydantic.Field(alias=str("propertyMapping"))  # type: ignore[literal-required]
+    """
+    A mapping from property API name to a description of how that property is bound to the table. Properties
+    whose mapping info cannot be modeled are omitted.
+    """
+
+    type: typing.Literal["table"] = "table"
+
+
+class ObjectTypeTimeSeriesDatasource(core.ModelBase):
+    """An object type datasource backed by a time series sync, providing values for time-dependent properties."""
+
+    time_series_sync_rid: TimeseriesSyncRid = pydantic.Field(alias=str("timeSeriesSyncRid"))  # type: ignore[literal-required]
+    properties: typing.List[PropertyApiName]
+    """The set of properties that are bound to the time series."""
+
+    type: typing.Literal["timeSeries"] = "timeSeries"
+
+
+class ObjectTypeUnsupportedDatasource(core.ModelBase):
+    """
+    A datasource of a kind not yet exposed in the public API. The `unsupportedType` discriminator supplies the
+    underlying OMS variant so callers can recognize known but unmodelled cases (e.g., derived properties). Variants
+    the adapter does not recognise at all are returned with an `"unknown"` discriminator. The `properties` list
+    enumerates the property API names this datasource backs. The `properties` will be empty for `"unknown"`
+    datasources.
+    """
+
+    unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
+    """
+    A short, stable discriminator naming the underlying OMS variant. E.g., `"derivedProperties"` for
+    derived-properties datasources or `"unknown"` for variants the adapter does not recognize.
+    """
+
+    properties: typing.List[PropertyApiName]
+    """The property API names that this datasource backs."""
+
+    type: typing.Literal["unsupported"] = "unsupported"
 
 
 class ObjectTypeV2(core.ModelBase):
@@ -3644,6 +3866,13 @@ class ObjectTypeV2(core.ModelBase):
     """
     Alternative names (synonyms) for the object type, usable as search terms. This field is only populated on
     the get-by-RID read paths (e.g. `getObjectTypeV2`); it is always empty on the `listObjectTypesV2` endpoint.
+    """
+
+    datasources: typing.List[ObjectTypeDatasource]
+    """
+    The datasources backing this object type which the user has access to see. Only populated when the request
+    specifies `includeDatasources=true`. This list may be empty if the user doesn't have access to any
+    datasources.
     """
 
 
@@ -4240,6 +4469,17 @@ PropertyTypeApiName: typing_extensions.TypeAlias = str
 """PropertyTypeApiName"""
 
 
+PropertyTypeMappingInfo: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["StructPropertyMapping", "ColumnPropertyMapping", "EditOnlyPropertyMapping"],
+    pydantic.Field(discriminator="type"),
+]
+"""
+Describes how a single object type property is bound to its backing tabular datasource. A property may be backed
+by a single column, by a struct (with nested field mappings), or be edit-only (no backing column even though it
+is permissioned to the tabular datasource).
+"""
+
+
 class PropertyTypeReference(core.ModelBase):
     """PropertyTypeReference"""
 
@@ -4577,13 +4817,13 @@ class ReferenceSigningOptions(core.ModelBase):
 
     sign_media_references: typing.Optional[bool] = pydantic.Field(alias=str("signMediaReferences"), default=None)  # type: ignore[literal-required]
     """
-    If set to true, the response will include a `token` on each `MediaReference` value that can be used to
-    access the referenced media item directly. This enables item-level access control: the caller
-    does not need view access on the parent media set, only access to the object whose property holds the
-    reference.
+    Deprecated and ignored. Media references backed by a media set view are signed by default:
+    the response includes a `token` on each `MediaReference` value that can be used to access the
+    referenced media item directly, enabling item-level access control (the caller needs access to
+    the object whose property holds the reference, not view access on the parent media set).
 
-    Only applies to media references backed by a media set view. Arrays of media references are
-    not signed. Defaults to false if not set.
+    This field no longer has any effect; setting it to true or false is ignored. Arrays of media
+    references are not signed.
     """
 
 
@@ -4745,6 +4985,10 @@ class ResolvedInterfacePropertyType(core.ModelBase):
     value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
     require_implementation: bool = pydantic.Field(alias=str("requireImplementation"))  # type: ignore[literal-required]
     """Whether each implementing object type must declare an implementation for this property."""
+
+
+RestrictedViewRid: typing_extensions.TypeAlias = core.RID
+"""The RID of a Foundry restricted view."""
 
 
 ReturnEditsMode: typing_extensions.TypeAlias = typing.Literal[
@@ -4951,7 +5195,23 @@ SearchOrderByType: typing_extensions.TypeAlias = typing.Literal["fields", "relev
 
 
 class SearchOrderByV2(core.ModelBase):
-    """Specifies the ordering of search results by a field and an ordering direction or by relevance if scores are required in a nearestNeighbors query. By default `orderType` is set to `fields`."""
+    """
+    Specifies the ordering of search results by a field and an ordering direction, or by relevance.
+    If the `fields` array is provided, `orderType` is automatically set to `fields`.
+    If this object is omitted entirely, the ordering is unspecified.
+
+    Setting `orderType` to `relevance` requests that results are sorted by decreasing relevance score.
+    For queries that include text search filters (e.g. `containsAllTerms`, `containsAnyTerm`,
+    `containsAllTermsInOrder`, `containsAllTermsInOrderPrefixLastTerm`) or `nearestNeighbors`, the
+    relevance score reflects how well each object matches the query. For other queries, the ordering
+    is unspecified.
+
+    When paging through results ordered by relevance, ordering is not guaranteed to be consistent
+    across pages: an object may appear on multiple pages or be skipped entirely. Use a single page
+    when result completeness is required.
+
+    Relevance ordering can be expensive and should only be used when required.
+    """
 
     order_type: typing.Optional[SearchOrderByType] = pydantic.Field(alias=str("orderType"), default=None)  # type: ignore[literal-required]
     fields: typing.List[SearchOrderingV2]
@@ -5187,6 +5447,10 @@ StreamMessage: typing_extensions.TypeAlias = typing_extensions.Annotated[
 """StreamMessage"""
 
 
+StreamRid: typing_extensions.TypeAlias = core.RID
+"""The RID of a Foundry stream."""
+
+
 class StreamTimeSeriesPointsRequest(core.ModelBase):
     """StreamTimeSeriesPointsRequest"""
 
@@ -5328,6 +5592,12 @@ class StructFieldOfPropertyImplementation(core.ModelBase):
     type: typing.Literal["structFieldOfProperty"] = "structFieldOfProperty"
 
 
+class StructFieldPropertyMapping(core.ModelBase):
+    """A single struct field's mapping where `apiName` is the name of a struct field."""
+
+    api_name: StructFieldApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+
+
 class StructFieldSelector(core.ModelBase):
     """
     A combination of a property identifier and the load level to apply to the property. You can select a reduced
@@ -5371,6 +5641,14 @@ class StructParameterFieldArgument(core.ModelBase):
     parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
     struct_parameter_field_api_name: StructParameterFieldApiName = pydantic.Field(alias=str("structParameterFieldApiName"))  # type: ignore[literal-required]
     type: typing.Literal["structParameterFieldValue"] = "structParameterFieldValue"
+
+
+class StructPropertyMapping(core.ModelBase):
+    """A mapping from the backing column struct field names to a struct property's fields."""
+
+    column: ColumnName
+    fields: typing.Dict[core_models.StructFieldName, StructFieldPropertyMapping]
+    type: typing.Literal["struct"] = "struct"
 
 
 class StructType(core.ModelBase):
@@ -5473,6 +5751,10 @@ class SynchronousWebhookOutputArgument(core.ModelBase):
     """The name of the webhook output parameter."""
 
     type: typing.Literal["synchronousWebhookOutput"] = "synchronousWebhookOutput"
+
+
+TableRid: typing_extensions.TypeAlias = core.RID
+"""The RID of a Foundry table."""
 
 
 class ThreeDimensionalAggregation(core.ModelBase):
@@ -5613,6 +5895,10 @@ class TimeseriesEntry(core.ModelBase):
 
     value: typing.Any
     """An object which is either an enum String, double number, or a geopoint."""
+
+
+TimeseriesSyncRid: typing_extensions.TypeAlias = core.RID
+"""The RID identifying a time series sync."""
 
 
 class TimestampValue(core.ModelBase):
@@ -6083,6 +6369,8 @@ __all__ = [
     "BoundingBoxValue",
     "CenterPoint",
     "CenterPointTypes",
+    "ColumnName",
+    "ColumnPropertyMapping",
     "ConjunctiveMarkingSummary",
     "ContainerConjunctiveMarkingSummary",
     "ContainerDisjunctiveMarkingSummary",
@@ -6110,6 +6398,8 @@ __all__ = [
     "CurrentTimeArgument",
     "CurrentUserArgument",
     "DataValue",
+    "DatasourceBranchId",
+    "DatasourceRid",
     "DateValue",
     "DatetimeFormat",
     "DatetimeLocalizedFormat",
@@ -6133,6 +6423,7 @@ __all__ = [
     "DeprecatedPropertyTypeStatus",
     "DerivedPropertyApiName",
     "DerivedPropertyDefinition",
+    "DirectSourceRid",
     "DisjunctiveMarkingSummary",
     "DividePropertyExpression",
     "DoesNotIntersectBoundingBoxQuery",
@@ -6143,6 +6434,7 @@ __all__ = [
     "DurationFormatStyle",
     "DurationPrecision",
     "EditHistoryEdit",
+    "EditOnlyPropertyMapping",
     "EditsHistoryFilter",
     "EditsHistoryOperationIdsFilter",
     "EditsHistorySortOrder",
@@ -6179,6 +6471,7 @@ __all__ = [
     "GeoShapeV2Geometry",
     "GeoShapeV2Query",
     "GeotemporalSeriesEntry",
+    "GeotimeSeriesIntegrationRid",
     "GeotimeSeriesValue",
     "GetActionTypeByRidBatchRequest",
     "GetActionTypeByRidBatchRequestElement",
@@ -6261,6 +6554,7 @@ __all__ = [
     "ListOutgoingInterfaceLinkTypesResponse",
     "ListOutgoingLinkTypesResponseV2",
     "ListQueryTypesResponseV2",
+    "ListScenarioConflictingObjectsResponse",
     "ListScenarioEditedEntityTypesResponse",
     "ListScenarioEditedLinkTypesResponse",
     "ListScenarioEditedLinksResponse",
@@ -6322,6 +6616,7 @@ __all__ = [
     "ObjectEditHistoryEntry",
     "ObjectEdits",
     "ObjectLoadingResponseOptions",
+    "ObjectLocator",
     "ObjectParameterPropertyArgument",
     "ObjectPrimaryKey",
     "ObjectPrimaryKeyV2",
@@ -6354,14 +6649,26 @@ __all__ = [
     "ObjectSetWithPropertiesType",
     "ObjectState",
     "ObjectTypeApiName",
+    "ObjectTypeDatasetDatasource",
+    "ObjectTypeDatasource",
+    "ObjectTypeDatasourceDefinition",
+    "ObjectTypeDirectDatasource",
     "ObjectTypeEdits",
     "ObjectTypeEditsHistoryRequest",
     "ObjectTypeEditsHistoryResponse",
+    "ObjectTypeEditsOnlyDatasource",
     "ObjectTypeFullMetadata",
+    "ObjectTypeGeotimeSeriesDatasource",
     "ObjectTypeId",
     "ObjectTypeInterfaceImplementation",
     "ObjectTypeLinkTypeApiNameMapping",
+    "ObjectTypeMediaSetViewDatasource",
+    "ObjectTypeRestrictedViewDatasource",
     "ObjectTypeRid",
+    "ObjectTypeStreamDatasource",
+    "ObjectTypeTableDatasource",
+    "ObjectTypeTimeSeriesDatasource",
+    "ObjectTypeUnsupportedDatasource",
     "ObjectTypeV2",
     "ObjectTypeVisibility",
     "ObjectUpdate",
@@ -6431,6 +6738,7 @@ __all__ = [
     "PropertySecurity",
     "PropertyTimestampFormattingRule",
     "PropertyTypeApiName",
+    "PropertyTypeMappingInfo",
     "PropertyTypeReference",
     "PropertyTypeReferenceOrStringConstant",
     "PropertyTypeRid",
@@ -6480,6 +6788,7 @@ __all__ = [
     "RelativeTimeUnit",
     "RequestId",
     "ResolvedInterfacePropertyType",
+    "RestrictedViewRid",
     "ReturnEditsMode",
     "RevertActionEnabledActionTypesQueryV2",
     "RidConstraint",
@@ -6519,6 +6828,7 @@ __all__ = [
     "StaticArgument",
     "StatusActionTypesQueryV2",
     "StreamMessage",
+    "StreamRid",
     "StreamTimeSeriesPointsRequest",
     "StreamTimeSeriesValuesRequest",
     "StreamingOutputFormat",
@@ -6533,12 +6843,14 @@ __all__ = [
     "StructFieldEvaluatedConstraint",
     "StructFieldEvaluationResult",
     "StructFieldOfPropertyImplementation",
+    "StructFieldPropertyMapping",
     "StructFieldSelector",
     "StructFieldType",
     "StructFieldTypeRid",
     "StructListParameterFieldArgument",
     "StructParameterFieldApiName",
     "StructParameterFieldArgument",
+    "StructPropertyMapping",
     "StructType",
     "StructTypeMainValue",
     "SubmissionCriteriaEvaluation",
@@ -6551,6 +6863,7 @@ __all__ = [
     "SumAggregationV2",
     "SyncApplyActionResponseV2",
     "SynchronousWebhookOutputArgument",
+    "TableRid",
     "ThreeDimensionalAggregation",
     "TimeCodeFormat",
     "TimeRange",
@@ -6564,6 +6877,7 @@ __all__ = [
     "TimeSeriesWindowType",
     "TimeUnit",
     "TimeseriesEntry",
+    "TimeseriesSyncRid",
     "TimestampValue",
     "TitlePropertySelector",
     "TransactionEdit",
