@@ -92,7 +92,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **delete**
-Delete the space. This will only work if the Space is empty, meaning any Projects or Resources have been deleted first.
+Delete the space. This will only work if the Space is empty, meaning any Projects or resources have been deleted first.
 
 
 ### Parameters

@@ -685,6 +685,21 @@ class ListEnrollmentRoleAssignmentsPermissionDenied(errors.PermissionDeniedError
     error_instance_id: str
 
 
+class ListGroupMembersPermissionDeniedParameters(typing_extensions.TypedDict):
+    """The provided token does not have permission to view the members of the given group."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    groupId: core_models.GroupId
+
+
+@dataclass
+class ListGroupMembersPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ListGroupMembersPermissionDenied"]
+    parameters: ListGroupMembersPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ListHostsPermissionDeniedParameters(typing_extensions.TypedDict):
     """You do not have permission to list hosts for this enrollment"""
 
@@ -1350,6 +1365,7 @@ __all__ = [
     "ListAvailableRolesOrganizationPermissionDenied",
     "ListCurrentGroupsPermissionDenied",
     "ListEnrollmentRoleAssignmentsPermissionDenied",
+    "ListGroupMembersPermissionDenied",
     "ListHostsPermissionDenied",
     "ListMarkingMembersPermissionDenied",
     "ListMarkingRoleAssignmentsPermissionDenied",

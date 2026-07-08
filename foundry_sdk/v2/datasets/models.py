@@ -100,6 +100,10 @@ DatasetName: typing_extensions.TypeAlias = str
 """DatasetName"""
 
 
+DatasetRid: typing_extensions.TypeAlias = core.RID
+"""The Resource Identifier (RID) of a Dataset."""
+
+
 class File(core.ModelBase):
     """File"""
 
@@ -439,6 +443,7 @@ __all__ = [
     "DataframeReader",
     "Dataset",
     "DatasetName",
+    "DatasetRid",
     "File",
     "FileUpdatedTime",
     "GetDatasetJobsAndFilter",

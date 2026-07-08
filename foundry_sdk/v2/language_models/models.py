@@ -393,6 +393,10 @@ LanguageModelApiName: typing_extensions.TypeAlias = str
 """The name of the LanguageModel in the API."""
 
 
+LanguageModelRid: typing_extensions.TypeAlias = core.RID
+"""The unique Resource Identifier (RID) of a language model."""
+
+
 OpenAiEmbeddingInput: typing_extensions.TypeAlias = typing.List[str]
 """OpenAiEmbeddingInput"""
 
@@ -519,6 +523,7 @@ __all__ = [
     "AnthropicToolUse",
     "JsonSchema",
     "LanguageModelApiName",
+    "LanguageModelRid",
     "OpenAiEmbeddingInput",
     "OpenAiEmbeddingTokenUsage",
     "OpenAiEmbeddingsRequest",

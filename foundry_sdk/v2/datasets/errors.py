@@ -510,11 +510,21 @@ class GetFileContentPermissionDenied(errors.PermissionDeniedError):
 
 class InputBackingDatasetNotInOutputViewProjectParameters(typing_extensions.TypedDict):
     """
-    One or more backing datasets do not live in the same project as the view. Either move the input datasets to
-    the same project as the view or add them as project references.
+    One or more backing datasets do not live in the same project as the view. Add the missing datasets as
+    project resource references to the view's project using the Filesystem API, or move them into the view's
+    project, and then retry.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    viewProjectRid: filesystem_models.ProjectRid
+    """
+    The project that must include references to all backing datasets. Current project if updating
+    an existing view's dataset. Target project if attempting to create a new view.
+    """
+
+    invalidBackingDatasets: typing.List[core_models.DatasetRid]
+    """The backing datasets that are not referenced by the view's project."""
 
 
 @dataclass

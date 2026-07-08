@@ -1,6 +1,6 @@
 # ResourceRid
 
-The unique resource identifier (RID) of a Resource.
+The unique resource identifier (RID) of a resource.
 
 ## Type
 ```python

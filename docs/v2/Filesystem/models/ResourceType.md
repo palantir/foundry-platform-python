@@ -1,6 +1,6 @@
 # ResourceType
 
-The type of the Resource derived from the Resource Identifier (RID).
+The type of the resource derived from the Resource Identifier (RID).
 
 | **Value** |
 | --------- |

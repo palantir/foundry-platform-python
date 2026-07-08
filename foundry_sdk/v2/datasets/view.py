@@ -85,7 +85,7 @@ class ViewClient:
         :rtype: datasets_models.View
 
         :raises AddBackingDatasetsPermissionDenied: Could not addBackingDatasets the View.
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
@@ -225,8 +225,8 @@ class ViewClient:
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises FolderNotFound: The given Folder could not be found.
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
         :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
@@ -357,7 +357,7 @@ class ViewClient:
         :return: Returns the result object.
         :rtype: datasets_models.View
 
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises RemoveBackingDatasetsPermissionDenied: Could not removeBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
@@ -418,7 +418,7 @@ class ViewClient:
         :return: Returns the result object.
         :rtype: datasets_models.View
 
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ReplaceBackingDatasetsPermissionDenied: Could not replaceBackingDatasets the View.
@@ -558,7 +558,7 @@ class AsyncViewClient:
         :rtype: typing.Awaitable[datasets_models.View]
 
         :raises AddBackingDatasetsPermissionDenied: Could not addBackingDatasets the View.
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
@@ -698,8 +698,8 @@ class AsyncViewClient:
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises FolderNotFound: The given Folder could not be found.
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
         :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
@@ -830,7 +830,7 @@ class AsyncViewClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[datasets_models.View]
 
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises RemoveBackingDatasetsPermissionDenied: Could not removeBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
@@ -891,7 +891,7 @@ class AsyncViewClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[datasets_models.View]
 
-        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Add the missing datasets as project resource references to the view's project using the Filesystem API, or move them into the view's project, and then retry.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ReplaceBackingDatasetsPermissionDenied: Could not replaceBackingDatasets the View.

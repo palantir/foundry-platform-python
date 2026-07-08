@@ -66,6 +66,16 @@ class ResourceClient:
             config=self._config,
         )
 
+    @cached_property
+    def Tag(self):
+        from foundry_sdk.v2.filesystem.resource_tag import ResourceTagClient
+
+        return ResourceTagClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -147,8 +157,8 @@ class ResourceClient:
 
         :raises DeleteResourcePermissionDenied: Could not delete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
-        :raises TrashingAutosavedResourcesNotSupported: Auto-saved Resources cannot be trashed.
-        :raises TrashingHiddenResourcesNotSupported: Hidden Resources cannot be trashed.
+        :raises TrashingAutosavedResourcesNotSupported: Auto-saved resources cannot be trashed.
+        :raises TrashingHiddenResourcesNotSupported: Hidden resources cannot be trashed.
         :raises TrashingSpaceNotSupported: Spaces cannot be trashed.
         """
 
@@ -326,8 +336,8 @@ class ResourceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Resource:
         """
-        Get a Resource by its absolute path.
-        :param path: The path to the Resource. The leading slash is optional.
+        Get a resource by its absolute path.
+        :param path: The path to the resource. The leading slash is optional.
         :type path: ResourcePath
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -382,7 +392,7 @@ class ResourceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.GetByPathResourcesBatchResponse:
         """
-        Gets multiple Resources by their absolute paths.
+        Gets multiple resources by their absolute paths.
         Returns a list of resources. If a path does not exist, is inaccessible, or refers to
         a root folder or space, it will not be included in the response.
         At most 1,000 paths should be requested at once.
@@ -480,7 +490,7 @@ class ResourceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
-        Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
+        Permanently delete the given resource from the trash. If the resource is not directly trashed, a
         `ResourceNotTrashed` error will be thrown.
 
         :param resource_rid:
@@ -492,7 +502,7 @@ class ResourceClient:
 
         :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
-        :raises ResourceNotTrashed: The Resource should be directly trashed before being permanently deleted.
+        :raises ResourceNotTrashed: The resource should be directly trashed before being permanently deleted.
         """
 
         return self._api_client.call_api(
@@ -595,7 +605,7 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: None
 
-        :raises ResourceNotDirectlyTrashed: The Resource is not directly trashed.
+        :raises ResourceNotDirectlyTrashed: The resource is not directly trashed.
         :raises ResourceNotFound: The given Resource could not be found.
         :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
@@ -713,6 +723,16 @@ class AsyncResourceClient:
             config=self._config,
         )
 
+    @cached_property
+    def Tag(self):
+        from foundry_sdk.v2.filesystem.resource_tag import AsyncResourceTagClient
+
+        return AsyncResourceTagClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -794,8 +814,8 @@ class AsyncResourceClient:
 
         :raises DeleteResourcePermissionDenied: Could not delete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
-        :raises TrashingAutosavedResourcesNotSupported: Auto-saved Resources cannot be trashed.
-        :raises TrashingHiddenResourcesNotSupported: Hidden Resources cannot be trashed.
+        :raises TrashingAutosavedResourcesNotSupported: Auto-saved resources cannot be trashed.
+        :raises TrashingHiddenResourcesNotSupported: Hidden resources cannot be trashed.
         :raises TrashingSpaceNotSupported: Spaces cannot be trashed.
         """
 
@@ -973,8 +993,8 @@ class AsyncResourceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Resource]:
         """
-        Get a Resource by its absolute path.
-        :param path: The path to the Resource. The leading slash is optional.
+        Get a resource by its absolute path.
+        :param path: The path to the resource. The leading slash is optional.
         :type path: ResourcePath
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1029,7 +1049,7 @@ class AsyncResourceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.GetByPathResourcesBatchResponse]:
         """
-        Gets multiple Resources by their absolute paths.
+        Gets multiple resources by their absolute paths.
         Returns a list of resources. If a path does not exist, is inaccessible, or refers to
         a root folder or space, it will not be included in the response.
         At most 1,000 paths should be requested at once.
@@ -1127,7 +1147,7 @@ class AsyncResourceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
-        Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
+        Permanently delete the given resource from the trash. If the resource is not directly trashed, a
         `ResourceNotTrashed` error will be thrown.
 
         :param resource_rid:
@@ -1139,7 +1159,7 @@ class AsyncResourceClient:
 
         :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
-        :raises ResourceNotTrashed: The Resource should be directly trashed before being permanently deleted.
+        :raises ResourceNotTrashed: The resource should be directly trashed before being permanently deleted.
         """
 
         return self._api_client.call_api(
@@ -1242,7 +1262,7 @@ class AsyncResourceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
-        :raises ResourceNotDirectlyTrashed: The Resource is not directly trashed.
+        :raises ResourceNotDirectlyTrashed: The resource is not directly trashed.
         :raises ResourceNotFound: The given Resource could not be found.
         :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """

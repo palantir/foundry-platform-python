@@ -167,7 +167,7 @@ class ProjectClient:
 
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises CreateProjectPermissionDenied: Could not create the Project.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises OrganizationMarkingNotOnSpace: At least one of the organization markings associated with a passed organization is not applied on the requested space.
         :raises OrganizationsNotFound: At least one organization RID could not be found.
@@ -494,7 +494,7 @@ class ProjectClient:
         :return: Returns the result object.
         :rtype: filesystem_models.Project
 
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
         :raises ProjectNotFound: The given Project could not be found.
         :raises ReplaceProjectPermissionDenied: Could not replace the Project.
@@ -712,7 +712,7 @@ class AsyncProjectClient:
 
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises CreateProjectPermissionDenied: Could not create the Project.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises OrganizationMarkingNotOnSpace: At least one of the organization markings associated with a passed organization is not applied on the requested space.
         :raises OrganizationsNotFound: At least one organization RID could not be found.
@@ -1039,7 +1039,7 @@ class AsyncProjectClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.Project]
 
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
         :raises ProjectNotFound: The given Project could not be found.
         :raises ReplaceProjectPermissionDenied: Could not replace the Project.

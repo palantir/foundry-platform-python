@@ -3,6 +3,7 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create_scenario**](#create_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/create | Private Beta |
+[**list_scenario_conflicting_objects**](#list_scenario_conflicting_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/conflicting | Private Beta |
 [**list_scenario_edited_entity_types**](#list_scenario_edited_entity_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/editedEntityTypes | Private Beta |
 [**list_scenario_edited_link_types**](#list_scenario_edited_link_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/{objectType}/outgoingLinkTypes/edited | Private Beta |
 [**list_scenario_edited_links**](#list_scenario_edited_links) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/links/{linkType}/edited | Private Beta |
@@ -62,6 +63,83 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | CreateOntologyScenarioResponse  | Successfully created a scenario. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **list_scenario_conflicting_objects**
+Returns the list of objects with edits that conflict with edits to the scenario's base for a specific object
+type. A conflict occurs when an object has been edited both within the scenario and on the scenario's base
+after the scenario was created. Only objects that the user has permission to view are returned.
+
+Conflict detection takes into account changes that are not reflected in the user-visible object data.
+As a result, this endpoint may report false positives. An object may be returned as conflicting even if
+its data has not actually changed on the scenario's base.
+
+Each page may be smaller than the requested page size.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**scenario_rid** | OntologyScenarioRid | The unique resource identifier of the scenario.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type.  |  |
+**page_size** | Optional[PageSize] | The maximum number of objects to examine when searching for conflicts. This bounds the work performed per call; it is not a guarantee on the number of conflicting objects returned, which may be smaller. Each page may be smaller than this value.  | [optional] |
+**page_token** | Optional[PageToken] | The page token to use for pagination.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**ListScenarioConflictingObjectsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# OntologyScenarioRid | The unique resource identifier of the scenario.
+scenario_rid = "ri.actions..scenario.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# ObjectTypeApiName | The API name of the object type.
+object_type = "employee"
+# Optional[PageSize] | The maximum number of objects to examine when searching for conflicts. This bounds the work performed per call; it is not a guarantee on the number of conflicting objects returned, which may be smaller. Each page may be smaller than this value.
+page_size = None
+# Optional[PageToken] | The page token to use for pagination.
+page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    for ontology_scenario in client.ontologies.OntologyScenario.list_scenario_conflicting_objects(
+        ontology,
+        scenario_rid,
+        object_type,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    ):
+        pprint(ontology_scenario)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling OntologyScenario.list_scenario_conflicting_objects: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListScenarioConflictingObjectsResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

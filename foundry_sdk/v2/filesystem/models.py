@@ -84,6 +84,12 @@ class AddResourceRolesRequest(core.ModelBase):
     roles: typing.List[ResourceRoleIdentifier]
 
 
+class AddResourceTagsRequest(core.ModelBase):
+    """AddResourceTagsRequest"""
+
+    tag_rids: typing.List[TagRid] = pydantic.Field(alias=str("tagRids"))  # type: ignore[literal-required]
+
+
 class CreateFolderRequest(core.ModelBase):
     """CreateFolderRequest"""
 
@@ -216,7 +222,7 @@ class GetByPathResourcesBatchRequestElement(core.ModelBase):
     """GetByPathResourcesBatchRequestElement"""
 
     path: ResourcePath
-    """The path to the Resource. The leading slash is optional."""
+    """The path to the resource. The leading slash is optional."""
 
 
 class GetByPathResourcesBatchResponse(core.ModelBase):
@@ -289,6 +295,12 @@ class ListResourceRolesResponse(core.ModelBase):
 
     data: typing.List[ResourceRole]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class ListResourceTagsResponse(core.ModelBase):
+    """ListResourceTagsResponse"""
+
+    data: typing.List[ResourceTag]
 
 
 class ListSpacesResponse(core.ModelBase):
@@ -462,6 +474,12 @@ class RemoveResourceRolesRequest(core.ModelBase):
     roles: typing.List[ResourceRoleIdentifier]
 
 
+class RemoveResourceTagsRequest(core.ModelBase):
+    """RemoveResourceTagsRequest"""
+
+    tag_rids: typing.List[TagRid] = pydantic.Field(alias=str("tagRids"))  # type: ignore[literal-required]
+
+
 class ReplaceFolderRequest(core.ModelBase):
     """ReplaceFolderRequest"""
 
@@ -503,38 +521,38 @@ class Resource(core.ModelBase):
 
     rid: ResourceRid
     display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-    """The display name of the Resource"""
+    """The display name of the resource"""
 
     description: typing.Optional[str] = None
-    """The description of the Resource"""
+    """The description of the resource"""
 
     documentation: typing.Optional[str] = None
-    """The documentation associated with the Resource"""
+    """The documentation associated with the resource"""
 
     path: ResourcePath
     """The full path to the resource, including the resource name itself"""
 
     type: ResourceType
-    """The type of the Resource derived from the Resource Identifier (RID)."""
+    """The type of the resource derived from the Resource Identifier (RID)."""
 
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-    """The user that created the Resource."""
+    """The user that created the resource"""
 
     updated_by: core_models.UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
-    """The user that last updated the Resource."""
+    """The user that last updated the resource."""
 
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-    """The timestamp that the Resource was last created."""
+    """The timestamp that the resource was last created."""
 
     updated_time: core_models.UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
     """
-    The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For
+    The timestamp that the resource was last modified. For folders, this includes any of its descendants. For
     top level folders (spaces and projects), this is not updated by child updates for performance reasons.
     """
 
     trash_status: TrashStatus = pydantic.Field(alias=str("trashStatus"))  # type: ignore[literal-required]
     """
-    The trash status of the Resource. If trashed, this could either be because the Resource itself has been
+    The trash status of the resource. If trashed, this could either be because the resource itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
@@ -543,16 +561,16 @@ class Resource(core.ModelBase):
 
     project_rid: ProjectRid = pydantic.Field(alias=str("projectRid"))  # type: ignore[literal-required]
     """
-    The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a
+    The Project Resource Identifier (RID) that the resource lives in. If the resource itself is a
     Project, this value will still be populated with the Project RID.
     """
 
     space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
-    """The Space Resource Identifier (RID) that the Resource lives in."""
+    """The Space Resource Identifier (RID) that the resource lives in."""
 
 
 ResourceDisplayName: typing_extensions.TypeAlias = str
-"""The display name of the Resource"""
+"""The display name of the resource"""
 
 
 ResourcePath: typing_extensions.TypeAlias = str
@@ -560,7 +578,7 @@ ResourcePath: typing_extensions.TypeAlias = str
 
 
 ResourceRid: typing_extensions.TypeAlias = core.RID
-"""The unique resource identifier (RID) of a Resource."""
+"""The unique resource identifier (RID) of a resource."""
 
 
 class ResourceRole(core.ModelBase):
@@ -587,6 +605,18 @@ ResourceRolePrincipalIdentifier: typing_extensions.TypeAlias = typing_extensions
     typing.Union["PrincipalIdOnly", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """A principal for resource role operations that doesn't require specifying the principal type."""
+
+
+class ResourceTag(core.ModelBase):
+    """ResourceTag"""
+
+    tag_rid: TagRid = pydantic.Field(alias=str("tagRid"))  # type: ignore[literal-required]
+    display_name: ResourceTagDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    """The display name of the tag, qualified by its category as `{category}:{tag}`."""
+
+
+ResourceTagDisplayName: typing_extensions.TypeAlias = str
+"""The display name of the tag, qualified by its category as `{category}:{tag}`."""
 
 
 ResourceType: typing_extensions.TypeAlias = pydantic.SkipValidation[
@@ -679,7 +709,7 @@ ResourceType: typing_extensions.TypeAlias = pydantic.SkipValidation[
     ]
 ]
 
-"""The type of the Resource derived from the Resource Identifier (RID)."""
+"""The type of the resource derived from the Resource Identifier (RID)."""
 
 
 class Space(core.ModelBase):
@@ -718,6 +748,10 @@ SpaceRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a Space."""
 
 
+TagRid: typing_extensions.TypeAlias = core.RID
+"""The unique resource identifier (RID) of a Tag."""
+
+
 TrashStatus: typing_extensions.TypeAlias = typing.Literal[
     "DIRECTLY_TRASHED", "ANCESTOR_TRASHED", "NOT_TRASHED"
 ]
@@ -744,6 +778,7 @@ __all__ = [
     "AddProjectResourceReferencesRequest",
     "AddResourceReferenceRequest",
     "AddResourceRolesRequest",
+    "AddResourceTagsRequest",
     "CreateFolderRequest",
     "CreateProjectFromTemplateRequest",
     "CreateProjectRequest",
@@ -765,6 +800,7 @@ __all__ = [
     "ListOrganizationsOfProjectResponse",
     "ListProjectResourceReferencesResponse",
     "ListResourceRolesResponse",
+    "ListResourceTagsResponse",
     "ListSpacesResponse",
     "Marking",
     "Organization",
@@ -785,6 +821,7 @@ __all__ = [
     "RemoveOrganizationsRequest",
     "RemoveProjectResourceReferencesRequest",
     "RemoveResourceRolesRequest",
+    "RemoveResourceTagsRequest",
     "ReplaceFolderRequest",
     "ReplaceProjectRequest",
     "ReplaceSpaceRequest",
@@ -796,10 +833,13 @@ __all__ = [
     "ResourceRoleIdentifier",
     "ResourceRolePrincipal",
     "ResourceRolePrincipalIdentifier",
+    "ResourceTag",
+    "ResourceTagDisplayName",
     "ResourceType",
     "Space",
     "SpaceMavenIdentifier",
     "SpaceRid",
+    "TagRid",
     "TrashStatus",
     "UsageAccountRid",
 ]

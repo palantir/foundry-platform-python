@@ -119,7 +119,7 @@ class DatasetClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FolderNotFound: The given Folder could not be found.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises TransactionNotCommitted: The given transaction has not been committed.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -942,7 +942,7 @@ class AsyncDatasetClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FolderNotFound: The given Folder could not be found.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises TransactionNotCommitted: The given transaction has not been committed.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.

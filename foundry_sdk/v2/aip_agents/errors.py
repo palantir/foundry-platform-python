@@ -21,7 +21,31 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.aip_agents import models as aip_agents_models
+from foundry_sdk.v2.language_models import models as language_models_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
+
+
+class ActionTypeNotFoundParameters(typing_extensions.TypedDict):
+    """
+    An action tool configured on the Agent references an action type that could not be found.
+    This can surface at runtime if the action type was deleted or is not accessible to the calling token.
+    Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: typing_extensions.NotRequired[aip_agents_models.SessionRid]
+    """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
+
+    actionRid: ontologies_models.ActionTypeRid
+
+
+@dataclass
+class ActionTypeNotFound(errors.BadRequestError):
+    name: typing.Literal["ActionTypeNotFound"]
+    parameters: ActionTypeNotFoundParameters
+    error_instance_id: str
 
 
 class AgentIterationsExceededLimitParameters(typing_extensions.TypedDict):
@@ -594,6 +618,31 @@ class StreamingContinueSessionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class UnsupportedLanguageModelRidParameters(typing_extensions.TypedDict):
+    """
+    The Agent is configured with a language model that is not supported or could not be resolved.
+    This can surface at runtime if the model was deprecated or is not accessible to the calling token.
+    Update the Agent's language model in AIP Chatbot Studio.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: typing_extensions.NotRequired[aip_agents_models.SessionRid]
+    """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
+
+    languageModelRid: language_models_models.LanguageModelRid
+    modelPurpose: aip_agents_models.ModelPurpose
+    """The purpose for which the unsupported language model is configured on the Agent."""
+
+
+@dataclass
+class UnsupportedLanguageModelRid(errors.BadRequestError):
+    name: typing.Literal["UnsupportedLanguageModelRid"]
+    parameters: UnsupportedLanguageModelRidParameters
+    error_instance_id: str
+
+
 class UpdateSessionTitlePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not updateTitle the Session."""
 
@@ -614,6 +663,7 @@ class UpdateSessionTitlePermissionDenied(errors.PermissionDeniedError):
 
 
 __all__ = [
+    "ActionTypeNotFound",
     "AgentIterationsExceededLimit",
     "AgentNotFound",
     "AgentVersionNotFound",
@@ -643,5 +693,6 @@ __all__ = [
     "SessionTraceIdAlreadyExists",
     "SessionTraceNotFound",
     "StreamingContinueSessionPermissionDenied",
+    "UnsupportedLanguageModelRid",
     "UpdateSessionTitlePermissionDenied",
 ]

@@ -68,7 +68,7 @@ class FolderClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[filesystem_models.Resource]:
         """
-        List all child Resources of the Folder.
+        List all child resources of the Folder.
 
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
@@ -87,7 +87,7 @@ class FolderClient:
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
         :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidFolder: The given resource is not a Folder.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -141,12 +141,12 @@ class FolderClient:
         :return: Returns the result object.
         :rtype: filesystem_models.Folder
 
-        :raises CreateFolderOutsideProjectNotSupported: The given Resource is not a folder.
+        :raises CreateFolderOutsideProjectNotSupported: The given resource is not a folder.
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidFolder: The given resource is not a Folder.
         :raises MissingDisplayName: A Display Name must be provided.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
@@ -202,7 +202,7 @@ class FolderClient:
 
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidFolder: The given resource is not a Folder.
         """
 
         return self._api_client.call_api(
@@ -303,8 +303,8 @@ class FolderClient:
         :raises CircularDependency: The requested operation would result in a circular dependency in the folder hierarchy. For example, moving a folder into one of its descendants.
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidFolder: The given resource is not a Folder.
         :raises InvalidParentFolder: The specified parent folder is not a valid destination for the resource. For example, a project cannot be moved under a regular folder, a folder cannot be moved to a Space, etc.
         :raises MissingDisplayName: A Display Name must be provided.
         :raises ReplaceFolderPermissionDenied: Could not replace the Folder.
@@ -419,7 +419,7 @@ class AsyncFolderClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[filesystem_models.Resource]:
         """
-        List all child Resources of the Folder.
+        List all child resources of the Folder.
 
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
@@ -438,7 +438,7 @@ class AsyncFolderClient:
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
         :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidFolder: The given resource is not a Folder.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -492,12 +492,12 @@ class AsyncFolderClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.Folder]
 
-        :raises CreateFolderOutsideProjectNotSupported: The given Resource is not a folder.
+        :raises CreateFolderOutsideProjectNotSupported: The given resource is not a folder.
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidFolder: The given resource is not a Folder.
         :raises MissingDisplayName: A Display Name must be provided.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
@@ -553,7 +553,7 @@ class AsyncFolderClient:
 
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidFolder: The given resource is not a Folder.
         """
 
         return self._api_client.call_api(
@@ -654,8 +654,8 @@ class AsyncFolderClient:
         :raises CircularDependency: The requested operation would result in a circular dependency in the folder hierarchy. For example, moving a folder into one of its descendants.
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
-        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidFolder: The given resource is not a Folder.
         :raises InvalidParentFolder: The specified parent folder is not a valid destination for the resource. For example, a project cannot be moved under a regular folder, a folder cannot be moved to a Space, etc.
         :raises MissingDisplayName: A Display Name must be provided.
         :raises ReplaceFolderPermissionDenied: Could not replace the Folder.

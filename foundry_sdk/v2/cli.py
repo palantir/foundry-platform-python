@@ -4753,7 +4753,7 @@ def filesystem_space_op_delete(
     preview: typing.Optional[bool],
 ):
     """
-    Delete the space. This will only work if the Space is empty, meaning any Projects or Resources have been deleted first.
+    Delete the space. This will only work if the Space is empty, meaning any Projects or resources have been deleted first.
 
     """
     result = client.filesystem.Space.delete(
@@ -4960,7 +4960,7 @@ def filesystem_resource_op_get_batch(
     "--path",
     type=str,
     required=True,
-    help="""The path to the Resource. The leading slash is optional.""",
+    help="""The path to the resource. The leading slash is optional.""",
 )
 @click.pass_obj
 def filesystem_resource_op_get_by_path(
@@ -4968,7 +4968,7 @@ def filesystem_resource_op_get_by_path(
     path: str,
 ):
     """
-    Get a Resource by its absolute path.
+    Get a resource by its absolute path.
     """
     result = client.filesystem.Resource.get_by_path(
         path=path,
@@ -4984,7 +4984,7 @@ def filesystem_resource_op_get_by_path_batch(
     body: str,
 ):
     """
-    Gets multiple Resources by their absolute paths.
+    Gets multiple resources by their absolute paths.
     Returns a list of resources. If a path does not exist, is inaccessible, or refers to
     a root folder or space, it will not be included in the response.
     At most 1,000 paths should be requested at once.
@@ -5039,7 +5039,7 @@ def filesystem_resource_op_permanently_delete(
     resource_rid: str,
 ):
     """
-    Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
+    Permanently delete the given resource from the trash. If the resource is not directly trashed, a
     `ResourceNotTrashed` error will be thrown.
 
     """
@@ -5082,6 +5082,81 @@ def filesystem_resource_op_restore(
     """
     result = client.filesystem.Resource.restore(
         resource_rid=resource_rid,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource.group("resource_tag")
+def filesystem_resource_resource_tag():
+    pass
+
+
+@filesystem_resource_resource_tag.command("add")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--tag_rids", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_resource_resource_tag_op_add(
+    client: FoundryClient,
+    resource_rid: str,
+    tag_rids: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Apply tags to a resource.
+    """
+    result = client.filesystem.Resource.Tag.add(
+        resource_rid=resource_rid,
+        tag_rids=json.loads(tag_rids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource_resource_tag.command("list")
+@click.argument("resource_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_resource_resource_tag_op_list(
+    client: FoundryClient,
+    resource_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    List the tags applied to a resource.
+
+    """
+    result = client.filesystem.Resource.Tag.list(
+        resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource_resource_tag.command("remove")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--tag_rids", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_resource_resource_tag_op_remove(
+    client: FoundryClient,
+    resource_rid: str,
+    tag_rids: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Remove tags from a resource.
+    """
+    result = client.filesystem.Resource.Tag.remove(
+        resource_rid=resource_rid,
+        tag_rids=json.loads(tag_rids),
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5484,7 +5559,7 @@ def filesystem_folder_op_children(
     page_token: typing.Optional[str],
 ):
     """
-    List all child Resources of the Folder.
+    List all child resources of the Folder.
 
     This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
     provided, this page size will also be used as the default.
@@ -8700,6 +8775,66 @@ def ontologies_ontology_scenario_op_create_scenario(
     click.echo(repr(result))
 
 
+@ontologies_ontology_scenario.command("list_scenario_conflicting_objects")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of objects to examine when searching for conflicts. This bounds the work performed
+per call; it is not a guarantee on the number of conflicting objects returned, which may be smaller.
+Each page may be smaller than this value.
+""",
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token to use for pagination.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_scenario_op_list_scenario_conflicting_objects(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    object_type: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Returns the list of objects with edits that conflict with edits to the scenario's base for a specific object
+    type. A conflict occurs when an object has been edited both within the scenario and on the scenario's base
+    after the scenario was created. Only objects that the user has permission to view are returned.
+
+    Conflict detection takes into account changes that are not reflected in the user-visible object data.
+    As a result, this endpoint may report false positives. An object may be returned as conflicting even if
+    its data has not actually changed on the scenario's base.
+
+    Each page may be smaller than the requested page size.
+
+    """
+    result = client.ontologies.OntologyScenario.list_scenario_conflicting_objects(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        object_type=object_type,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology_scenario.command("list_scenario_edited_entity_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("scenario_rid", type=str, required=True)
@@ -11109,12 +11244,21 @@ def ontologies_ontology_object_type():
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--include_datasources",
+    type=bool,
+    required=False,
+    help="""When set to `true`, the `datasources` field on the returned object type is populated with the
+datasources backing it. Defaults to `false`.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_type_op_get(
     client: FoundryClient,
     ontology: str,
     object_type: str,
     branch: typing.Optional[str],
+    include_datasources: typing.Optional[bool],
 ):
     """
     Gets a specific object type with the given API name.
@@ -11124,6 +11268,7 @@ def ontologies_ontology_object_type_op_get(
         ontology=ontology,
         object_type=object_type,
         branch=branch,
+        include_datasources=include_datasources,
     )
     click.echo(repr(result))
 
@@ -11268,6 +11413,14 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--include_datasources",
+    type=bool,
+    required=False,
+    help="""When set to `true`, the `datasources` field on the returned object type is populated with the
+datasources backing it. Defaults to `false`.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -11294,6 +11447,7 @@ def ontologies_ontology_object_type_op_get_full_metadata(
     ontology: str,
     object_type: str,
     branch: typing.Optional[str],
+    include_datasources: typing.Optional[bool],
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -11306,6 +11460,7 @@ def ontologies_ontology_object_type_op_get_full_metadata(
         ontology=ontology,
         object_type=object_type,
         branch=branch,
+        include_datasources=include_datasources,
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -11414,6 +11569,14 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--include_datasources",
+    type=bool,
+    required=False,
+    help="""When set to `true`, the `datasources` field on each returned object type is populated with the
+datasources backing it. Defaults to `false`.
+""",
+)
+@click.option(
     "--page_size",
     type=int,
     required=False,
@@ -11427,6 +11590,7 @@ def ontologies_ontology_object_type_op_list(
     client: FoundryClient,
     ontology: str,
     branch: typing.Optional[str],
+    include_datasources: typing.Optional[bool],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -11444,6 +11608,7 @@ def ontologies_ontology_object_type_op_list(
     result = client.ontologies.Ontology.ObjectType.list(
         ontology=ontology,
         branch=branch,
+        include_datasources=include_datasources,
         page_size=page_size,
         page_token=page_token,
     )
@@ -11504,12 +11669,28 @@ def ontologies_ontology_action_type():
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_action_type_op_get(
     client: FoundryClient,
     ontology: str,
     action_type: str,
     branch: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Gets a specific action type with the given API name.
@@ -11519,6 +11700,8 @@ def ontologies_ontology_action_type_op_get(
         ontology=ontology,
         action_type=action_type,
         branch=branch,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 

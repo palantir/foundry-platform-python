@@ -19,6 +19,8 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **action_type** | ActionTypeApiName | The name of the action type in the API.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **ActionTypeV2**
@@ -38,10 +40,20 @@ ontology = "palantir"
 action_type = "promote-employee"
 # Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
-    api_response = client.ontologies.Ontology.ActionType.get(ontology, action_type, branch=branch)
+    api_response = client.ontologies.Ontology.ActionType.get(
+        ontology,
+        action_type,
+        branch=branch,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

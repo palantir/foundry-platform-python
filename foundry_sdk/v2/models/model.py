@@ -113,7 +113,7 @@ class ModelClient:
         :rtype: models_models.Model
 
         :raises CreateModelPermissionDenied: Could not create the Model.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
@@ -365,7 +365,7 @@ class AsyncModelClient:
         :rtype: typing.Awaitable[models_models.Model]
 
         :raises CreateModelPermissionDenied: Could not create the Model.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidDisplayName: The display name of a resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
