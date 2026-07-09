@@ -870,6 +870,26 @@ class CenterPoint(core.ModelBase):
     distance: core_models.Distance
 
 
+CipherChannelStrategy: typing_extensions.TypeAlias = typing.Literal[
+    "PREFER_EXISTING", "PREFER_DEFAULT", "EXISTING_ONLY", "DEFAULT_ONLY"
+]
+"""
+Controls which Cipher Channel is used when encrypting a value. If not specified, defaults to `PREFER_EXISTING`.
+
+- `PREFER_EXISTING`: use the Cipher Channel parsed from the existing ciphertext value; fall back to the default channel configured in ontology metadata.
+- `PREFER_DEFAULT`: use the default channel configured in ontology metadata; fall back to the channel parsed from the existing ciphertext value.
+- `EXISTING_ONLY`: use the channel parsed from the existing ciphertext value only; error if the value is not already encrypted.
+- `DEFAULT_ONLY`: use the default channel configured in ontology metadata only; error if none is configured.
+"""
+
+
+CipherText: typing_extensions.TypeAlias = str
+"""
+A value encrypted with [Cipher](https://palantir.com/docs/foundry/cipher/overview/), stored in its envelope form which encodes
+the Cipher Channel used to encrypt it (for example `CIPHER::{cipherChannelRid}::<ciphertext>::CIPHER`).
+"""
+
+
 ColumnName: typing_extensions.TypeAlias = str
 """The name of a column in a tabular datasource."""
 
@@ -1232,7 +1252,7 @@ class DatetimeTimezoneUser(core.ModelBase):
 class DecryptionResult(core.ModelBase):
     """The result of a CipherText decryption. If successful, the plaintext decrypted value will be returned. Otherwise, an error will be thrown."""
 
-    plaintext: typing.Optional[Plaintext] = None
+    plaintext: Plaintext
 
 
 class DeleteEdit(core.ModelBase):
@@ -1490,6 +1510,18 @@ class EditsHistoryTimestampFilter(core.ModelBase):
     """
 
     type: typing.Literal["timestampFilter"] = "timestampFilter"
+
+
+class EncryptionRequest(core.ModelBase):
+    """The request to encrypt a plaintext value into a CipherText value."""
+
+    plaintext: Plaintext
+
+
+class EncryptionResult(core.ModelBase):
+    """The result of a CipherText encryption. If successful, the encrypted ciphertext value will be returned. Otherwise, an error will be thrown."""
+
+    ciphertext: CipherText
 
 
 class EntrySetType(core.ModelBase):
@@ -6369,6 +6401,8 @@ __all__ = [
     "BoundingBoxValue",
     "CenterPoint",
     "CenterPointTypes",
+    "CipherChannelStrategy",
+    "CipherText",
     "ColumnName",
     "ColumnPropertyMapping",
     "ConjunctiveMarkingSummary",
@@ -6439,6 +6473,8 @@ __all__ = [
     "EditsHistoryOperationIdsFilter",
     "EditsHistorySortOrder",
     "EditsHistoryTimestampFilter",
+    "EncryptionRequest",
+    "EncryptionResult",
     "EntrySetType",
     "EnumConstraint",
     "EqualsQueryV2",

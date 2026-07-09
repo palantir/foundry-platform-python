@@ -11,6 +11,8 @@ ExecuteOntologySqlQueryRequest
 **dry_run** | Optional[bool] | No | If true, parse and validate the query without executing it. Defaults to false.  |
 **branch** | Optional[FoundryBranch] | No | The Foundry branch to execute the query against. If not specified, the default (main) branch is used.  |
 **scenario_rid** | Optional[ScenarioRid] | No | The scenario to evaluate the query against. If not specified, no scenario is applied.  |
+**ontology_identifier** | Optional[OntologyIdentifier] | No | Either an ontology RID or an ontology API name.  |
+**table_providers** | Optional[Dict[TableName, ObjectSet]] | No | Map of table providers, requires ontologyIdentifier to be provided otherwise it will throw.  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

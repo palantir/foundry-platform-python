@@ -12381,6 +12381,117 @@ def ontologies_cipher_text_property_op_decrypt(
     click.echo(repr(result))
 
 
+@ontologies_cipher_text_property.command("encrypt")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.option("--plaintext", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
+    "--cipher_channel_strategy",
+    type=click.Choice(["PREFER_EXISTING", "PREFER_DEFAULT", "EXISTING_ONLY", "DEFAULT_ONLY"]),
+    required=False,
+    help="""The strategy controlling which Cipher Channel is used to encrypt the value. If not specified, defaults
+to `PREFER_EXISTING`.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_cipher_text_property_op_encrypt(
+    client: FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property: str,
+    plaintext: str,
+    branch: typing.Optional[str],
+    cipher_channel_strategy: typing.Optional[
+        typing.Literal["PREFER_EXISTING", "PREFER_DEFAULT", "EXISTING_ONLY", "DEFAULT_ONLY"]
+    ],
+    preview: typing.Optional[bool],
+):
+    """
+    Encrypt a plaintext value into a CipherText value for the given object's CipherText property.
+
+    The Cipher Channel used is resolved based on the supplied `cipherChannelStrategy`, using the channel of the
+    object's existing ciphertext value and/or the default channel configured for the property in ontology metadata.
+
+    """
+    result = client.ontologies.CipherTextProperty.encrypt(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property=property,
+        plaintext=plaintext,
+        branch=branch,
+        cipher_channel_strategy=cipher_channel_strategy,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_cipher_text_property.command("encrypt_with_default_channel")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.option("--plaintext", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to read from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_cipher_text_property_op_encrypt_with_default_channel(
+    client: FoundryClient,
+    ontology: str,
+    object_type: str,
+    property: str,
+    plaintext: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Encrypt a plaintext value into a CipherText value for the given object type property.
+
+    The Cipher Channel used is the default channel configured for the property in ontology metadata. This
+    endpoint requires the CipherText property to have a configured `defaultCipherChannelRid`; if none is
+    configured an error will be thrown. To encrypt against the channel of an existing object's value, use the
+    **Encrypt** endpoint that accepts a `primaryKey` instead.
+
+    """
+    result = client.ontologies.CipherTextProperty.encrypt_with_default_channel(
+        ontology=ontology,
+        object_type=object_type,
+        property=property,
+        plaintext=plaintext,
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("attachment_property")
 def ontologies_attachment_property():
     pass
@@ -13802,6 +13913,13 @@ def sql_queries_sql_query_op_execute(
 """,
 )
 @click.option(
+    "--ontology_identifier",
+    type=str,
+    required=False,
+    help="""Either an ontology RID or an ontology API name.
+""",
+)
+@click.option(
     "--parameters",
     type=str,
     required=False,
@@ -13826,16 +13944,25 @@ or a named parameter mapping.
     help="""The scenario to evaluate the query against. If not specified, no scenario is applied.
 """,
 )
+@click.option(
+    "--table_providers",
+    type=str,
+    required=False,
+    help="""Map of table providers, requires ontologyIdentifier to be provided otherwise it will throw.
+""",
+)
 @click.pass_obj
 def sql_queries_sql_query_op_execute_ontology(
     client: FoundryClient,
     query: str,
     branch: typing.Optional[str],
     dry_run: typing.Optional[bool],
+    ontology_identifier: typing.Optional[str],
     parameters: typing.Optional[str],
     preview: typing.Optional[bool],
     row_limit: typing.Optional[int],
     scenario_rid: typing.Optional[str],
+    table_providers: typing.Optional[str],
 ):
     """
     Executes a SQL query against the Ontology. Results are returned synchronously in
@@ -13846,10 +13973,12 @@ def sql_queries_sql_query_op_execute_ontology(
         query=query,
         branch=branch,
         dry_run=dry_run,
+        ontology_identifier=ontology_identifier,
         parameters=None if parameters is None else json.loads(parameters),
         preview=preview,
         row_limit=row_limit,
         scenario_rid=scenario_rid,
+        table_providers=None if table_providers is None else json.loads(table_providers),
     )
     click.echo(result)
 
