@@ -950,6 +950,7 @@ Namespace | Resource | Operation | HTTP request |
 **Orchestration** | ScheduleVersion | [**schedule**](docs/v2/Orchestration/ScheduleVersion.md#schedule) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule |
 **SqlQueries** | SqlQuery | [**cancel**](docs/v2/SqlQueries/SqlQuery.md#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel |
 **SqlQueries** | SqlQuery | [**execute**](docs/v2/SqlQueries/SqlQuery.md#execute) | **POST** /v2/sqlQueries/execute |
+**SqlQueries** | SqlQuery | [**execute_ontology**](docs/v2/SqlQueries/SqlQuery.md#execute_ontology) | **POST** /v2/sqlQueries/executeOntology |
 **SqlQueries** | SqlQuery | [**get_results**](docs/v2/SqlQueries/SqlQuery.md#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults |
 **SqlQueries** | SqlQuery | [**get_status**](docs/v2/SqlQueries/SqlQuery.md#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus |
 **Streams** | Dataset | [**create**](docs/v2/Streams/Dataset.md#create) | **POST** /v2/streams/datasets/create |
@@ -2429,6 +2430,8 @@ Namespace | Name | Import |
 **Ontologies** | [BoundingBoxValue](docs/v2/Ontologies/models/BoundingBoxValue.md) | `from foundry_sdk.v2.ontologies.models import BoundingBoxValue` |
 **Ontologies** | [CenterPoint](docs/v2/Ontologies/models/CenterPoint.md) | `from foundry_sdk.v2.ontologies.models import CenterPoint` |
 **Ontologies** | [CenterPointTypes](docs/v2/Ontologies/models/CenterPointTypes.md) | `from foundry_sdk.v2.ontologies.models import CenterPointTypes` |
+**Ontologies** | [CipherChannelStrategy](docs/v2/Ontologies/models/CipherChannelStrategy.md) | `from foundry_sdk.v2.ontologies.models import CipherChannelStrategy` |
+**Ontologies** | [CipherText](docs/v2/Ontologies/models/CipherText.md) | `from foundry_sdk.v2.ontologies.models import CipherText` |
 **Ontologies** | [ColumnName](docs/v2/Ontologies/models/ColumnName.md) | `from foundry_sdk.v2.ontologies.models import ColumnName` |
 **Ontologies** | [ColumnPropertyMapping](docs/v2/Ontologies/models/ColumnPropertyMapping.md) | `from foundry_sdk.v2.ontologies.models import ColumnPropertyMapping` |
 **Ontologies** | [ConjunctiveMarkingSummary](docs/v2/Ontologies/models/ConjunctiveMarkingSummary.md) | `from foundry_sdk.v2.ontologies.models import ConjunctiveMarkingSummary` |
@@ -2499,6 +2502,8 @@ Namespace | Name | Import |
 **Ontologies** | [EditsHistoryOperationIdsFilter](docs/v2/Ontologies/models/EditsHistoryOperationIdsFilter.md) | `from foundry_sdk.v2.ontologies.models import EditsHistoryOperationIdsFilter` |
 **Ontologies** | [EditsHistorySortOrder](docs/v2/Ontologies/models/EditsHistorySortOrder.md) | `from foundry_sdk.v2.ontologies.models import EditsHistorySortOrder` |
 **Ontologies** | [EditsHistoryTimestampFilter](docs/v2/Ontologies/models/EditsHistoryTimestampFilter.md) | `from foundry_sdk.v2.ontologies.models import EditsHistoryTimestampFilter` |
+**Ontologies** | [EncryptionRequest](docs/v2/Ontologies/models/EncryptionRequest.md) | `from foundry_sdk.v2.ontologies.models import EncryptionRequest` |
+**Ontologies** | [EncryptionResult](docs/v2/Ontologies/models/EncryptionResult.md) | `from foundry_sdk.v2.ontologies.models import EncryptionResult` |
 **Ontologies** | [EntrySetType](docs/v2/Ontologies/models/EntrySetType.md) | `from foundry_sdk.v2.ontologies.models import EntrySetType` |
 **Ontologies** | [EnumConstraint](docs/v2/Ontologies/models/EnumConstraint.md) | `from foundry_sdk.v2.ontologies.models import EnumConstraint` |
 **Ontologies** | [EqualsQueryV2](docs/v2/Ontologies/models/EqualsQueryV2.md) | `from foundry_sdk.v2.ontologies.models import EqualsQueryV2` |
@@ -3107,6 +3112,7 @@ Namespace | Name | Import |
 **SqlQueries** | [StructFieldKeyValue](docs/v2/SqlQueries/models/StructFieldKeyValue.md) | `from foundry_sdk.v2.sql_queries.models import StructFieldKeyValue` |
 **SqlQueries** | [StructFieldRid](docs/v2/SqlQueries/models/StructFieldRid.md) | `from foundry_sdk.v2.sql_queries.models import StructFieldRid` |
 **SqlQueries** | [SucceededQueryStatus](docs/v2/SqlQueries/models/SucceededQueryStatus.md) | `from foundry_sdk.v2.sql_queries.models import SucceededQueryStatus` |
+**SqlQueries** | [TableName](docs/v2/SqlQueries/models/TableName.md) | `from foundry_sdk.v2.sql_queries.models import TableName` |
 **SqlQueries** | [UnnamedParameterValues](docs/v2/SqlQueries/models/UnnamedParameterValues.md) | `from foundry_sdk.v2.sql_queries.models import UnnamedParameterValues` |
 **Streams** | [CommitSubscriberOffsetsRequest](docs/v2/Streams/models/CommitSubscriberOffsetsRequest.md) | `from foundry_sdk.v2.streams.models import CommitSubscriberOffsetsRequest` |
 **Streams** | [Compressed](docs/v2/Streams/models/Compressed.md) | `from foundry_sdk.v2.streams.models import Compressed` |
@@ -3912,6 +3918,7 @@ Namespace | Name | Import |
 **Ontologies** | AttachmentSizeExceededLimit | `from foundry_sdk.v2.ontologies.errors import AttachmentSizeExceededLimit` |
 **Ontologies** | BranchNotSupportedWithMarketplaceQuery | `from foundry_sdk.v2.ontologies.errors import BranchNotSupportedWithMarketplaceQuery` |
 **Ontologies** | CipherChannelNotFound | `from foundry_sdk.v2.ontologies.errors import CipherChannelNotFound` |
+**Ontologies** | CipherChannelNotResolvable | `from foundry_sdk.v2.ontologies.errors import CipherChannelNotResolvable` |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry_sdk.v2.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | ConsistentSnapshotError | `from foundry_sdk.v2.ontologies.errors import ConsistentSnapshotError` |
 **Ontologies** | DefaultAndNullGroupsNotSupported | `from foundry_sdk.v2.ontologies.errors import DefaultAndNullGroupsNotSupported` |
@@ -4244,6 +4251,7 @@ Namespace | Name | Import |
 **Ontologies** | AttachmentSizeExceededLimit | `from foundry_sdk.v1.ontologies.errors import AttachmentSizeExceededLimit` |
 **Ontologies** | BranchNotSupportedWithMarketplaceQuery | `from foundry_sdk.v1.ontologies.errors import BranchNotSupportedWithMarketplaceQuery` |
 **Ontologies** | CipherChannelNotFound | `from foundry_sdk.v1.ontologies.errors import CipherChannelNotFound` |
+**Ontologies** | CipherChannelNotResolvable | `from foundry_sdk.v1.ontologies.errors import CipherChannelNotResolvable` |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry_sdk.v1.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | ConsistentSnapshotError | `from foundry_sdk.v1.ontologies.errors import ConsistentSnapshotError` |
 **Ontologies** | DefaultAndNullGroupsNotSupported | `from foundry_sdk.v1.ontologies.errors import DefaultAndNullGroupsNotSupported` |

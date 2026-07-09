@@ -389,6 +389,27 @@ class CipherChannelNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class CipherChannelNotResolvableParameters(typing_extensions.TypedDict):
+    """
+    A Cipher Channel could not be resolved for encryption under the requested
+    cipherChannelStrategy. Depending on the strategy, this means the object has no existing
+    encrypted value and/or the property has no default Cipher Channel configured.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: ontologies_models.ObjectTypeApiName
+    property: ontologies_models.PropertyApiName
+    strategy: str
+
+
+@dataclass
+class CipherChannelNotResolvable(errors.BadRequestError):
+    name: typing.Literal["CipherChannelNotResolvable"]
+    parameters: CipherChannelNotResolvableParameters
+    error_instance_id: str
+
+
 class CompositePrimaryKeyNotSupportedParameters(typing_extensions.TypedDict):
     """
     Primary keys consisting of multiple properties are not supported by this API. If you need support for this,
@@ -2607,6 +2628,7 @@ __all__ = [
     "AttachmentSizeExceededLimit",
     "BranchNotSupportedWithMarketplaceQuery",
     "CipherChannelNotFound",
+    "CipherChannelNotResolvable",
     "CompositePrimaryKeyNotSupported",
     "ConsistentSnapshotError",
     "DefaultAndNullGroupsNotSupported",

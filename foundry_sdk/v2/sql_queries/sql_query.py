@@ -21,6 +21,7 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
 from foundry_sdk.v2.sql_queries import errors as sql_queries_errors
 from foundry_sdk.v2.sql_queries import models as sql_queries_models
 
@@ -186,10 +187,14 @@ class SqlQueryClient:
         query: str,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         dry_run: typing.Optional[bool] = None,
+        ontology_identifier: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         parameters: typing.Optional[sql_queries_models.Parameters] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         row_limit: typing.Optional[int] = None,
         scenario_rid: typing.Optional[sql_queries_models.ScenarioRid] = None,
+        table_providers: typing.Optional[
+            typing.Dict[sql_queries_models.TableName, ontologies_models.ObjectSet]
+        ] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -203,6 +208,8 @@ class SqlQueryClient:
         :type branch: Optional[FoundryBranch]
         :param dry_run: If true, parse and validate the query without executing it. Defaults to false.
         :type dry_run: Optional[bool]
+        :param ontology_identifier: Either an ontology RID or an ontology API name.
+        :type ontology_identifier: Optional[OntologyIdentifier]
         :param parameters: Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
         :type parameters: Optional[Parameters]
         :param preview: Enables the use of preview functionality.
@@ -211,6 +218,8 @@ class SqlQueryClient:
         :type row_limit: Optional[int]
         :param scenario_rid: The scenario to evaluate the query against. If not specified, no scenario is applied.
         :type scenario_rid: Optional[ScenarioRid]
+        :param table_providers: Map of table providers, requires ontologyIdentifier to be provided otherwise it will throw.
+        :type table_providers: Optional[Dict[TableName, ObjectSet]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -244,6 +253,8 @@ class SqlQueryClient:
                     dry_run=dry_run,
                     branch=branch,
                     scenario_rid=scenario_rid,
+                    ontology_identifier=ontology_identifier,
+                    table_providers=table_providers,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
@@ -569,10 +580,14 @@ class AsyncSqlQueryClient:
         query: str,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         dry_run: typing.Optional[bool] = None,
+        ontology_identifier: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         parameters: typing.Optional[sql_queries_models.Parameters] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         row_limit: typing.Optional[int] = None,
         scenario_rid: typing.Optional[sql_queries_models.ScenarioRid] = None,
+        table_providers: typing.Optional[
+            typing.Dict[sql_queries_models.TableName, ontologies_models.ObjectSet]
+        ] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[bytes]:
@@ -586,6 +601,8 @@ class AsyncSqlQueryClient:
         :type branch: Optional[FoundryBranch]
         :param dry_run: If true, parse and validate the query without executing it. Defaults to false.
         :type dry_run: Optional[bool]
+        :param ontology_identifier: Either an ontology RID or an ontology API name.
+        :type ontology_identifier: Optional[OntologyIdentifier]
         :param parameters: Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
         :type parameters: Optional[Parameters]
         :param preview: Enables the use of preview functionality.
@@ -594,6 +611,8 @@ class AsyncSqlQueryClient:
         :type row_limit: Optional[int]
         :param scenario_rid: The scenario to evaluate the query against. If not specified, no scenario is applied.
         :type scenario_rid: Optional[ScenarioRid]
+        :param table_providers: Map of table providers, requires ontologyIdentifier to be provided otherwise it will throw.
+        :type table_providers: Optional[Dict[TableName, ObjectSet]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -627,6 +646,8 @@ class AsyncSqlQueryClient:
                     dry_run=dry_run,
                     branch=branch,
                     scenario_rid=scenario_rid,
+                    ontology_identifier=ontology_identifier,
+                    table_providers=table_providers,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,

@@ -110,19 +110,173 @@ class CipherTextPropertyClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def encrypt(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        *,
+        plaintext: ontologies_models.Plaintext,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        cipher_channel_strategy: typing.Optional[ontologies_models.CipherChannelStrategy] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.EncryptionResult:
+        """
+        Encrypt a plaintext value into a CipherText value for the given object's CipherText property.
+
+        The Cipher Channel used is resolved based on the supplied `cipherChannelStrategy`, using the channel of the
+        object's existing ciphertext value and/or the default channel configured for the property in ontology metadata.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+        :type object_type: ObjectTypeApiName
+        :param primary_key: The primary key of the object with the CipherText property.
+        :type primary_key: PropertyValueEscapedString
+        :param property: The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.
+        :type property: PropertyApiName
+        :param plaintext:
+        :type plaintext: Plaintext
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
+        :param cipher_channel_strategy: The strategy controlling which Cipher Channel is used to encrypt the value. If not specified, defaults to `PREFER_EXISTING`.
+        :type cipher_channel_strategy: Optional[CipherChannelStrategy]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.EncryptionResult
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/ciphertexts/{property}/encrypt",
+                query_params={
+                    "branch": branch,
+                    "cipherChannelStrategy": cipher_channel_strategy,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                    "primaryKey": primary_key,
+                    "property": property,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.EncryptionRequest(
+                    plaintext=plaintext,
+                ),
+                response_type=ontologies_models.EncryptionResult,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def encrypt_with_default_channel(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        property: ontologies_models.PropertyApiName,
+        *,
+        plaintext: ontologies_models.Plaintext,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.EncryptionResult:
+        """
+        Encrypt a plaintext value into a CipherText value for the given object type property.
+
+        The Cipher Channel used is the default channel configured for the property in ontology metadata. This
+        endpoint requires the CipherText property to have a configured `defaultCipherChannelRid`; if none is
+        configured an error will be thrown. To encrypt against the channel of an existing object's value, use the
+        **Encrypt** endpoint that accepts a `primaryKey` instead.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+        :type object_type: ObjectTypeApiName
+        :param property: The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.
+        :type property: PropertyApiName
+        :param plaintext:
+        :type plaintext: Plaintext
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.EncryptionResult
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/ciphertexts/{property}/encrypt",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                    "property": property,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.EncryptionRequest(
+                    plaintext=plaintext,
+                ),
+                response_type=ontologies_models.EncryptionResult,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _CipherTextPropertyClientRaw:
     def __init__(self, client: CipherTextPropertyClient) -> None:
         def decrypt(_: ontologies_models.DecryptionResult): ...
+        def encrypt(_: ontologies_models.EncryptionResult): ...
+        def encrypt_with_default_channel(_: ontologies_models.EncryptionResult): ...
 
         self.decrypt = core.with_raw_response(decrypt, client.decrypt)
+        self.encrypt = core.with_raw_response(encrypt, client.encrypt)
+        self.encrypt_with_default_channel = core.with_raw_response(
+            encrypt_with_default_channel, client.encrypt_with_default_channel
+        )
 
 
 class _CipherTextPropertyClientStreaming:
     def __init__(self, client: CipherTextPropertyClient) -> None:
         def decrypt(_: ontologies_models.DecryptionResult): ...
+        def encrypt(_: ontologies_models.EncryptionResult): ...
+        def encrypt_with_default_channel(_: ontologies_models.EncryptionResult): ...
 
         self.decrypt = core.with_streaming_response(decrypt, client.decrypt)
+        self.encrypt = core.with_streaming_response(encrypt, client.encrypt)
+        self.encrypt_with_default_channel = core.with_streaming_response(
+            encrypt_with_default_channel, client.encrypt_with_default_channel
+        )
 
 
 class AsyncCipherTextPropertyClient:
@@ -211,16 +365,170 @@ class AsyncCipherTextPropertyClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def encrypt(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        *,
+        plaintext: ontologies_models.Plaintext,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        cipher_channel_strategy: typing.Optional[ontologies_models.CipherChannelStrategy] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.EncryptionResult]:
+        """
+        Encrypt a plaintext value into a CipherText value for the given object's CipherText property.
+
+        The Cipher Channel used is resolved based on the supplied `cipherChannelStrategy`, using the channel of the
+        object's existing ciphertext value and/or the default channel configured for the property in ontology metadata.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+        :type object_type: ObjectTypeApiName
+        :param primary_key: The primary key of the object with the CipherText property.
+        :type primary_key: PropertyValueEscapedString
+        :param property: The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.
+        :type property: PropertyApiName
+        :param plaintext:
+        :type plaintext: Plaintext
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
+        :param cipher_channel_strategy: The strategy controlling which Cipher Channel is used to encrypt the value. If not specified, defaults to `PREFER_EXISTING`.
+        :type cipher_channel_strategy: Optional[CipherChannelStrategy]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.EncryptionResult]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/ciphertexts/{property}/encrypt",
+                query_params={
+                    "branch": branch,
+                    "cipherChannelStrategy": cipher_channel_strategy,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                    "primaryKey": primary_key,
+                    "property": property,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.EncryptionRequest(
+                    plaintext=plaintext,
+                ),
+                response_type=ontologies_models.EncryptionResult,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def encrypt_with_default_channel(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        property: ontologies_models.PropertyApiName,
+        *,
+        plaintext: ontologies_models.Plaintext,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.EncryptionResult]:
+        """
+        Encrypt a plaintext value into a CipherText value for the given object type property.
+
+        The Cipher Channel used is the default channel configured for the property in ontology metadata. This
+        endpoint requires the CipherText property to have a configured `defaultCipherChannelRid`; if none is
+        configured an error will be thrown. To encrypt against the channel of an existing object's value, use the
+        **Encrypt** endpoint that accepts a `primaryKey` instead.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+        :type object_type: ObjectTypeApiName
+        :param property: The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.
+        :type property: PropertyApiName
+        :param plaintext:
+        :type plaintext: Plaintext
+        :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.EncryptionResult]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/ciphertexts/{property}/encrypt",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                    "property": property,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.EncryptionRequest(
+                    plaintext=plaintext,
+                ),
+                response_type=ontologies_models.EncryptionResult,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncCipherTextPropertyClientRaw:
     def __init__(self, client: AsyncCipherTextPropertyClient) -> None:
         def decrypt(_: ontologies_models.DecryptionResult): ...
+        def encrypt(_: ontologies_models.EncryptionResult): ...
+        def encrypt_with_default_channel(_: ontologies_models.EncryptionResult): ...
 
         self.decrypt = core.async_with_raw_response(decrypt, client.decrypt)
+        self.encrypt = core.async_with_raw_response(encrypt, client.encrypt)
+        self.encrypt_with_default_channel = core.async_with_raw_response(
+            encrypt_with_default_channel, client.encrypt_with_default_channel
+        )
 
 
 class _AsyncCipherTextPropertyClientStreaming:
     def __init__(self, client: AsyncCipherTextPropertyClient) -> None:
         def decrypt(_: ontologies_models.DecryptionResult): ...
+        def encrypt(_: ontologies_models.EncryptionResult): ...
+        def encrypt_with_default_channel(_: ontologies_models.EncryptionResult): ...
 
         self.decrypt = core.async_with_streaming_response(decrypt, client.decrypt)
+        self.encrypt = core.async_with_streaming_response(encrypt, client.encrypt)
+        self.encrypt_with_default_channel = core.async_with_streaming_response(
+            encrypt_with_default_channel, client.encrypt_with_default_channel
+        )

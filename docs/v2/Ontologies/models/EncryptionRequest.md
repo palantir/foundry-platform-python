@@ -1,6 +1,6 @@
-# DecryptionResult
+# EncryptionRequest
 
-The result of a CipherText decryption. If successful, the plaintext decrypted value will be returned. Otherwise, an error will be thrown.
+The request to encrypt a plaintext value into a CipherText value.
 
 
 ## Properties

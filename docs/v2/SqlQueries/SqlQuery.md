@@ -4,7 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Stable |
 [**execute**](#execute) | **POST** /v2/sqlQueries/execute | Stable |
-[**execute_ontology**](#execute_ontology) | **POST** /v2/sqlQueries/executeOntology | Private Beta |
+[**execute_ontology**](#execute_ontology) | **POST** /v2/sqlQueries/executeOntology | Public Beta |
 [**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Stable |
 [**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Stable |
 
@@ -128,10 +128,12 @@ Name | Type | Description  | Notes |
 **query** | str | The SQL query to execute.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to execute the query against. If not specified, the default (main) branch is used.  | [optional] |
 **dry_run** | Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.  | [optional] |
+**ontology_identifier** | Optional[OntologyIdentifier] | Either an ontology RID or an ontology API name.  | [optional] |
 **parameters** | Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **row_limit** | Optional[int] | Maximum number of rows to return.  | [optional] |
 **scenario_rid** | Optional[ScenarioRid] | The scenario to evaluate the query against. If not specified, no scenario is applied.  | [optional] |
+**table_providers** | Optional[Dict[TableName, ObjectSet]] | Map of table providers, requires ontologyIdentifier to be provided otherwise it will throw.  | [optional] |
 
 ### Return type
 **bytes**
@@ -151,6 +153,8 @@ query = "SELECT * FROM ri.ontology.main.object-type.xxx"
 branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 # Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.
 dry_run = None
+# Optional[OntologyIdentifier] | Either an ontology RID or an ontology API name.
+ontology_identifier = "example-ontology"
 # Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
 parameters = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -159,6 +163,8 @@ preview = None
 row_limit = None
 # Optional[ScenarioRid] | The scenario to evaluate the query against. If not specified, no scenario is applied.
 scenario_rid = "ri.actions..scenario.0000-0000"
+# Optional[Dict[TableName, ObjectSet]] | Map of table providers, requires ontologyIdentifier to be provided otherwise it will throw.
+table_providers = None
 
 
 try:
@@ -166,10 +172,12 @@ try:
         query=query,
         branch=branch,
         dry_run=dry_run,
+        ontology_identifier=ontology_identifier,
         parameters=parameters,
         preview=preview,
         row_limit=row_limit,
         scenario_rid=scenario_rid,
+        table_providers=table_providers,
     )
     print("The execute_ontology response:\n")
     pprint(api_response)

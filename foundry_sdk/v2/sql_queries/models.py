@@ -24,6 +24,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
 class AnyColumnType(core.ModelBase):
@@ -92,6 +93,12 @@ class ExecuteOntologySqlQueryRequest(core.ModelBase):
 
     scenario_rid: typing.Optional[ScenarioRid] = pydantic.Field(alias=str("scenarioRid"), default=None)  # type: ignore[literal-required]
     """The scenario to evaluate the query against. If not specified, no scenario is applied."""
+
+    ontology_identifier: typing.Optional[ontologies_models.OntologyIdentifier] = pydantic.Field(alias=str("ontologyIdentifier"), default=None)  # type: ignore[literal-required]
+    """Either an ontology RID or an ontology API name."""
+
+    table_providers: typing.Optional[typing.Dict[TableName, ontologies_models.ObjectSet]] = pydantic.Field(alias=str("tableProviders"), default=None)  # type: ignore[literal-required]
+    """Map of table providers, requires ontologyIdentifier to be provided otherwise it will throw."""
 
 
 class ExecuteSqlQueryRequest(core.ModelBase):
@@ -375,6 +382,10 @@ class SucceededQueryStatus(core.ModelBase):
     type: typing.Literal["succeeded"] = "succeeded"
 
 
+TableName: typing_extensions.TypeAlias = str
+"""The name of a SQL query table."""
+
+
 class UnnamedParameterValues(core.ModelBase):
     """An ordered list of unnamed positional parameter values."""
 
@@ -427,5 +438,6 @@ __all__ = [
     "StructFieldKeyValue",
     "StructFieldRid",
     "SucceededQueryStatus",
+    "TableName",
     "UnnamedParameterValues",
 ]
