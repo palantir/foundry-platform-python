@@ -242,7 +242,7 @@
     "PropertyV2.typeClasses",
     "SharedPropertyType.typeClasses",
     "StructFieldType.typeClasses",
-    "ObjectTypeV2.aliases"
+    "ObjectTypeV2.aliases",
     "ObjectTypeV2.datasources"
   ]
 }
