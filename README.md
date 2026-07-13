@@ -4063,6 +4063,7 @@ Namespace | Name | Import |
 **Orchestration** | CreateBuildPermissionDenied | `from foundry_sdk.v2.orchestration.errors import CreateBuildPermissionDenied` |
 **Orchestration** | CreateSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import CreateSchedulePermissionDenied` |
 **Orchestration** | DeleteSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import DeleteSchedulePermissionDenied` |
+**Orchestration** | DuplicateBuildBranches | `from foundry_sdk.v2.orchestration.errors import DuplicateBuildBranches` |
 **Orchestration** | GetAffectedResourcesSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import GetAffectedResourcesSchedulePermissionDenied` |
 **Orchestration** | InvalidAndTrigger | `from foundry_sdk.v2.orchestration.errors import InvalidAndTrigger` |
 **Orchestration** | InvalidMediaSetTrigger | `from foundry_sdk.v2.orchestration.errors import InvalidMediaSetTrigger` |
