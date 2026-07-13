@@ -3900,7 +3900,7 @@ class ObjectTypeV2(core.ModelBase):
     the get-by-RID read paths (e.g. `getObjectTypeV2`); it is always empty on the `listObjectTypesV2` endpoint.
     """
 
-    datasources: typing.List[ObjectTypeDatasource]
+    datasources: typing.Optional[typing.List[ObjectTypeDatasource]] = None
     """
     The datasources backing this object type which the user has access to see. Only populated when the request
     specifies `includeDatasources=true`. This list may be empty if the user doesn't have access to any

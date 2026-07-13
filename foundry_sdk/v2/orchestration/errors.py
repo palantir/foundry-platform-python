@@ -216,6 +216,22 @@ class DeleteSchedulePermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class DuplicateBuildBranchesParameters(typing_extensions.TypedDict):
+    """The build request contains duplicate branches. The branch and any fallback branches must all be distinct."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    duplicateBranchNames: typing.List[core_models.BranchName]
+    """The names of the branches that appear more than once in the build request."""
+
+
+@dataclass
+class DuplicateBuildBranches(errors.BadRequestError):
+    name: typing.Literal["DuplicateBuildBranches"]
+    parameters: DuplicateBuildBranchesParameters
+    error_instance_id: str
+
+
 class GetAffectedResourcesSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getAffectedResources the Schedule."""
 
@@ -549,6 +565,7 @@ __all__ = [
     "CreateBuildPermissionDenied",
     "CreateSchedulePermissionDenied",
     "DeleteSchedulePermissionDenied",
+    "DuplicateBuildBranches",
     "GetAffectedResourcesSchedulePermissionDenied",
     "InvalidAndTrigger",
     "InvalidMediaSetTrigger",
