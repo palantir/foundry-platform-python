@@ -43,11 +43,9 @@ class AipAgentsClient:
 
         self._config = config
 
-    @cached_property
-    def Agent(self):
         from foundry_sdk.v2.aip_agents.agent import AgentClient
 
-        return AgentClient(
+        self.Agent = AgentClient(
             auth=self._auth,
             hostname=self._hostname_supplier,
             config=self._config,
