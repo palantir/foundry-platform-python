@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: "fix(aip_agents): resolve readonly attribute error on Agent property"
+  links:
+    - https://github.com/palantir/foundry-platform-python/issues/316
