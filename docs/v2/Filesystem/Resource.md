@@ -9,6 +9,7 @@ Method | HTTP request | Release Stage |
 [**get_batch**](#get_batch) | **POST** /v2/filesystem/resources/getBatch | Stable |
 [**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Stable |
 [**get_by_path_batch**](#get_by_path_batch) | **POST** /v2/filesystem/resources/getByPathBatch | Stable |
+[**get_recently_viewed**](#get_recently_viewed) | **GET** /v2/filesystem/resources/getRecentlyViewed | Private Beta |
 [**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Stable |
 [**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Stable |
 [**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Stable |
@@ -358,6 +359,58 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | GetByPathResourcesBatchResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_recently_viewed**
+Get the resources most recently viewed by the calling user. If a resource is now inaccessible or has
+been trashed, it will not be included in the response.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**limit** | Optional[RecentlyViewedLimit] | The maximum number of recently viewed resources to return. Defaults to 100, with a maximum of 100. Values above 100 are clamped to 100.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetRecentlyViewedResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# Optional[RecentlyViewedLimit] | The maximum number of recently viewed resources to return. Defaults to 100, with a maximum of 100. Values above 100 are clamped to 100.
+limit = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.filesystem.Resource.get_recently_viewed(limit=limit, preview=preview)
+    print("The get_recently_viewed response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Resource.get_recently_viewed: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetRecentlyViewedResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

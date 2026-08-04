@@ -11,16 +11,16 @@ Method | HTTP request | Release Stage |
 [**get_result**](#get_result) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId}/result | Public Beta |
 [**get_rid_by_path**](#get_rid_by_path) | **GET** /v2/mediasets/{mediaSetRid}/items/getRidByPath | Public Beta |
 [**get_status**](#get_status) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId} | Public Beta |
-[**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} | Public Beta |
-[**metadata**](#metadata) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/metadata | Public Beta |
-[**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Public Beta |
-[**read_original**](#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original | Public Beta |
+[**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} | Stable |
+[**metadata**](#metadata) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/metadata | Stable |
+[**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Stable |
+[**read_original**](#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original | Stable |
 [**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
 [**register**](#register) | **POST** /v2/mediasets/{mediaSetRid}/items/register | Public Beta |
 [**retrieve**](#retrieve) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve | Private Beta |
 [**transform**](#transform) | **POST** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform | Public Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
-[**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Public Beta |
+[**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Stable |
 
 # **abort**
 Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
@@ -582,7 +582,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | The RID of the media set.  |  |
 **media_item_rid** | MediaItemRid | The RID of the media item.  |  |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
 ### Return type
@@ -601,15 +600,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 media_set_rid = None
 # MediaItemRid | The RID of the media item.
 media_item_rid = None
-# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
-preview = None
 # Optional[MediaItemReadToken]
 read_token = None
 
 
 try:
     api_response = client.media_sets.MediaSet.info(
-        media_set_rid, media_item_rid, preview=preview, read_token=read_token
+        media_set_rid, media_item_rid, read_token=read_token
     )
     print("The info response:\n")
     pprint(api_response)
@@ -642,7 +639,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | The RID of the media set.  |  |
 **media_item_rid** | MediaItemRid | The RID of the media item.  |  |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
 ### Return type
@@ -661,15 +657,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 media_set_rid = None
 # MediaItemRid | The RID of the media item.
 media_item_rid = None
-# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
-preview = None
 # Optional[MediaItemReadToken]
 read_token = None
 
 
 try:
     api_response = client.media_sets.MediaSet.metadata(
-        media_set_rid, media_item_rid, preview=preview, read_token=read_token
+        media_set_rid, media_item_rid, read_token=read_token
     )
     print("The metadata response:\n")
     pprint(api_response)
@@ -701,7 +695,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid |  |  |
 **media_item_rid** | MediaItemRid |  |  |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
 ### Return type
@@ -720,15 +713,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 media_set_rid = None
 # MediaItemRid
 media_item_rid = None
-# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
-preview = None
 # Optional[MediaItemReadToken]
 read_token = None
 
 
 try:
     api_response = client.media_sets.MediaSet.read(
-        media_set_rid, media_item_rid, preview=preview, read_token=read_token
+        media_set_rid, media_item_rid, read_token=read_token
     )
     print("The read response:\n")
     pprint(api_response)
@@ -760,7 +751,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid |  |  |
 **media_item_rid** | MediaItemRid |  |  |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
 ### Return type
@@ -779,15 +769,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 media_set_rid = None
 # MediaItemRid
 media_item_rid = None
-# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
-preview = None
 # Optional[MediaItemReadToken]
 read_token = None
 
 
 try:
     api_response = client.media_sets.MediaSet.read_original(
-        media_set_rid, media_item_rid, preview=preview, read_token=read_token
+        media_set_rid, media_item_rid, read_token=read_token
     )
     print("The read_original response:\n")
     pprint(api_response)
@@ -1184,7 +1172,6 @@ Name | Type | Description  | Notes |
 **filename** | MediaItemPath | A user-defined label for a media item within a media set. Required if the backing media set requires paths.  Uploading multiple files to the same path will result in only the most recent file being associated with the  path.  |  |
 **attribution** | Optional[Attribution] | used for passing through usage attribution | [optional] |
 **media_item_rid** | Optional[MediaItemRid] | An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.  | [optional] |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **MediaReference**
@@ -1206,17 +1193,11 @@ filename = "my-file.png"
 attribution = None
 # Optional[MediaItemRid] | An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
 media_item_rid = None
-# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
-preview = None
 
 
 try:
     api_response = client.media_sets.MediaSet.upload_media(
-        body,
-        filename=filename,
-        attribution=attribution,
-        media_item_rid=media_item_rid,
-        preview=preview,
+        body, filename=filename, attribution=attribution, media_item_rid=media_item_rid
     )
     print("The upload_media response:\n")
     pprint(api_response)

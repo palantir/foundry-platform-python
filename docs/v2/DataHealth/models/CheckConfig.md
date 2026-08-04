@@ -20,7 +20,9 @@ BuildStatusCheckConfig | buildStatus
 ColumnTypeCheckConfig | columnType
 AllowedColumnValuesCheckConfig | allowedColumnValues
 TimeSinceLastUpdatedCheckConfig | timeSinceLastUpdated
+ScheduleStatusCheckConfig | scheduleStatus
 NullPercentageCheckConfig | nullPercentage
+ScheduleDurationCheckConfig | scheduleDuration
 TotalColumnCountCheckConfig | totalColumnCount
 NumericColumnMedianCheckConfig | numericColumnMedian
 BuildDurationCheckConfig | buildDuration

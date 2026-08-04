@@ -144,7 +144,7 @@ class AsyncQueryTimeExceededLimitParameters(typing_extensions.TypedDict):
 
 
 @dataclass
-class AsyncQueryTimeExceededLimit(errors.InternalServerError):
+class AsyncQueryTimeExceededLimit(errors.BadRequestError):
     name: typing.Literal["AsyncQueryTimeExceededLimit"]
     parameters: AsyncQueryTimeExceededLimitParameters
     error_instance_id: str
@@ -361,6 +361,24 @@ class InvalidQueryParameterValue(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidVersionResolutionParametersParameters(typing_extensions.TypedDict):
+    """
+    The combination of `version`, `latestVersionResolution`, and `includePrerelease` provided is not
+    supported.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    message: str
+
+
+@dataclass
+class InvalidVersionResolutionParameters(errors.BadRequestError):
+    name: typing.Literal["InvalidVersionResolutionParameters"]
+    parameters: InvalidVersionResolutionParametersParameters
+    error_instance_id: str
+
+
 class MissingParameterParameters(typing_extensions.TypedDict):
     """
     Required parameters are missing. Please look at the `parameters` field to see which required parameters are
@@ -459,7 +477,7 @@ class QueryTimeExceededLimitParameters(typing_extensions.TypedDict):
 
 
 @dataclass
-class QueryTimeExceededLimit(errors.InternalServerError):
+class QueryTimeExceededLimit(errors.BadRequestError):
     name: typing.Literal["QueryTimeExceededLimit"]
     parameters: QueryTimeExceededLimitParameters
     error_instance_id: str
@@ -582,6 +600,7 @@ __all__ = [
     "GetResultExecutionPermissionDenied",
     "InvalidQueryOutputValue",
     "InvalidQueryParameterValue",
+    "InvalidVersionResolutionParameters",
     "MissingParameter",
     "QueryEncounteredUserFacingError",
     "QueryMemoryExceededLimit",

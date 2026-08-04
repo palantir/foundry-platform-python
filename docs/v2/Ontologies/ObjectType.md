@@ -4,7 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} | Stable |
 [**get_by_rid_batch**](#get_by_rid_batch) | **POST** /v2/ontologies/{ontology}/objectTypes/getByRidBatch | Public Beta |
-[**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Public Beta |
+[**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Stable |
 [**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata | Public Beta |
 [**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} | Stable |
 [**get_outgoing_link_types_by_object_type_rid_batch**](#get_outgoing_link_types_by_object_type_rid_batch) | **POST** /v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch | Public Beta |
@@ -156,7 +156,6 @@ Name | Type | Description  | Notes |
 **object_primary_key** | Optional[ObjectPrimaryKeyV2] |  | [optional] |
 **page_size** | Optional[int] | The maximum number of edits to return per page. Defaults to 100. | [optional] |
 **page_token** | Optional[str] | Token for retrieving the next page of results | [optional] |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to get edits history from.  | [optional] |
 **sort_order** | Optional[EditsHistorySortOrder] |  | [optional] |
 
@@ -188,8 +187,6 @@ object_primary_key = None
 page_size = None
 # Optional[str] | Token for retrieving the next page of results
 page_token = None
-# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
-preview = None
 # Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to get edits history from.
 scenario_rid = None
 # Optional[EditsHistorySortOrder]
@@ -206,7 +203,6 @@ try:
         object_primary_key=object_primary_key,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         scenario_rid=scenario_rid,
         sort_order=sort_order,
     )

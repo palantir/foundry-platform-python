@@ -68,6 +68,8 @@ class QueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
@@ -78,8 +80,9 @@ class QueryClient:
     ) -> functions_models.ExecuteQueryResponse:
         """
         Executes a Query and returns the result as a single JSON object. By default, this executes
-        the latest version of the query. The latest version is the one that was most recently
-        published, which may be a pre-release version.
+        the highest semantic version of the query, excluding pre-release versions. To resolve the
+        most recently published version instead, including pre-release versions, set
+        `latestVersionResolution` to `PUBLISH_TIME`.
 
         This endpoint executes global (non-ontology-scoped) query functions. For ontology-scoped
         functions, use the equivalent endpoint under
@@ -94,6 +97,10 @@ class QueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param trace_parent:
@@ -134,6 +141,8 @@ class QueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -156,6 +165,8 @@ class QueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -180,6 +191,10 @@ class QueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -223,6 +238,8 @@ class QueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.ExecuteQueryAsyncResponse,
                 request_timeout=request_timeout,
@@ -240,16 +257,24 @@ class QueryClient:
         self,
         query_api_name: functions_models.QueryApiName,
         *,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> functions_models.Query:
         """
-        Gets a specific query type with the given API name. By default, this gets the latest version of the query.
+        Gets a specific query type with the given API name. By default, this returns the highest semantic
+        version of the query, excluding pre-release versions. To resolve the most recently published version
+        instead, including pre-release versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
         :param query_api_name:
         :type query_api_name: QueryApiName
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param version:
@@ -267,6 +292,8 @@ class QueryClient:
                 method="GET",
                 resource_path="/v2/functions/queries/{queryApiName}",
                 query_params={
+                    "includePrerelease": include_prerelease,
+                    "latestVersionResolution": latest_version_resolution,
                     "preview": preview,
                     "version": version,
                 },
@@ -405,6 +432,8 @@ class QueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -416,8 +445,9 @@ class QueryClient:
     ) -> core.SseContextManager[functions_models.StreamingExecuteQueryResponse]:
         """
         Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-        By default, this executes the latest version of the query. The latest version is the one
-        that was most recently published, which may be a pre-release version.
+        By default, this executes the highest semantic version of the query, excluding pre-release
+        versions. To resolve the most recently published version instead, including pre-release
+        versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
         This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
         `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -442,6 +472,10 @@ class QueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -485,6 +519,8 @@ class QueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.StreamingExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -507,6 +543,8 @@ class QueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -518,8 +556,9 @@ class QueryClient:
     ) -> core.SseContextManager[functions_models.StreamingExecuteQueryResponse]:
         """
         Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-        By default, this executes the latest version of the query. The latest version is the one
-        that was most recently published, which may be a pre-release version.
+        By default, this executes the highest semantic version of the query, excluding pre-release
+        versions. To resolve the most recently published version instead, including pre-release
+        versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
         This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
         `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -544,6 +583,10 @@ class QueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -587,6 +630,8 @@ class QueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.StreamingExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -683,6 +728,8 @@ class AsyncQueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
@@ -693,8 +740,9 @@ class AsyncQueryClient:
     ) -> typing.Awaitable[functions_models.ExecuteQueryResponse]:
         """
         Executes a Query and returns the result as a single JSON object. By default, this executes
-        the latest version of the query. The latest version is the one that was most recently
-        published, which may be a pre-release version.
+        the highest semantic version of the query, excluding pre-release versions. To resolve the
+        most recently published version instead, including pre-release versions, set
+        `latestVersionResolution` to `PUBLISH_TIME`.
 
         This endpoint executes global (non-ontology-scoped) query functions. For ontology-scoped
         functions, use the equivalent endpoint under
@@ -709,6 +757,10 @@ class AsyncQueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param trace_parent:
@@ -749,6 +801,8 @@ class AsyncQueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -771,6 +825,8 @@ class AsyncQueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -795,6 +851,10 @@ class AsyncQueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -838,6 +898,8 @@ class AsyncQueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.ExecuteQueryAsyncResponse,
                 request_timeout=request_timeout,
@@ -855,16 +917,24 @@ class AsyncQueryClient:
         self,
         query_api_name: functions_models.QueryApiName,
         *,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[functions_models.Query]:
         """
-        Gets a specific query type with the given API name. By default, this gets the latest version of the query.
+        Gets a specific query type with the given API name. By default, this returns the highest semantic
+        version of the query, excluding pre-release versions. To resolve the most recently published version
+        instead, including pre-release versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
         :param query_api_name:
         :type query_api_name: QueryApiName
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param version:
@@ -882,6 +952,8 @@ class AsyncQueryClient:
                 method="GET",
                 resource_path="/v2/functions/queries/{queryApiName}",
                 query_params={
+                    "includePrerelease": include_prerelease,
+                    "latestVersionResolution": latest_version_resolution,
                     "preview": preview,
                     "version": version,
                 },
@@ -1020,6 +1092,8 @@ class AsyncQueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -1031,8 +1105,9 @@ class AsyncQueryClient:
     ) -> core.AsyncSseContextManager[functions_models.StreamingExecuteQueryResponse]:
         """
         Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-        By default, this executes the latest version of the query. The latest version is the one
-        that was most recently published, which may be a pre-release version.
+        By default, this executes the highest semantic version of the query, excluding pre-release
+        versions. To resolve the most recently published version instead, including pre-release
+        versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
         This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
         `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -1057,6 +1132,10 @@ class AsyncQueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -1100,6 +1179,8 @@ class AsyncQueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.StreamingExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -1122,6 +1203,8 @@ class AsyncQueryClient:
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_prerelease: typing.Optional[functions_models.IncludePrerelease] = None,
+        latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -1133,8 +1216,9 @@ class AsyncQueryClient:
     ) -> core.AsyncSseContextManager[functions_models.StreamingExecuteQueryResponse]:
         """
         Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-        By default, this executes the latest version of the query. The latest version is the one
-        that was most recently published, which may be a pre-release version.
+        By default, this executes the highest semantic version of the query, excluding pre-release
+        versions. To resolve the most recently published version instead, including pre-release
+        versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
         This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
         `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -1159,6 +1243,10 @@ class AsyncQueryClient:
         :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
         :type branch: Optional[FoundryBranch]
+        :param include_prerelease:
+        :type include_prerelease: Optional[IncludePrerelease]
+        :param latest_version_resolution:
+        :type latest_version_resolution: Optional[LatestVersionResolution]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -1202,6 +1290,8 @@ class AsyncQueryClient:
                     parameters=parameters,
                     version=version,
                     branch=branch,
+                    latest_version_resolution=latest_version_resolution,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.StreamingExecuteQueryResponse,
                 request_timeout=request_timeout,

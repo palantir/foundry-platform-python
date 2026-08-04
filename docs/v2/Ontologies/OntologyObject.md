@@ -383,6 +383,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**default_load_level** | Optional[PropertyLoadLevel] |  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
@@ -415,6 +416,8 @@ object_type = "employee"
 select = None
 # Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PropertyLoadLevel]
+default_load_level = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -445,6 +448,7 @@ try:
         object_type,
         select=select,
         branch=branch,
+        default_load_level=default_load_level,
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         order_by=order_by,

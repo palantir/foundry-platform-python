@@ -355,6 +355,19 @@ class GetByPathPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetRecentlyViewedPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getRecentlyViewed the Resource."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class GetRecentlyViewedPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetRecentlyViewedPermissionDenied"]
+    parameters: GetRecentlyViewedPermissionDeniedParameters
+    error_instance_id: str
+
+
 class GetRootFolderNotSupportedParameters(typing_extensions.TypedDict):
     """Getting the root folder as a resource is not supported."""
 
@@ -820,6 +833,25 @@ class ProjectTemplateNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class RecentlyViewedLimitBelowMinimumParameters(typing_extensions.TypedDict):
+    """RecentlyViewedLimit must be greater than or equal to 1"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: int
+    """The value that was provided."""
+
+    minInclusive: int
+    """The minimum value allowed."""
+
+
+@dataclass
+class RecentlyViewedLimitBelowMinimum(errors.BadRequestError):
+    name: typing.Literal["RecentlyViewedLimitBelowMinimum"]
+    parameters: RecentlyViewedLimitBelowMinimumParameters
+    error_instance_id: str
+
+
 class RemoveMarkingsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not removeMarkings the Resource."""
 
@@ -1240,6 +1272,7 @@ __all__ = [
     "ForbiddenOperationOnHiddenResource",
     "GetAccessRequirementsPermissionDenied",
     "GetByPathPermissionDenied",
+    "GetRecentlyViewedPermissionDenied",
     "GetRootFolderNotSupported",
     "GetSpaceResourceNotSupported",
     "InvalidDefaultRoles",
@@ -1270,6 +1303,7 @@ __all__ = [
     "ProjectNameAlreadyExists",
     "ProjectNotFound",
     "ProjectTemplateNotFound",
+    "RecentlyViewedLimitBelowMinimum",
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
     "RemoveProjectResourceReferencesPermissionDenied",

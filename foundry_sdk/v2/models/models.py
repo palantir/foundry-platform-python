@@ -59,11 +59,13 @@ CreateConfigValidationFailureReason: typing_extensions.TypeAlias = typing_extens
         "MissingRequiredDatasetColumnError",
         "MultiplePropertiesNotAllowedForTrainerError",
         "FieldValidationError",
+        "UnsupportedDatasetFieldTypeError",
         "ChangelogTooLongError",
         "UnknownColumnSpecIdInConfigColumnMappingError",
         "MultipleColumnsNotAllowedForTrainerError",
         "MissingWorkerConfigInputDatasetColumnMappingError",
         "DatasetSchemaNotFoundError",
+        "InvalidWorkerConfigInputTypeError",
         "MissingWorkerConfigInputError",
         "MissingWorkerConfigInputObjectSetPropertyMappingError",
         "OutputResourceNotFoundError",
@@ -412,6 +414,21 @@ class InvalidTabularFormatError(core.ModelBase):
     type: typing.Literal["invalidTabularFormat"] = "invalidTabularFormat"
 
 
+class InvalidWorkerConfigInputTypeError(core.ModelBase):
+    """A worker config input was provided with a type that does not match the expected type."""
+
+    input_alias: InputAlias = pydantic.Field(alias=str("inputAlias"))  # type: ignore[literal-required]
+    """The alias of the input with the mismatched type."""
+
+    expected_type: str = pydantic.Field(alias=str("expectedType"))  # type: ignore[literal-required]
+    """The type the trainer expected for the input."""
+
+    actual_type: str = pydantic.Field(alias=str("actualType"))  # type: ignore[literal-required]
+    """The type that was actually provided."""
+
+    type: typing.Literal["invalidWorkerConfigInputType"] = "invalidWorkerConfigInputType"
+
+
 class JsonSchemaValidationError(core.ModelBase):
     """The custom configuration failed JSON schema validation."""
 
@@ -518,6 +535,9 @@ class LiveDeploymentRuntimeConfiguration(core.ModelBase):
 
     scaling_configuration: typing.Optional[LiveDeploymentScalingConfiguration] = pydantic.Field(alias=str("scalingConfiguration"), default=None)  # type: ignore[literal-required]
     """Autoscaling configuration for the deployment. Controls how the deployment scales replicas up and down based on load."""
+
+    environment_variables: typing.Dict[str, str] = pydantic.Field(alias=str("environmentVariables"))  # type: ignore[literal-required]
+    """User-supplied environment variables to set on the deployment container, keyed by variable name."""
 
 
 class LiveDeploymentScalingConfiguration(core.ModelBase):
@@ -1508,6 +1528,21 @@ class UnknownInputNameError(core.ModelBase):
     type: typing.Literal["unknownInputName"] = "unknownInputName"
 
 
+class UnsupportedDatasetFieldTypeError(core.ModelBase):
+    """A dataset field has a type that is not supported by the trainer."""
+
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset containing the unsupported field."""
+
+    field_name: typing.Optional[str] = pydantic.Field(alias=str("fieldName"), default=None)  # type: ignore[literal-required]
+    """The name of the dataset field, if known."""
+
+    field_type: str = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
+    """The unsupported field type."""
+
+    type: typing.Literal["unsupportedDatasetFieldType"] = "unsupportedDatasetFieldType"
+
+
 class UnsupportedTypeError(core.ModelBase):
     """Input contains an unsupported data type."""
 
@@ -1597,6 +1632,7 @@ __all__ = [
     "InvalidMapFormatError",
     "InvalidResourceConfigurationError",
     "InvalidTabularFormatError",
+    "InvalidWorkerConfigInputTypeError",
     "JsonSchemaValidationError",
     "ListLiveDeploymentsResponse",
     "ListModelStudioConfigVersionsResponse",
@@ -1720,5 +1756,6 @@ __all__ = [
     "TypeMismatchError",
     "UnknownColumnSpecIdInConfigColumnMappingError",
     "UnknownInputNameError",
+    "UnsupportedDatasetFieldTypeError",
     "UnsupportedTypeError",
 ]

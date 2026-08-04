@@ -548,7 +548,6 @@ class MediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -560,8 +559,6 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -574,9 +571,7 @@ class MediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -601,7 +596,6 @@ class MediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -614,8 +608,6 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -628,9 +620,7 @@ class MediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/metadata",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -655,7 +645,6 @@ class MediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -667,8 +656,6 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -681,9 +668,7 @@ class MediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -708,7 +693,6 @@ class MediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -720,8 +704,6 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -734,9 +716,7 @@ class MediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -1082,7 +1062,6 @@ class MediaSetClient:
         filename: core_models.MediaItemPath,
         attribution: typing.Optional[core_models.Attribution] = None,
         media_item_rid: typing.Optional[core_models.MediaItemRid] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core_models.MediaReference:
@@ -1102,8 +1081,6 @@ class MediaSetClient:
         :type attribution: Optional[Attribution]
         :param media_item_rid: An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
         :type media_item_rid: Optional[MediaItemRid]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1117,7 +1094,6 @@ class MediaSetClient:
                 query_params={
                     "filename": filename,
                     "mediaItemRid": media_item_rid,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -1738,7 +1714,6 @@ class AsyncMediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1750,8 +1725,6 @@ class AsyncMediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1764,9 +1737,7 @@ class AsyncMediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -1791,7 +1762,6 @@ class AsyncMediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1804,8 +1774,6 @@ class AsyncMediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1818,9 +1786,7 @@ class AsyncMediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/metadata",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -1845,7 +1811,6 @@ class AsyncMediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1857,8 +1822,6 @@ class AsyncMediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1871,9 +1834,7 @@ class AsyncMediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -1898,7 +1859,6 @@ class AsyncMediaSetClient:
         media_set_rid: core_models.MediaSetRid,
         media_item_rid: core_models.MediaItemRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1910,8 +1870,6 @@ class AsyncMediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1924,9 +1882,7 @@ class AsyncMediaSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -2272,7 +2228,6 @@ class AsyncMediaSetClient:
         filename: core_models.MediaItemPath,
         attribution: typing.Optional[core_models.Attribution] = None,
         media_item_rid: typing.Optional[core_models.MediaItemRid] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[core_models.MediaReference]:
@@ -2292,8 +2247,6 @@ class AsyncMediaSetClient:
         :type attribution: Optional[Attribution]
         :param media_item_rid: An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
         :type media_item_rid: Optional[MediaItemRid]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -2307,7 +2260,6 @@ class AsyncMediaSetClient:
                 query_params={
                     "filename": filename,
                     "mediaItemRid": media_item_rid,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={

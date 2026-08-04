@@ -116,6 +116,20 @@ class ActionParameterV2(core.ModelBase):
     data_type: ActionParameterType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     required: bool
     type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
+    validation: typing.Optional[ActionParameterValidation] = None
+
+
+class ActionParameterValidation(core.ModelBase):
+    """Validation metadata surfaced for a parameter."""
+
+    default_validation: ActionParameterValidationBlock = pydantic.Field(alias=str("defaultValidation"))  # type: ignore[literal-required]
+
+
+class ActionParameterValidationBlock(core.ModelBase):
+    """Validation constraints for a parameter."""
+
+    allowed_values: typing.Optional[ParameterAllowedValues] = pydantic.Field(alias=str("allowedValues"), default=None)  # type: ignore[literal-required]
+    array_size: typing.Optional[ParameterArraySize] = pydantic.Field(alias=str("arraySize"), default=None)  # type: ignore[literal-required]
 
 
 ActionResults: typing_extensions.TypeAlias = typing_extensions.Annotated[
@@ -725,6 +739,13 @@ ArtifactRepositoryRid: typing_extensions.TypeAlias = core.RID
 """ArtifactRepositoryRid"""
 
 
+class AttachmentAllowedValues(core.ModelBase):
+    """The parameter value (an attachment rid) must reference an attachment within the configured size limit."""
+
+    max_size_bytes: typing.Optional[core_models.SizeBytes] = pydantic.Field(alias=str("maxSizeBytes"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["attachment"] = "attachment"
+
+
 AttachmentMetadataResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AttachmentV2", "ListAttachmentsResponseV2"], pydantic.Field(discriminator="type")
 ]
@@ -1194,6 +1215,16 @@ class DateValue(core.ModelBase):
     type: typing.Literal["dateValue"] = "dateValue"
 
 
+class DatetimeAllowedValues(core.ModelBase):
+    """The parameter value must fall within the specified date or timestamp range."""
+
+    gt: typing.Optional[ParameterDatetimeValue] = None
+    gte: typing.Optional[ParameterDatetimeValue] = None
+    lt: typing.Optional[ParameterDatetimeValue] = None
+    lte: typing.Optional[ParameterDatetimeValue] = None
+    type: typing.Literal["datetime"] = "datetime"
+
+
 DatetimeFormat: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["DatetimeStringFormat", "DatetimeLocalizedFormat"],
     pydantic.Field(discriminator="type"),
@@ -1637,6 +1668,13 @@ Represents the value of a property filter. For instance, false is the FilterValu
 """
 
 
+class FixedDatetimeValue(core.ModelBase):
+    """An absolute datetime bound (ISO 8601 timestamp or date string)."""
+
+    value: ParameterConstraintValue
+    type: typing.Literal["fixed"] = "fixed"
+
+
 FixedValuesMapKey: typing_extensions.TypeAlias = int
 """Integer key for fixed value mapping."""
 
@@ -1984,6 +2022,13 @@ class IntegerValue(core.ModelBase):
 
     value: int
     type: typing.Literal["integerValue"] = "integerValue"
+
+
+InterfaceActionTypeConstraintApiName: typing_extensions.TypeAlias = str
+"""
+The name in the API of an action defined on an interface that implementing object types provide a concrete
+action type for.
+"""
 
 
 class InterfaceDefinedPropertyType(core.ModelBase):
@@ -2645,6 +2690,7 @@ class LoadObjectSetRequestV2(core.ModelBase):
     but not both.
     """
 
+    default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -2698,6 +2744,7 @@ class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
     but not both.
     """
 
+    default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -2766,6 +2813,7 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     but not both.
     """
 
+    default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -2878,6 +2926,18 @@ class LteQueryV2(core.ModelBase):
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: PropertyValue
     type: typing.Literal["lte"] = "lte"
+
+
+class MarkdownAllowedValues(core.ModelBase):
+    """The parameter value (a markdown-formatted string) must satisfy the configured length bounds."""
+
+    gte: typing.Optional[int] = None
+    """Character length greater than or equal."""
+
+    lte: typing.Optional[int] = None
+    """Character length less than or equal."""
+
+    type: typing.Literal["markdown"] = "markdown"
 
 
 MarkingId: typing_extensions.TypeAlias = str
@@ -3005,6 +3065,12 @@ class MultiplyPropertyExpression(core.ModelBase):
     type: typing.Literal["multiply"] = "multiply"
 
 
+class MustBeEmptyAllowedValues(core.ModelBase):
+    """The parameter must be omitted or empty."""
+
+    type: typing.Literal["mustBeEmpty"] = "mustBeEmpty"
+
+
 NearestNeighborsQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["DoubleVector", "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
 ]
@@ -3051,11 +3117,27 @@ class NestedQueryAggregation(core.ModelBase):
     groups: typing.List[QueryAggregation]
 
 
+class NoLoadLevel(core.ModelBase):
+    """
+    Returns the property as-is, without applying reducers or extracting a struct main value. Useful as an
+    explicit per-property load level (via `PropertyWithLoadLevelSelector`) to opt a property out of a
+    `defaultLoadLevel`.
+    """
+
+    type: typing.Literal["noLoadLevel"] = "noLoadLevel"
+
+
 class NotQueryV2(core.ModelBase):
     """Returns objects where the query is not satisfied."""
 
     value: SearchJsonQueryV2
     type: typing.Literal["not"] = "not"
+
+
+class NowDatetimeValue(core.ModelBase):
+    """The current evaluation time itself. Carries no fields."""
+
+    type: typing.Literal["now"] = "now"
 
 
 class NumberFormatAffix(core.ModelBase):
@@ -3522,9 +3604,14 @@ class ObjectSetStaticType(core.ModelBase):
 
 
 class ObjectSetStreamSubscribeRequest(core.ModelBase):
-    """ObjectSetStreamSubscribeRequest"""
+    """
+    `branch` identifies the Foundry branch. `scenarioRid` identifies the Ontology Scenario.
+    If a scenario is based on a non-default branch, `branch` must identify that non-default base branch.
+    """
 
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    branch: typing.Optional[core_models.FoundryBranch] = None
+    scenario_rid: typing.Optional[OntologyScenarioRid] = pydantic.Field(alias=str("scenarioRid"), default=None)  # type: ignore[literal-required]
     property_set: typing.List[SelectedPropertyApiName] = pydantic.Field(alias=str("propertySet"))  # type: ignore[literal-required]
     reference_set: typing.List[SelectedPropertyApiName] = pydantic.Field(alias=str("referenceSet"))  # type: ignore[literal-required]
     object_loading_response_options: typing.Optional[ObjectLoadingResponseOptions] = pydantic.Field(alias=str("objectLoadingResponseOptions"), default=None)  # type: ignore[literal-required]
@@ -3775,6 +3862,12 @@ class ObjectTypeInterfaceImplementation(core.ModelBase):
     properties: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
     properties_v2: typing.Dict[InterfacePropertyApiName, InterfacePropertyTypeImplementation] = pydantic.Field(alias=str("propertiesV2"))  # type: ignore[literal-required]
     links: typing.Dict[InterfaceLinkTypeApiName, typing.List[LinkTypeApiName]]
+    action_types: typing.Dict[InterfaceActionTypeConstraintApiName, ActionTypeApiName] = pydantic.Field(alias=str("actionTypes"))  # type: ignore[literal-required]
+    """
+    A map from interface action type constraint API name to the API name of the concrete action type on this
+    object type that implements it. Action types the caller is not authorized to access are omitted, so this
+    map may not cover every action type constraint declared on the interface.
+    """
 
 
 class ObjectTypeLinkTypeApiNameMapping(core.ModelBase):
@@ -3918,6 +4011,18 @@ class ObjectUpdate(core.ModelBase):
     object: OntologyObjectV2
     state: ObjectState
     type: typing.Literal["object"] = "object"
+
+
+class OneOfAllowedValues(core.ModelBase):
+    """The parameter value must be one of a fixed set of labelled options."""
+
+    options: typing.List[ParameterAllowedValueOption]
+    """The predefined set of options."""
+
+    other_values_allowed: bool = pydantic.Field(alias=str("otherValuesAllowed"))  # type: ignore[literal-required]
+    """Whether values outside `options` are allowed."""
+
+    type: typing.Literal["oneOf"] = "oneOf"
 
 
 class OneOfConstraint(core.ModelBase):
@@ -4166,6 +4271,46 @@ OrderByDirection: typing_extensions.TypeAlias = typing.Literal["ASC", "DESC"]
 """OrderByDirection"""
 
 
+class ParameterAllowedValueOption(core.ModelBase):
+    """A possible value for the parameter."""
+
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    value: DataValue
+
+
+ParameterAllowedValues: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union[
+        "OneOfAllowedValues",
+        "DatetimeAllowedValues",
+        "AttachmentAllowedValues",
+        "ValueTypeAllowedValues",
+        "MarkdownAllowedValues",
+        "RangeAllowedValues",
+        "MustBeEmptyAllowedValues",
+        "TextAllowedValues",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""The allowed-values constraint configured on an action parameter."""
+
+
+class ParameterArraySize(core.ModelBase):
+    """Bounds on the size of an array-typed parameter."""
+
+    gte: typing.Optional[int] = None
+    """Greater than or equal."""
+
+    lte: typing.Optional[int] = None
+    """Less than or equal."""
+
+
+ParameterDatetimeValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["NowDatetimeValue", "FixedDatetimeValue", "RelativeDatetimeValue"],
+    pydantic.Field(discriminator="type"),
+]
+"""A datetime bound value."""
+
+
 ParameterEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
@@ -4210,6 +4355,8 @@ class ParameterEvaluationResult(core.ModelBase):
     evaluated_constraints: typing.List[ParameterEvaluatedConstraint] = pydantic.Field(alias=str("evaluatedConstraints"))  # type: ignore[literal-required]
     required: bool
     """Represents whether the parameter is a required input to the action."""
+
+    default_value: typing.Optional[DataValue] = pydantic.Field(alias=str("defaultValue"), default=None)  # type: ignore[literal-required]
 
 
 ParameterId: typing_extensions.TypeAlias = str
@@ -4422,6 +4569,7 @@ PropertyLoadLevel: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "ApplyReducersAndExtractMainValueLoadLevel",
         "ApplyReducersLoadLevel",
         "ExtractMainValueLoadLevel",
+        "NoLoadLevel",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4430,6 +4578,7 @@ The load level of the property:
 - APPLY_REDUCERS: Returns a single value of an array as configured in the ontology.
 - EXTRACT_MAIN_VALUE: Returns the main value of a struct as configured in the ontology.
 - APPLY_REDUCERS_AND_EXTRACT_MAIN_VALUE: Performs both to return the reduced main value.
+- NO_LOAD_LEVEL: Returns the property as-is, without applying reducers or extracting a struct main value.
 """
 
 
@@ -4807,6 +4956,16 @@ class QueryUnionType(core.ModelBase):
     type: typing.Literal["union"] = "union"
 
 
+class RangeAllowedValues(core.ModelBase):
+    """The parameter value must fall within the specified numeric range."""
+
+    gt: typing.Optional[ParameterConstraintValue] = None
+    gte: typing.Optional[ParameterConstraintValue] = None
+    lt: typing.Optional[ParameterConstraintValue] = None
+    lte: typing.Optional[ParameterConstraintValue] = None
+    type: typing.Literal["range"] = "range"
+
+
 class RangeConstraint(core.ModelBase):
     """The parameter value must be within the defined range."""
 
@@ -4952,6 +5111,29 @@ class RelativeDateRangeQuery(core.ModelBase):
     """
 
     type: typing.Literal["relativeDateRange"] = "relativeDateRange"
+
+
+RelativeDatetimeDuration: typing_extensions.TypeAlias = core.Long
+"""The magnitude of a relative datetime offset."""
+
+
+RelativeDatetimeTense: typing_extensions.TypeAlias = typing.Literal["FUTURE", "PAST"]
+"""Direction of a relative datetime offset."""
+
+
+RelativeDatetimeUnit: typing_extensions.TypeAlias = typing.Literal[
+    "SECOND", "MINUTE", "HOUR", "DAY", "WEEK"
+]
+"""Time unit for relative datetime offsets."""
+
+
+class RelativeDatetimeValue(core.ModelBase):
+    """A datetime expressed as an offset from the current time."""
+
+    duration: RelativeDatetimeDuration
+    unit: RelativeDatetimeUnit
+    tense: RelativeDatetimeTense
+    type: typing.Literal["relative"] = "relative"
 
 
 class RelativePointInTime(core.ModelBase):
@@ -5197,6 +5379,7 @@ class SearchObjectsRequestV2(core.ModelBase):
     but not both.
     """
 
+    default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
     """
     A flag to exclude the retrieval of the `__rid` property.
@@ -5461,6 +5644,13 @@ class StaticArgument(core.ModelBase):
 
     value: DataValue
     type: typing.Literal["staticValue"] = "staticValue"
+
+
+class StaticConstraintValue(core.ModelBase):
+    """A literal constraint value."""
+
+    value: DataValue
+    type: typing.Literal["static"] = "static"
 
 
 class StatusActionTypesQueryV2(core.ModelBase):
@@ -5789,6 +5979,27 @@ TableRid: typing_extensions.TypeAlias = core.RID
 """The RID of a Foundry table."""
 
 
+class TextAllowedValues(core.ModelBase):
+    """
+    The parameter value (a string) must satisfy the configured length bounds and/or regex
+    pattern.
+    """
+
+    gte: typing.Optional[int] = None
+    """Character length greater than or equal."""
+
+    lte: typing.Optional[int] = None
+    """Character length less than or equal."""
+
+    regex: typing.Optional[str] = None
+    """The regular expression. Format and supported syntax match Elasticsearch regex semantics."""
+
+    configured_failure_message: typing.Optional[str] = pydantic.Field(alias=str("configuredFailureMessage"), default=None)  # type: ignore[literal-required]
+    """Message returned when the value does not match the pattern."""
+
+    type: typing.Literal["text"] = "text"
+
+
 class ThreeDimensionalAggregation(core.ModelBase):
     """ThreeDimensionalAggregation"""
 
@@ -6085,6 +6296,15 @@ structs.
 """
 
 
+class ValueTypeAllowedValues(core.ModelBase):
+    """The parameter value must conform to the referenced value type."""
+
+    api_name: ValueTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    rid: ValueTypeRid
+    version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+    type: typing.Literal["valueType"] = "valueType"
+
+
 ValueTypeApiName: typing_extensions.TypeAlias = str
 """The name of the value type in the API in camelCase format."""
 
@@ -6195,6 +6415,10 @@ class ValueTypeUnionType(core.ModelBase):
     type: typing.Literal["union"] = "union"
 
 
+ValueTypeVersionId: typing_extensions.TypeAlias = core.UUID
+"""ValueTypeVersionId"""
+
+
 VersionedQueryTypeApiName: typing_extensions.TypeAlias = str
 """
 The name of the Query in the API and an optional version identifier separated by a colon.
@@ -6288,6 +6512,10 @@ OntologyBase: typing_extensions.TypeAlias = OntologyBaseBranch
 """The base used to initialize a scenario."""
 
 
+ParameterConstraintValue: typing_extensions.TypeAlias = StaticConstraintValue
+"""The source of a constraint bound value."""
+
+
 PolygonValue: typing_extensions.TypeAlias = geo_models.Polygon
 """PolygonValue"""
 
@@ -6315,6 +6543,8 @@ __all__ = [
     "ActionParameterRid",
     "ActionParameterType",
     "ActionParameterV2",
+    "ActionParameterValidation",
+    "ActionParameterValidationBlock",
     "ActionResults",
     "ActionRid",
     "ActionSectionRid",
@@ -6381,6 +6611,7 @@ __all__ = [
     "ArrayEvaluatedConstraint",
     "ArraySizeConstraint",
     "ArtifactRepositoryRid",
+    "AttachmentAllowedValues",
     "AttachmentMetadataResponse",
     "AttachmentRid",
     "AttachmentV2",
@@ -6435,6 +6666,7 @@ __all__ = [
     "DatasourceBranchId",
     "DatasourceRid",
     "DateValue",
+    "DatetimeAllowedValues",
     "DatetimeFormat",
     "DatetimeLocalizedFormat",
     "DatetimeLocalizedFormatType",
@@ -6490,6 +6722,7 @@ __all__ = [
     "ExtractMainValueLoadLevel",
     "ExtractPropertyExpression",
     "FilterValue",
+    "FixedDatetimeValue",
     "FixedValuesMapKey",
     "FullTextStringContainsPredicate",
     "FullTextStringExactPredicate",
@@ -6534,6 +6767,7 @@ __all__ = [
     "InQuery",
     "InputObjectTypeRidActionTypesQueryV2",
     "IntegerValue",
+    "InterfaceActionTypeConstraintApiName",
     "InterfaceDefinedPropertyType",
     "InterfaceLinkType",
     "InterfaceLinkTypeApiName",
@@ -6613,6 +6847,7 @@ __all__ = [
     "LongValue",
     "LtQueryV2",
     "LteQueryV2",
+    "MarkdownAllowedValues",
     "MarkingId",
     "MatchRule",
     "MaxAggregationV2",
@@ -6627,12 +6862,15 @@ __all__ = [
     "ModifyObjectLogicRule",
     "ModifyObjectRule",
     "MultiplyPropertyExpression",
+    "MustBeEmptyAllowedValues",
     "NearestNeighborsQuery",
     "NearestNeighborsQueryText",
     "NegatePropertyExpression",
     "NestedInterfacePropertyTypeImplementation",
     "NestedQueryAggregation",
+    "NoLoadLevel",
     "NotQueryV2",
+    "NowDatetimeValue",
     "NumberFormatAffix",
     "NumberFormatCurrency",
     "NumberFormatCurrencyStyle",
@@ -6708,6 +6946,7 @@ __all__ = [
     "ObjectTypeV2",
     "ObjectTypeVisibility",
     "ObjectUpdate",
+    "OneOfAllowedValues",
     "OneOfConstraint",
     "OntologyApiName",
     "OntologyArrayType",
@@ -6738,6 +6977,11 @@ __all__ = [
     "OrQueryV2",
     "OrderBy",
     "OrderByDirection",
+    "ParameterAllowedValueOption",
+    "ParameterAllowedValues",
+    "ParameterArraySize",
+    "ParameterConstraintValue",
+    "ParameterDatetimeValue",
     "ParameterEvaluatedConstraint",
     "ParameterEvaluationResult",
     "ParameterId",
@@ -6804,6 +7048,7 @@ __all__ = [
     "QueryTypeReferenceType",
     "QueryTypeV2",
     "QueryUnionType",
+    "RangeAllowedValues",
     "RangeConstraint",
     "RangesConstraint",
     "Reason",
@@ -6816,6 +7061,10 @@ __all__ = [
     "RegexQuery",
     "RelativeDateRangeBound",
     "RelativeDateRangeQuery",
+    "RelativeDatetimeDuration",
+    "RelativeDatetimeTense",
+    "RelativeDatetimeUnit",
+    "RelativeDatetimeValue",
     "RelativePointInTime",
     "RelativeTime",
     "RelativeTimeRange",
@@ -6862,6 +7111,7 @@ __all__ = [
     "SpatialFilterMode",
     "StartsWithQuery",
     "StaticArgument",
+    "StaticConstraintValue",
     "StatusActionTypesQueryV2",
     "StreamMessage",
     "StreamRid",
@@ -6900,6 +7150,7 @@ __all__ = [
     "SyncApplyActionResponseV2",
     "SynchronousWebhookOutputArgument",
     "TableRid",
+    "TextAllowedValues",
     "ThreeDimensionalAggregation",
     "TimeCodeFormat",
     "TimeRange",
@@ -6931,6 +7182,7 @@ __all__ = [
     "ValidateActionResponseV2",
     "ValidationResult",
     "ValueType",
+    "ValueTypeAllowedValues",
     "ValueTypeApiName",
     "ValueTypeArrayType",
     "ValueTypeConstraint",
@@ -6944,6 +7196,7 @@ __all__ = [
     "ValueTypeStructField",
     "ValueTypeStructType",
     "ValueTypeUnionType",
+    "ValueTypeVersionId",
     "VersionedQueryTypeApiName",
     "WebhookRid",
     "WebhookRidActionTypesQueryV2",

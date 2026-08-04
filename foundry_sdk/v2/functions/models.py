@@ -95,6 +95,9 @@ class ExecuteAsyncQueryRequest(core.ModelBase):
     When provided with `version`, the specified version must exist on the branch.
     """
 
+    latest_version_resolution: typing.Optional[LatestVersionResolution] = pydantic.Field(alias=str("latestVersionResolution"), default=None)  # type: ignore[literal-required]
+    include_prerelease: typing.Optional[IncludePrerelease] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
+
 
 ExecuteQueryAsyncResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ExecutionSubmitted", "ExecutionCompleted"], pydantic.Field(discriminator="type")
@@ -115,6 +118,9 @@ class ExecuteQueryRequest(core.ModelBase):
     When provided without `version`, the latest version on this branch is used.
     When provided with `version`, the specified version must exist on the branch.
     """
+
+    latest_version_resolution: typing.Optional[LatestVersionResolution] = pydantic.Field(alias=str("latestVersionResolution"), default=None)  # type: ignore[literal-required]
+    include_prerelease: typing.Optional[IncludePrerelease] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
 
 
 class ExecuteQueryResponse(core.ModelBase):
@@ -192,6 +198,19 @@ class GetResultExecutionRequest(core.ModelBase):
     for execution to complete. Default: 0 (immediate status check).
     Values above 280 are clamped to 280.
     """
+
+
+IncludePrerelease: typing_extensions.TypeAlias = bool
+"""
+When resolving the latest version, whether prerelease versions are considered. Defaults to `false`,
+except when `latestVersionResolution` is `PUBLISH_TIME`. Not supported together with `version`.
+"""
+
+
+LatestVersionResolution: typing_extensions.TypeAlias = typing.Literal[
+    "PUBLISH_TIME", "SEMANTIC_VERSION"
+]
+"""Controls how latest version is resolved when `version` is omitted. Defaults to `SEMANTIC_VERSION`."""
 
 
 class LengthConstraint(core.ModelBase):
@@ -421,6 +440,9 @@ class StreamingExecuteEventsQueryRequest(core.ModelBase):
     When provided with `version`, the specified version must exist on the branch.
     """
 
+    latest_version_resolution: typing.Optional[LatestVersionResolution] = pydantic.Field(alias=str("latestVersionResolution"), default=None)  # type: ignore[literal-required]
+    include_prerelease: typing.Optional[IncludePrerelease] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
+
 
 class StreamingExecuteQueryRequest(core.ModelBase):
     """StreamingExecuteQueryRequest"""
@@ -441,6 +463,9 @@ class StreamingExecuteQueryRequest(core.ModelBase):
     When provided without `version`, the latest version on this branch is used.
     When provided with `version`, the specified version must exist on the branch.
     """
+
+    latest_version_resolution: typing.Optional[LatestVersionResolution] = pydantic.Field(alias=str("latestVersionResolution"), default=None)  # type: ignore[literal-required]
+    include_prerelease: typing.Optional[IncludePrerelease] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
 
 
 StreamingExecuteQueryResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
@@ -775,6 +800,8 @@ __all__ = [
     "GetByRidQueriesBatchResponse",
     "GetExecutionResultResponse",
     "GetResultExecutionRequest",
+    "IncludePrerelease",
+    "LatestVersionResolution",
     "LengthConstraint",
     "MapConstraint",
     "NullableConstraint",

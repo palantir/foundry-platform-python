@@ -41,6 +41,7 @@ runtime_configuration = {
     "cpu": 1.0,
     "memory": "256MiB",
     "threadCount": 32,
+    "environmentVariables": {"LOG_LEVEL": "INFO"},
 }
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -212,6 +213,7 @@ runtime_configuration = {
     "cpu": 1.0,
     "memory": "256MiB",
     "threadCount": 32,
+    "environmentVariables": {"LOG_LEVEL": "INFO"},
 }
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

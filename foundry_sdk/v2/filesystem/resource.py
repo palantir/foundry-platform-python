@@ -428,6 +428,55 @@ class ResourceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_recently_viewed(
+        self,
+        *,
+        limit: typing.Optional[filesystem_models.RecentlyViewedLimit] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> filesystem_models.GetRecentlyViewedResponse:
+        """
+        Get the resources most recently viewed by the calling user. If a resource is now inaccessible or has
+        been trashed, it will not be included in the response.
+
+        :param limit: The maximum number of recently viewed resources to return. Defaults to 100, with a maximum of 100. Values above 100 are clamped to 100.
+        :type limit: Optional[RecentlyViewedLimit]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: filesystem_models.GetRecentlyViewedResponse
+
+        :raises GetRecentlyViewedPermissionDenied: Could not getRecentlyViewed the Resource.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/getRecentlyViewed",
+                query_params={
+                    "limit": limit,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=filesystem_models.GetRecentlyViewedResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetRecentlyViewedPermissionDenied": filesystem_errors.GetRecentlyViewedPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def markings(
         self,
         resource_rid: filesystem_models.ResourceRid,
@@ -641,6 +690,7 @@ class _ResourceClientRaw:
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
+        def get_recently_viewed(_: filesystem_models.GetRecentlyViewedResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
         def permanently_delete(_: None): ...
         def remove_markings(_: None): ...
@@ -655,6 +705,9 @@ class _ResourceClientRaw:
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.get_by_path = core.with_raw_response(get_by_path, client.get_by_path)
         self.get_by_path_batch = core.with_raw_response(get_by_path_batch, client.get_by_path_batch)
+        self.get_recently_viewed = core.with_raw_response(
+            get_recently_viewed, client.get_recently_viewed
+        )
         self.markings = core.with_raw_response(markings, client.markings)
         self.permanently_delete = core.with_raw_response(
             permanently_delete, client.permanently_delete
@@ -670,6 +723,7 @@ class _ResourceClientStreaming:
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
+        def get_recently_viewed(_: filesystem_models.GetRecentlyViewedResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
@@ -680,6 +734,9 @@ class _ResourceClientStreaming:
         self.get_by_path = core.with_streaming_response(get_by_path, client.get_by_path)
         self.get_by_path_batch = core.with_streaming_response(
             get_by_path_batch, client.get_by_path_batch
+        )
+        self.get_recently_viewed = core.with_streaming_response(
+            get_recently_viewed, client.get_recently_viewed
         )
         self.markings = core.with_streaming_response(markings, client.markings)
 
@@ -1085,6 +1142,55 @@ class AsyncResourceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_recently_viewed(
+        self,
+        *,
+        limit: typing.Optional[filesystem_models.RecentlyViewedLimit] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[filesystem_models.GetRecentlyViewedResponse]:
+        """
+        Get the resources most recently viewed by the calling user. If a resource is now inaccessible or has
+        been trashed, it will not be included in the response.
+
+        :param limit: The maximum number of recently viewed resources to return. Defaults to 100, with a maximum of 100. Values above 100 are clamped to 100.
+        :type limit: Optional[RecentlyViewedLimit]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[filesystem_models.GetRecentlyViewedResponse]
+
+        :raises GetRecentlyViewedPermissionDenied: Could not getRecentlyViewed the Resource.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/getRecentlyViewed",
+                query_params={
+                    "limit": limit,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=filesystem_models.GetRecentlyViewedResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetRecentlyViewedPermissionDenied": filesystem_errors.GetRecentlyViewedPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def markings(
         self,
         resource_rid: filesystem_models.ResourceRid,
@@ -1298,6 +1404,7 @@ class _AsyncResourceClientRaw:
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
+        def get_recently_viewed(_: filesystem_models.GetRecentlyViewedResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
         def permanently_delete(_: None): ...
         def remove_markings(_: None): ...
@@ -1314,6 +1421,9 @@ class _AsyncResourceClientRaw:
         self.get_by_path_batch = core.async_with_raw_response(
             get_by_path_batch, client.get_by_path_batch
         )
+        self.get_recently_viewed = core.async_with_raw_response(
+            get_recently_viewed, client.get_recently_viewed
+        )
         self.markings = core.async_with_raw_response(markings, client.markings)
         self.permanently_delete = core.async_with_raw_response(
             permanently_delete, client.permanently_delete
@@ -1329,6 +1439,7 @@ class _AsyncResourceClientStreaming:
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
+        def get_recently_viewed(_: filesystem_models.GetRecentlyViewedResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
@@ -1339,5 +1450,8 @@ class _AsyncResourceClientStreaming:
         self.get_by_path = core.async_with_streaming_response(get_by_path, client.get_by_path)
         self.get_by_path_batch = core.async_with_streaming_response(
             get_by_path_batch, client.get_by_path_batch
+        )
+        self.get_recently_viewed = core.async_with_streaming_response(
+            get_recently_viewed, client.get_recently_viewed
         )
         self.markings = core.async_with_streaming_response(markings, client.markings)
