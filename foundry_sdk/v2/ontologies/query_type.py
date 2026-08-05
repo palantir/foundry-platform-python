@@ -79,7 +79,7 @@ class QueryTypeClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
-        :param version: The version of the Query to get.
+        :param version: The version of the Query to get. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -189,6 +189,9 @@ class QueryTypeClient:
     ) -> core.ResourceIterator[ontologies_models.QueryTypeV2]:
         """
         Lists the query types for the given Ontology.
+
+        Each query type is returned at its latest version. The latest version is the one that was most recently
+        published, which may be a pre-release version.
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
@@ -309,7 +312,7 @@ class AsyncQueryTypeClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
-        :param version: The version of the Query to get.
+        :param version: The version of the Query to get. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -419,6 +422,9 @@ class AsyncQueryTypeClient:
     ) -> core.AsyncResourceIterator[ontologies_models.QueryTypeV2]:
         """
         Lists the query types for the given Ontology.
+
+        Each query type is returned at its latest version. The latest version is the one that was most recently
+        published, which may be a pre-release version.
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.

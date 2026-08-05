@@ -92,7 +92,9 @@ CheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "ColumnTypeCheckConfig",
         "AllowedColumnValuesCheckConfig",
         "TimeSinceLastUpdatedCheckConfig",
+        "ScheduleStatusCheckConfig",
         "NullPercentageCheckConfig",
+        "ScheduleDurationCheckConfig",
         "TotalColumnCountCheckConfig",
         "NumericColumnMedianCheckConfig",
         "BuildDurationCheckConfig",
@@ -441,7 +443,9 @@ ReplaceCheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "ReplaceColumnTypeCheckConfig",
         "ReplaceAllowedColumnValuesCheckConfig",
         "ReplaceTimeSinceLastUpdatedCheckConfig",
+        "ReplaceScheduleStatusCheckConfig",
         "ReplaceNullPercentageCheckConfig",
+        "ReplaceScheduleDurationCheckConfig",
         "ReplaceTotalColumnCountCheckConfig",
         "ReplaceNumericColumnMedianCheckConfig",
         "ReplaceBuildDurationCheckConfig",
@@ -550,6 +554,20 @@ class ReplacePrimaryKeyConfig(core.ModelBase):
     severity: SeverityLevel
 
 
+class ReplaceScheduleDurationCheckConfig(core.ModelBase):
+    """ReplaceScheduleDurationCheckConfig"""
+
+    time_check_config: TimeCheckConfig = pydantic.Field(alias=str("timeCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["scheduleDuration"] = "scheduleDuration"
+
+
+class ReplaceScheduleStatusCheckConfig(core.ModelBase):
+    """ReplaceScheduleStatusCheckConfig"""
+
+    status_check_config: StatusCheckConfig = pydantic.Field(alias=str("statusCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["scheduleStatus"] = "scheduleStatus"
+
+
 class ReplaceSchemaComparisonCheckConfig(core.ModelBase):
     """ReplaceSchemaComparisonCheckConfig"""
 
@@ -569,6 +587,28 @@ class ReplaceTotalColumnCountCheckConfig(core.ModelBase):
 
     column_count_config: ColumnCountConfig = pydantic.Field(alias=str("columnCountConfig"))  # type: ignore[literal-required]
     type: typing.Literal["totalColumnCount"] = "totalColumnCount"
+
+
+class ScheduleDurationCheckConfig(core.ModelBase):
+    """Checks the total time a schedule takes to complete."""
+
+    subject: ScheduleSubject
+    time_check_config: TimeCheckConfig = pydantic.Field(alias=str("timeCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["scheduleDuration"] = "scheduleDuration"
+
+
+class ScheduleStatusCheckConfig(core.ModelBase):
+    """Checks the status of the most recent schedule run."""
+
+    subject: ScheduleSubject
+    status_check_config: StatusCheckConfig = pydantic.Field(alias=str("statusCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["scheduleStatus"] = "scheduleStatus"
+
+
+class ScheduleSubject(core.ModelBase):
+    """A schedule resource type."""
+
+    schedule_rid: core_models.ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
 
 
 class SchemaComparisonCheckConfig(core.ModelBase):
@@ -763,9 +803,14 @@ __all__ = [
     "ReplacePercentageCheckConfig",
     "ReplacePrimaryKeyCheckConfig",
     "ReplacePrimaryKeyConfig",
+    "ReplaceScheduleDurationCheckConfig",
+    "ReplaceScheduleStatusCheckConfig",
     "ReplaceSchemaComparisonCheckConfig",
     "ReplaceTimeSinceLastUpdatedCheckConfig",
     "ReplaceTotalColumnCountCheckConfig",
+    "ScheduleDurationCheckConfig",
+    "ScheduleStatusCheckConfig",
+    "ScheduleSubject",
     "SchemaComparisonCheckConfig",
     "SchemaComparisonConfig",
     "SchemaComparisonType",

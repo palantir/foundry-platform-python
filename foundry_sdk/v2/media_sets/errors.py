@@ -18,6 +18,7 @@ from dataclasses import dataclass
 
 import typing_extensions
 
+from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.media_sets import models as media_sets_models
@@ -273,6 +274,19 @@ class TemporaryMediaUploadUnknownFailure(errors.InternalServerError):
     error_instance_id: str
 
 
+class TransformationDocumentExtractErrorParameters(typing_extensions.TypedDict):
+    """Document extraction failed. This covers any failure during extraction, from a malformed document to a server-side error."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationDocumentExtractError(errors.InternalServerError):
+    name: typing.Literal["TransformationDocumentExtractError"]
+    parameters: TransformationDocumentExtractErrorParameters
+    error_instance_id: str
+
+
 class TransformationImageTooLargeForOcrParameters(typing_extensions.TypedDict):
     """The image or document page dimensions exceeded the maximum supported by the OCR model."""
 
@@ -283,6 +297,52 @@ class TransformationImageTooLargeForOcrParameters(typing_extensions.TypedDict):
 class TransformationImageTooLargeForOcr(errors.BadRequestError):
     name: typing.Literal["TransformationImageTooLargeForOcr"]
     parameters: TransformationImageTooLargeForOcrParameters
+    error_instance_id: str
+
+
+class TransformationInputTooLargeParameters(typing_extensions.TypedDict):
+    """The transformation input is too large for the underlying model."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationInputTooLarge(errors.RequestEntityTooLargeError):
+    name: typing.Literal["TransformationInputTooLarge"]
+    parameters: TransformationInputTooLargeParameters
+    error_instance_id: str
+
+
+class TransformationInvalidPageRangeParameters(typing_extensions.TypedDict):
+    """The supplied page range is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    startPageInclusive: typing_extensions.NotRequired[int]
+    endPageExclusive: typing_extensions.NotRequired[int]
+    documentLength: typing_extensions.NotRequired[int]
+
+
+@dataclass
+class TransformationInvalidPageRange(errors.BadRequestError):
+    name: typing.Literal["TransformationInvalidPageRange"]
+    parameters: TransformationInvalidPageRangeParameters
+    error_instance_id: str
+
+
+class TransformationMediaSizeExceededParameters(typing_extensions.TypedDict):
+    """The media item exceeds the maximum size supported by the transformation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    sizeInBytes: typing_extensions.NotRequired[core.Long]
+    maxSizeInBytes: typing_extensions.NotRequired[core.Long]
+
+
+@dataclass
+class TransformationMediaSizeExceeded(errors.RequestEntityTooLargeError):
+    name: typing.Literal["TransformationMediaSizeExceeded"]
+    parameters: TransformationMediaSizeExceededParameters
     error_instance_id: str
 
 
@@ -343,6 +403,22 @@ class TransformationNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class TransformationPermissionDeniedParameters(typing_extensions.TypedDict):
+    """The caller does not have permission to run this media transformation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    underlyingErrorType: str
+    code: str
+
+
+@dataclass
+class TransformationPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["TransformationPermissionDenied"]
+    parameters: TransformationPermissionDeniedParameters
+    error_instance_id: str
+
+
 class TransformationUnavailableParameters(typing_extensions.TypedDict):
     """The requested transformation is not currently available."""
 
@@ -353,6 +429,77 @@ class TransformationUnavailableParameters(typing_extensions.TypedDict):
 class TransformationUnavailable(errors.BadRequestError):
     name: typing.Literal["TransformationUnavailable"]
     parameters: TransformationUnavailableParameters
+    error_instance_id: str
+
+
+class TransformationVlmErrorParameters(typing_extensions.TypedDict):
+    """A language model call failed during a media transformation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    underlyingErrorType: str
+    code: str
+
+
+@dataclass
+class TransformationVlmError(errors.BadRequestError):
+    name: typing.Literal["TransformationVlmError"]
+    parameters: TransformationVlmErrorParameters
+    error_instance_id: str
+
+
+class TransformationVlmLayoutModelFailureParameters(typing_extensions.TypedDict):
+    """The layout or OCR model used as preprocessing for document extraction failed."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationVlmLayoutModelFailure(errors.InternalServerError):
+    name: typing.Literal["TransformationVlmLayoutModelFailure"]
+    parameters: TransformationVlmLayoutModelFailureParameters
+    error_instance_id: str
+
+
+class TransformationVlmMultiPageRequestUnsupportedParameters(typing_extensions.TypedDict):
+    """Document extraction only supports a single page per request."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    requestedPages: typing_extensions.NotRequired[int]
+    maxValidPageCount: typing_extensions.NotRequired[int]
+
+
+@dataclass
+class TransformationVlmMultiPageRequestUnsupported(errors.BadRequestError):
+    name: typing.Literal["TransformationVlmMultiPageRequestUnsupported"]
+    parameters: TransformationVlmMultiPageRequestUnsupportedParameters
+    error_instance_id: str
+
+
+class TransformationVlmPageRangeRequiredParameters(typing_extensions.TypedDict):
+    """Document extraction requires an explicit page range with both startPageInclusive and endPageExclusive set."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationVlmPageRangeRequired(errors.BadRequestError):
+    name: typing.Literal["TransformationVlmPageRangeRequired"]
+    parameters: TransformationVlmPageRangeRequiredParameters
+    error_instance_id: str
+
+
+class TransformationVlmResponseParseErrorParameters(typing_extensions.TypedDict):
+    """The model response could not be parsed during document extraction."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationVlmResponseParseError(errors.InternalServerError):
+    name: typing.Literal["TransformationVlmResponseParseError"]
+    parameters: TransformationVlmResponseParseErrorParameters
     error_instance_id: str
 
 
@@ -415,12 +562,22 @@ __all__ = [
     "MissingMediaItemPath",
     "TemporaryMediaUploadInsufficientPermissions",
     "TemporaryMediaUploadUnknownFailure",
+    "TransformationDocumentExtractError",
     "TransformationImageTooLargeForOcr",
+    "TransformationInputTooLarge",
+    "TransformationInvalidPageRange",
+    "TransformationMediaSizeExceeded",
     "TransformationModelContextWindowExceeded",
     "TransformationModelNotAvailable",
     "TransformationModelNotSupported",
     "TransformationNotFound",
+    "TransformationPermissionDenied",
     "TransformationUnavailable",
+    "TransformationVlmError",
+    "TransformationVlmLayoutModelFailure",
+    "TransformationVlmMultiPageRequestUnsupported",
+    "TransformationVlmPageRangeRequired",
+    "TransformationVlmResponseParseError",
     "TransformedMediaItemNotFound",
     "UnexpectedMetadataType",
     "UnsupportedMetadata",

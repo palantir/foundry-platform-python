@@ -975,6 +975,8 @@ class ParameterEvaluationResult(core.ModelBase):
     required: bool
     """Represents whether the parameter is a required input to the action."""
 
+    default_value: typing.Optional[DataValue] = pydantic.Field(alias=str("defaultValue"), default=None)  # type: ignore[literal-required]
+
 
 ParameterId: typing_extensions.TypeAlias = str
 """

@@ -104,7 +104,7 @@ class QueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
-        :param version: The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
+        :param version: The version of the Query to execute. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -240,7 +240,7 @@ class AsyncQueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
-        :param version: The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
+        :param version: The version of the Query to execute. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

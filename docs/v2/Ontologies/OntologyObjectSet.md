@@ -275,6 +275,7 @@ Name | Type | Description  | Notes |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**default_load_level** | Optional[PropertyLoadLevel] |  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
@@ -312,6 +313,8 @@ object_set = {"type": "base", "objectType": "Employee"}
 select = None
 # Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PropertyLoadLevel]
+default_load_level = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -352,6 +355,7 @@ try:
         object_set=object_set,
         select=select,
         branch=branch,
+        default_load_level=default_load_level,
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
@@ -520,6 +524,7 @@ Name | Type | Description  | Notes |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**default_load_level** | Optional[PropertyLoadLevel] |  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
@@ -558,6 +563,8 @@ object_set = {"type": "base", "objectType": "Employee"}
 select = None
 # Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PropertyLoadLevel]
+default_load_level = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -600,6 +607,7 @@ try:
         object_set=object_set,
         select=select,
         branch=branch,
+        default_load_level=default_load_level,
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
@@ -664,6 +672,7 @@ Name | Type | Description  | Notes |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**default_load_level** | Optional[PropertyLoadLevel] |  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
@@ -700,6 +709,8 @@ object_set = {"type": "interfaceBase", "interfaceType": "Person"}
 select = None
 # Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PropertyLoadLevel]
+default_load_level = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -738,6 +749,7 @@ try:
         object_set=object_set,
         select=select,
         branch=branch,
+        default_load_level=default_load_level,
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         order_by=order_by,

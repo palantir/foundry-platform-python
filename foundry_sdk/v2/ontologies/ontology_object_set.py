@@ -278,6 +278,7 @@ class OntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -317,6 +318,8 @@ class OntologyObjectSetClient:
         :type select: List[SelectedPropertyApiName]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -381,6 +384,7 @@ class OntologyObjectSetClient:
                     order_by=order_by,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
@@ -506,6 +510,7 @@ class OntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -551,6 +556,8 @@ class OntologyObjectSetClient:
         :type select: List[SelectedPropertyApiName]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -618,6 +625,7 @@ class OntologyObjectSetClient:
                     order_by=order_by,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
@@ -643,6 +651,7 @@ class OntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -688,6 +697,8 @@ class OntologyObjectSetClient:
         :type select: List[SelectedPropertyApiName]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -751,6 +762,7 @@ class OntologyObjectSetClient:
                     order_by=order_by,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
@@ -1075,6 +1087,7 @@ class AsyncOntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -1114,6 +1127,8 @@ class AsyncOntologyObjectSetClient:
         :type select: List[SelectedPropertyApiName]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -1178,6 +1193,7 @@ class AsyncOntologyObjectSetClient:
                     order_by=order_by,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
@@ -1303,6 +1319,7 @@ class AsyncOntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -1348,6 +1365,8 @@ class AsyncOntologyObjectSetClient:
         :type select: List[SelectedPropertyApiName]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -1415,6 +1434,7 @@ class AsyncOntologyObjectSetClient:
                     order_by=order_by,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
@@ -1440,6 +1460,7 @@ class AsyncOntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -1485,6 +1506,8 @@ class AsyncOntologyObjectSetClient:
         :type select: List[SelectedPropertyApiName]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -1548,6 +1571,7 @@ class AsyncOntologyObjectSetClient:
                     order_by=order_by,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,

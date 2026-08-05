@@ -18,7 +18,7 @@ Name | Type | Description  | Notes |
 **query_api_name** | QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.  |  |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
-**version** | Optional[FunctionVersion] | The version of the Query to get.  | [optional] |
+**version** | Optional[FunctionVersion] | The version of the Query to get. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions.  | [optional] |
 
 ### Return type
 **QueryTypeV2**
@@ -40,7 +40,7 @@ query_api_name = "getEmployeesInCity"
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
-# Optional[FunctionVersion] | The version of the Query to get.
+# Optional[FunctionVersion] | The version of the Query to get. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions.
 version = None
 
 
@@ -137,7 +137,10 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **list**
-Lists the query types for the given Ontology.        
+Lists the query types for the given Ontology.
+
+Each query type is returned at its latest version. The latest version is the one that was most recently
+published, which may be a pre-release version.
 
 Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
 results available, at least one result will be present in the response.

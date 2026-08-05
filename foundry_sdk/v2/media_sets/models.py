@@ -211,6 +211,31 @@ BranchRid: typing_extensions.TypeAlias = core.RID
 """A resource identifier that identifies a branch of a media set."""
 
 
+CadDecodeFormat: typing_extensions.TypeAlias = typing.Literal["STEP"]
+"""The format of a CAD media item."""
+
+
+class CadMediaItemMetadata(core.ModelBase):
+    """Metadata for CAD media items."""
+
+    format: CadDecodeFormat
+    size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
+    """The size of the media item in bytes."""
+
+    units: typing.Optional[CadUnits] = None
+    type: typing.Literal["cad"] = "cad"
+
+
+class CadUnits(core.ModelBase):
+    """Units declared in a CAD file."""
+
+    length_unit: typing.Optional[str] = pydantic.Field(alias=str("lengthUnit"), default=None)  # type: ignore[literal-required]
+    """
+    Raw declared length unit name, for example MILLIMETRE, METRE, INCH, or FOOT. Consumers should match
+    case-insensitively and tolerate unknown values.
+    """
+
+
 class ChatLlmSpec(core.ModelBase):
     """Standard chat-based LLM specification with system and user prompts."""
 
@@ -809,7 +834,7 @@ class ExtractVlmTextOperation(core.ModelBase):
     llm_spec: LlmSpec = pydantic.Field(alias=str("llmSpec"))  # type: ignore[literal-required]
     preprocessing_configuration: typing.Optional[VlmPreprocessingConfig] = pydantic.Field(alias=str("preprocessingConfiguration"), default=None)  # type: ignore[literal-required]
     image_spec: typing.Optional[ImageSpec] = pydantic.Field(alias=str("imageSpec"), default=None)  # type: ignore[literal-required]
-    output_format: TextOutputFormat = pydantic.Field(alias=str("outputFormat"))  # type: ignore[literal-required]
+    output_format: VlmOutputFormat = pydantic.Field(alias=str("outputFormat"))  # type: ignore[literal-required]
     page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["extractVlmText"] = "extractVlmText"
 
@@ -1188,6 +1213,7 @@ class MediaAttribution(core.ModelBase):
 
 MediaItemMetadata: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
+        "CadMediaItemMetadata",
         "DocumentMediaItemMetadata",
         "ImageryMediaItemMetadata",
         "SpreadsheetMediaItemMetadata",
@@ -1212,6 +1238,7 @@ MediaItemXmlFormat: typing_extensions.TypeAlias = typing.Literal["DOCX", "XLSX",
 
 MediaSchema: typing_extensions.TypeAlias = typing.Literal[
     "AUDIO",
+    "CAD",
     "DICOM",
     "DOCUMENT",
     "IMAGERY",
@@ -2275,7 +2302,7 @@ class VideoChunkOperation(core.ModelBase):
     type: typing.Literal["chunk"] = "chunk"
 
 
-VideoDecodeFormat: typing_extensions.TypeAlias = typing.Literal["MP4", "MKV", "MOV", "TS"]
+VideoDecodeFormat: typing_extensions.TypeAlias = typing.Literal["MP4", "MKV", "MOV", "TS", "WEBM"]
 """The format of a video media item."""
 
 
@@ -2362,6 +2389,10 @@ class VideoTransformation(core.ModelBase):
     encoding: VideoEncodeFormat
     operation: VideoOperation
     type: typing.Literal["video"] = "video"
+
+
+VlmOutputFormat: typing_extensions.TypeAlias = typing.Literal["MARKDOWN"]
+"""Format in which to return text extracted by vision language models."""
 
 
 VlmPreprocessingConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
@@ -2490,6 +2521,9 @@ __all__ = [
     "BoundingBoxGeometry",
     "BranchName",
     "BranchRid",
+    "CadDecodeFormat",
+    "CadMediaItemMetadata",
+    "CadUnits",
     "ChatLlmSpec",
     "ChatLlmSpecWrapper",
     "Color",
@@ -2686,6 +2720,7 @@ __all__ = [
     "VideoToTextOperation",
     "VideoToTextTransformation",
     "VideoTransformation",
+    "VlmOutputFormat",
     "VlmPreprocessingConfig",
     "WavEncodeFormat",
     "WaveformOperation",

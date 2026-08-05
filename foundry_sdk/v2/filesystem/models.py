@@ -243,6 +243,13 @@ class GetFoldersBatchResponse(core.ModelBase):
     data: typing.Dict[FolderRid, Folder]
 
 
+class GetRecentlyViewedResponse(core.ModelBase):
+    """Response containing the resources most recently viewed by the calling user."""
+
+    data: typing.List[RecentlyViewedResource]
+    """The list of recently viewed resources, ordered from most to least recently viewed."""
+
+
 class GetResourcesBatchRequestElement(core.ModelBase):
     """GetResourcesBatchRequestElement"""
 
@@ -447,6 +454,23 @@ ProjectTemplateVariableId: typing_extensions.TypeAlias = str
 
 ProjectTemplateVariableValue: typing_extensions.TypeAlias = str
 """The value assigned to a variable used in a project template."""
+
+
+RecentlyViewedLimit: typing_extensions.TypeAlias = int
+"""
+The maximum number of recently viewed resources to return.
+
+Validation rules:
+ * must be greater than or equal to 1
+"""
+
+
+class RecentlyViewedResource(core.ModelBase):
+    """A resource that was recently viewed by the calling user, along with when it was last viewed."""
+
+    resource: Resource
+    last_viewed: core.AwareDatetime = pydantic.Field(alias=str("lastViewed"))  # type: ignore[literal-required]
+    """The timestamp at which the calling user last viewed this resource."""
 
 
 class RemoveMarkingsRequest(core.ModelBase):
@@ -792,6 +816,7 @@ __all__ = [
     "GetByPathResourcesBatchResponse",
     "GetFoldersBatchRequestElement",
     "GetFoldersBatchResponse",
+    "GetRecentlyViewedResponse",
     "GetResourcesBatchRequestElement",
     "GetResourcesBatchResponse",
     "IsDirectlyApplied",
@@ -817,6 +842,8 @@ __all__ = [
     "ProjectTemplateRid",
     "ProjectTemplateVariableId",
     "ProjectTemplateVariableValue",
+    "RecentlyViewedLimit",
+    "RecentlyViewedResource",
     "RemoveMarkingsRequest",
     "RemoveOrganizationsRequest",
     "RemoveProjectResourceReferencesRequest",

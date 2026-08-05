@@ -12,8 +12,9 @@ Method | HTTP request | Release Stage |
 
 # **execute**
 Executes a Query and returns the result as a single JSON object. By default, this executes
-the latest version of the query. The latest version is the one that was most recently
-published, which may be a pre-release version.
+the highest semantic version of the query, excluding pre-release versions. To resolve the
+most recently published version instead, including pre-release versions, set
+`latestVersionResolution` to `PUBLISH_TIME`.
 
 This endpoint executes global (non-ontology-scoped) query functions. For ontology-scoped
 functions, use the equivalent endpoint under
@@ -29,6 +30,8 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
+**include_prerelease** | Optional[IncludePrerelease] |  | [optional] |
+**latest_version_resolution** | Optional[LatestVersionResolution] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
@@ -55,6 +58,10 @@ parameters = {"price": 29.99}
 attribution = None
 # Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
 branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
+# Optional[IncludePrerelease]
+include_prerelease = None
+# Optional[LatestVersionResolution]
+latest_version_resolution = "PUBLISH_TIME"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[TraceParent]
@@ -73,6 +80,8 @@ try:
         parameters=parameters,
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -115,6 +124,8 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
+**include_prerelease** | Optional[IncludePrerelease] |  | [optional] |
+**latest_version_resolution** | Optional[LatestVersionResolution] |  | [optional] |
 **ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
@@ -142,6 +153,10 @@ parameters = {"price": 29.99}
 attribution = None
 # Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
 branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
+# Optional[IncludePrerelease]
+include_prerelease = None
+# Optional[LatestVersionResolution]
+latest_version_resolution = "PUBLISH_TIME"
 # Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
 ontology = "example-ontology"
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -162,6 +177,8 @@ try:
         parameters=parameters,
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
@@ -190,7 +207,9 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-Gets a specific query type with the given API name. By default, this gets the latest version of the query.
+Gets a specific query type with the given API name. By default, this returns the highest semantic
+version of the query, excluding pre-release versions. To resolve the most recently published version
+instead, including pre-release versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
 
 ### Parameters
@@ -198,6 +217,8 @@ Gets a specific query type with the given API name. By default, this gets the la
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query_api_name** | QueryApiName |  |  |
+**include_prerelease** | Optional[IncludePrerelease] |  | [optional] |
+**latest_version_resolution** | Optional[LatestVersionResolution] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **version** | Optional[FunctionVersion] |  | [optional] |
 
@@ -215,6 +236,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # QueryApiName
 query_api_name = None
+# Optional[IncludePrerelease]
+include_prerelease = None
+# Optional[LatestVersionResolution]
+latest_version_resolution = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[FunctionVersion]
@@ -222,7 +247,13 @@ version = None
 
 
 try:
-    api_response = client.functions.Query.get(query_api_name, preview=preview, version=version)
+    api_response = client.functions.Query.get(
+        query_api_name,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
+        preview=preview,
+        version=version,
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -364,8 +395,9 @@ See [README](../../../README.md#authorization)
 
 # **streaming_execute**
 Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-By default, this executes the latest version of the query. The latest version is the one
-that was most recently published, which may be a pre-release version.
+By default, this executes the highest semantic version of the query, excluding pre-release
+versions. To resolve the most recently published version instead, including pre-release
+versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
 This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
 `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -391,6 +423,8 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
+**include_prerelease** | Optional[IncludePrerelease] |  | [optional] |
+**latest_version_resolution** | Optional[LatestVersionResolution] |  | [optional] |
 **ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
@@ -418,6 +452,10 @@ parameters = {"price": 29.99}
 attribution = None
 # Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
 branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
+# Optional[IncludePrerelease]
+include_prerelease = None
+# Optional[LatestVersionResolution]
+latest_version_resolution = "PUBLISH_TIME"
 # Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
 ontology = "example-ontology"
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -438,6 +476,8 @@ try:
         parameters=parameters,
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
@@ -467,8 +507,9 @@ See [README](../../../README.md#authorization)
 
 # **streaming_execute_events**
 Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-By default, this executes the latest version of the query. The latest version is the one
-that was most recently published, which may be a pre-release version.
+By default, this executes the highest semantic version of the query, excluding pre-release
+versions. To resolve the most recently published version instead, including pre-release
+versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
 This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
 `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -494,6 +535,8 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
+**include_prerelease** | Optional[IncludePrerelease] |  | [optional] |
+**latest_version_resolution** | Optional[LatestVersionResolution] |  | [optional] |
 **ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
@@ -521,6 +564,10 @@ parameters = {"price": 29.99}
 attribution = None
 # Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
 branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
+# Optional[IncludePrerelease]
+include_prerelease = None
+# Optional[LatestVersionResolution]
+latest_version_resolution = "PUBLISH_TIME"
 # Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
 ontology = "example-ontology"
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -541,6 +588,8 @@ try:
         parameters=parameters,
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,

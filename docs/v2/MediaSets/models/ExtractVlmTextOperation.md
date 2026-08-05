@@ -10,7 +10,7 @@ VLMs can understand document layout and structure more intelligently than tradit
 **llm_spec** | LlmSpec | Yes |  |
 **preprocessing_configuration** | Optional[VlmPreprocessingConfig] | No |  |
 **image_spec** | Optional[ImageSpec] | No |  |
-**output_format** | TextOutputFormat | Yes |  |
+**output_format** | VlmOutputFormat | Yes |  |
 **page_range** | Optional[PageRange] | No |  |
 **type** | Literal["extractVlmText"] | Yes | None |
 

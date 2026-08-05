@@ -562,7 +562,7 @@ class FunctionExecutionTimedOutParameters(typing_extensions.TypedDict):
 
 
 @dataclass
-class FunctionExecutionTimedOut(errors.InternalServerError):
+class FunctionExecutionTimedOut(errors.BadRequestError):
     name: typing.Literal["FunctionExecutionTimedOut"]
     parameters: FunctionExecutionTimedOutParameters
     error_instance_id: str
@@ -1761,6 +1761,26 @@ class ObjectSetNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class ObjectTypeDerivedPropertyNotSupportedParameters(typing_extensions.TypedDict):
+    """
+    The request uses an object type derived property in a way that is not supported. This occurs when results
+    are sorted by the derived property, when the object set is filtered on the derived property, or when the
+    derived property is returned only because the request asked for all properties of the object type (rather
+    than naming it explicitly). To resolve this, remove the derived property from the sort ordering and from any
+    filters, and select only the specific properties you need - you may select the derived property itself by
+    name.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ObjectTypeDerivedPropertyNotSupported(errors.BadRequestError):
+    name: typing.Literal["ObjectTypeDerivedPropertyNotSupported"]
+    parameters: ObjectTypeDerivedPropertyNotSupportedParameters
+    error_instance_id: str
+
+
 class ObjectTypeNotFoundParameters(typing_extensions.TypedDict):
     """The requested object type is not found, or the client token does not have access to it."""
 
@@ -2373,7 +2393,7 @@ class QueryTimeExceededLimitParameters(typing_extensions.TypedDict):
 
 
 @dataclass
-class QueryTimeExceededLimit(errors.InternalServerError):
+class QueryTimeExceededLimit(errors.BadRequestError):
     name: typing.Literal["QueryTimeExceededLimit"]
     parameters: QueryTimeExceededLimitParameters
     error_instance_id: str
@@ -2710,6 +2730,7 @@ __all__ = [
     "ObjectEditMissingPrimaryKey",
     "ObjectNotFound",
     "ObjectSetNotFound",
+    "ObjectTypeDerivedPropertyNotSupported",
     "ObjectTypeNotFound",
     "ObjectTypeNotSynced",
     "ObjectTypesNotSynced",

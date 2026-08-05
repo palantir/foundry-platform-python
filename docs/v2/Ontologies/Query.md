@@ -26,7 +26,7 @@ Name | Type | Description  | Notes |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
 **trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
-**version** | Optional[FunctionVersion] | The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
+**version** | Optional[FunctionVersion] | The version of the Query to execute. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -62,7 +62,7 @@ trace_parent = None
 trace_state = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
-# Optional[FunctionVersion] | The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
+# Optional[FunctionVersion] | The version of the Query to execute. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions. When used with `branch`, the specified version must exist on the branch.
 version = None
 
 

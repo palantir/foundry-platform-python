@@ -11,6 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
+CadMediaItemMetadata | cad
 DocumentMediaItemMetadata | document
 ImageryMediaItemMetadata | imagery
 SpreadsheetMediaItemMetadata | spreadsheet

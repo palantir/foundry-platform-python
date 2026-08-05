@@ -1647,9 +1647,14 @@ Namespace | Name | Import |
 **DataHealth** | [ReplacePercentageCheckConfig](docs/v2/DataHealth/models/ReplacePercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplacePercentageCheckConfig` |
 **DataHealth** | [ReplacePrimaryKeyCheckConfig](docs/v2/DataHealth/models/ReplacePrimaryKeyCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplacePrimaryKeyCheckConfig` |
 **DataHealth** | [ReplacePrimaryKeyConfig](docs/v2/DataHealth/models/ReplacePrimaryKeyConfig.md) | `from foundry_sdk.v2.data_health.models import ReplacePrimaryKeyConfig` |
+**DataHealth** | [ReplaceScheduleDurationCheckConfig](docs/v2/DataHealth/models/ReplaceScheduleDurationCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceScheduleDurationCheckConfig` |
+**DataHealth** | [ReplaceScheduleStatusCheckConfig](docs/v2/DataHealth/models/ReplaceScheduleStatusCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceScheduleStatusCheckConfig` |
 **DataHealth** | [ReplaceSchemaComparisonCheckConfig](docs/v2/DataHealth/models/ReplaceSchemaComparisonCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceSchemaComparisonCheckConfig` |
 **DataHealth** | [ReplaceTimeSinceLastUpdatedCheckConfig](docs/v2/DataHealth/models/ReplaceTimeSinceLastUpdatedCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceTimeSinceLastUpdatedCheckConfig` |
 **DataHealth** | [ReplaceTotalColumnCountCheckConfig](docs/v2/DataHealth/models/ReplaceTotalColumnCountCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceTotalColumnCountCheckConfig` |
+**DataHealth** | [ScheduleDurationCheckConfig](docs/v2/DataHealth/models/ScheduleDurationCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ScheduleDurationCheckConfig` |
+**DataHealth** | [ScheduleStatusCheckConfig](docs/v2/DataHealth/models/ScheduleStatusCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ScheduleStatusCheckConfig` |
+**DataHealth** | [ScheduleSubject](docs/v2/DataHealth/models/ScheduleSubject.md) | `from foundry_sdk.v2.data_health.models import ScheduleSubject` |
 **DataHealth** | [SchemaComparisonCheckConfig](docs/v2/DataHealth/models/SchemaComparisonCheckConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonCheckConfig` |
 **DataHealth** | [SchemaComparisonConfig](docs/v2/DataHealth/models/SchemaComparisonConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonConfig` |
 **DataHealth** | [SchemaComparisonType](docs/v2/DataHealth/models/SchemaComparisonType.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonType` |
@@ -1739,6 +1744,7 @@ Namespace | Name | Import |
 **Filesystem** | [GetByPathResourcesBatchResponse](docs/v2/Filesystem/models/GetByPathResourcesBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetByPathResourcesBatchResponse` |
 **Filesystem** | [GetFoldersBatchRequestElement](docs/v2/Filesystem/models/GetFoldersBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchRequestElement` |
 **Filesystem** | [GetFoldersBatchResponse](docs/v2/Filesystem/models/GetFoldersBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchResponse` |
+**Filesystem** | [GetRecentlyViewedResponse](docs/v2/Filesystem/models/GetRecentlyViewedResponse.md) | `from foundry_sdk.v2.filesystem.models import GetRecentlyViewedResponse` |
 **Filesystem** | [GetResourcesBatchRequestElement](docs/v2/Filesystem/models/GetResourcesBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetResourcesBatchRequestElement` |
 **Filesystem** | [GetResourcesBatchResponse](docs/v2/Filesystem/models/GetResourcesBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetResourcesBatchResponse` |
 **Filesystem** | [IsDirectlyApplied](docs/v2/Filesystem/models/IsDirectlyApplied.md) | `from foundry_sdk.v2.filesystem.models import IsDirectlyApplied` |
@@ -1764,6 +1770,8 @@ Namespace | Name | Import |
 **Filesystem** | [ProjectTemplateRid](docs/v2/Filesystem/models/ProjectTemplateRid.md) | `from foundry_sdk.v2.filesystem.models import ProjectTemplateRid` |
 **Filesystem** | [ProjectTemplateVariableId](docs/v2/Filesystem/models/ProjectTemplateVariableId.md) | `from foundry_sdk.v2.filesystem.models import ProjectTemplateVariableId` |
 **Filesystem** | [ProjectTemplateVariableValue](docs/v2/Filesystem/models/ProjectTemplateVariableValue.md) | `from foundry_sdk.v2.filesystem.models import ProjectTemplateVariableValue` |
+**Filesystem** | [RecentlyViewedLimit](docs/v2/Filesystem/models/RecentlyViewedLimit.md) | `from foundry_sdk.v2.filesystem.models import RecentlyViewedLimit` |
+**Filesystem** | [RecentlyViewedResource](docs/v2/Filesystem/models/RecentlyViewedResource.md) | `from foundry_sdk.v2.filesystem.models import RecentlyViewedResource` |
 **Filesystem** | [RemoveMarkingsRequest](docs/v2/Filesystem/models/RemoveMarkingsRequest.md) | `from foundry_sdk.v2.filesystem.models import RemoveMarkingsRequest` |
 **Filesystem** | [RemoveOrganizationsRequest](docs/v2/Filesystem/models/RemoveOrganizationsRequest.md) | `from foundry_sdk.v2.filesystem.models import RemoveOrganizationsRequest` |
 **Filesystem** | [RemoveProjectResourceReferencesRequest](docs/v2/Filesystem/models/RemoveProjectResourceReferencesRequest.md) | `from foundry_sdk.v2.filesystem.models import RemoveProjectResourceReferencesRequest` |
@@ -1806,6 +1814,8 @@ Namespace | Name | Import |
 **Functions** | [GetByRidQueriesBatchResponse](docs/v2/Functions/models/GetByRidQueriesBatchResponse.md) | `from foundry_sdk.v2.functions.models import GetByRidQueriesBatchResponse` |
 **Functions** | [GetExecutionResultResponse](docs/v2/Functions/models/GetExecutionResultResponse.md) | `from foundry_sdk.v2.functions.models import GetExecutionResultResponse` |
 **Functions** | [GetResultExecutionRequest](docs/v2/Functions/models/GetResultExecutionRequest.md) | `from foundry_sdk.v2.functions.models import GetResultExecutionRequest` |
+**Functions** | [IncludePrerelease](docs/v2/Functions/models/IncludePrerelease.md) | `from foundry_sdk.v2.functions.models import IncludePrerelease` |
+**Functions** | [LatestVersionResolution](docs/v2/Functions/models/LatestVersionResolution.md) | `from foundry_sdk.v2.functions.models import LatestVersionResolution` |
 **Functions** | [LengthConstraint](docs/v2/Functions/models/LengthConstraint.md) | `from foundry_sdk.v2.functions.models import LengthConstraint` |
 **Functions** | [MapConstraint](docs/v2/Functions/models/MapConstraint.md) | `from foundry_sdk.v2.functions.models import MapConstraint` |
 **Functions** | [NullableConstraint](docs/v2/Functions/models/NullableConstraint.md) | `from foundry_sdk.v2.functions.models import NullableConstraint` |
@@ -1970,6 +1980,9 @@ Namespace | Name | Import |
 **MediaSets** | [BoundingBoxGeometry](docs/v2/MediaSets/models/BoundingBoxGeometry.md) | `from foundry_sdk.v2.media_sets.models import BoundingBoxGeometry` |
 **MediaSets** | [BranchName](docs/v2/MediaSets/models/BranchName.md) | `from foundry_sdk.v2.media_sets.models import BranchName` |
 **MediaSets** | [BranchRid](docs/v2/MediaSets/models/BranchRid.md) | `from foundry_sdk.v2.media_sets.models import BranchRid` |
+**MediaSets** | [CadDecodeFormat](docs/v2/MediaSets/models/CadDecodeFormat.md) | `from foundry_sdk.v2.media_sets.models import CadDecodeFormat` |
+**MediaSets** | [CadMediaItemMetadata](docs/v2/MediaSets/models/CadMediaItemMetadata.md) | `from foundry_sdk.v2.media_sets.models import CadMediaItemMetadata` |
+**MediaSets** | [CadUnits](docs/v2/MediaSets/models/CadUnits.md) | `from foundry_sdk.v2.media_sets.models import CadUnits` |
 **MediaSets** | [ChatLlmSpec](docs/v2/MediaSets/models/ChatLlmSpec.md) | `from foundry_sdk.v2.media_sets.models import ChatLlmSpec` |
 **MediaSets** | [ChatLlmSpecWrapper](docs/v2/MediaSets/models/ChatLlmSpecWrapper.md) | `from foundry_sdk.v2.media_sets.models import ChatLlmSpecWrapper` |
 **MediaSets** | [Color](docs/v2/MediaSets/models/Color.md) | `from foundry_sdk.v2.media_sets.models import Color` |
@@ -2166,6 +2179,7 @@ Namespace | Name | Import |
 **MediaSets** | [VideoToTextOperation](docs/v2/MediaSets/models/VideoToTextOperation.md) | `from foundry_sdk.v2.media_sets.models import VideoToTextOperation` |
 **MediaSets** | [VideoToTextTransformation](docs/v2/MediaSets/models/VideoToTextTransformation.md) | `from foundry_sdk.v2.media_sets.models import VideoToTextTransformation` |
 **MediaSets** | [VideoTransformation](docs/v2/MediaSets/models/VideoTransformation.md) | `from foundry_sdk.v2.media_sets.models import VideoTransformation` |
+**MediaSets** | [VlmOutputFormat](docs/v2/MediaSets/models/VlmOutputFormat.md) | `from foundry_sdk.v2.media_sets.models import VlmOutputFormat` |
 **MediaSets** | [VlmPreprocessingConfig](docs/v2/MediaSets/models/VlmPreprocessingConfig.md) | `from foundry_sdk.v2.media_sets.models import VlmPreprocessingConfig` |
 **MediaSets** | [WaveformOperation](docs/v2/MediaSets/models/WaveformOperation.md) | `from foundry_sdk.v2.media_sets.models import WaveformOperation` |
 **MediaSets** | [WavEncodeFormat](docs/v2/MediaSets/models/WavEncodeFormat.md) | `from foundry_sdk.v2.media_sets.models import WavEncodeFormat` |
@@ -2212,6 +2226,7 @@ Namespace | Name | Import |
 **Models** | [InvalidMapFormatError](docs/v2/Models/models/InvalidMapFormatError.md) | `from foundry_sdk.v2.models.models import InvalidMapFormatError` |
 **Models** | [InvalidResourceConfigurationError](docs/v2/Models/models/InvalidResourceConfigurationError.md) | `from foundry_sdk.v2.models.models import InvalidResourceConfigurationError` |
 **Models** | [InvalidTabularFormatError](docs/v2/Models/models/InvalidTabularFormatError.md) | `from foundry_sdk.v2.models.models import InvalidTabularFormatError` |
+**Models** | [InvalidWorkerConfigInputTypeError](docs/v2/Models/models/InvalidWorkerConfigInputTypeError.md) | `from foundry_sdk.v2.models.models import InvalidWorkerConfigInputTypeError` |
 **Models** | [JsonSchemaValidationError](docs/v2/Models/models/JsonSchemaValidationError.md) | `from foundry_sdk.v2.models.models import JsonSchemaValidationError` |
 **Models** | [ListLiveDeploymentsResponse](docs/v2/Models/models/ListLiveDeploymentsResponse.md) | `from foundry_sdk.v2.models.models import ListLiveDeploymentsResponse` |
 **Models** | [ListModelStudioConfigVersionsResponse](docs/v2/Models/models/ListModelStudioConfigVersionsResponse.md) | `from foundry_sdk.v2.models.models import ListModelStudioConfigVersionsResponse` |
@@ -2335,6 +2350,7 @@ Namespace | Name | Import |
 **Models** | [TypeMismatchError](docs/v2/Models/models/TypeMismatchError.md) | `from foundry_sdk.v2.models.models import TypeMismatchError` |
 **Models** | [UnknownColumnSpecIdInConfigColumnMappingError](docs/v2/Models/models/UnknownColumnSpecIdInConfigColumnMappingError.md) | `from foundry_sdk.v2.models.models import UnknownColumnSpecIdInConfigColumnMappingError` |
 **Models** | [UnknownInputNameError](docs/v2/Models/models/UnknownInputNameError.md) | `from foundry_sdk.v2.models.models import UnknownInputNameError` |
+**Models** | [UnsupportedDatasetFieldTypeError](docs/v2/Models/models/UnsupportedDatasetFieldTypeError.md) | `from foundry_sdk.v2.models.models import UnsupportedDatasetFieldTypeError` |
 **Models** | [UnsupportedTypeError](docs/v2/Models/models/UnsupportedTypeError.md) | `from foundry_sdk.v2.models.models import UnsupportedTypeError` |
 **Ontologies** | [AbsoluteTimeRange](docs/v2/Ontologies/models/AbsoluteTimeRange.md) | `from foundry_sdk.v2.ontologies.models import AbsoluteTimeRange` |
 **Ontologies** | [AbsoluteValuePropertyExpression](docs/v2/Ontologies/models/AbsoluteValuePropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import AbsoluteValuePropertyExpression` |
@@ -2344,6 +2360,8 @@ Namespace | Name | Import |
 **Ontologies** | [ActionParameterRid](docs/v2/Ontologies/models/ActionParameterRid.md) | `from foundry_sdk.v2.ontologies.models import ActionParameterRid` |
 **Ontologies** | [ActionParameterType](docs/v2/Ontologies/models/ActionParameterType.md) | `from foundry_sdk.v2.ontologies.models import ActionParameterType` |
 **Ontologies** | [ActionParameterV2](docs/v2/Ontologies/models/ActionParameterV2.md) | `from foundry_sdk.v2.ontologies.models import ActionParameterV2` |
+**Ontologies** | [ActionParameterValidation](docs/v2/Ontologies/models/ActionParameterValidation.md) | `from foundry_sdk.v2.ontologies.models import ActionParameterValidation` |
+**Ontologies** | [ActionParameterValidationBlock](docs/v2/Ontologies/models/ActionParameterValidationBlock.md) | `from foundry_sdk.v2.ontologies.models import ActionParameterValidationBlock` |
 **Ontologies** | [ActionResults](docs/v2/Ontologies/models/ActionResults.md) | `from foundry_sdk.v2.ontologies.models import ActionResults` |
 **Ontologies** | [ActionRid](docs/v2/Ontologies/models/ActionRid.md) | `from foundry_sdk.v2.ontologies.models import ActionRid` |
 **Ontologies** | [ActionSectionRid](docs/v2/Ontologies/models/ActionSectionRid.md) | `from foundry_sdk.v2.ontologies.models import ActionSectionRid` |
@@ -2410,6 +2428,7 @@ Namespace | Name | Import |
 **Ontologies** | [ArrayEvaluatedConstraint](docs/v2/Ontologies/models/ArrayEvaluatedConstraint.md) | `from foundry_sdk.v2.ontologies.models import ArrayEvaluatedConstraint` |
 **Ontologies** | [ArraySizeConstraint](docs/v2/Ontologies/models/ArraySizeConstraint.md) | `from foundry_sdk.v2.ontologies.models import ArraySizeConstraint` |
 **Ontologies** | [ArtifactRepositoryRid](docs/v2/Ontologies/models/ArtifactRepositoryRid.md) | `from foundry_sdk.v2.ontologies.models import ArtifactRepositoryRid` |
+**Ontologies** | [AttachmentAllowedValues](docs/v2/Ontologies/models/AttachmentAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import AttachmentAllowedValues` |
 **Ontologies** | [AttachmentMetadataResponse](docs/v2/Ontologies/models/AttachmentMetadataResponse.md) | `from foundry_sdk.v2.ontologies.models import AttachmentMetadataResponse` |
 **Ontologies** | [AttachmentRid](docs/v2/Ontologies/models/AttachmentRid.md) | `from foundry_sdk.v2.ontologies.models import AttachmentRid` |
 **Ontologies** | [AttachmentV2](docs/v2/Ontologies/models/AttachmentV2.md) | `from foundry_sdk.v2.ontologies.models import AttachmentV2` |
@@ -2463,6 +2482,7 @@ Namespace | Name | Import |
 **Ontologies** | [DatasourceBranchId](docs/v2/Ontologies/models/DatasourceBranchId.md) | `from foundry_sdk.v2.ontologies.models import DatasourceBranchId` |
 **Ontologies** | [DatasourceRid](docs/v2/Ontologies/models/DatasourceRid.md) | `from foundry_sdk.v2.ontologies.models import DatasourceRid` |
 **Ontologies** | [DataValue](docs/v2/Ontologies/models/DataValue.md) | `from foundry_sdk.v2.ontologies.models import DataValue` |
+**Ontologies** | [DatetimeAllowedValues](docs/v2/Ontologies/models/DatetimeAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import DatetimeAllowedValues` |
 **Ontologies** | [DatetimeFormat](docs/v2/Ontologies/models/DatetimeFormat.md) | `from foundry_sdk.v2.ontologies.models import DatetimeFormat` |
 **Ontologies** | [DatetimeLocalizedFormat](docs/v2/Ontologies/models/DatetimeLocalizedFormat.md) | `from foundry_sdk.v2.ontologies.models import DatetimeLocalizedFormat` |
 **Ontologies** | [DatetimeLocalizedFormatType](docs/v2/Ontologies/models/DatetimeLocalizedFormatType.md) | `from foundry_sdk.v2.ontologies.models import DatetimeLocalizedFormatType` |
@@ -2519,6 +2539,7 @@ Namespace | Name | Import |
 **Ontologies** | [ExtractMainValueLoadLevel](docs/v2/Ontologies/models/ExtractMainValueLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import ExtractMainValueLoadLevel` |
 **Ontologies** | [ExtractPropertyExpression](docs/v2/Ontologies/models/ExtractPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import ExtractPropertyExpression` |
 **Ontologies** | [FilterValue](docs/v2/Ontologies/models/FilterValue.md) | `from foundry_sdk.v2.ontologies.models import FilterValue` |
+**Ontologies** | [FixedDatetimeValue](docs/v2/Ontologies/models/FixedDatetimeValue.md) | `from foundry_sdk.v2.ontologies.models import FixedDatetimeValue` |
 **Ontologies** | [FixedValuesMapKey](docs/v2/Ontologies/models/FixedValuesMapKey.md) | `from foundry_sdk.v2.ontologies.models import FixedValuesMapKey` |
 **Ontologies** | [FullTextStringContainsPredicate](docs/v2/Ontologies/models/FullTextStringContainsPredicate.md) | `from foundry_sdk.v2.ontologies.models import FullTextStringContainsPredicate` |
 **Ontologies** | [FullTextStringExactPredicate](docs/v2/Ontologies/models/FullTextStringExactPredicate.md) | `from foundry_sdk.v2.ontologies.models import FullTextStringExactPredicate` |
@@ -2563,6 +2584,7 @@ Namespace | Name | Import |
 **Ontologies** | [InputObjectTypeRidActionTypesQueryV2](docs/v2/Ontologies/models/InputObjectTypeRidActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import InputObjectTypeRidActionTypesQueryV2` |
 **Ontologies** | [InQuery](docs/v2/Ontologies/models/InQuery.md) | `from foundry_sdk.v2.ontologies.models import InQuery` |
 **Ontologies** | [IntegerValue](docs/v2/Ontologies/models/IntegerValue.md) | `from foundry_sdk.v2.ontologies.models import IntegerValue` |
+**Ontologies** | [InterfaceActionTypeConstraintApiName](docs/v2/Ontologies/models/InterfaceActionTypeConstraintApiName.md) | `from foundry_sdk.v2.ontologies.models import InterfaceActionTypeConstraintApiName` |
 **Ontologies** | [InterfaceDefinedPropertyType](docs/v2/Ontologies/models/InterfaceDefinedPropertyType.md) | `from foundry_sdk.v2.ontologies.models import InterfaceDefinedPropertyType` |
 **Ontologies** | [InterfaceLinkType](docs/v2/Ontologies/models/InterfaceLinkType.md) | `from foundry_sdk.v2.ontologies.models import InterfaceLinkType` |
 **Ontologies** | [InterfaceLinkTypeApiName](docs/v2/Ontologies/models/InterfaceLinkTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import InterfaceLinkTypeApiName` |
@@ -2642,6 +2664,7 @@ Namespace | Name | Import |
 **Ontologies** | [LongValue](docs/v2/Ontologies/models/LongValue.md) | `from foundry_sdk.v2.ontologies.models import LongValue` |
 **Ontologies** | [LteQueryV2](docs/v2/Ontologies/models/LteQueryV2.md) | `from foundry_sdk.v2.ontologies.models import LteQueryV2` |
 **Ontologies** | [LtQueryV2](docs/v2/Ontologies/models/LtQueryV2.md) | `from foundry_sdk.v2.ontologies.models import LtQueryV2` |
+**Ontologies** | [MarkdownAllowedValues](docs/v2/Ontologies/models/MarkdownAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import MarkdownAllowedValues` |
 **Ontologies** | [MarkingId](docs/v2/Ontologies/models/MarkingId.md) | `from foundry_sdk.v2.ontologies.models import MarkingId` |
 **Ontologies** | [MatchRule](docs/v2/Ontologies/models/MatchRule.md) | `from foundry_sdk.v2.ontologies.models import MatchRule` |
 **Ontologies** | [MaxAggregationV2](docs/v2/Ontologies/models/MaxAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import MaxAggregationV2` |
@@ -2656,12 +2679,15 @@ Namespace | Name | Import |
 **Ontologies** | [ModifyObjectLogicRule](docs/v2/Ontologies/models/ModifyObjectLogicRule.md) | `from foundry_sdk.v2.ontologies.models import ModifyObjectLogicRule` |
 **Ontologies** | [ModifyObjectRule](docs/v2/Ontologies/models/ModifyObjectRule.md) | `from foundry_sdk.v2.ontologies.models import ModifyObjectRule` |
 **Ontologies** | [MultiplyPropertyExpression](docs/v2/Ontologies/models/MultiplyPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import MultiplyPropertyExpression` |
+**Ontologies** | [MustBeEmptyAllowedValues](docs/v2/Ontologies/models/MustBeEmptyAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import MustBeEmptyAllowedValues` |
 **Ontologies** | [NearestNeighborsQuery](docs/v2/Ontologies/models/NearestNeighborsQuery.md) | `from foundry_sdk.v2.ontologies.models import NearestNeighborsQuery` |
 **Ontologies** | [NearestNeighborsQueryText](docs/v2/Ontologies/models/NearestNeighborsQueryText.md) | `from foundry_sdk.v2.ontologies.models import NearestNeighborsQueryText` |
 **Ontologies** | [NegatePropertyExpression](docs/v2/Ontologies/models/NegatePropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import NegatePropertyExpression` |
 **Ontologies** | [NestedInterfacePropertyTypeImplementation](docs/v2/Ontologies/models/NestedInterfacePropertyTypeImplementation.md) | `from foundry_sdk.v2.ontologies.models import NestedInterfacePropertyTypeImplementation` |
 **Ontologies** | [NestedQueryAggregation](docs/v2/Ontologies/models/NestedQueryAggregation.md) | `from foundry_sdk.v2.ontologies.models import NestedQueryAggregation` |
+**Ontologies** | [NoLoadLevel](docs/v2/Ontologies/models/NoLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import NoLoadLevel` |
 **Ontologies** | [NotQueryV2](docs/v2/Ontologies/models/NotQueryV2.md) | `from foundry_sdk.v2.ontologies.models import NotQueryV2` |
+**Ontologies** | [NowDatetimeValue](docs/v2/Ontologies/models/NowDatetimeValue.md) | `from foundry_sdk.v2.ontologies.models import NowDatetimeValue` |
 **Ontologies** | [NumberFormatAffix](docs/v2/Ontologies/models/NumberFormatAffix.md) | `from foundry_sdk.v2.ontologies.models import NumberFormatAffix` |
 **Ontologies** | [NumberFormatCurrency](docs/v2/Ontologies/models/NumberFormatCurrency.md) | `from foundry_sdk.v2.ontologies.models import NumberFormatCurrency` |
 **Ontologies** | [NumberFormatCurrencyStyle](docs/v2/Ontologies/models/NumberFormatCurrencyStyle.md) | `from foundry_sdk.v2.ontologies.models import NumberFormatCurrencyStyle` |
@@ -2737,6 +2763,7 @@ Namespace | Name | Import |
 **Ontologies** | [ObjectTypeV2](docs/v2/Ontologies/models/ObjectTypeV2.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeV2` |
 **Ontologies** | [ObjectTypeVisibility](docs/v2/Ontologies/models/ObjectTypeVisibility.md) | `from foundry_sdk.v2.ontologies.models import ObjectTypeVisibility` |
 **Ontologies** | [ObjectUpdate](docs/v2/Ontologies/models/ObjectUpdate.md) | `from foundry_sdk.v2.ontologies.models import ObjectUpdate` |
+**Ontologies** | [OneOfAllowedValues](docs/v2/Ontologies/models/OneOfAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import OneOfAllowedValues` |
 **Ontologies** | [OneOfConstraint](docs/v2/Ontologies/models/OneOfConstraint.md) | `from foundry_sdk.v2.ontologies.models import OneOfConstraint` |
 **Ontologies** | [OntologyApiName](docs/v2/Ontologies/models/OntologyApiName.md) | `from foundry_sdk.v2.ontologies.models import OntologyApiName` |
 **Ontologies** | [OntologyArrayType](docs/v2/Ontologies/models/OntologyArrayType.md) | `from foundry_sdk.v2.ontologies.models import OntologyArrayType` |
@@ -2767,6 +2794,11 @@ Namespace | Name | Import |
 **Ontologies** | [OrderBy](docs/v2/Ontologies/models/OrderBy.md) | `from foundry_sdk.v2.ontologies.models import OrderBy` |
 **Ontologies** | [OrderByDirection](docs/v2/Ontologies/models/OrderByDirection.md) | `from foundry_sdk.v2.ontologies.models import OrderByDirection` |
 **Ontologies** | [OrQueryV2](docs/v2/Ontologies/models/OrQueryV2.md) | `from foundry_sdk.v2.ontologies.models import OrQueryV2` |
+**Ontologies** | [ParameterAllowedValueOption](docs/v2/Ontologies/models/ParameterAllowedValueOption.md) | `from foundry_sdk.v2.ontologies.models import ParameterAllowedValueOption` |
+**Ontologies** | [ParameterAllowedValues](docs/v2/Ontologies/models/ParameterAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import ParameterAllowedValues` |
+**Ontologies** | [ParameterArraySize](docs/v2/Ontologies/models/ParameterArraySize.md) | `from foundry_sdk.v2.ontologies.models import ParameterArraySize` |
+**Ontologies** | [ParameterConstraintValue](docs/v2/Ontologies/models/ParameterConstraintValue.md) | `from foundry_sdk.v2.ontologies.models import ParameterConstraintValue` |
+**Ontologies** | [ParameterDatetimeValue](docs/v2/Ontologies/models/ParameterDatetimeValue.md) | `from foundry_sdk.v2.ontologies.models import ParameterDatetimeValue` |
 **Ontologies** | [ParameterEvaluatedConstraint](docs/v2/Ontologies/models/ParameterEvaluatedConstraint.md) | `from foundry_sdk.v2.ontologies.models import ParameterEvaluatedConstraint` |
 **Ontologies** | [ParameterEvaluationResult](docs/v2/Ontologies/models/ParameterEvaluationResult.md) | `from foundry_sdk.v2.ontologies.models import ParameterEvaluationResult` |
 **Ontologies** | [ParameterId](docs/v2/Ontologies/models/ParameterId.md) | `from foundry_sdk.v2.ontologies.models import ParameterId` |
@@ -2833,6 +2865,7 @@ Namespace | Name | Import |
 **Ontologies** | [QueryTypeReferenceType](docs/v2/Ontologies/models/QueryTypeReferenceType.md) | `from foundry_sdk.v2.ontologies.models import QueryTypeReferenceType` |
 **Ontologies** | [QueryTypeV2](docs/v2/Ontologies/models/QueryTypeV2.md) | `from foundry_sdk.v2.ontologies.models import QueryTypeV2` |
 **Ontologies** | [QueryUnionType](docs/v2/Ontologies/models/QueryUnionType.md) | `from foundry_sdk.v2.ontologies.models import QueryUnionType` |
+**Ontologies** | [RangeAllowedValues](docs/v2/Ontologies/models/RangeAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import RangeAllowedValues` |
 **Ontologies** | [RangeConstraint](docs/v2/Ontologies/models/RangeConstraint.md) | `from foundry_sdk.v2.ontologies.models import RangeConstraint` |
 **Ontologies** | [RangesConstraint](docs/v2/Ontologies/models/RangesConstraint.md) | `from foundry_sdk.v2.ontologies.models import RangesConstraint` |
 **Ontologies** | [Reason](docs/v2/Ontologies/models/Reason.md) | `from foundry_sdk.v2.ontologies.models import Reason` |
@@ -2845,6 +2878,10 @@ Namespace | Name | Import |
 **Ontologies** | [RegexQuery](docs/v2/Ontologies/models/RegexQuery.md) | `from foundry_sdk.v2.ontologies.models import RegexQuery` |
 **Ontologies** | [RelativeDateRangeBound](docs/v2/Ontologies/models/RelativeDateRangeBound.md) | `from foundry_sdk.v2.ontologies.models import RelativeDateRangeBound` |
 **Ontologies** | [RelativeDateRangeQuery](docs/v2/Ontologies/models/RelativeDateRangeQuery.md) | `from foundry_sdk.v2.ontologies.models import RelativeDateRangeQuery` |
+**Ontologies** | [RelativeDatetimeDuration](docs/v2/Ontologies/models/RelativeDatetimeDuration.md) | `from foundry_sdk.v2.ontologies.models import RelativeDatetimeDuration` |
+**Ontologies** | [RelativeDatetimeTense](docs/v2/Ontologies/models/RelativeDatetimeTense.md) | `from foundry_sdk.v2.ontologies.models import RelativeDatetimeTense` |
+**Ontologies** | [RelativeDatetimeUnit](docs/v2/Ontologies/models/RelativeDatetimeUnit.md) | `from foundry_sdk.v2.ontologies.models import RelativeDatetimeUnit` |
+**Ontologies** | [RelativeDatetimeValue](docs/v2/Ontologies/models/RelativeDatetimeValue.md) | `from foundry_sdk.v2.ontologies.models import RelativeDatetimeValue` |
 **Ontologies** | [RelativePointInTime](docs/v2/Ontologies/models/RelativePointInTime.md) | `from foundry_sdk.v2.ontologies.models import RelativePointInTime` |
 **Ontologies** | [RelativeTime](docs/v2/Ontologies/models/RelativeTime.md) | `from foundry_sdk.v2.ontologies.models import RelativeTime` |
 **Ontologies** | [RelativeTimeRange](docs/v2/Ontologies/models/RelativeTimeRange.md) | `from foundry_sdk.v2.ontologies.models import RelativeTimeRange` |
@@ -2891,6 +2928,7 @@ Namespace | Name | Import |
 **Ontologies** | [SpatialFilterMode](docs/v2/Ontologies/models/SpatialFilterMode.md) | `from foundry_sdk.v2.ontologies.models import SpatialFilterMode` |
 **Ontologies** | [StartsWithQuery](docs/v2/Ontologies/models/StartsWithQuery.md) | `from foundry_sdk.v2.ontologies.models import StartsWithQuery` |
 **Ontologies** | [StaticArgument](docs/v2/Ontologies/models/StaticArgument.md) | `from foundry_sdk.v2.ontologies.models import StaticArgument` |
+**Ontologies** | [StaticConstraintValue](docs/v2/Ontologies/models/StaticConstraintValue.md) | `from foundry_sdk.v2.ontologies.models import StaticConstraintValue` |
 **Ontologies** | [StatusActionTypesQueryV2](docs/v2/Ontologies/models/StatusActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import StatusActionTypesQueryV2` |
 **Ontologies** | [StreamingOutputFormat](docs/v2/Ontologies/models/StreamingOutputFormat.md) | `from foundry_sdk.v2.ontologies.models import StreamingOutputFormat` |
 **Ontologies** | [StreamMessage](docs/v2/Ontologies/models/StreamMessage.md) | `from foundry_sdk.v2.ontologies.models import StreamMessage` |
@@ -2929,6 +2967,7 @@ Namespace | Name | Import |
 **Ontologies** | [SyncApplyActionResponseV2](docs/v2/Ontologies/models/SyncApplyActionResponseV2.md) | `from foundry_sdk.v2.ontologies.models import SyncApplyActionResponseV2` |
 **Ontologies** | [SynchronousWebhookOutputArgument](docs/v2/Ontologies/models/SynchronousWebhookOutputArgument.md) | `from foundry_sdk.v2.ontologies.models import SynchronousWebhookOutputArgument` |
 **Ontologies** | [TableRid](docs/v2/Ontologies/models/TableRid.md) | `from foundry_sdk.v2.ontologies.models import TableRid` |
+**Ontologies** | [TextAllowedValues](docs/v2/Ontologies/models/TextAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import TextAllowedValues` |
 **Ontologies** | [ThreeDimensionalAggregation](docs/v2/Ontologies/models/ThreeDimensionalAggregation.md) | `from foundry_sdk.v2.ontologies.models import ThreeDimensionalAggregation` |
 **Ontologies** | [TimeCodeFormat](docs/v2/Ontologies/models/TimeCodeFormat.md) | `from foundry_sdk.v2.ontologies.models import TimeCodeFormat` |
 **Ontologies** | [TimeRange](docs/v2/Ontologies/models/TimeRange.md) | `from foundry_sdk.v2.ontologies.models import TimeRange` |
@@ -2960,6 +2999,7 @@ Namespace | Name | Import |
 **Ontologies** | [ValidateActionResponseV2](docs/v2/Ontologies/models/ValidateActionResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ValidateActionResponseV2` |
 **Ontologies** | [ValidationResult](docs/v2/Ontologies/models/ValidationResult.md) | `from foundry_sdk.v2.ontologies.models import ValidationResult` |
 **Ontologies** | [ValueType](docs/v2/Ontologies/models/ValueType.md) | `from foundry_sdk.v2.ontologies.models import ValueType` |
+**Ontologies** | [ValueTypeAllowedValues](docs/v2/Ontologies/models/ValueTypeAllowedValues.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeAllowedValues` |
 **Ontologies** | [ValueTypeApiName](docs/v2/Ontologies/models/ValueTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeApiName` |
 **Ontologies** | [ValueTypeArrayType](docs/v2/Ontologies/models/ValueTypeArrayType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeArrayType` |
 **Ontologies** | [ValueTypeConstraint](docs/v2/Ontologies/models/ValueTypeConstraint.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeConstraint` |
@@ -2973,6 +3013,7 @@ Namespace | Name | Import |
 **Ontologies** | [ValueTypeStructField](docs/v2/Ontologies/models/ValueTypeStructField.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeStructField` |
 **Ontologies** | [ValueTypeStructType](docs/v2/Ontologies/models/ValueTypeStructType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeStructType` |
 **Ontologies** | [ValueTypeUnionType](docs/v2/Ontologies/models/ValueTypeUnionType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeUnionType` |
+**Ontologies** | [ValueTypeVersionId](docs/v2/Ontologies/models/ValueTypeVersionId.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeVersionId` |
 **Ontologies** | [VersionedQueryTypeApiName](docs/v2/Ontologies/models/VersionedQueryTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import VersionedQueryTypeApiName` |
 **Ontologies** | [WebhookRid](docs/v2/Ontologies/models/WebhookRid.md) | `from foundry_sdk.v2.ontologies.models import WebhookRid` |
 **Ontologies** | [WebhookRidActionTypesQueryV2](docs/v2/Ontologies/models/WebhookRidActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import WebhookRidActionTypesQueryV2` |
@@ -3726,6 +3767,7 @@ Namespace | Name | Import |
 **Filesystem** | ForbiddenOperationOnHiddenResource | `from foundry_sdk.v2.filesystem.errors import ForbiddenOperationOnHiddenResource` |
 **Filesystem** | GetAccessRequirementsPermissionDenied | `from foundry_sdk.v2.filesystem.errors import GetAccessRequirementsPermissionDenied` |
 **Filesystem** | GetByPathPermissionDenied | `from foundry_sdk.v2.filesystem.errors import GetByPathPermissionDenied` |
+**Filesystem** | GetRecentlyViewedPermissionDenied | `from foundry_sdk.v2.filesystem.errors import GetRecentlyViewedPermissionDenied` |
 **Filesystem** | GetRootFolderNotSupported | `from foundry_sdk.v2.filesystem.errors import GetRootFolderNotSupported` |
 **Filesystem** | GetSpaceResourceNotSupported | `from foundry_sdk.v2.filesystem.errors import GetSpaceResourceNotSupported` |
 **Filesystem** | InvalidDefaultRoles | `from foundry_sdk.v2.filesystem.errors import InvalidDefaultRoles` |
@@ -3756,6 +3798,7 @@ Namespace | Name | Import |
 **Filesystem** | ProjectNameAlreadyExists | `from foundry_sdk.v2.filesystem.errors import ProjectNameAlreadyExists` |
 **Filesystem** | ProjectNotFound | `from foundry_sdk.v2.filesystem.errors import ProjectNotFound` |
 **Filesystem** | ProjectTemplateNotFound | `from foundry_sdk.v2.filesystem.errors import ProjectTemplateNotFound` |
+**Filesystem** | RecentlyViewedLimitBelowMinimum | `from foundry_sdk.v2.filesystem.errors import RecentlyViewedLimitBelowMinimum` |
 **Filesystem** | RemoveMarkingsPermissionDenied | `from foundry_sdk.v2.filesystem.errors import RemoveMarkingsPermissionDenied` |
 **Filesystem** | RemoveOrganizationsPermissionDenied | `from foundry_sdk.v2.filesystem.errors import RemoveOrganizationsPermissionDenied` |
 **Filesystem** | RemoveProjectResourceReferencesPermissionDenied | `from foundry_sdk.v2.filesystem.errors import RemoveProjectResourceReferencesPermissionDenied` |
@@ -3803,6 +3846,7 @@ Namespace | Name | Import |
 **Functions** | GetResultExecutionPermissionDenied | `from foundry_sdk.v2.functions.errors import GetResultExecutionPermissionDenied` |
 **Functions** | InvalidQueryOutputValue | `from foundry_sdk.v2.functions.errors import InvalidQueryOutputValue` |
 **Functions** | InvalidQueryParameterValue | `from foundry_sdk.v2.functions.errors import InvalidQueryParameterValue` |
+**Functions** | InvalidVersionResolutionParameters | `from foundry_sdk.v2.functions.errors import InvalidVersionResolutionParameters` |
 **Functions** | MissingParameter | `from foundry_sdk.v2.functions.errors import MissingParameter` |
 **Functions** | QueryEncounteredUserFacingError | `from foundry_sdk.v2.functions.errors import QueryEncounteredUserFacingError` |
 **Functions** | QueryMemoryExceededLimit | `from foundry_sdk.v2.functions.errors import QueryMemoryExceededLimit` |
@@ -3840,12 +3884,22 @@ Namespace | Name | Import |
 **MediaSets** | MissingMediaItemPath | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemPath` |
 **MediaSets** | TemporaryMediaUploadInsufficientPermissions | `from foundry_sdk.v2.media_sets.errors import TemporaryMediaUploadInsufficientPermissions` |
 **MediaSets** | TemporaryMediaUploadUnknownFailure | `from foundry_sdk.v2.media_sets.errors import TemporaryMediaUploadUnknownFailure` |
+**MediaSets** | TransformationDocumentExtractError | `from foundry_sdk.v2.media_sets.errors import TransformationDocumentExtractError` |
 **MediaSets** | TransformationImageTooLargeForOcr | `from foundry_sdk.v2.media_sets.errors import TransformationImageTooLargeForOcr` |
+**MediaSets** | TransformationInputTooLarge | `from foundry_sdk.v2.media_sets.errors import TransformationInputTooLarge` |
+**MediaSets** | TransformationInvalidPageRange | `from foundry_sdk.v2.media_sets.errors import TransformationInvalidPageRange` |
+**MediaSets** | TransformationMediaSizeExceeded | `from foundry_sdk.v2.media_sets.errors import TransformationMediaSizeExceeded` |
 **MediaSets** | TransformationModelContextWindowExceeded | `from foundry_sdk.v2.media_sets.errors import TransformationModelContextWindowExceeded` |
 **MediaSets** | TransformationModelNotAvailable | `from foundry_sdk.v2.media_sets.errors import TransformationModelNotAvailable` |
 **MediaSets** | TransformationModelNotSupported | `from foundry_sdk.v2.media_sets.errors import TransformationModelNotSupported` |
 **MediaSets** | TransformationNotFound | `from foundry_sdk.v2.media_sets.errors import TransformationNotFound` |
+**MediaSets** | TransformationPermissionDenied | `from foundry_sdk.v2.media_sets.errors import TransformationPermissionDenied` |
 **MediaSets** | TransformationUnavailable | `from foundry_sdk.v2.media_sets.errors import TransformationUnavailable` |
+**MediaSets** | TransformationVlmError | `from foundry_sdk.v2.media_sets.errors import TransformationVlmError` |
+**MediaSets** | TransformationVlmLayoutModelFailure | `from foundry_sdk.v2.media_sets.errors import TransformationVlmLayoutModelFailure` |
+**MediaSets** | TransformationVlmMultiPageRequestUnsupported | `from foundry_sdk.v2.media_sets.errors import TransformationVlmMultiPageRequestUnsupported` |
+**MediaSets** | TransformationVlmPageRangeRequired | `from foundry_sdk.v2.media_sets.errors import TransformationVlmPageRangeRequired` |
+**MediaSets** | TransformationVlmResponseParseError | `from foundry_sdk.v2.media_sets.errors import TransformationVlmResponseParseError` |
 **MediaSets** | TransformedMediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import TransformedMediaItemNotFound` |
 **MediaSets** | UnexpectedMetadataType | `from foundry_sdk.v2.media_sets.errors import UnexpectedMetadataType` |
 **MediaSets** | UnsupportedMetadata | `from foundry_sdk.v2.media_sets.errors import UnsupportedMetadata` |
@@ -4002,6 +4056,7 @@ Namespace | Name | Import |
 **Ontologies** | ObjectSetNotFound | `from foundry_sdk.v2.ontologies.errors import ObjectSetNotFound` |
 **Ontologies** | ObjectsExceededLimit | `from foundry_sdk.v2.ontologies.errors import ObjectsExceededLimit` |
 **Ontologies** | ObjectsModifiedConcurrently | `from foundry_sdk.v2.ontologies.errors import ObjectsModifiedConcurrently` |
+**Ontologies** | ObjectTypeDerivedPropertyNotSupported | `from foundry_sdk.v2.ontologies.errors import ObjectTypeDerivedPropertyNotSupported` |
 **Ontologies** | ObjectTypeNotFound | `from foundry_sdk.v2.ontologies.errors import ObjectTypeNotFound` |
 **Ontologies** | ObjectTypeNotSynced | `from foundry_sdk.v2.ontologies.errors import ObjectTypeNotSynced` |
 **Ontologies** | ObjectTypesNotSynced | `from foundry_sdk.v2.ontologies.errors import ObjectTypesNotSynced` |
@@ -4336,6 +4391,7 @@ Namespace | Name | Import |
 **Ontologies** | ObjectSetNotFound | `from foundry_sdk.v1.ontologies.errors import ObjectSetNotFound` |
 **Ontologies** | ObjectsExceededLimit | `from foundry_sdk.v1.ontologies.errors import ObjectsExceededLimit` |
 **Ontologies** | ObjectsModifiedConcurrently | `from foundry_sdk.v1.ontologies.errors import ObjectsModifiedConcurrently` |
+**Ontologies** | ObjectTypeDerivedPropertyNotSupported | `from foundry_sdk.v1.ontologies.errors import ObjectTypeDerivedPropertyNotSupported` |
 **Ontologies** | ObjectTypeNotFound | `from foundry_sdk.v1.ontologies.errors import ObjectTypeNotFound` |
 **Ontologies** | ObjectTypeNotSynced | `from foundry_sdk.v1.ontologies.errors import ObjectTypeNotSynced` |
 **Ontologies** | ObjectTypesNotSynced | `from foundry_sdk.v1.ontologies.errors import ObjectTypesNotSynced` |

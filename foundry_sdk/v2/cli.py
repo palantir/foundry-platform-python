@@ -4998,6 +4998,36 @@ def filesystem_resource_op_get_by_path_batch(
     click.echo(repr(result))
 
 
+@filesystem_resource.command("get_recently_viewed")
+@click.option(
+    "--limit",
+    type=int,
+    required=False,
+    help="""The maximum number of recently viewed resources to return. Defaults to 100,
+with a maximum of 100. Values above 100 are clamped to 100.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_resource_op_get_recently_viewed(
+    client: FoundryClient,
+    limit: typing.Optional[int],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the resources most recently viewed by the calling user. If a resource is now inaccessible or has
+    been trashed, it will not be included in the response.
+
+    """
+    result = client.filesystem.Resource.get_recently_viewed(
+        limit=limit,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.command("markings")
 @click.argument("resource_rid", type=str, required=True)
 @click.option(
@@ -5748,6 +5778,13 @@ When provided without `version`, the latest version on this branch is used.
 When provided with `version`, the specified version must exist on the branch.
 """,
 )
+@click.option("--include_prerelease", type=bool, required=False, help="""""")
+@click.option(
+    "--latest_version_resolution",
+    type=click.Choice(["PUBLISH_TIME", "SEMANTIC_VERSION"]),
+    required=False,
+    help="""""",
+)
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5773,6 +5810,8 @@ def functions_query_op_execute(
     parameters: str,
     attribution: typing.Optional[str],
     branch: typing.Optional[str],
+    include_prerelease: typing.Optional[bool],
+    latest_version_resolution: typing.Optional[typing.Literal["PUBLISH_TIME", "SEMANTIC_VERSION"]],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
@@ -5781,8 +5820,9 @@ def functions_query_op_execute(
 ):
     """
     Executes a Query and returns the result as a single JSON object. By default, this executes
-    the latest version of the query. The latest version is the one that was most recently
-    published, which may be a pre-release version.
+    the highest semantic version of the query, excluding pre-release versions. To resolve the
+    most recently published version instead, including pre-release versions, set
+    `latestVersionResolution` to `PUBLISH_TIME`.
 
     This endpoint executes global (non-ontology-scoped) query functions. For ontology-scoped
     functions, use the equivalent endpoint under
@@ -5795,6 +5835,8 @@ def functions_query_op_execute(
         parameters=json.loads(parameters),
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -5816,6 +5858,13 @@ def functions_query_op_execute(
 When provided without `version`, the latest version on this branch is used.
 When provided with `version`, the specified version must exist on the branch.
 """,
+)
+@click.option("--include_prerelease", type=bool, required=False, help="""""")
+@click.option(
+    "--latest_version_resolution",
+    type=click.Choice(["PUBLISH_TIME", "SEMANTIC_VERSION"]),
+    required=False,
+    help="""""",
 )
 @click.option(
     "--ontology",
@@ -5850,6 +5899,8 @@ def functions_query_op_execute_async(
     parameters: str,
     attribution: typing.Optional[str],
     branch: typing.Optional[str],
+    include_prerelease: typing.Optional[bool],
+    latest_version_resolution: typing.Optional[typing.Literal["PUBLISH_TIME", "SEMANTIC_VERSION"]],
     ontology: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
@@ -5870,6 +5921,8 @@ def functions_query_op_execute_async(
         parameters=json.loads(parameters),
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
@@ -5882,6 +5935,13 @@ def functions_query_op_execute_async(
 
 @functions_query.command("get")
 @click.argument("query_api_name", type=str, required=True)
+@click.option("--include_prerelease", type=bool, required=False, help="""""")
+@click.option(
+    "--latest_version_resolution",
+    type=click.Choice(["PUBLISH_TIME", "SEMANTIC_VERSION"]),
+    required=False,
+    help="""""",
+)
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5890,15 +5950,21 @@ def functions_query_op_execute_async(
 def functions_query_op_get(
     client: FoundryClient,
     query_api_name: str,
+    include_prerelease: typing.Optional[bool],
+    latest_version_resolution: typing.Optional[typing.Literal["PUBLISH_TIME", "SEMANTIC_VERSION"]],
     preview: typing.Optional[bool],
     version: typing.Optional[str],
 ):
     """
-    Gets a specific query type with the given API name. By default, this gets the latest version of the query.
+    Gets a specific query type with the given API name. By default, this returns the highest semantic
+    version of the query, excluding pre-release versions. To resolve the most recently published version
+    instead, including pre-release versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
     """
     result = client.functions.Query.get(
         query_api_name=query_api_name,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         preview=preview,
         version=version,
     )
@@ -5982,6 +6048,13 @@ When provided without `version`, the latest version on this branch is used.
 When provided with `version`, the specified version must exist on the branch.
 """,
 )
+@click.option("--include_prerelease", type=bool, required=False, help="""""")
+@click.option(
+    "--latest_version_resolution",
+    type=click.Choice(["PUBLISH_TIME", "SEMANTIC_VERSION"]),
+    required=False,
+    help="""""",
+)
 @click.option(
     "--ontology",
     type=str,
@@ -6015,6 +6088,8 @@ def functions_query_op_streaming_execute(
     parameters: str,
     attribution: typing.Optional[str],
     branch: typing.Optional[str],
+    include_prerelease: typing.Optional[bool],
+    latest_version_resolution: typing.Optional[typing.Literal["PUBLISH_TIME", "SEMANTIC_VERSION"]],
     ontology: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
@@ -6024,8 +6099,9 @@ def functions_query_op_streaming_execute(
 ):
     """
     Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-    By default, this executes the latest version of the query. The latest version is the one
-    that was most recently published, which may be a pre-release version.
+    By default, this executes the highest semantic version of the query, excluding pre-release
+    versions. To resolve the most recently published version instead, including pre-release
+    versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
     This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
     `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -6048,6 +6124,8 @@ def functions_query_op_streaming_execute(
         parameters=json.loads(parameters),
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
@@ -6070,6 +6148,13 @@ def functions_query_op_streaming_execute(
 When provided without `version`, the latest version on this branch is used.
 When provided with `version`, the specified version must exist on the branch.
 """,
+)
+@click.option("--include_prerelease", type=bool, required=False, help="""""")
+@click.option(
+    "--latest_version_resolution",
+    type=click.Choice(["PUBLISH_TIME", "SEMANTIC_VERSION"]),
+    required=False,
+    help="""""",
 )
 @click.option(
     "--ontology",
@@ -6104,6 +6189,8 @@ def functions_query_op_streaming_execute_events(
     parameters: str,
     attribution: typing.Optional[str],
     branch: typing.Optional[str],
+    include_prerelease: typing.Optional[bool],
+    latest_version_resolution: typing.Optional[typing.Literal["PUBLISH_TIME", "SEMANTIC_VERSION"]],
     ontology: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
@@ -6113,8 +6200,9 @@ def functions_query_op_streaming_execute_events(
 ):
     """
     Executes a Query and returns results as a Server-Sent Events (`text/event-stream`) stream.
-    By default, this executes the latest version of the query. The latest version is the one
-    that was most recently published, which may be a pre-release version.
+    By default, this executes the highest semantic version of the query, excluding pre-release
+    versions. To resolve the most recently published version instead, including pre-release
+    versions, set `latestVersionResolution` to `PUBLISH_TIME`.
 
     This endpoint supports all Query functions. Each SSE event's `data` field is a JSON-encoded
     `StreamingExecuteQueryResponse` – either a data batch (`type: data`) carrying one or more
@@ -6137,6 +6225,8 @@ def functions_query_op_streaming_execute_events(
         parameters=json.loads(parameters),
         attribution=attribution,
         branch=branch,
+        include_prerelease=include_prerelease,
+        latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
@@ -6770,20 +6860,12 @@ def media_sets_media_set_op_get_status(
 @media_sets_media_set.command("info")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_op_info(
     client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: typing.Optional[bool],
     read_token: typing.Optional[str],
 ):
     """
@@ -6793,7 +6875,6 @@ def media_sets_media_set_op_info(
     result = client.media_sets.MediaSet.info(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
-        preview=preview,
         read_token=read_token,
     )
     click.echo(repr(result))
@@ -6802,20 +6883,12 @@ def media_sets_media_set_op_info(
 @media_sets_media_set.command("metadata")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_op_metadata(
     client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: typing.Optional[bool],
     read_token: typing.Optional[str],
 ):
     """
@@ -6826,7 +6899,6 @@ def media_sets_media_set_op_metadata(
     result = client.media_sets.MediaSet.metadata(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
-        preview=preview,
         read_token=read_token,
     )
     click.echo(repr(result))
@@ -6835,20 +6907,12 @@ def media_sets_media_set_op_metadata(
 @media_sets_media_set.command("read")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_op_read(
     client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: typing.Optional[bool],
     read_token: typing.Optional[str],
 ):
     """
@@ -6858,7 +6922,6 @@ def media_sets_media_set_op_read(
     result = client.media_sets.MediaSet.read(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
-        preview=preview,
         read_token=read_token,
     )
     click.echo(result)
@@ -6867,20 +6930,12 @@ def media_sets_media_set_op_read(
 @media_sets_media_set.command("read_original")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_op_read_original(
     client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: typing.Optional[bool],
     read_token: typing.Optional[str],
 ):
     """
@@ -6890,7 +6945,6 @@ def media_sets_media_set_op_read_original(
     result = client.media_sets.MediaSet.read_original(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
-        preview=preview,
         read_token=read_token,
     )
     click.echo(result)
@@ -7185,13 +7239,6 @@ An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected 
 A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
 """,
 )
-@click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
 @click.pass_obj
 def media_sets_media_set_op_upload_media(
     client: FoundryClient,
@@ -7199,7 +7246,6 @@ def media_sets_media_set_op_upload_media(
     filename: str,
     attribution: typing.Optional[str],
     media_item_rid: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Uploads a temporary media item. If the media item isn't persisted within 1 hour, the item will be deleted.
@@ -7215,7 +7261,6 @@ def media_sets_media_set_op_upload_media(
         filename=filename,
         attribution=attribution,
         media_item_rid=media_item_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -8583,7 +8628,9 @@ Transactions are an experimental feature and all workflows may not be supported.
     "--version",
     type=str,
     required=False,
-    help="""The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
+    help="""The version of the Query to execute. If not specified, the latest version is used. The latest version
+is the one that was most recently published, including pre-release versions. When used
+with `branch`, the specified version must exist on the branch.
 """,
 )
 @click.pass_obj
@@ -9278,6 +9325,7 @@ def ontologies_ontology_object_set_op_get(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option("--default_load_level", type=str, required=False, help="""""")
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -9381,6 +9429,7 @@ def ontologies_ontology_object_set_op_load(
     object_set: str,
     select: str,
     branch: typing.Optional[str],
+    default_load_level: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
@@ -9414,6 +9463,7 @@ def ontologies_ontology_object_set_op_load(
         object_set=json.loads(object_set),
         select=json.loads(select),
         branch=branch,
+        default_load_level=None if default_load_level is None else json.loads(default_load_level),
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
@@ -9558,6 +9608,7 @@ def ontologies_ontology_object_set_op_load_links(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option("--default_load_level", type=str, required=False, help="""""")
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -9668,6 +9719,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     object_set: str,
     select: str,
     branch: typing.Optional[str],
+    default_load_level: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
@@ -9707,6 +9759,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         object_set=json.loads(object_set),
         select=json.loads(select),
         branch=branch,
+        default_load_level=None if default_load_level is None else json.loads(default_load_level),
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
@@ -9742,6 +9795,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option("--default_load_level", type=str, required=False, help="""""")
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -9840,6 +9894,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     object_set: str,
     select: str,
     branch: typing.Optional[str],
+    default_load_level: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -9879,6 +9934,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         object_set=json.loads(object_set),
         select=json.loads(select),
         branch=branch,
+        default_load_level=None if default_load_level is None else json.loads(default_load_level),
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         order_by=None if order_by is None else json.loads(order_by),
@@ -10224,6 +10280,7 @@ def ontologies_ontology_object_op_list(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option("--default_load_level", type=str, required=False, help="""""")
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -10287,6 +10344,7 @@ def ontologies_ontology_object_op_search(
     object_type: str,
     select: str,
     branch: typing.Optional[str],
+    default_load_level: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -10330,6 +10388,7 @@ def ontologies_ontology_object_op_search(
         object_type=object_type,
         select=json.loads(select),
         branch=branch,
+        default_load_level=None if default_load_level is None else json.loads(default_load_level),
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         order_by=None if order_by is None else json.loads(order_by),
@@ -11115,7 +11174,8 @@ def ontologies_ontology_query_type():
     "--version",
     type=str,
     required=False,
-    help="""The version of the Query to get.
+    help="""The version of the Query to get. If not specified, the latest version is used. The latest version is
+the one that was most recently published, including pre-release versions.
 """,
 )
 @click.pass_obj
@@ -11214,6 +11274,9 @@ def ontologies_ontology_query_type_op_list(
 ):
     """
     Lists the query types for the given Ontology.
+
+    Each query type is returned at its latest version. The latest version is the one that was most recently
+    published, which may be a pre-release version.
 
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
@@ -11344,13 +11407,6 @@ Branches are an experimental feature and not all workflows are supported.
     help="""Token for retrieving the next page of results""",
 )
 @click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
-@click.option(
     "--scenario_rid",
     type=str,
     required=False,
@@ -11371,7 +11427,6 @@ def ontologies_ontology_object_type_op_get_edits_history(
     object_primary_key: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
     scenario_rid: typing.Optional[str],
     sort_order: typing.Optional[typing.Literal["newest_first", "oldest_first"]],
 ):
@@ -11394,7 +11449,6 @@ def ontologies_ontology_object_type_op_get_edits_history(
         object_primary_key=None if object_primary_key is None else json.loads(object_primary_key),
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         scenario_rid=scenario_rid,
         sort_order=sort_order,
     )

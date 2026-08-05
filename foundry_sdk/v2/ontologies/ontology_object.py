@@ -361,6 +361,7 @@ class OntologyObjectClient:
         *,
         select: typing.List[ontologies_models.PropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -410,6 +411,8 @@ class OntologyObjectClient:
         :type select: List[PropertyApiName]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -463,6 +466,7 @@ class OntologyObjectClient:
                     page_token=page_token,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
                     reference_signing_options=reference_signing_options,
@@ -842,6 +846,7 @@ class AsyncOntologyObjectClient:
         *,
         select: typing.List[ontologies_models.PropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -891,6 +896,8 @@ class AsyncOntologyObjectClient:
         :type select: List[PropertyApiName]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param default_load_level:
+        :type default_load_level: Optional[PropertyLoadLevel]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
@@ -944,6 +951,7 @@ class AsyncOntologyObjectClient:
                     page_token=page_token,
                     select=select,
                     select_v2=select_v2,
+                    default_load_level=default_load_level,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
                     reference_signing_options=reference_signing_options,

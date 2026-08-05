@@ -184,7 +184,6 @@ class ObjectTypeClient:
         object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
         page_size: typing.Optional[int] = None,
         page_token: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sort_order: typing.Optional[ontologies_models.EditsHistorySortOrder] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -215,8 +214,6 @@ class ObjectTypeClient:
         :type page_size: Optional[int]
         :param page_token: Token for retrieving the next page of results
         :type page_token: Optional[str]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param scenario_rid: The resource identifier of an ontology scenario to get edits history from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sort_order:
@@ -233,7 +230,6 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory",
                 query_params={
                     "branch": branch,
-                    "preview": preview,
                     "scenarioRid": scenario_rid,
                 },
                 path_params={
@@ -794,7 +790,6 @@ class AsyncObjectTypeClient:
         object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
         page_size: typing.Optional[int] = None,
         page_token: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sort_order: typing.Optional[ontologies_models.EditsHistorySortOrder] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -825,8 +820,6 @@ class AsyncObjectTypeClient:
         :type page_size: Optional[int]
         :param page_token: Token for retrieving the next page of results
         :type page_token: Optional[str]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param scenario_rid: The resource identifier of an ontology scenario to get edits history from.
         :type scenario_rid: Optional[OntologyScenarioRid]
         :param sort_order:
@@ -843,7 +836,6 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory",
                 query_params={
                     "branch": branch,
-                    "preview": preview,
                     "scenarioRid": scenario_rid,
                 },
                 path_params={

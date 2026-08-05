@@ -5,6 +5,7 @@ The schema type of a media set, indicating what type of media items it can conta
 | **Value** |
 | --------- |
 | `"AUDIO"` |
+| `"CAD"` |
 | `"DICOM"` |
 | `"DOCUMENT"` |
 | `"IMAGERY"` |
