@@ -896,7 +896,6 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | LinkedObject | [**get_linked_object**](docs/v2/Ontologies/LinkedObject.md#get_linked_object) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} |
 **Ontologies** | LinkedObject | [**list_linked_objects**](docs/v2/Ontologies/LinkedObject.md#list_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
 **Ontologies** | MediaReferenceProperty | [**get_media_content**](docs/v2/Ontologies/MediaReferenceProperty.md#get_media_content) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/content |
-**Ontologies** | MediaReferenceProperty | [**upload**](docs/v2/Ontologies/MediaReferenceProperty.md#upload) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/media/{property}/upload |
 **Ontologies** | ObjectType | [**get**](docs/v2/Ontologies/ObjectType.md#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
 **Ontologies** | ObjectType | [**get_by_rid_batch**](docs/v2/Ontologies/ObjectType.md#get_by_rid_batch) | **POST** /v2/ontologies/{ontology}/objectTypes/getByRidBatch |
 **Ontologies** | ObjectType | [**get_edits_history**](docs/v2/Ontologies/ObjectType.md#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory |

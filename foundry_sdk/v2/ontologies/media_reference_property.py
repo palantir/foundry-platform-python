@@ -207,6 +207,10 @@ class MediaReferencePropertyClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core_models.MediaReference:
         """
+        :::callout{theme=warning title=Warning}
+        This endpoint is deprecated. Use the **Upload media** endpoint to upload a media item and receive a
+        temporary media reference instead.
+        :::
         Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
@@ -465,6 +469,10 @@ class AsyncMediaReferencePropertyClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[core_models.MediaReference]:
         """
+        :::callout{theme=warning title=Warning}
+        This endpoint is deprecated. Use the **Upload media** endpoint to upload a media item and receive a
+        temporary media reference instead.
+        :::
         Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 

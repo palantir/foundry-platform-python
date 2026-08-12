@@ -9347,6 +9347,17 @@ Defaults to false.
 )
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
+properties are selected, this flag has no effect and the selected properties are always returned.
+
+This feature is experimental and not yet generally available.
+""",
+)
+@click.option(
     "--load_property_securities",
     type=bool,
     required=False,
@@ -9433,6 +9444,7 @@ def ontologies_ontology_object_set_op_load(
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     load_property_securities: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
@@ -9467,6 +9479,7 @@ def ontologies_ontology_object_set_op_load(
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         load_property_securities=load_property_securities,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
@@ -9630,6 +9643,20 @@ Defaults to false.
 )
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
+properties are selected, this flag has no effect and the selected properties are always returned.
+
+This flag does not affect interface properties that are implemented by an OTDP on an
+object type; those are always returned regardless of this flag.
+
+This feature is experimental and not yet generally available.
+""",
+)
+@click.option(
     "--load_property_securities",
     type=bool,
     required=False,
@@ -9723,6 +9750,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     load_property_securities: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
@@ -9763,6 +9791,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         load_property_securities=load_property_securities,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
@@ -9813,6 +9842,20 @@ Use this to opt into fast failure on requests that would otherwise require
 heavier computation.
 
 Defaults to false.
+""",
+)
+@click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
+properties are selected, this flag has no effect and the selected properties are always returned.
+
+This flag does not affect interface properties that are implemented by an OTDP on an
+object type; those are always returned regardless of this flag.
+
+This feature is experimental and not yet generally available.
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
@@ -9897,6 +9940,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     default_load_level: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -9937,6 +9981,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         default_load_level=None if default_load_level is None else json.loads(default_load_level),
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
@@ -12092,6 +12137,10 @@ def ontologies_media_reference_property_op_upload(
     preview: typing.Optional[bool],
 ):
     """
+    :::callout{theme=warning title=Warning}
+    This endpoint is deprecated. Use the **Upload media** endpoint to upload a media item and receive a
+    temporary media reference instead.
+    :::
     Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
     The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 

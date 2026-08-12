@@ -4,7 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get_media_content**](#get_media_content) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/content | Public Beta |
 [**get_media_metadata**](#get_media_metadata) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/metadata | Private Beta |
-[**upload**](#upload) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/media/{property}/upload | Public Beta |
+[**upload**](#upload) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/media/{property}/upload | Private Beta |
 
 # **get_media_content**
 Gets the content of a media item referenced by this property.
@@ -163,6 +163,10 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **upload**
+:::callout{theme=warning title=Warning}
+This endpoint is deprecated. Use the **Upload media** endpoint to upload a media item and receive a
+temporary media reference instead.
+:::
 Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
 The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 

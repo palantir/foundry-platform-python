@@ -11,6 +11,7 @@ Represents the API POST body when loading an `ObjectSet`. Used on the `/loadObje
 **select** | List[SelectedPropertyApiName] | Yes |  |
 **select_v2** | Optional[List[PropertyIdentifier]] | No | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |
 **default_load_level** | Optional[PropertyLoadLevel] | No |  |
+**load_ontology_defined_derived_properties** | Optional[bool] | No | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.  |
 **page_token** | Optional[PageToken] | No |  |
 **page_size** | Optional[PageSize] | No |  |
 **exclude_rid** | Optional[bool] | No | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  |

@@ -70,7 +70,7 @@ If not specified, the language will be auto-detected from the first 30 seconds o
 | `"NE"` |
 | `"NL"` |
 | `"NN"` |
-| `"false"` |
+| `"NO"` |
 | `"OC"` |
 | `"PA"` |
 | `"PL"` |

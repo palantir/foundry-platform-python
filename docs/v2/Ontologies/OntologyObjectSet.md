@@ -279,6 +279,7 @@ Name | Type | Description  | Notes |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
+**load_ontology_defined_derived_properties** | Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.  | [optional] |
 **load_property_securities** | Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -321,6 +322,8 @@ exclude_rid = None
 execute_in_memory_only = None
 # Optional[IncludeComputeUsage]
 include_compute_usage = None
+# Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+load_ontology_defined_derived_properties = None
 # Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
 load_property_securities = None
 # Optional[SearchOrderByV2]
@@ -359,6 +362,7 @@ try:
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         load_property_securities=load_property_securities,
         order_by=order_by,
         page_size=page_size,
@@ -528,6 +532,7 @@ Name | Type | Description  | Notes |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
+**load_ontology_defined_derived_properties** | Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.  | [optional] |
 **load_property_securities** | Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -571,6 +576,8 @@ exclude_rid = None
 execute_in_memory_only = None
 # Optional[IncludeComputeUsage]
 include_compute_usage = None
+# Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
+load_ontology_defined_derived_properties = None
 # Optional[bool] | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
 load_property_securities = None
 # Optional[SearchOrderByV2]
@@ -611,6 +618,7 @@ try:
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
         include_compute_usage=include_compute_usage,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         load_property_securities=load_property_securities,
         order_by=order_by,
         page_size=page_size,
@@ -675,6 +683,7 @@ Name | Type | Description  | Notes |
 **default_load_level** | Optional[PropertyLoadLevel] |  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
+**load_ontology_defined_derived_properties** | Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -715,6 +724,8 @@ default_load_level = None
 exclude_rid = None
 # Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
 execute_in_memory_only = None
+# Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
+load_ontology_defined_derived_properties = None
 # Optional[SearchOrderByV2]
 order_by = None
 # Optional[PageSize]
@@ -752,6 +763,7 @@ try:
         default_load_level=default_load_level,
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
