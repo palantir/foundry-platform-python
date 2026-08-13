@@ -2051,7 +2051,7 @@ TranscriptionLanguage: typing_extensions.TypeAlias = typing.Literal[
     "NE",
     "NL",
     "NN",
-    "false",
+    "NO",
     "OC",
     "PA",
     "PL",

@@ -2691,6 +2691,15 @@ class LoadObjectSetRequestV2(core.ModelBase):
     """
 
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
+    load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
+    properties are selected, this flag has no effect and the selected properties are always returned.
+
+    This feature is experimental and not yet generally available.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -2745,6 +2754,18 @@ class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
     """
 
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
+    load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
+    properties are selected, this flag has no effect and the selected properties are always returned.
+
+    This flag does not affect interface properties that are implemented by an OTDP on an
+    object type; those are always returned regardless of this flag.
+
+    This feature is experimental and not yet generally available.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -2814,6 +2835,18 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     """
 
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
+    load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
+    properties are selected, this flag has no effect and the selected properties are always returned.
+
+    This flag does not affect interface properties that are implemented by an OTDP on an
+    object type; those are always returned regardless of this flag.
+
+    This feature is experimental and not yet generally available.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
