@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**get_by_rid_batch**](#get_by_rid_batch) | **POST** /v2/ontologies/{ontology}/objectTypes/getByRidBatch | Public Beta |
 [**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Stable |
 [**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata | Public Beta |
+[**get_full_metadata_batch**](#get_full_metadata_batch) | **POST** /v2/ontologies/{ontology}/objectTypes/getFullMetadataBatch | Private Beta |
 [**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} | Stable |
 [**get_outgoing_link_types_by_object_type_rid_batch**](#get_outgoing_link_types_by_object_type_rid_batch) | **POST** /v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch | Public Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes | Stable |
@@ -297,6 +298,80 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ObjectTypeFullMetadata  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_full_metadata_batch**
+Gets the full metadata for a batch of object types, identified by their API names.
+
+Set `includeLinkTypes` to return every outgoing link type for each object type alongside its metadata,
+without needing to know the link type API names. Link types are ordered by their API name.
+
+Object types are returned in the order they were requested. Any that don't exist or that the requesting
+token lacks permissions for are silently omitted.
+
+The maximum batch size for this endpoint is 100.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**requests** | List[GetObjectTypeFullMetadataBatchRequestElement] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_link_types** | Optional[bool] | A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**GetObjectTypeFullMetadataBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# List[GetObjectTypeFullMetadataBatchRequestElement]
+requests = None
+# Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[bool] | A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.
+include_link_types = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = client.ontologies.Ontology.ObjectType.get_full_metadata_batch(
+        ontology,
+        requests=requests,
+        branch=branch,
+        include_link_types=include_link_types,
+        preview=preview,
+    )
+    print("The get_full_metadata_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling ObjectType.get_full_metadata_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetObjectTypeFullMetadataBatchResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

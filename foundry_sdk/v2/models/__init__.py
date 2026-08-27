@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.models._client import AsyncModelsClient
-from foundry_sdk.v2.models._client import ModelsClient
+from foundry_sdk.v2.models._client import AsyncModelsClient, ModelsClient
 
 __all__ = [
     "ModelsClient",

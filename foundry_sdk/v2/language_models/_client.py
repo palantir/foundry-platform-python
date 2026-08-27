@@ -79,7 +79,9 @@ class AsyncLanguageModelsClient:
         hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
-        from foundry_sdk.v2.language_models.anthropic_model import AsyncAnthropicModelClient  # NOQA
+        from foundry_sdk.v2.language_models.anthropic_model import (
+            AsyncAnthropicModelClient,
+        )
         from foundry_sdk.v2.language_models.open_ai_model import AsyncOpenAiModelClient
 
         self.AnthropicModel = AsyncAnthropicModelClient(auth=auth, hostname=hostname, config=config)

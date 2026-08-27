@@ -16,10 +16,10 @@
 import typing
 
 from foundry_sdk import _core as core
-from foundry_sdk._core.client_init_helpers import create_hostname_supplier
 from foundry_sdk._core.client_init_helpers import (
+    create_hostname_supplier,
     get_user_token_auth_from_context_or_environment_vars,
-)  # NOQA
+)
 
 
 class FoundryClient:

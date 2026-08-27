@@ -100,7 +100,9 @@ class AsyncWidgetsClient:
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.widgets.dev_mode_settings import AsyncDevModeSettingsClient
-        from foundry_sdk.v2.widgets.dev_mode_settings_v2 import AsyncDevModeSettingsV2Client  # NOQA
+        from foundry_sdk.v2.widgets.dev_mode_settings_v2 import (
+            AsyncDevModeSettingsV2Client,
+        )
         from foundry_sdk.v2.widgets.repository import AsyncRepositoryClient
         from foundry_sdk.v2.widgets.widget_set import AsyncWidgetSetClient
 

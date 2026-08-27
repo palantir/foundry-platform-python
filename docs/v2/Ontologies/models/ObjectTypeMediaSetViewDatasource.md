@@ -6,6 +6,7 @@ An object type datasource backed by a Foundry media set view, providing media fo
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | Yes |  |
 **media_set_view_rid** | MediaSetViewRid | Yes |  |
 **properties** | List[PropertyApiName] | Yes | The set of properties that are bound to the media view.  |
 **type** | Literal["mediaSetView"] | Yes | None |

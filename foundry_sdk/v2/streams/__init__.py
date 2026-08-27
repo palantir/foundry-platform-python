@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.streams._client import AsyncStreamsClient
-from foundry_sdk.v2.streams._client import StreamsClient
+from foundry_sdk.v2.streams._client import AsyncStreamsClient, StreamsClient
 
 __all__ = [
     "StreamsClient",

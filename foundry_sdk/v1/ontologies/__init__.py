@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v1.ontologies._client import AsyncOntologiesClient
-from foundry_sdk.v1.ontologies._client import OntologiesClient
+from foundry_sdk.v1.ontologies._client import AsyncOntologiesClient, OntologiesClient
 
 __all__ = [
     "OntologiesClient",

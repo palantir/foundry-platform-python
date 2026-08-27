@@ -266,6 +266,11 @@ Note that null value properties will not be returned.
 
 Vector properties will not be returned unless included in the `select` parameter.
 
+The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+objects in the page are large enough to reach an internal memory limit; this does not indicate
+that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+objects can be retrieved by requesting subsequent pages.
+
 
 ### Parameters
 
@@ -519,6 +524,11 @@ will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
 
 Vector properties will not be returned unless included in the `select` parameter.
 
+The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+objects in the page are large enough to reach an internal memory limit; this does not indicate
+that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+objects can be retrieved by requesting subsequent pages.
+
 
 ### Parameters
 
@@ -670,6 +680,11 @@ Note that null value properties will not be returned. In addition, property meta
 will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
 
 Vector properties will not be returned unless included in the `select` parameter.
+
+The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+objects in the page are large enough to reach an internal memory limit; this does not indicate
+that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+objects can be retrieved by requesting subsequent pages.
 
 
 ### Parameters

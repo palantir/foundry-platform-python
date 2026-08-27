@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v1.datasets._client import AsyncDatasetsClient
-from foundry_sdk.v1.datasets._client import DatasetsClient
+from foundry_sdk.v1.datasets._client import AsyncDatasetsClient, DatasetsClient
 
 __all__ = [
     "DatasetsClient",

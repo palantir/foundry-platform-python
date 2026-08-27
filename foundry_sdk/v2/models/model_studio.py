@@ -71,7 +71,7 @@ class ModelStudioClient:
     def ConfigVersion(self):
         from foundry_sdk.v2.models.model_studio_config_version import (
             ModelStudioConfigVersionClient,
-        )  # NOQA
+        )
 
         return ModelStudioConfigVersionClient(
             auth=self._auth,
@@ -302,7 +302,7 @@ class AsyncModelStudioClient:
     def ConfigVersion(self):
         from foundry_sdk.v2.models.model_studio_config_version import (
             AsyncModelStudioConfigVersionClient,
-        )  # NOQA
+        )
 
         return AsyncModelStudioConfigVersionClient(
             auth=self._auth,

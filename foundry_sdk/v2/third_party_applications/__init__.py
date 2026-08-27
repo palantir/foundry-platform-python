@@ -15,8 +15,8 @@
 
 from foundry_sdk.v2.third_party_applications._client import (
     AsyncThirdPartyApplicationsClient,
-)  # NOQA
-from foundry_sdk.v2.third_party_applications._client import ThirdPartyApplicationsClient
+    ThirdPartyApplicationsClient,
+)
 
 __all__ = [
     "ThirdPartyApplicationsClient",

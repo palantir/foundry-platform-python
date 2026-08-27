@@ -13,12 +13,8 @@
 #  limitations under the License.
 
 
-from abc import ABC
-from abc import abstractmethod
-from typing import TYPE_CHECKING
-from typing import Callable
-from typing import Optional
-from typing import TypeVar
+from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING, Callable, Optional, TypeVar
 
 from foundry_sdk._core.config import Config
 

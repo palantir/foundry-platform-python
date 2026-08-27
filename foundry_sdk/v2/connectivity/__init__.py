@@ -13,8 +13,10 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.connectivity._client import AsyncConnectivityClient
-from foundry_sdk.v2.connectivity._client import ConnectivityClient
+from foundry_sdk.v2.connectivity._client import (
+    AsyncConnectivityClient,
+    ConnectivityClient,
+)
 
 __all__ = [
     "ConnectivityClient",

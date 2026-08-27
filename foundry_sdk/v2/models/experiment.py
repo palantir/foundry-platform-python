@@ -69,7 +69,7 @@ class ExperimentClient:
     def ArtifactTable(self):
         from foundry_sdk.v2.models.experiment_artifact_table import (
             ExperimentArtifactTableClient,
-        )  # NOQA
+        )
 
         return ExperimentArtifactTableClient(
             auth=self._auth,
@@ -265,7 +265,7 @@ class AsyncExperimentClient:
     def ArtifactTable(self):
         from foundry_sdk.v2.models.experiment_artifact_table import (
             AsyncExperimentArtifactTableClient,
-        )  # NOQA
+        )
 
         return AsyncExperimentArtifactTableClient(
             auth=self._auth,

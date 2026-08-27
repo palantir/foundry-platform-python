@@ -15,9 +15,7 @@
 
 import os
 
-from foundry_sdk import ConfidentialClientAuth
-from foundry_sdk import Config
-from foundry_sdk import FoundryClient
+from foundry_sdk import ConfidentialClientAuth, Config, FoundryClient
 from foundry_sdk._core.hostname_supplier import StaticHostnameSupplier
 
 

@@ -20,25 +20,17 @@ import string
 import threading
 import time
 import warnings
-from abc import ABC
-from abc import abstractmethod
-from typing import Any
-from typing import Callable
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import TypeVar
+from abc import ABC, abstractmethod
+from typing import Any, Callable, Dict, List, Optional, TypeVar
 from urllib.parse import urlencode
 
 import httpx
 import pydantic
 
-from foundry_sdk._core.auth_utils import Auth
-from foundry_sdk._core.auth_utils import Token
+from foundry_sdk._core.auth_utils import Auth, Token
 from foundry_sdk._core.client_init_helpers import maybe_create_hostname_supplier
 from foundry_sdk._core.config import Config
-from foundry_sdk._core.hostname_supplier import EndpointType
-from foundry_sdk._core.hostname_supplier import HostnameSupplier
+from foundry_sdk._core.hostname_supplier import EndpointType, HostnameSupplier
 from foundry_sdk._core.http_client import HttpClient
 
 

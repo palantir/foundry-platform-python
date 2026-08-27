@@ -102,7 +102,9 @@ class AsyncModelsClient:
         from foundry_sdk.v2.models.live_deployment import AsyncLiveDeploymentClient
         from foundry_sdk.v2.models.model import AsyncModelClient
         from foundry_sdk.v2.models.model_studio import AsyncModelStudioClient
-        from foundry_sdk.v2.models.model_studio_trainer import AsyncModelStudioTrainerClient  # NOQA
+        from foundry_sdk.v2.models.model_studio_trainer import (
+            AsyncModelStudioTrainerClient,
+        )
 
         self.LiveDeployment = AsyncLiveDeploymentClient(auth=auth, hostname=hostname, config=config)
 

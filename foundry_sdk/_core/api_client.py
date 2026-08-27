@@ -19,81 +19,72 @@ import contextlib
 import functools
 import json
 import re
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from datetime import datetime
-from datetime import timezone
+from datetime import datetime, timezone
 from inspect import isclass
-from random import Random
-from random import SystemRandom
-from typing import TYPE_CHECKING
-from typing import Any
-from typing import AsyncIterator
-from typing import Awaitable
-from typing import Callable
-from typing import Dict
-from typing import Generic
-from typing import Iterator
-from typing import List
-from typing import Literal
-from typing import Optional
-from typing import Tuple
-from typing import Type
-from typing import TypeVar
-from typing import Union
-from typing import cast
-from typing import get_args
-from typing import get_origin
+from random import Random, SystemRandom
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    AsyncIterator,
+    Awaitable,
+    Callable,
+    Dict,
+    Generic,
+    Iterator,
+    List,
+    Literal,
+    Optional,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    cast,
+    get_args,
+    get_origin,
+)
 from urllib.parse import quote
 
 import httpx
 import pydantic
 from retrying import retry  # type: ignore
-from typing_extensions import Annotated
-from typing_extensions import NotRequired
-from typing_extensions import ParamSpec
-from typing_extensions import TypedDict
+from typing_extensions import Annotated, NotRequired, ParamSpec, TypedDict
 
-from foundry_sdk._core.auth_utils import Auth
-from foundry_sdk._core.auth_utils import Token
+from foundry_sdk._core.auth_utils import Auth, Token
 from foundry_sdk._core.client_init_helpers import create_hostname_supplier
 from foundry_sdk._core.config import Config
-from foundry_sdk._core.hostname_supplier import EndpointType
-from foundry_sdk._core.hostname_supplier import HostnameSupplier
-from foundry_sdk._core.http_client import AsyncHttpClient
-from foundry_sdk._core.http_client import HttpClient
-from foundry_sdk._core.resource_iterator import AsyncResourceIterator
-from foundry_sdk._core.resource_iterator import ResourceIterator
-from foundry_sdk._core.table import ArrowTableResponse
-from foundry_sdk._core.table import ParquetTableResponse
-from foundry_sdk._errors import ApiNotFoundError
-from foundry_sdk._errors import BadRequestError
-from foundry_sdk._errors import ConflictError
-from foundry_sdk._errors import ConnectionError
-from foundry_sdk._errors import ConnectTimeout
-from foundry_sdk._errors import InternalServerError
-from foundry_sdk._errors import NotFoundError
-from foundry_sdk._errors import PalantirRPCException
-from foundry_sdk._errors import PermissionDeniedError
-from foundry_sdk._errors import ProxyError
-from foundry_sdk._errors import RateLimitError
-from foundry_sdk._errors import ReadTimeout
-from foundry_sdk._errors import RequestEntityTooLargeError
-from foundry_sdk._errors import SDKInternalError
-from foundry_sdk._errors import ServiceUnavailable
-from foundry_sdk._errors import StreamConsumedError
-from foundry_sdk._errors import UnauthorizedError
-from foundry_sdk._errors import UnprocessableEntityError
-from foundry_sdk._errors import WriteTimeout
-from foundry_sdk._errors import deserialize_error
-from foundry_sdk._errors.palantir_qos_exception import QoSDueTo
-from foundry_sdk._errors.palantir_qos_exception import QoSRetryHint
+from foundry_sdk._core.hostname_supplier import EndpointType, HostnameSupplier
+from foundry_sdk._core.http_client import AsyncHttpClient, HttpClient
+from foundry_sdk._core.resource_iterator import AsyncResourceIterator, ResourceIterator
+from foundry_sdk._core.table import ArrowTableResponse, ParquetTableResponse
+from foundry_sdk._errors import (
+    ApiNotFoundError,
+    BadRequestError,
+    ConflictError,
+    ConnectionError,
+    ConnectTimeout,
+    InternalServerError,
+    NotFoundError,
+    PalantirRPCException,
+    PermissionDeniedError,
+    ProxyError,
+    RateLimitError,
+    ReadTimeout,
+    RequestEntityTooLargeError,
+    SDKInternalError,
+    ServiceUnavailable,
+    StreamConsumedError,
+    UnauthorizedError,
+    UnprocessableEntityError,
+    WriteTimeout,
+    deserialize_error,
+)
+from foundry_sdk._errors.palantir_qos_exception import QoSDueTo, QoSRetryHint
 
 # Imported under TYPE_CHECKING to avoid a circular import: sse.py imports from this module.
 if TYPE_CHECKING:
-    from foundry_sdk._core.sse import AsyncSseContextManager
-    from foundry_sdk._core.sse import SseContextManager
+    from foundry_sdk._core.sse import AsyncSseContextManager, SseContextManager
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
 

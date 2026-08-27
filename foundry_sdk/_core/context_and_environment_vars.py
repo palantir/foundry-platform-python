@@ -20,8 +20,7 @@ They are used as an option to initialize the FoundryClient.
 
 import os
 from contextvars import ContextVar
-from typing import Optional
-from typing import TypeVar
+from typing import Optional, TypeVar
 
 # Token and hostname variables
 TOKEN_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_TOKEN", default=None)

@@ -47,7 +47,7 @@ class ThirdPartyApplicationsClient:
     def ThirdPartyApplication(self):
         from foundry_sdk.v2.third_party_applications.third_party_application import (
             ThirdPartyApplicationClient,
-        )  # NOQA
+        )
 
         return ThirdPartyApplicationClient(
             auth=self._auth,
@@ -73,7 +73,7 @@ class AsyncThirdPartyApplicationsClient:
     ):
         from foundry_sdk.v2.third_party_applications.third_party_application import (
             AsyncThirdPartyApplicationClient,
-        )  # NOQA
+        )
 
         self.ThirdPartyApplication = AsyncThirdPartyApplicationClient(
             auth=auth, hostname=hostname, config=config

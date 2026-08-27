@@ -25,8 +25,7 @@ from datetime import datetime
 
 import click
 
-from foundry_sdk import EnvironmentNotConfigured
-from foundry_sdk import UserTokenAuth
+from foundry_sdk import EnvironmentNotConfigured, UserTokenAuth
 from foundry_sdk.v2 import FoundryClient
 
 
@@ -9469,6 +9468,11 @@ def ontologies_ontology_object_set_op_load(
 
     Vector properties will not be returned unless included in the `select` parameter.
 
+    The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+    objects in the page are large enough to reach an internal memory limit; this does not indicate
+    that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+    objects can be retrieved by requesting subsequent pages.
+
     """
     result = client.ontologies.OntologyObjectSet.load(
         ontology=ontology,
@@ -9781,6 +9785,11 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
 
     Vector properties will not be returned unless included in the `select` parameter.
 
+    The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+    objects in the page are large enough to reach an internal memory limit; this does not indicate
+    that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+    objects can be retrieved by requesting subsequent pages.
+
     """
     result = client.ontologies.OntologyObjectSet.load_multiple_object_types(
         ontology=ontology,
@@ -9971,6 +9980,11 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
 
     Vector properties will not be returned unless included in the `select` parameter.
+
+    The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+    objects in the page are large enough to reach an internal memory limit; this does not indicate
+    that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+    objects can be retrieved by requesting subsequent pages.
 
     """
     result = client.ontologies.OntologyObjectSet.load_objects_or_interfaces(
@@ -10426,6 +10440,11 @@ def ontologies_ontology_object_op_search(
 
     Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
     Partial terms are not matched by terms filters except where explicitly noted.
+
+    The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+    objects in the page are large enough to reach an internal memory limit; this does not indicate
+    that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+    objects can be retrieved by requesting subsequent pages.
 
     """
     result = client.ontologies.OntologyObject.search(
@@ -11048,6 +11067,11 @@ def ontologies_ontology_interface_op_search(
     Attempting to use an unsupported query will result in a validation error. Third-party applications using this
     endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
+    The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+    objects in the page are large enough to reach an internal memory limit; this does not indicate
+    that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+    objects can be retrieved by requesting subsequent pages.
+
     """
     result = client.ontologies.OntologyInterface.search(
         ontology=ontology,
@@ -11563,6 +11587,63 @@ def ontologies_ontology_object_type_op_get_full_metadata(
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("get_full_metadata_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the object type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--include_link_types",
+    type=bool,
+    required=False,
+    help="""A flag that will return all outgoing link types for each requested object type in that object type's
+`linkTypes`. When false or omitted, `linkTypes` is empty.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_op_get_full_metadata_batch(
+    client: FoundryClient,
+    ontology: str,
+    requests: str,
+    branch: typing.Optional[str],
+    include_link_types: typing.Optional[bool],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets the full metadata for a batch of object types, identified by their API names.
+
+    Set `includeLinkTypes` to return every outgoing link type for each object type alongside its metadata,
+    without needing to know the link type API names. Link types are ordered by their API name.
+
+    Object types are returned in the order they were requested. Any that don't exist or that the requesting
+    token lacks permissions for are silently omitted.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get_full_metadata_batch(
+        ontology=ontology,
+        requests=json.loads(requests),
+        branch=branch,
+        include_link_types=include_link_types,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -12424,7 +12505,7 @@ def ontologies_geotemporal_series_property_op_load_geotemporal_series_entries(
     Results are paginated. Use the `nextPageToken` from the response to retrieve subsequent pages.
 
     :::callout{theme=warning title=Warning}
-      Geotemporal series integrations with only "dataset archive" enabled are not supported.
+      Geotemporal series integrations with only "cold storage" enabled are not supported.
     :::
 
     """
@@ -12989,6 +13070,52 @@ def ontologies_action_type_full_metadata_op_get(
     click.echo(repr(result))
 
 
+@ontologies_action_type_full_metadata.command("get_full_metadata_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the action type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_action_type_full_metadata_op_get_full_metadata_batch(
+    client: FoundryClient,
+    ontology: str,
+    requests: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a list of action types with full metadata (parameters and logic rules) by their API names in
+    bulk.
+
+    Action types are filtered from the response if they don't exist, the requesting token lacks the
+    required permissions, or any of their logic rules are not supported by this API, so the response may
+    contain fewer entries than requested.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.ActionTypeFullMetadata.get_full_metadata_batch(
+        ontology=ontology,
+        requests=json.loads(requests),
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_action_type_full_metadata.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
@@ -13003,7 +13130,7 @@ Branches are an experimental feature and not all workflows are supported.
     "--object_type_api_names",
     type=str,
     required=False,
-    help="""An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.
+    help="""A set of object type API names that can be used to filter which actions are returned.
 """,
 )
 @click.option(

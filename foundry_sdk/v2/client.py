@@ -16,10 +16,10 @@
 import typing
 
 from foundry_sdk import _core as core
-from foundry_sdk._core.client_init_helpers import create_hostname_supplier
 from foundry_sdk._core.client_init_helpers import (
+    create_hostname_supplier,
     get_user_token_auth_from_context_or_environment_vars,
-)  # NOQA
+)
 
 
 class FoundryClient:
@@ -60,7 +60,7 @@ class FoundryClient:
         from foundry_sdk.v2.streams._client import StreamsClient
         from foundry_sdk.v2.third_party_applications._client import (
             ThirdPartyApplicationsClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.widgets._client import WidgetsClient
 
         self.admin = AdminClient(auth=auth, hostname=hostname_supplier, config=config)
@@ -133,7 +133,7 @@ class AsyncFoundryClient:
         from foundry_sdk.v2.streams._client import AsyncStreamsClient
         from foundry_sdk.v2.third_party_applications._client import (
             AsyncThirdPartyApplicationsClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.widgets._client import AsyncWidgetsClient
 
         self.admin = AsyncAdminClient(auth=auth, hostname=hostname_supplier, config=config)

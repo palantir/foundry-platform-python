@@ -59,7 +59,7 @@ class OrganizationClient:
     def OrganizationRoleAssignment(self):
         from foundry_sdk.v2.admin.organization_role_assignment import (
             OrganizationRoleAssignmentClient,
-        )  # NOQA
+        )
 
         return OrganizationRoleAssignmentClient(
             auth=self._auth,
@@ -71,7 +71,7 @@ class OrganizationClient:
     def OrganizationGuestMember(self):
         from foundry_sdk.v2.admin.organization_guest_member import (
             OrganizationGuestMemberClient,
-        )  # NOQA
+        )
 
         return OrganizationGuestMemberClient(
             auth=self._auth,
@@ -370,7 +370,7 @@ class AsyncOrganizationClient:
     def OrganizationRoleAssignment(self):
         from foundry_sdk.v2.admin.organization_role_assignment import (
             AsyncOrganizationRoleAssignmentClient,
-        )  # NOQA
+        )
 
         return AsyncOrganizationRoleAssignmentClient(
             auth=self._auth,
@@ -382,7 +382,7 @@ class AsyncOrganizationClient:
     def OrganizationGuestMember(self):
         from foundry_sdk.v2.admin.organization_guest_member import (
             AsyncOrganizationGuestMemberClient,
-        )  # NOQA
+        )
 
         return AsyncOrganizationGuestMemberClient(
             auth=self._auth,

@@ -59,7 +59,7 @@ class EnrollmentClient:
     def EnrollmentRoleAssignment(self):
         from foundry_sdk.v2.admin.enrollment_role_assignment import (
             EnrollmentRoleAssignmentClient,
-        )  # NOQA
+        )
 
         return EnrollmentRoleAssignmentClient(
             auth=self._auth,
@@ -81,7 +81,7 @@ class EnrollmentClient:
     def AuthenticationProvider(self):
         from foundry_sdk.v2.admin.authentication_provider import (
             AuthenticationProviderClient,
-        )  # NOQA
+        )
 
         return AuthenticationProviderClient(
             auth=self._auth,
@@ -235,7 +235,7 @@ class AsyncEnrollmentClient:
     def EnrollmentRoleAssignment(self):
         from foundry_sdk.v2.admin.enrollment_role_assignment import (
             AsyncEnrollmentRoleAssignmentClient,
-        )  # NOQA
+        )
 
         return AsyncEnrollmentRoleAssignmentClient(
             auth=self._auth,
@@ -257,7 +257,7 @@ class AsyncEnrollmentClient:
     def AuthenticationProvider(self):
         from foundry_sdk.v2.admin.authentication_provider import (
             AsyncAuthenticationProviderClient,
-        )  # NOQA
+        )
 
         return AsyncAuthenticationProviderClient(
             auth=self._auth,

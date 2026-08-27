@@ -13,11 +13,9 @@
 #  limitations under the License.
 
 
-from typing import Callable
-from typing import TypeVar
+from typing import Callable, TypeVar
 
-from foundry_sdk._core.auth_utils import Auth
-from foundry_sdk._core.auth_utils import Token
+from foundry_sdk._core.auth_utils import Auth, Token
 from foundry_sdk._core.utils import assert_non_empty_string
 from foundry_sdk._errors.not_authenticated import NotAuthenticated
 

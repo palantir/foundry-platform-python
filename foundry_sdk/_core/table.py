@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from typing import TYPE_CHECKING
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
     import duckdb  # type: ignore

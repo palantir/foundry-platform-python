@@ -84,7 +84,7 @@ class GeotemporalSeriesPropertyClient:
         Results are paginated. Use the `nextPageToken` from the response to retrieve subsequent pages.
 
         :::callout{theme=warning title=Warning}
-          Geotemporal series integrations with only "dataset archive" enabled are not supported.
+          Geotemporal series integrations with only "cold storage" enabled are not supported.
         :::
 
         :param ontology:
@@ -226,7 +226,7 @@ class AsyncGeotemporalSeriesPropertyClient:
         Results are paginated. Use the `nextPageToken` from the response to retrieve subsequent pages.
 
         :::callout{theme=warning title=Warning}
-          Geotemporal series integrations with only "dataset archive" enabled are not supported.
+          Geotemporal series integrations with only "cold storage" enabled are not supported.
         :::
 
         :param ontology:

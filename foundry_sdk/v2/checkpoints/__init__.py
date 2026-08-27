@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.checkpoints._client import AsyncCheckpointsClient
-from foundry_sdk.v2.checkpoints._client import CheckpointsClient
+from foundry_sdk.v2.checkpoints._client import AsyncCheckpointsClient, CheckpointsClient
 
 __all__ = [
     "CheckpointsClient",

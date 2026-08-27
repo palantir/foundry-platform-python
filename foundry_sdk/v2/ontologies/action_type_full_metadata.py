@@ -15,6 +15,7 @@
 
 import typing
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -109,6 +110,71 @@ class ActionTypeFullMetadataClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_full_metadata_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetActionTypeFullMetadataBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.GetActionTypeFullMetadataBatchResponse:
+        """
+        Gets a list of action types with full metadata (parameters and logic rules) by their API names in
+        bulk.
+
+        Action types are filtered from the response if they don't exist, the requesting token lacks the
+        required permissions, or any of their logic rules are not supported by this API, so the response may
+        contain fewer entries than requested.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetActionTypeFullMetadataBatchRequestElement]
+        :param branch: The Foundry branch to load the action type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.GetActionTypeFullMetadataBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actionTypes/getFullMetadataBatch",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetActionTypeFullMetadataBatchRequest(
+                    requests=requests,
+                ),
+                response_type=ontologies_models.GetActionTypeFullMetadataBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -133,7 +199,7 @@ class ActionTypeFullMetadataClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
-        :param object_type_api_names: An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.
+        :param object_type_api_names: A set of object type API names that can be used to filter which actions are returned.
         :type object_type_api_names: Optional[List[ObjectTypeApiName]]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
@@ -176,18 +242,30 @@ class ActionTypeFullMetadataClient:
 class _ActionTypeFullMetadataClientRaw:
     def __init__(self, client: ActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
+        ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.get_full_metadata_batch = core.with_raw_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
+        )
         self.list = core.with_raw_response(list, client.list)
 
 
 class _ActionTypeFullMetadataClientStreaming:
     def __init__(self, client: ActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
+        ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.get_full_metadata_batch = core.with_streaming_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
+        )
         self.list = core.with_streaming_response(list, client.list)
 
 
@@ -276,6 +354,71 @@ class AsyncActionTypeFullMetadataClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_full_metadata_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetActionTypeFullMetadataBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.GetActionTypeFullMetadataBatchResponse]:
+        """
+        Gets a list of action types with full metadata (parameters and logic rules) by their API names in
+        bulk.
+
+        Action types are filtered from the response if they don't exist, the requesting token lacks the
+        required permissions, or any of their logic rules are not supported by this API, so the response may
+        contain fewer entries than requested.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetActionTypeFullMetadataBatchRequestElement]
+        :param branch: The Foundry branch to load the action type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.GetActionTypeFullMetadataBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actionTypes/getFullMetadataBatch",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetActionTypeFullMetadataBatchRequest(
+                    requests=requests,
+                ),
+                response_type=ontologies_models.GetActionTypeFullMetadataBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -300,7 +443,7 @@ class AsyncActionTypeFullMetadataClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
-        :param object_type_api_names: An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.
+        :param object_type_api_names: A set of object type API names that can be used to filter which actions are returned.
         :type object_type_api_names: Optional[List[ObjectTypeApiName]]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
@@ -343,16 +486,28 @@ class AsyncActionTypeFullMetadataClient:
 class _AsyncActionTypeFullMetadataClientRaw:
     def __init__(self, client: AsyncActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
+        ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_full_metadata_batch = core.async_with_raw_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
+        )
         self.list = core.async_with_raw_response(list, client.list)
 
 
 class _AsyncActionTypeFullMetadataClientStreaming:
     def __init__(self, client: AsyncActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
+        ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_full_metadata_batch = core.async_with_streaming_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
+        )
         self.list = core.async_with_streaming_response(list, client.list)

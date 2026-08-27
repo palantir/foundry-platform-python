@@ -14,12 +14,9 @@
 
 
 import os
-from typing import Callable
-from typing import TypeVar
-from typing import Union
+from typing import Callable, TypeVar, Union
 
-from foundry_sdk._core.user_token_auth_client import Auth
-from foundry_sdk._core.user_token_auth_client import Token
+from foundry_sdk._core.user_token_auth_client import Auth, Token
 from foundry_sdk._errors.environment_not_configured import EnvironmentNotConfigured
 
 T = TypeVar("T")
