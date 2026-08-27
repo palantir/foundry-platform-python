@@ -615,6 +615,11 @@ class OntologyInterfaceClient:
         Attempting to use an unsupported query will result in a validation error. Third-party applications using this
         endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
+        The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+        objects in the page are large enough to reach an internal memory limit; this does not indicate
+        that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+        objects can be retrieved by requesting subsequent pages.
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
@@ -1344,6 +1349,11 @@ class AsyncOntologyInterfaceClient:
 
         Attempting to use an unsupported query will result in a validation error. Third-party applications using this
         endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+        objects in the page are large enough to reach an internal memory limit; this does not indicate
+        that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+        objects can be retrieved by requesting subsequent pages.
 
         :param ontology:
         :type ontology: OntologyIdentifier

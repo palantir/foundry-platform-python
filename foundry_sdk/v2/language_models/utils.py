@@ -17,10 +17,8 @@ from dataclasses import replace
 from typing import Optional
 
 from foundry_sdk._core.config import Config
-from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
-from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
-from foundry_sdk._core.http_client import AsyncHttpClient
-from foundry_sdk._core.http_client import HttpClient
+from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR, TOKEN_VAR
+from foundry_sdk._core.http_client import AsyncHttpClient, HttpClient
 
 
 def _get_api_gateway_base_url(*, preview: bool = False) -> str:

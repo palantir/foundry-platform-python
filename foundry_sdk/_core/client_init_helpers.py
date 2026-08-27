@@ -18,16 +18,18 @@ from typing import Optional
 
 from foundry_sdk._core.auth_utils import Auth
 from foundry_sdk._core.config import Config
-from foundry_sdk._core.context_and_environment_vars import HOSTNAME_CONTEXT_VARS
-from foundry_sdk._core.context_and_environment_vars import HOSTNAME_ENV_VARS
-from foundry_sdk._core.context_and_environment_vars import TOKEN_CONTEXT_VARS
-from foundry_sdk._core.context_and_environment_vars import TOKEN_ENV_VARS
 from foundry_sdk._core.context_and_environment_vars import (
+    HOSTNAME_CONTEXT_VARS,
+    HOSTNAME_ENV_VARS,
+    TOKEN_CONTEXT_VARS,
+    TOKEN_ENV_VARS,
     maybe_get_value_from_context_or_environment_vars,
-)  # NOQA
-from foundry_sdk._core.hostname_supplier import HostnameSupplier
-from foundry_sdk._core.hostname_supplier import ServiceDiscoveryHostnameSupplier
-from foundry_sdk._core.hostname_supplier import StaticHostnameSupplier
+)
+from foundry_sdk._core.hostname_supplier import (
+    HostnameSupplier,
+    ServiceDiscoveryHostnameSupplier,
+    StaticHostnameSupplier,
+)
 from foundry_sdk._core.user_token_auth_client import UserTokenAuth
 from foundry_sdk._core.utils import assert_non_empty_string
 from foundry_sdk._errors.environment_not_configured import EnvironmentNotConfigured

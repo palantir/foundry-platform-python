@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.aip_agents._client import AipAgentsClient
-from foundry_sdk.v2.aip_agents._client import AsyncAipAgentsClient
+from foundry_sdk.v2.aip_agents._client import AipAgentsClient, AsyncAipAgentsClient
 
 __all__ = [
     "AipAgentsClient",

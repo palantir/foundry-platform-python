@@ -2,7 +2,7 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**load_geotemporal_series_entries**](#load_geotemporal_series_entries) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{property}/loadEntries | Private Beta |
+[**load_geotemporal_series_entries**](#load_geotemporal_series_entries) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/geotemporalSeries/{property}/loadEntries | Public Beta |
 
 # **load_geotemporal_series_entries**
 Load the geotemporal series entries for a given object's geotemporal series reference property within the
@@ -15,7 +15,7 @@ in each entry depending on the underlying geotemporal integration.
 Results are paginated. Use the `nextPageToken` from the response to retrieve subsequent pages.
 
 :::callout{theme=warning title=Warning}
-  Geotemporal series integrations with only "dataset archive" enabled are not supported.
+  Geotemporal series integrations with only "cold storage" enabled are not supported.
 :::
 
 

@@ -59,7 +59,7 @@ class ProjectClient:
     def Reference(self):
         from foundry_sdk.v2.filesystem.project_resource_reference import (
             ProjectResourceReferenceClient,
-        )  # NOQA
+        )
 
         return ProjectResourceReferenceClient(
             auth=self._auth,
@@ -604,7 +604,7 @@ class AsyncProjectClient:
     def Reference(self):
         from foundry_sdk.v2.filesystem.project_resource_reference import (
             AsyncProjectResourceReferenceClient,
-        )  # NOQA
+        )
 
         return AsyncProjectResourceReferenceClient(
             auth=self._auth,

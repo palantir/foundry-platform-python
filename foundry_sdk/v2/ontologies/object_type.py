@@ -323,6 +323,76 @@ class ObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_full_metadata_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetObjectTypeFullMetadataBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_link_types: typing.Optional[bool] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.GetObjectTypeFullMetadataBatchResponse:
+        """
+        Gets the full metadata for a batch of object types, identified by their API names.
+
+        Set `includeLinkTypes` to return every outgoing link type for each object type alongside its metadata,
+        without needing to know the link type API names. Link types are ordered by their API name.
+
+        Object types are returned in the order they were requested. Any that don't exist or that the requesting
+        token lacks permissions for are silently omitted.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetObjectTypeFullMetadataBatchRequestElement]
+        :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param include_link_types: A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.
+        :type include_link_types: Optional[bool]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.GetObjectTypeFullMetadataBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectTypes/getFullMetadataBatch",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetObjectTypeFullMetadataBatchRequest(
+                    requests=requests,
+                    include_link_types=include_link_types,
+                ),
+                response_type=ontologies_models.GetObjectTypeFullMetadataBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_outgoing_link_type(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -571,6 +641,9 @@ class _ObjectTypeClientRaw:
         def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetObjectTypeFullMetadataBatchResponse,
+        ): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def get_outgoing_link_types_by_object_type_rid_batch(
             _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
@@ -582,6 +655,9 @@ class _ObjectTypeClientRaw:
         self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
         self.get_edits_history = core.with_raw_response(get_edits_history, client.get_edits_history)
         self.get_full_metadata = core.with_raw_response(get_full_metadata, client.get_full_metadata)
+        self.get_full_metadata_batch = core.with_raw_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
+        )
         self.get_outgoing_link_type = core.with_raw_response(
             get_outgoing_link_type, client.get_outgoing_link_type
         )
@@ -601,6 +677,9 @@ class _ObjectTypeClientStreaming:
         def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetObjectTypeFullMetadataBatchResponse,
+        ): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def get_outgoing_link_types_by_object_type_rid_batch(
             _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
@@ -617,6 +696,9 @@ class _ObjectTypeClientStreaming:
         )
         self.get_full_metadata = core.with_streaming_response(
             get_full_metadata, client.get_full_metadata
+        )
+        self.get_full_metadata_batch = core.with_streaming_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
         )
         self.get_outgoing_link_type = core.with_streaming_response(
             get_outgoing_link_type, client.get_outgoing_link_type
@@ -929,6 +1011,76 @@ class AsyncObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_full_metadata_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetObjectTypeFullMetadataBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_link_types: typing.Optional[bool] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.GetObjectTypeFullMetadataBatchResponse]:
+        """
+        Gets the full metadata for a batch of object types, identified by their API names.
+
+        Set `includeLinkTypes` to return every outgoing link type for each object type alongside its metadata,
+        without needing to know the link type API names. Link types are ordered by their API name.
+
+        Object types are returned in the order they were requested. Any that don't exist or that the requesting
+        token lacks permissions for are silently omitted.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetObjectTypeFullMetadataBatchRequestElement]
+        :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param include_link_types: A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.
+        :type include_link_types: Optional[bool]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.GetObjectTypeFullMetadataBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectTypes/getFullMetadataBatch",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetObjectTypeFullMetadataBatchRequest(
+                    requests=requests,
+                    include_link_types=include_link_types,
+                ),
+                response_type=ontologies_models.GetObjectTypeFullMetadataBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_outgoing_link_type(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -1177,6 +1329,9 @@ class _AsyncObjectTypeClientRaw:
         def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetObjectTypeFullMetadataBatchResponse,
+        ): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def get_outgoing_link_types_by_object_type_rid_batch(
             _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
@@ -1193,6 +1348,9 @@ class _AsyncObjectTypeClientRaw:
         )
         self.get_full_metadata = core.async_with_raw_response(
             get_full_metadata, client.get_full_metadata
+        )
+        self.get_full_metadata_batch = core.async_with_raw_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
         )
         self.get_outgoing_link_type = core.async_with_raw_response(
             get_outgoing_link_type, client.get_outgoing_link_type
@@ -1213,6 +1371,9 @@ class _AsyncObjectTypeClientStreaming:
         def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
+        def get_full_metadata_batch(
+            _: ontologies_models.GetObjectTypeFullMetadataBatchResponse,
+        ): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def get_outgoing_link_types_by_object_type_rid_batch(
             _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
@@ -1229,6 +1390,9 @@ class _AsyncObjectTypeClientStreaming:
         )
         self.get_full_metadata = core.async_with_streaming_response(
             get_full_metadata, client.get_full_metadata
+        )
+        self.get_full_metadata_batch = core.async_with_streaming_response(
+            get_full_metadata_batch, client.get_full_metadata_batch
         )
         self.get_outgoing_link_type = core.async_with_streaming_response(
             get_outgoing_link_type, client.get_outgoing_link_type

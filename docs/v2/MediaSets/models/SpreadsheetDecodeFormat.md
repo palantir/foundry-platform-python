@@ -4,6 +4,7 @@ The format of a spreadsheet media item.
 
 | **Value** |
 | --------- |
+| `"CSV"` |
 | `"XLSX"` |
 
 

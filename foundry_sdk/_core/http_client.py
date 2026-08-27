@@ -17,26 +17,24 @@ import functools
 import os
 import ssl
 import sys
-from typing import Optional
-from typing import Tuple
-from typing import Union
+from typing import Optional, Tuple, Union
 
 import httpcore
 import httpx
 
 from foundry_sdk._core.config import Config
-from foundry_sdk._core.context_and_environment_vars import ADDITIONAL_USER_AGENTS
-from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_CONTEXT_VARS
-from foundry_sdk._core.context_and_environment_vars import SAMPLED_CONTEXT_VARS
-from foundry_sdk._core.context_and_environment_vars import SAMPLED_ENV_VARS
-from foundry_sdk._core.context_and_environment_vars import SPAN_ID_CONTEXT_VARS
-from foundry_sdk._core.context_and_environment_vars import SPAN_ID_ENV_VARS
-from foundry_sdk._core.context_and_environment_vars import TRACE_ID_CONTEXT_VARS
-from foundry_sdk._core.context_and_environment_vars import TRACE_ID_ENV_VARS
-from foundry_sdk._core.context_and_environment_vars import maybe_get_context_var
 from foundry_sdk._core.context_and_environment_vars import (
+    ADDITIONAL_USER_AGENTS,
+    ATTRIBUTION_CONTEXT_VARS,
+    SAMPLED_CONTEXT_VARS,
+    SAMPLED_ENV_VARS,
+    SPAN_ID_CONTEXT_VARS,
+    SPAN_ID_ENV_VARS,
+    TRACE_ID_CONTEXT_VARS,
+    TRACE_ID_ENV_VARS,
+    maybe_get_context_var,
     maybe_get_value_from_context_or_environment_vars,
-)  # NOQA
+)
 from foundry_sdk._core.utils import AnyCallableT
 from foundry_sdk._version import __version__
 

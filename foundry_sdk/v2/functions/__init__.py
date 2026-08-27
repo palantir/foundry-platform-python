@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.functions._client import AsyncFunctionsClient
-from foundry_sdk.v2.functions._client import FunctionsClient
+from foundry_sdk.v2.functions._client import AsyncFunctionsClient, FunctionsClient
 
 __all__ = [
     "FunctionsClient",

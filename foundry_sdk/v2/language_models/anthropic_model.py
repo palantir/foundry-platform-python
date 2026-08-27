@@ -113,6 +113,7 @@ class AnthropicModelClient:
         :rtype: language_models_models.AnthropicMessagesResponse
 
         :raises AnthropicMessagesPermissionDenied: Could not messages the AnthropicModel.
+        :raises LanguageModelInferenceError: An error was thrown by the underlying model provider during inference.
         :raises MultipleSystemPromptsNotSupported: Multiple system prompts are not currently supported, but will be in the future.
         :raises MultipleToolResultContentsNotSupported: Multiple tool result contents are not currently supported, but will be in the future.
         """
@@ -149,6 +150,7 @@ class AnthropicModelClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AnthropicMessagesPermissionDenied": language_models_errors.AnthropicMessagesPermissionDenied,
+                    "LanguageModelInferenceError": language_models_errors.LanguageModelInferenceError,
                     "MultipleSystemPromptsNotSupported": language_models_errors.MultipleSystemPromptsNotSupported,
                     "MultipleToolResultContentsNotSupported": language_models_errors.MultipleToolResultContentsNotSupported,
                 },
@@ -259,6 +261,7 @@ class AsyncAnthropicModelClient:
         :rtype: typing.Awaitable[language_models_models.AnthropicMessagesResponse]
 
         :raises AnthropicMessagesPermissionDenied: Could not messages the AnthropicModel.
+        :raises LanguageModelInferenceError: An error was thrown by the underlying model provider during inference.
         :raises MultipleSystemPromptsNotSupported: Multiple system prompts are not currently supported, but will be in the future.
         :raises MultipleToolResultContentsNotSupported: Multiple tool result contents are not currently supported, but will be in the future.
         """
@@ -295,6 +298,7 @@ class AsyncAnthropicModelClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AnthropicMessagesPermissionDenied": language_models_errors.AnthropicMessagesPermissionDenied,
+                    "LanguageModelInferenceError": language_models_errors.LanguageModelInferenceError,
                     "MultipleSystemPromptsNotSupported": language_models_errors.MultipleSystemPromptsNotSupported,
                     "MultipleToolResultContentsNotSupported": language_models_errors.MultipleToolResultContentsNotSupported,
                 },

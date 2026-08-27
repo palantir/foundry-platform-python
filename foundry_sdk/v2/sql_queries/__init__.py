@@ -13,8 +13,7 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.sql_queries._client import AsyncSqlQueriesClient
-from foundry_sdk.v2.sql_queries._client import SqlQueriesClient
+from foundry_sdk.v2.sql_queries._client import AsyncSqlQueriesClient, SqlQueriesClient
 
 __all__ = [
     "SqlQueriesClient",

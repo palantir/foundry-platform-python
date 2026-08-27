@@ -13,6 +13,7 @@ The schema type of a media set, indicating what type of media items it can conta
 | `"MULTIMODAL"` |
 | `"SPREADSHEET"` |
 | `"STREAMING_VIDEO"` |
+| `"TILED_RASTER"` |
 | `"VIDEO"` |
 | `"EMAIL"` |
 

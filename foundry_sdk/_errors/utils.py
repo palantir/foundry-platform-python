@@ -14,12 +14,7 @@
 
 
 import warnings
-from typing import Any
-from typing import Dict
-from typing import Optional
-from typing import Type
-from typing import cast
-from typing import get_type_hints
+from typing import Any, Dict, Optional, Type, cast, get_type_hints
 
 import pydantic
 

@@ -25,8 +25,7 @@ from datetime import datetime
 
 import click
 
-from foundry_sdk import EnvironmentNotConfigured
-from foundry_sdk import UserTokenAuth
+from foundry_sdk import EnvironmentNotConfigured, UserTokenAuth
 from foundry_sdk.v1 import FoundryClient
 
 
@@ -1159,6 +1158,11 @@ def ontologies_ontology_object_op_search(
 
     Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
     Partial terms are not matched by terms filters except where explicitly noted.
+
+    The `pageSize` parameter is a maximum. A page may contain fewer objects than requested if the
+    objects in the page are large enough to reach an internal memory limit; this does not indicate
+    that there are no more results. As long as the response contains a `nextPageToken`, the remaining
+    objects can be retrieved by requesting subsequent pages.
 
     """
     result = client.ontologies.OntologyObject.search(

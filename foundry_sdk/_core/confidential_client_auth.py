@@ -13,13 +13,14 @@
 #  limitations under the License.
 
 
-from typing import List
-from typing import Optional
+from typing import List, Optional
 
 from foundry_sdk._core.config import Config
-from foundry_sdk._core.oauth_utils import ConfidentialClientOAuthFlowProvider
-from foundry_sdk._core.oauth_utils import OAuth
-from foundry_sdk._core.oauth_utils import OAuthToken
+from foundry_sdk._core.oauth_utils import (
+    ConfidentialClientOAuthFlowProvider,
+    OAuth,
+    OAuthToken,
+)
 from foundry_sdk._core.utils import assert_non_empty_string
 
 

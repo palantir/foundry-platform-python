@@ -57,7 +57,7 @@ class OntologiesClient:
     def ActionTypeFullMetadata(self):
         from foundry_sdk.v2.ontologies.action_type_full_metadata import (
             ActionTypeFullMetadataClient,
-        )  # NOQA
+        )
 
         return ActionTypeFullMetadataClient(
             auth=self._auth,
@@ -77,7 +77,9 @@ class OntologiesClient:
 
     @cached_property
     def AttachmentProperty(self):
-        from foundry_sdk.v2.ontologies.attachment_property import AttachmentPropertyClient  # NOQA
+        from foundry_sdk.v2.ontologies.attachment_property import (
+            AttachmentPropertyClient,
+        )
 
         return AttachmentPropertyClient(
             auth=self._auth,
@@ -87,7 +89,9 @@ class OntologiesClient:
 
     @cached_property
     def CipherTextProperty(self):
-        from foundry_sdk.v2.ontologies.cipher_text_property import CipherTextPropertyClient  # NOQA
+        from foundry_sdk.v2.ontologies.cipher_text_property import (
+            CipherTextPropertyClient,
+        )
 
         return CipherTextPropertyClient(
             auth=self._auth,
@@ -99,7 +103,7 @@ class OntologiesClient:
     def GeotemporalSeriesProperty(self):
         from foundry_sdk.v2.ontologies.geotemporal_series_property import (
             GeotemporalSeriesPropertyClient,
-        )  # NOQA
+        )
 
         return GeotemporalSeriesPropertyClient(
             auth=self._auth,
@@ -121,7 +125,7 @@ class OntologiesClient:
     def MediaReferenceProperty(self):
         from foundry_sdk.v2.ontologies.media_reference_property import (
             MediaReferencePropertyClient,
-        )  # NOQA
+        )
 
         return MediaReferencePropertyClient(
             auth=self._auth,
@@ -161,7 +165,9 @@ class OntologiesClient:
 
     @cached_property
     def OntologyObjectSet(self):
-        from foundry_sdk.v2.ontologies.ontology_object_set import OntologyObjectSetClient  # NOQA
+        from foundry_sdk.v2.ontologies.ontology_object_set import (
+            OntologyObjectSetClient,
+        )
 
         return OntologyObjectSetClient(
             auth=self._auth,
@@ -181,7 +187,9 @@ class OntologiesClient:
 
     @cached_property
     def OntologyTransaction(self):
-        from foundry_sdk.v2.ontologies.ontology_transaction import OntologyTransactionClient  # NOQA
+        from foundry_sdk.v2.ontologies.ontology_transaction import (
+            OntologyTransactionClient,
+        )
 
         return OntologyTransactionClient(
             auth=self._auth,
@@ -191,7 +199,9 @@ class OntologiesClient:
 
     @cached_property
     def OntologyValueType(self):
-        from foundry_sdk.v2.ontologies.ontology_value_type import OntologyValueTypeClient  # NOQA
+        from foundry_sdk.v2.ontologies.ontology_value_type import (
+            OntologyValueTypeClient,
+        )
 
         return OntologyValueTypeClient(
             auth=self._auth,
@@ -213,7 +223,7 @@ class OntologiesClient:
     def TimeSeriesPropertyV2(self):
         from foundry_sdk.v2.ontologies.time_series_property_v2 import (
             TimeSeriesPropertyV2Client,
-        )  # NOQA
+        )
 
         return TimeSeriesPropertyV2Client(
             auth=self._auth,
@@ -225,7 +235,7 @@ class OntologiesClient:
     def TimeSeriesValueBankProperty(self):
         from foundry_sdk.v2.ontologies.time_series_value_bank_property import (
             TimeSeriesValueBankPropertyClient,
-        )  # NOQA
+        )
 
         return TimeSeriesValueBankPropertyClient(
             auth=self._auth,
@@ -252,43 +262,45 @@ class AsyncOntologiesClient:
         from foundry_sdk.v2.ontologies.action import AsyncActionClient
         from foundry_sdk.v2.ontologies.action_type_full_metadata import (
             AsyncActionTypeFullMetadataClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.attachment import AsyncAttachmentClient
         from foundry_sdk.v2.ontologies.attachment_property import (
             AsyncAttachmentPropertyClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.cipher_text_property import (
             AsyncCipherTextPropertyClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.geotemporal_series_property import (
             AsyncGeotemporalSeriesPropertyClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.linked_object import AsyncLinkedObjectClient
         from foundry_sdk.v2.ontologies.media_reference_property import (
             AsyncMediaReferencePropertyClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.ontology import AsyncOntologyClient
         from foundry_sdk.v2.ontologies.ontology_interface import (
             AsyncOntologyInterfaceClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.ontology_object import AsyncOntologyObjectClient
         from foundry_sdk.v2.ontologies.ontology_object_set import (
             AsyncOntologyObjectSetClient,
-        )  # NOQA
-        from foundry_sdk.v2.ontologies.ontology_scenario import AsyncOntologyScenarioClient  # NOQA
+        )
+        from foundry_sdk.v2.ontologies.ontology_scenario import (
+            AsyncOntologyScenarioClient,
+        )
         from foundry_sdk.v2.ontologies.ontology_transaction import (
             AsyncOntologyTransactionClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.ontology_value_type import (
             AsyncOntologyValueTypeClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.query import AsyncQueryClient
         from foundry_sdk.v2.ontologies.time_series_property_v2 import (
             AsyncTimeSeriesPropertyV2Client,
-        )  # NOQA
+        )
         from foundry_sdk.v2.ontologies.time_series_value_bank_property import (
             AsyncTimeSeriesValueBankPropertyClient,
-        )  # NOQA
+        )
 
         self.Action = AsyncActionClient(auth=auth, hostname=hostname, config=config)
 

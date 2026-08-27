@@ -13,13 +13,7 @@
 #  limitations under the License.
 
 
-from typing import Awaitable
-from typing import Generic
-from typing import List
-from typing import Optional
-from typing import Protocol
-from typing import Tuple
-from typing import TypeVar
+from typing import Awaitable, Generic, List, Optional, Protocol, Tuple, TypeVar
 
 T = TypeVar("T")
 

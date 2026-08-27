@@ -100,6 +100,7 @@ ActionParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "OntologyObjectSetType",
         core_models.GeohashType,
         core_models.VectorType,
+        core_models.DecimalType,
         "OntologyObjectType",
         core_models.TimestampType,
     ],
@@ -1847,6 +1848,27 @@ class GetActionTypeByRidBatchResponse(core.ModelBase):
     data: typing.List[ActionTypeV2]
 
 
+class GetActionTypeFullMetadataBatchRequest(core.ModelBase):
+    """GetActionTypeFullMetadataBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetActionTypeFullMetadataBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+
+
+class GetActionTypeFullMetadataBatchRequestElement(core.ModelBase):
+    """GetActionTypeFullMetadataBatchRequestElement"""
+
+    action_type: ActionTypeApiName = pydantic.Field(alias=str("actionType"))  # type: ignore[literal-required]
+
+
+class GetActionTypeFullMetadataBatchResponse(core.ModelBase):
+    """GetActionTypeFullMetadataBatchResponse"""
+
+    data: typing.List[ActionTypeFullMetadata]
+
+
 class GetObjectTypeByRidBatchRequest(core.ModelBase):
     """GetObjectTypeByRidBatchRequest"""
 
@@ -1866,6 +1888,41 @@ class GetObjectTypeByRidBatchResponse(core.ModelBase):
     """GetObjectTypeByRidBatchResponse"""
 
     data: typing.List[ObjectTypeV2]
+
+
+class GetObjectTypeFullMetadataBatchRequest(core.ModelBase):
+    """GetObjectTypeFullMetadataBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetObjectTypeFullMetadataBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+    include_link_types: typing.Optional[bool] = pydantic.Field(alias=str("includeLinkTypes"), default=None)  # type: ignore[literal-required]
+    """
+    A flag that will return all outgoing link types for each requested object type in that object type's
+    `linkTypes`. When false or omitted, `linkTypes` is empty.
+    """
+
+
+class GetObjectTypeFullMetadataBatchRequestElement(core.ModelBase):
+    """GetObjectTypeFullMetadataBatchRequestElement"""
+
+    object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+
+
+class GetObjectTypeFullMetadataBatchResponse(core.ModelBase):
+    """GetObjectTypeFullMetadataBatchResponse"""
+
+    data: typing.List[ObjectTypeFullMetadata]
+    """
+    The requested object types, in the order they were requested. Object types that were not found are
+    omitted, so this may contain fewer entries than were requested.
+
+    Each object type's `linkTypes` is only populated when the request specifies
+    `includeLinkTypes=true`, and is ordered by link type API name. It may also be empty if the object
+    type has no outgoing link types, or if the requesting token cannot see the object types on the
+    other side of them.
+    """
 
 
 class GetOutgoingLinkTypesByObjectTypeRidBatchRequest(core.ModelBase):
@@ -3917,6 +3974,7 @@ class ObjectTypeLinkTypeApiNameMapping(core.ModelBase):
 class ObjectTypeMediaSetViewDatasource(core.ModelBase):
     """An object type datasource backed by a Foundry media set view, providing media for media reference properties."""
 
+    media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
     media_set_view_rid: core_models.MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
     properties: typing.List[PropertyApiName]
     """The set of properties that are bound to the media view."""
@@ -6778,9 +6836,15 @@ __all__ = [
     "GetActionTypeByRidBatchRequest",
     "GetActionTypeByRidBatchRequestElement",
     "GetActionTypeByRidBatchResponse",
+    "GetActionTypeFullMetadataBatchRequest",
+    "GetActionTypeFullMetadataBatchRequestElement",
+    "GetActionTypeFullMetadataBatchResponse",
     "GetObjectTypeByRidBatchRequest",
     "GetObjectTypeByRidBatchRequestElement",
     "GetObjectTypeByRidBatchResponse",
+    "GetObjectTypeFullMetadataBatchRequest",
+    "GetObjectTypeFullMetadataBatchRequestElement",
+    "GetObjectTypeFullMetadataBatchResponse",
     "GetOutgoingLinkTypesByObjectTypeRidBatchRequest",
     "GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement",
     "GetOutgoingLinkTypesByObjectTypeRidBatchResponse",

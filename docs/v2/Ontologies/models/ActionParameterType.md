@@ -28,6 +28,7 @@ ActionParameterArrayType | array
 OntologyObjectSetType | objectSet
 GeohashType | geohash
 VectorType | vector
+DecimalType | decimal
 OntologyObjectType | object
 TimestampType | timestamp
 

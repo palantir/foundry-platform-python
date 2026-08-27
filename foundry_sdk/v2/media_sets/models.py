@@ -1246,6 +1246,7 @@ MediaSchema: typing_extensions.TypeAlias = typing.Literal[
     "MULTIMODAL",
     "SPREADSHEET",
     "STREAMING_VIDEO",
+    "TILED_RASTER",
     "VIDEO",
     "EMAIL",
 ]
@@ -1848,7 +1849,7 @@ class SlicePdfRangeOperation(core.ModelBase):
     type: typing.Literal["slicePdfRange"] = "slicePdfRange"
 
 
-SpreadsheetDecodeFormat: typing_extensions.TypeAlias = typing.Literal["XLSX"]
+SpreadsheetDecodeFormat: typing_extensions.TypeAlias = typing.Literal["CSV", "XLSX"]
 """The format of a spreadsheet media item."""
 
 

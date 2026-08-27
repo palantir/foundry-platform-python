@@ -113,7 +113,9 @@ class AsyncOrchestrationClient:
         from foundry_sdk.v2.orchestration.job import AsyncJobClient
         from foundry_sdk.v2.orchestration.schedule import AsyncScheduleClient
         from foundry_sdk.v2.orchestration.schedule_run import AsyncScheduleRunClient
-        from foundry_sdk.v2.orchestration.schedule_version import AsyncScheduleVersionClient  # NOQA
+        from foundry_sdk.v2.orchestration.schedule_version import (
+            AsyncScheduleVersionClient,
+        )
 
         self.Build = AsyncBuildClient(auth=auth, hostname=hostname, config=config)
 

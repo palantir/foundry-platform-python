@@ -57,7 +57,7 @@ class AdminClient:
     def CbacMarkingRestrictions(self):
         from foundry_sdk.v2.admin.cbac_marking_restrictions import (
             CbacMarkingRestrictionsClient,
-        )  # NOQA
+        )
 
         return CbacMarkingRestrictionsClient(
             auth=self._auth,
@@ -109,7 +109,7 @@ class AdminClient:
     def Permissions(self):
         from foundry_sdk.v2.admin.marking_category_permissions import (
             MarkingCategoryPermissionsClient,
-        )  # NOQA
+        )
 
         return MarkingCategoryPermissionsClient(
             auth=self._auth,
@@ -166,14 +166,14 @@ class AsyncAdminClient:
         from foundry_sdk.v2.admin.cbac_banner import AsyncCbacBannerClient
         from foundry_sdk.v2.admin.cbac_marking_restrictions import (
             AsyncCbacMarkingRestrictionsClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.admin.enrollment import AsyncEnrollmentClient
         from foundry_sdk.v2.admin.group import AsyncGroupClient
         from foundry_sdk.v2.admin.marking import AsyncMarkingClient
         from foundry_sdk.v2.admin.marking_category import AsyncMarkingCategoryClient
         from foundry_sdk.v2.admin.marking_category_permissions import (
             AsyncMarkingCategoryPermissionsClient,
-        )  # NOQA
+        )
         from foundry_sdk.v2.admin.organization import AsyncOrganizationClient
         from foundry_sdk.v2.admin.role import AsyncRoleClient
         from foundry_sdk.v2.admin.user import AsyncUserClient

@@ -88,6 +88,7 @@ class OpenAiModelClient:
         :return: Returns the result object.
         :rtype: language_models_models.OpenAiEmbeddingsResponse
 
+        :raises LanguageModelInferenceError: An error was thrown by the underlying model provider during inference.
         :raises OpenAiEmbeddingsPermissionDenied: Could not embeddings the OpenAiModel.
         """
 
@@ -114,6 +115,7 @@ class OpenAiModelClient:
                 response_type=language_models_models.OpenAiEmbeddingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "LanguageModelInferenceError": language_models_errors.LanguageModelInferenceError,
                     "OpenAiEmbeddingsPermissionDenied": language_models_errors.OpenAiEmbeddingsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -198,6 +200,7 @@ class AsyncOpenAiModelClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[language_models_models.OpenAiEmbeddingsResponse]
 
+        :raises LanguageModelInferenceError: An error was thrown by the underlying model provider during inference.
         :raises OpenAiEmbeddingsPermissionDenied: Could not embeddings the OpenAiModel.
         """
 
@@ -224,6 +227,7 @@ class AsyncOpenAiModelClient:
                 response_type=language_models_models.OpenAiEmbeddingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "LanguageModelInferenceError": language_models_errors.LanguageModelInferenceError,
                     "OpenAiEmbeddingsPermissionDenied": language_models_errors.OpenAiEmbeddingsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
