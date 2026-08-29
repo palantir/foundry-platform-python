@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Adding get attachment by rid
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/73

@@ -1,5 +1,0 @@
-type: fix
-fix:
-  description: Fix publishing
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/192

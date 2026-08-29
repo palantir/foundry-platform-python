@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Add `BLOBSTER_CODE` resource type
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/138

@@ -1,6 +1,0 @@
-type: fix
-fix:
-  description: Fix issue where httpx error thrown rather than Palantir exception when
-    using the streaming client
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/156

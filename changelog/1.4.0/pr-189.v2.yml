@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Generate npm docs snippets package
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/189

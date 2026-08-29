@@ -1,5 +1,0 @@
-type: fix
-fix:
-  description: Fix bug where forward resolution incorrectly created null types.
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/183

@@ -1,5 +1,0 @@
-type: feature
-feature:
-  description: Foundry CLI Prototype
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/8
