@@ -1,6 +1,0 @@
-type: improvement
-improvement:
-  description: Swap `datetime` types with `AwareDatetime` types from `pydantic` to
-    ensure timezones are used when constructing a `datetime` instance.
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/181

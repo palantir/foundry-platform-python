@@ -1,6 +1,0 @@
-type: fix
-fix:
-  description: Fix bug where certain endpoints that had optional return types had
-    non-optional return types in the method definition
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/142

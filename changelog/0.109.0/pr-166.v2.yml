@@ -1,5 +1,0 @@
-type: fix
-fix:
-  description: Revert "Remove forceIncludeComponents"
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/166

@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Remove OpenAPI spec
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/25

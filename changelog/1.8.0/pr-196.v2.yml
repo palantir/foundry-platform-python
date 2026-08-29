@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Fix config error package name
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/196

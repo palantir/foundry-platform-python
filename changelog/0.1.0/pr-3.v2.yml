@@ -1,5 +1,0 @@
-type: feature
-feature:
-  description: Initial release of the Foundry Python Platform SDK
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/3

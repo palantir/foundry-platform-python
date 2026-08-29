@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Exclude Gotham namespaces when rendering SDK
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/219

@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Export `PublicClientAuth` from the package root
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/131

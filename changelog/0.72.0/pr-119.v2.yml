@@ -1,6 +1,0 @@
-type: improvement
-improvement:
-  description: '`ConfidentialClientAuth` now checks for `REQUESTS_CA_BUNDLE` and `SSL_CERT_FILE`
-    for SSL certificate path.'
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/119

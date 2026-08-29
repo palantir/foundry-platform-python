@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: Adding py.typed file
-  links:
-  - https://github.com/palantir/foundry-platform-python/pull/74
