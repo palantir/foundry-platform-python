@@ -739,3 +739,35 @@ def test_widgets_v2_widget_set_import():
     from foundry_sdk.v2.widgets.widget_set import WidgetSetClient
 
     assert WidgetSetClient is not None
+
+
+def test_endpoints_v3_endpoint_set_import():
+    from foundry_sdk.v3.endpoints.endpoint_set import EndpointSetClient
+
+    assert EndpointSetClient is not None
+
+
+def test_endpoints_v3_endpoint_set_endpoint_import():
+    from foundry_sdk.v3.endpoints.endpoint_set_endpoint import EndpointSetEndpointClient
+
+    assert EndpointSetEndpointClient is not None
+
+
+def test_endpoints_v3_endpoint_set_version_import():
+    from foundry_sdk.v3.endpoints.endpoint_set_version import EndpointSetVersionClient
+
+    assert EndpointSetVersionClient is not None
+
+
+def test_orchestrator_v3_process_execution_import():
+    from foundry_sdk.v3.orchestrator.process_execution import ProcessExecutionClient
+
+    assert ProcessExecutionClient is not None
+
+
+def test_orchestrator_v3_process_execution_signal_import():
+    from foundry_sdk.v3.orchestrator.process_execution_signal import (
+        ProcessExecutionSignalClient,
+    )
+
+    assert ProcessExecutionSignalClient is not None

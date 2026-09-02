@@ -2177,6 +2177,36 @@ export const PYTHON_PLATFORM_SNIPPETS: SdkSnippets<typeof PLATFORM_API_DOCS_SPEC
           {
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# WidgetSetRid | A Resource Identifier (RID) identifying a widget set.\nwidget_set_rid = \"ri.widgetregistry..widget-set.21dt2c42-b7df-4b23-880b-1436a3dred2e\"\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.WidgetSet.get(widget_set_rid, preview=preview)\n    print(\"The get response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling WidgetSet.get: %s\\n\" % e)"
           }
+        ],
+        "v3.getEndpointSet": [
+          {
+            "template": "from foundry_sdk.v3 import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# EndpointSetRid\nendpoint_set_rid = None\n\n\ntry:\n    api_response = client.endpoints.EndpointSet.get(endpoint_set_rid)\n    print(\"The get response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling EndpointSet.get: %s\\n\" % e)"
+          }
+        ],
+        "v3.getEndpointSetEndpoint": [
+          {
+            "template": "from foundry_sdk.v3 import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# EndpointSetRid\nendpoint_set_rid = None\n# EndpointSetEndpointRid\nendpoint_rid = None\n\n\ntry:\n    api_response = client.endpoints.EndpointSet.Endpoint.get(endpoint_set_rid, endpoint_rid)\n    print(\"The get response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Endpoint.get: %s\\n\" % e)"
+          }
+        ],
+        "v3.listEndpointSetEndpoints": [
+          {
+            "template": "from foundry_sdk.v3 import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# EndpointSetRid\nendpoint_set_rid = None\n# Optional[PageSize]\npage_size = None\n# Optional[PageToken]\npage_token = None\n\n\ntry:\n    for endpoint_set_endpoint in client.endpoints.EndpointSet.Endpoint.list(\n        endpoint_set_rid, page_size=page_size, page_token=page_token\n    ):\n        pprint(endpoint_set_endpoint)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Endpoint.list: %s\\n\" % e)"
+          }
+        ],
+        "v3.getEndpointSetVersion": [
+          {
+            "template": "from foundry_sdk.v3 import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# EndpointSetRid\nendpoint_set_rid = None\n# EndpointSetVersionId\nversion_id = None\n\n\ntry:\n    api_response = client.endpoints.EndpointSet.Version.get(endpoint_set_rid, version_id)\n    print(\"The get response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Version.get: %s\\n\" % e)"
+          }
+        ],
+        "v3.listEndpointSetVersions": [
+          {
+            "template": "from foundry_sdk.v3 import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# EndpointSetRid\nendpoint_set_rid = None\n# Optional[PageSize]\npage_size = None\n# Optional[PageToken]\npage_token = None\n\n\ntry:\n    for endpoint_set_version in client.endpoints.EndpointSet.Version.list(\n        endpoint_set_rid, page_size=page_size, page_token=page_token\n    ):\n        pprint(endpoint_set_version)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Version.list: %s\\n\" % e)"
+          }
+        ],
+        "v3.completeProcessExecutionSignal": [
+          {
+            "template": "from foundry_sdk.v3 import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# ProcessExecutionId\nprocess_execution_id = None\n# SignalId\nsignal_id = None\n# Optional[Any] | Arbitrary JSON passed to the process execution that consumes the signal. Empty when the completion carries no payload.\npayload = None\n\n\ntry:\n    api_response = client.orchestrator.ProcessExecution.Signal.complete(\n        process_execution_id, signal_id, payload=payload\n    )\n    print(\"The complete response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Signal.complete: %s\\n\" % e)"
+          }
         ]
       }
     }

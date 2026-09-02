@@ -13,8 +13,24 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1786.0"
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+
+PageSize: typing_extensions.TypeAlias = int
+"""PageSize"""
+
+
+PageToken: typing_extensions.TypeAlias = str
+"""PageToken"""
+
+
+core.resolve_forward_references_in_module(__name__)
+
+__all__ = [
+    "PageSize",
+    "PageToken",
+]
