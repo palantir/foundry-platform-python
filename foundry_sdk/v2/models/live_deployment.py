@@ -119,6 +119,55 @@ class LiveDeploymentClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def disable(
+        self,
+        live_deployment_rid: models_models.LiveDeploymentRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Disables the live deployment and removes its running replicas while retaining its model and runtime configuration.
+
+        :param live_deployment_rid:
+        :type live_deployment_rid: LiveDeploymentRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises DisableLiveDeploymentPermissionDenied: Could not disable the LiveDeployment.
+        :raises LiveDeploymentNotFound: The specified live deployment was not found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/disable",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "liveDeploymentRid": live_deployment_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "DisableLiveDeploymentPermissionDenied": models_errors.DisableLiveDeploymentPermissionDenied,
+                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get(
         self,
         live_deployment_rid: models_models.LiveDeploymentRid,
@@ -248,6 +297,7 @@ class LiveDeploymentClient:
         :raises GpuTypeNotAvailable: The requested GPU type is not available. Use a GPU type that is available in the deployment's resource queue.
         :raises InvalidGpuCount: The GPU count is invalid. The GPU count must be between 1 and the maximum allowed for the requested GPU type.
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
+        :raises LiveDeploymentSourcesCannotBeUpdatedWhileRunning: Sources can only be updated when the live deployment is disabled.
         :raises ReplaceLiveDeploymentPermissionDenied: Could not replace the LiveDeployment.
         :raises ThreadCountTooHigh: The specified thread count exceeds the maximum allowed value.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
@@ -276,9 +326,59 @@ class LiveDeploymentClient:
                     "GpuTypeNotAvailable": models_errors.GpuTypeNotAvailable,
                     "InvalidGpuCount": models_errors.InvalidGpuCount,
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
+                    "LiveDeploymentSourcesCannotBeUpdatedWhileRunning": models_errors.LiveDeploymentSourcesCannotBeUpdatedWhileRunning,
                     "ReplaceLiveDeploymentPermissionDenied": models_errors.ReplaceLiveDeploymentPermissionDenied,
                     "ThreadCountTooHigh": models_errors.ThreadCountTooHigh,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def start(
+        self,
+        live_deployment_rid: models_models.LiveDeploymentRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Starts the live deployment. If the deployment is already starting or running, this operation has no effect.
+
+        :param live_deployment_rid:
+        :type live_deployment_rid: LiveDeploymentRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises LiveDeploymentNotFound: The specified live deployment was not found.
+        :raises StartLiveDeploymentPermissionDenied: Could not start the LiveDeployment.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/start",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "liveDeploymentRid": live_deployment_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
+                    "StartLiveDeploymentPermissionDenied": models_errors.StartLiveDeploymentPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -363,15 +463,19 @@ class LiveDeploymentClient:
 class _LiveDeploymentClientRaw:
     def __init__(self, client: LiveDeploymentClient) -> None:
         def create(_: models_models.LiveDeployment): ...
+        def disable(_: None): ...
         def get(_: models_models.LiveDeployment): ...
         def list(_: models_models.ListLiveDeploymentsResponse): ...
         def replace(_: models_models.LiveDeployment): ...
+        def start(_: None): ...
         def transform_json(_: models_models.TransformLiveDeploymentResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
+        self.disable = core.with_raw_response(disable, client.disable)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
         self.replace = core.with_raw_response(replace, client.replace)
+        self.start = core.with_raw_response(start, client.start)
         self.transform_json = core.with_raw_response(transform_json, client.transform_json)
 
 
@@ -476,6 +580,55 @@ class AsyncLiveDeploymentClient:
                     "InvalidGpuCount": models_errors.InvalidGpuCount,
                     "ModelNotFound": models_errors.ModelNotFound,
                     "ThreadCountTooHigh": models_errors.ThreadCountTooHigh,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def disable(
+        self,
+        live_deployment_rid: models_models.LiveDeploymentRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Disables the live deployment and removes its running replicas while retaining its model and runtime configuration.
+
+        :param live_deployment_rid:
+        :type live_deployment_rid: LiveDeploymentRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises DisableLiveDeploymentPermissionDenied: Could not disable the LiveDeployment.
+        :raises LiveDeploymentNotFound: The specified live deployment was not found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/disable",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "liveDeploymentRid": live_deployment_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "DisableLiveDeploymentPermissionDenied": models_errors.DisableLiveDeploymentPermissionDenied,
+                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -613,6 +766,7 @@ class AsyncLiveDeploymentClient:
         :raises GpuTypeNotAvailable: The requested GPU type is not available. Use a GPU type that is available in the deployment's resource queue.
         :raises InvalidGpuCount: The GPU count is invalid. The GPU count must be between 1 and the maximum allowed for the requested GPU type.
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
+        :raises LiveDeploymentSourcesCannotBeUpdatedWhileRunning: Sources can only be updated when the live deployment is disabled.
         :raises ReplaceLiveDeploymentPermissionDenied: Could not replace the LiveDeployment.
         :raises ThreadCountTooHigh: The specified thread count exceeds the maximum allowed value.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
@@ -641,9 +795,59 @@ class AsyncLiveDeploymentClient:
                     "GpuTypeNotAvailable": models_errors.GpuTypeNotAvailable,
                     "InvalidGpuCount": models_errors.InvalidGpuCount,
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
+                    "LiveDeploymentSourcesCannotBeUpdatedWhileRunning": models_errors.LiveDeploymentSourcesCannotBeUpdatedWhileRunning,
                     "ReplaceLiveDeploymentPermissionDenied": models_errors.ReplaceLiveDeploymentPermissionDenied,
                     "ThreadCountTooHigh": models_errors.ThreadCountTooHigh,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def start(
+        self,
+        live_deployment_rid: models_models.LiveDeploymentRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Starts the live deployment. If the deployment is already starting or running, this operation has no effect.
+
+        :param live_deployment_rid:
+        :type live_deployment_rid: LiveDeploymentRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises LiveDeploymentNotFound: The specified live deployment was not found.
+        :raises StartLiveDeploymentPermissionDenied: Could not start the LiveDeployment.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/models/liveDeployments/{liveDeploymentRid}/start",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "liveDeploymentRid": live_deployment_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
+                    "StartLiveDeploymentPermissionDenied": models_errors.StartLiveDeploymentPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -728,15 +932,19 @@ class AsyncLiveDeploymentClient:
 class _AsyncLiveDeploymentClientRaw:
     def __init__(self, client: AsyncLiveDeploymentClient) -> None:
         def create(_: models_models.LiveDeployment): ...
+        def disable(_: None): ...
         def get(_: models_models.LiveDeployment): ...
         def list(_: models_models.ListLiveDeploymentsResponse): ...
         def replace(_: models_models.LiveDeployment): ...
+        def start(_: None): ...
         def transform_json(_: models_models.TransformLiveDeploymentResponse): ...
 
         self.create = core.async_with_raw_response(create, client.create)
+        self.disable = core.async_with_raw_response(disable, client.disable)
         self.get = core.async_with_raw_response(get, client.get)
         self.list = core.async_with_raw_response(list, client.list)
         self.replace = core.async_with_raw_response(replace, client.replace)
+        self.start = core.async_with_raw_response(start, client.start)
         self.transform_json = core.async_with_raw_response(transform_json, client.transform_json)
 
 

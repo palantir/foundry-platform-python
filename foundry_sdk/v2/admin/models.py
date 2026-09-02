@@ -114,13 +114,20 @@ class CbacBanner(core.ModelBase):
     """CbacBanner"""
 
     classification_string: CbacBannerClassificationString = pydantic.Field(alias=str("classificationString"))  # type: ignore[literal-required]
+    """The formatted classification string for the requested markings and display type."""
+
     markings: typing.List[core_models.MarkingId]
+    """The marking IDs represented by the classification string."""
+
     text_color: core_models.Color = pydantic.Field(alias=str("textColor"))  # type: ignore[literal-required]
+    """The hexadecimal text color to use when displaying the banner."""
+
     background_colors: typing.List[core_models.Color] = pydantic.Field(alias=str("backgroundColors"))  # type: ignore[literal-required]
+    """The hexadecimal background colors to use when displaying the banner."""
 
 
 CbacBannerClassificationString: typing_extensions.TypeAlias = str
-"""CbacBannerClassificationString"""
+"""The formatted classification string for the requested markings and display type."""
 
 
 class CbacMarkingRestrictions(core.ModelBase):
@@ -668,7 +675,11 @@ class ParseClassificationsRequest(core.ModelBase):
     """ParseClassificationsRequest"""
 
     classification_strings: typing.List[str] = pydantic.Field(alias=str("classificationStrings"))  # type: ignore[literal-required]
-    """The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted."""
+    """
+    The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries.
+    Duplicate entries count toward this limit but are parsed once. An empty list returns a
+    `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
+    """
 
 
 class ParseClassificationsResponse(core.ModelBase):

@@ -228,7 +228,7 @@ Parses classification marking strings (e.g. 'S//NF') into their component markin
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**classification_strings** | List[str] | The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted. |  |
+**classification_strings** | List[str] | The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -243,8 +243,8 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# List[str] | The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.
-classification_strings = ["MTS//MNF", "MU"]
+# List[str] | The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
+classification_strings = ["MTS//MNF", "INVALID_MARKING"]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 

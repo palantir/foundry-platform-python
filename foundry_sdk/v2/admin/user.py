@@ -419,8 +419,11 @@ class UserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
-        Revoke all active authentication tokens for the user including active browser sessions and long-lived
+        Invalidate all previously issued authentication tokens for the user including active browser sessions and long-lived
         development tokens. If the user has active sessions in a browser, this will force re-authentication.
+
+        Previously issued authentication tokens may not appear as explicitly revoked but they will not be considered valid when
+        used to authenticate requests. The invalidation may not take effect immediately, but will take effect within a couple of minutes.
 
         The caller must have permission to manage users for the target user's organization.
 
@@ -947,8 +950,11 @@ class AsyncUserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
-        Revoke all active authentication tokens for the user including active browser sessions and long-lived
+        Invalidate all previously issued authentication tokens for the user including active browser sessions and long-lived
         development tokens. If the user has active sessions in a browser, this will force re-authentication.
+
+        Previously issued authentication tokens may not appear as explicitly revoked but they will not be considered valid when
+        used to authenticate requests. The invalidation may not take effect immediately, but will take effect within a couple of minutes.
 
         The caller must have permission to manage users for the target user's organization.
 

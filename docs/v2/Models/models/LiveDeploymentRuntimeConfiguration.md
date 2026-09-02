@@ -13,6 +13,7 @@ The compute resource configuration for a live deployment, controlling replica sc
 **gpu** | Optional[LiveDeploymentGpu] | No | Optional GPU resources for the deployment. |
 **thread_count** | Optional[int] | No | The number of threads used for query handling. Defaults to 32 if not specified. Also affects how many concurrent requests will be sent to a single replica.  |
 **scaling_configuration** | Optional[LiveDeploymentScalingConfiguration] | No | Autoscaling configuration for the deployment. Controls how the deployment scales replicas up and down based on load.  |
+**sources** | List[ConnectionRid] | Yes | The Connection (also known as source) RIDs attached to the deployment. |
 **environment_variables** | Dict[str, str] | Yes | User-supplied environment variables to set on the deployment container, keyed by variable name.  |
 
 

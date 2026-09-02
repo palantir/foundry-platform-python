@@ -656,6 +656,11 @@ datetime_with_tz = datetime(2025, 2, 5, 20, 57, 57, 511182, tzinfo=timezone.utc)
 ```
 
 <a id="apis-link"></a>
+<a id="apis-v3-link"></a>
+## Documentation for V3 API endpoints
+
+Namespace | Resource | Operation | HTTP request |
+------------ | ------------- | ------------- | ------------- |
 <a id="apis-v2-link"></a>
 ## Documentation for V2 API endpoints
 
@@ -857,9 +862,11 @@ Namespace | Resource | Operation | HTTP request |
 **Models** | ExperimentSeries | [**json**](docs/v2/Models/ExperimentSeries.md#json) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/json |
 **Models** | ExperimentSeries | [**parquet**](docs/v2/Models/ExperimentSeries.md#parquet) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/parquet |
 **Models** | LiveDeployment | [**create**](docs/v2/Models/LiveDeployment.md#create) | **POST** /v2/models/liveDeployments |
+**Models** | LiveDeployment | [**disable**](docs/v2/Models/LiveDeployment.md#disable) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/disable |
 **Models** | LiveDeployment | [**get**](docs/v2/Models/LiveDeployment.md#get) | **GET** /v2/models/liveDeployments/{liveDeploymentRid} |
 **Models** | LiveDeployment | [**list**](docs/v2/Models/LiveDeployment.md#list) | **GET** /v2/models/liveDeployments |
 **Models** | LiveDeployment | [**replace**](docs/v2/Models/LiveDeployment.md#replace) | **PUT** /v2/models/liveDeployments/{liveDeploymentRid} |
+**Models** | LiveDeployment | [**start**](docs/v2/Models/LiveDeployment.md#start) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/start |
 **Models** | LiveDeployment | [**transform_json**](docs/v2/Models/LiveDeployment.md#transform_json) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/transformJson |
 **Models** | Model | [**create**](docs/v2/Models/Model.md#create) | **POST** /v2/models |
 **Models** | Model | [**get**](docs/v2/Models/Model.md#get) | **GET** /v2/models/{modelRid} |
@@ -1016,6 +1023,25 @@ Namespace | Resource | Operation | HTTP request |
 
 
 <a id="models-link"></a>
+<a id="models-v3-link"></a>
+## Documentation for V3 models
+
+Namespace | Name | Import |
+--------- | ---- | ------ |
+**Core** | [PageSize](docs/v3/Core/models/PageSize.md) | `from foundry_sdk.v3.core.models import PageSize` |
+**Core** | [PageToken](docs/v3/Core/models/PageToken.md) | `from foundry_sdk.v3.core.models import PageToken` |
+**Endpoints** | [EndpointSet](docs/v3/Endpoints/models/EndpointSet.md) | `from foundry_sdk.v3.endpoints.models import EndpointSet` |
+**Endpoints** | [EndpointSetEndpoint](docs/v3/Endpoints/models/EndpointSetEndpoint.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetEndpoint` |
+**Endpoints** | [EndpointSetEndpointRid](docs/v3/Endpoints/models/EndpointSetEndpointRid.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetEndpointRid` |
+**Endpoints** | [EndpointSetRid](docs/v3/Endpoints/models/EndpointSetRid.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetRid` |
+**Endpoints** | [EndpointSetVersion](docs/v3/Endpoints/models/EndpointSetVersion.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetVersion` |
+**Endpoints** | [EndpointSetVersionId](docs/v3/Endpoints/models/EndpointSetVersionId.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetVersionId` |
+**Endpoints** | [ListEndpointSetEndpointsResponse](docs/v3/Endpoints/models/ListEndpointSetEndpointsResponse.md) | `from foundry_sdk.v3.endpoints.models import ListEndpointSetEndpointsResponse` |
+**Endpoints** | [ListEndpointSetVersionsResponse](docs/v3/Endpoints/models/ListEndpointSetVersionsResponse.md) | `from foundry_sdk.v3.endpoints.models import ListEndpointSetVersionsResponse` |
+**Orchestrator** | [CompleteProcessExecutionSignalRequest](docs/v3/Orchestrator/models/CompleteProcessExecutionSignalRequest.md) | `from foundry_sdk.v3.orchestrator.models import CompleteProcessExecutionSignalRequest` |
+**Orchestrator** | [ProcessExecutionId](docs/v3/Orchestrator/models/ProcessExecutionId.md) | `from foundry_sdk.v3.orchestrator.models import ProcessExecutionId` |
+**Orchestrator** | [SignalId](docs/v3/Orchestrator/models/SignalId.md) | `from foundry_sdk.v3.orchestrator.models import SignalId` |
+
 <a id="models-v2-link"></a>
 ## Documentation for V2 models
 
@@ -2809,9 +2835,11 @@ Namespace | Name | Import |
 **Ontologies** | [ParameterEvaluationResult](docs/v2/Ontologies/models/ParameterEvaluationResult.md) | `from foundry_sdk.v2.ontologies.models import ParameterEvaluationResult` |
 **Ontologies** | [ParameterId](docs/v2/Ontologies/models/ParameterId.md) | `from foundry_sdk.v2.ontologies.models import ParameterId` |
 **Ontologies** | [ParameterIdArgument](docs/v2/Ontologies/models/ParameterIdArgument.md) | `from foundry_sdk.v2.ontologies.models import ParameterIdArgument` |
+**Ontologies** | [ParameterLengthConstraintValue](docs/v2/Ontologies/models/ParameterLengthConstraintValue.md) | `from foundry_sdk.v2.ontologies.models import ParameterLengthConstraintValue` |
 **Ontologies** | [ParameterNameActionTypesQueryV2](docs/v2/Ontologies/models/ParameterNameActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import ParameterNameActionTypesQueryV2` |
 **Ontologies** | [ParameterOption](docs/v2/Ontologies/models/ParameterOption.md) | `from foundry_sdk.v2.ontologies.models import ParameterOption` |
 **Ontologies** | [ParameterRidActionTypesQueryV2](docs/v2/Ontologies/models/ParameterRidActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import ParameterRidActionTypesQueryV2` |
+**Ontologies** | [ParameterValueConstraintValue](docs/v2/Ontologies/models/ParameterValueConstraintValue.md) | `from foundry_sdk.v2.ontologies.models import ParameterValueConstraintValue` |
 **Ontologies** | [PermissionModelActionTypesQueryV2](docs/v2/Ontologies/models/PermissionModelActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import PermissionModelActionTypesQueryV2` |
 **Ontologies** | [Plaintext](docs/v2/Ontologies/models/Plaintext.md) | `from foundry_sdk.v2.ontologies.models import Plaintext` |
 **Ontologies** | [PolygonValue](docs/v2/Ontologies/models/PolygonValue.md) | `from foundry_sdk.v2.ontologies.models import PolygonValue` |
@@ -2904,6 +2932,8 @@ Namespace | Name | Import |
 **Ontologies** | [SdkPackageName](docs/v2/Ontologies/models/SdkPackageName.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageName` |
 **Ontologies** | [SdkPackageRid](docs/v2/Ontologies/models/SdkPackageRid.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageRid` |
 **Ontologies** | [SdkVersion](docs/v2/Ontologies/models/SdkVersion.md) | `from foundry_sdk.v2.ontologies.models import SdkVersion` |
+**Ontologies** | [SearchActionTypesFullMetadataRequest](docs/v2/Ontologies/models/SearchActionTypesFullMetadataRequest.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesFullMetadataRequest` |
+**Ontologies** | [SearchActionTypesFullMetadataResponse](docs/v2/Ontologies/models/SearchActionTypesFullMetadataResponse.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesFullMetadataResponse` |
 **Ontologies** | [SearchActionTypesOrderByV2](docs/v2/Ontologies/models/SearchActionTypesOrderByV2.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesOrderByV2` |
 **Ontologies** | [SearchActionTypesRequestV2](docs/v2/Ontologies/models/SearchActionTypesRequestV2.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesRequestV2` |
 **Ontologies** | [SearchActionTypesResponseV2](docs/v2/Ontologies/models/SearchActionTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesResponseV2` |
@@ -3473,6 +3503,20 @@ Namespace | Name | Import |
 
 <a id="all-errors"></a>
 ## Documentation for errors
+<a id="errors-v3-link"></a>
+## Documentation for V3 errors
+
+Namespace | Name | Import |
+--------- | ---- | ------ |
+**Core** | BatchRequestSizeExceededLimit | `from foundry_sdk.v3.core.errors import BatchRequestSizeExceededLimit` |
+**Core** | MissingBatchRequest | `from foundry_sdk.v3.core.errors import MissingBatchRequest` |
+**Endpoints** | EndpointSetEndpointNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetEndpointNotFound` |
+**Endpoints** | EndpointSetNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetNotFound` |
+**Endpoints** | EndpointSetVersionNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetVersionNotFound` |
+**Orchestrator** | CompleteProcessExecutionSignalPermissionDenied | `from foundry_sdk.v3.orchestrator.errors import CompleteProcessExecutionSignalPermissionDenied` |
+**Orchestrator** | ProcessExecutionExpired | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionExpired` |
+**Orchestrator** | ProcessExecutionNotFound | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionNotFound` |
+**Orchestrator** | ProcessExecutionSignalNotFound | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionSignalNotFound` |
 <a id="errors-v2-link"></a>
 ## Documentation for V2 errors
 
@@ -3917,6 +3961,7 @@ Namespace | Name | Import |
 **Models** | CreateModelStudioConfigVersionPermissionDenied | `from foundry_sdk.v2.models.errors import CreateModelStudioConfigVersionPermissionDenied` |
 **Models** | CreateModelStudioPermissionDenied | `from foundry_sdk.v2.models.errors import CreateModelStudioPermissionDenied` |
 **Models** | CreateModelVersionPermissionDenied | `from foundry_sdk.v2.models.errors import CreateModelVersionPermissionDenied` |
+**Models** | DisableLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import DisableLiveDeploymentPermissionDenied` |
 **Models** | ExperimentArtifactNotFound | `from foundry_sdk.v2.models.errors import ExperimentArtifactNotFound` |
 **Models** | ExperimentNotFound | `from foundry_sdk.v2.models.errors import ExperimentNotFound` |
 **Models** | ExperimentSeriesNotFound | `from foundry_sdk.v2.models.errors import ExperimentSeriesNotFound` |
@@ -3935,6 +3980,7 @@ Namespace | Name | Import |
 **Models** | LatestModelStudioConfigVersionsPermissionDenied | `from foundry_sdk.v2.models.errors import LatestModelStudioConfigVersionsPermissionDenied` |
 **Models** | LaunchModelStudioPermissionDenied | `from foundry_sdk.v2.models.errors import LaunchModelStudioPermissionDenied` |
 **Models** | LiveDeploymentNotFound | `from foundry_sdk.v2.models.errors import LiveDeploymentNotFound` |
+**Models** | LiveDeploymentSourcesCannotBeUpdatedWhileRunning | `from foundry_sdk.v2.models.errors import LiveDeploymentSourcesCannotBeUpdatedWhileRunning` |
 **Models** | ModelApiTypeUnsupportedForFunction | `from foundry_sdk.v2.models.errors import ModelApiTypeUnsupportedForFunction` |
 **Models** | ModelExperimentNotFound | `from foundry_sdk.v2.models.errors import ModelExperimentNotFound` |
 **Models** | ModelFunctionNotFound | `from foundry_sdk.v2.models.errors import ModelFunctionNotFound` |
@@ -3951,6 +3997,7 @@ Namespace | Name | Import |
 **Models** | ReplaceLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import ReplaceLiveDeploymentPermissionDenied` |
 **Models** | ReplaceModelFunctionPermissionDenied | `from foundry_sdk.v2.models.errors import ReplaceModelFunctionPermissionDenied` |
 **Models** | SearchExperimentsPermissionDenied | `from foundry_sdk.v2.models.errors import SearchExperimentsPermissionDenied` |
+**Models** | StartLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import StartLiveDeploymentPermissionDenied` |
 **Models** | ThreadCountTooHigh | `from foundry_sdk.v2.models.errors import ThreadCountTooHigh` |
 **Models** | TrainerNotFound | `from foundry_sdk.v2.models.errors import TrainerNotFound` |
 **Models** | TransformJsonLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import TransformJsonLiveDeploymentPermissionDenied` |
