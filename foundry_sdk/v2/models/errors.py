@@ -139,6 +139,21 @@ class CreateModelVersionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class DisableLiveDeploymentPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not disable the LiveDeployment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class DisableLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DisableLiveDeploymentPermissionDenied"]
+    parameters: DisableLiveDeploymentPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ExperimentArtifactNotFoundParameters(typing_extensions.TypedDict):
     """The requested artifact was not found in the experiment."""
 
@@ -447,6 +462,21 @@ class LiveDeploymentNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class LiveDeploymentSourcesCannotBeUpdatedWhileRunningParameters(typing_extensions.TypedDict):
+    """Sources can only be updated when the live deployment is disabled."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class LiveDeploymentSourcesCannotBeUpdatedWhileRunning(errors.ConflictError):
+    name: typing.Literal["LiveDeploymentSourcesCannotBeUpdatedWhileRunning"]
+    parameters: LiveDeploymentSourcesCannotBeUpdatedWhileRunningParameters
+    error_instance_id: str
+
+
 class ModelApiTypeUnsupportedForFunctionParameters(typing_extensions.TypedDict):
     """The model API contains a data type that is not supported for Ontology function creation."""
 
@@ -693,6 +723,21 @@ class SearchExperimentsPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class StartLiveDeploymentPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not start the LiveDeployment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class StartLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["StartLiveDeploymentPermissionDenied"]
+    parameters: StartLiveDeploymentPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ThreadCountTooHighParameters(typing_extensions.TypedDict):
     """The specified thread count exceeds the maximum allowed value."""
 
@@ -777,6 +822,7 @@ __all__ = [
     "CreateModelStudioConfigVersionPermissionDenied",
     "CreateModelStudioPermissionDenied",
     "CreateModelVersionPermissionDenied",
+    "DisableLiveDeploymentPermissionDenied",
     "ExperimentArtifactNotFound",
     "ExperimentNotFound",
     "ExperimentSeriesNotFound",
@@ -795,6 +841,7 @@ __all__ = [
     "LatestModelStudioConfigVersionsPermissionDenied",
     "LaunchModelStudioPermissionDenied",
     "LiveDeploymentNotFound",
+    "LiveDeploymentSourcesCannotBeUpdatedWhileRunning",
     "ModelApiTypeUnsupportedForFunction",
     "ModelExperimentNotFound",
     "ModelFunctionNotFound",
@@ -811,6 +858,7 @@ __all__ = [
     "ReplaceLiveDeploymentPermissionDenied",
     "ReplaceModelFunctionPermissionDenied",
     "SearchExperimentsPermissionDenied",
+    "StartLiveDeploymentPermissionDenied",
     "ThreadCountTooHigh",
     "TrainerNotFound",
     "TransformJsonLiveDeploymentPermissionDenied",

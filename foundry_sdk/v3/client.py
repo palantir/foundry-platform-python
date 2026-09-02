@@ -1,0 +1,84 @@
+#  Copyright 2024 Palantir Technologies, Inc.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+
+import typing
+
+from foundry_sdk import _core as core
+from foundry_sdk._core.client_init_helpers import (
+    create_hostname_supplier,
+    get_user_token_auth_from_context_or_environment_vars,
+)
+
+
+class FoundryClient:
+    """
+    The Foundry V3 API client.
+
+    :param auth: Required. Your auth configuration.
+    :param hostname: Required. Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: typing.Optional[core.Auth] = None,
+        hostname: typing.Optional[str] = None,
+        config: typing.Optional[core.Config] = None,
+    ):
+        if auth is None:
+            auth = get_user_token_auth_from_context_or_environment_vars()
+
+        hostname_supplier = create_hostname_supplier(hostname, config)
+
+        from foundry_sdk.v3.endpoints._client import EndpointsClient
+        from foundry_sdk.v3.orchestrator._client import OrchestratorClient
+
+        self.endpoints = EndpointsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.orchestrator = OrchestratorClient(auth=auth, hostname=hostname_supplier, config=config)
+
+
+class AsyncFoundryClient:
+    """
+    The Async Foundry V3 API client.
+
+    :param auth: Required. Your auth configuration.
+    :param hostname: Required. Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: typing.Optional[core.Auth] = None,
+        hostname: typing.Optional[str] = None,
+        config: typing.Optional[core.Config] = None,
+        preview: bool = False,
+    ):
+        if not preview:
+            raise ValueError(
+                "The AsyncFoundryClient client is in beta. "
+                "Please set the preview parameter to True to use it."
+            )
+        if auth is None:
+            auth = get_user_token_auth_from_context_or_environment_vars()
+
+        hostname_supplier = create_hostname_supplier(hostname, config)
+
+        from foundry_sdk.v3.endpoints._client import AsyncEndpointsClient
+        from foundry_sdk.v3.orchestrator._client import AsyncOrchestratorClient
+
+        self.endpoints = AsyncEndpointsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.orchestrator = AsyncOrchestratorClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )

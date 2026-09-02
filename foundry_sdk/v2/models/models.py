@@ -21,6 +21,7 @@ import pydantic
 import typing_extensions
 
 from foundry_sdk import _core as core
+from foundry_sdk.v2.connectivity import models as connectivity_models
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
@@ -535,6 +536,9 @@ class LiveDeploymentRuntimeConfiguration(core.ModelBase):
 
     scaling_configuration: typing.Optional[LiveDeploymentScalingConfiguration] = pydantic.Field(alias=str("scalingConfiguration"), default=None)  # type: ignore[literal-required]
     """Autoscaling configuration for the deployment. Controls how the deployment scales replicas up and down based on load."""
+
+    sources: typing.List[connectivity_models.ConnectionRid]
+    """The Connection (also known as source) RIDs attached to the deployment."""
 
     environment_variables: typing.Dict[str, str] = pydantic.Field(alias=str("environmentVariables"))  # type: ignore[literal-required]
     """User-supplied environment variables to set on the deployment container, keyed by variable name."""

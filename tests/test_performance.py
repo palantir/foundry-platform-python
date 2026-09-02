@@ -456,3 +456,63 @@ def test_widgets_v2_models_import_performance():
     )
 
     assert init_and_access_time < 0.75
+
+
+def test_import_v3_client_performance():
+    import_time = timeit.timeit(
+        stmt="import foundry_sdk.v3",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3', None);",
+        number=1,
+    )
+
+    assert import_time < 0.25
+
+
+def test_client_v3_initialization_performance():
+    init_time = timeit.timeit(
+        stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost')",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3', None);import foundry_sdk; import foundry_sdk.v3",
+        number=1,
+    )
+
+    assert init_time < 0.25
+
+
+def test_endpoints_v3_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').endpoints",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3', None);import foundry_sdk; import foundry_sdk.v3",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_endpoints_v3_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v3.endpoints.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3.endpoints.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.75
+
+
+def test_orchestrator_v3_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').orchestrator",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3', None);import foundry_sdk; import foundry_sdk.v3",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_orchestrator_v3_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v3.orchestrator.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3.orchestrator.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.75

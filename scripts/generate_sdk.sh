@@ -42,4 +42,5 @@ python -m platform_sdk_generator \
     --manifest_path "tmp/manifest.yml" \
     --version v1 --ir_path "tmp/combined-ir.json" \
     --version v2 --ir_path "tmp/combined-ir.json" \
+    --version v3 --ir_path "tmp/federated-ir.json" \
     --npm-snippets
