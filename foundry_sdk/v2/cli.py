@@ -196,8 +196,11 @@ def admin_user_op_revoke_all_tokens(
     user_id: str,
 ):
     """
-    Revoke all active authentication tokens for the user including active browser sessions and long-lived
+    Invalidate all previously issued authentication tokens for the user including active browser sessions and long-lived
     development tokens. If the user has active sessions in a browser, this will force re-authentication.
+
+    Previously issued authentication tokens may not appear as explicitly revoked but they will not be considered valid when
+    used to authenticate requests. The invalidation may not take effect immediately, but will take effect within a couple of minutes.
 
     The caller must have permission to manage users for the target user's organization.
 
@@ -880,7 +883,10 @@ def admin_marking_op_list(
     "--classification_strings",
     type=str,
     required=True,
-    help="""The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.""",
+    help="""The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries.
+Duplicate entries count toward this limit but are parsed once. An empty list returns a
+`MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
+""",
 )
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
@@ -1871,7 +1877,7 @@ def admin_cbac_banner():
     "--marking_ids",
     type=str,
     required=False,
-    help="""The marking IDs for which to generate a banner.""",
+    help="""The marking IDs for which to generate a banner. Duplicate entries are ignored.""",
 )
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
@@ -8796,6 +8802,15 @@ def ontologies_ontology_scenario():
 @click.argument("ontology", type=str, required=True)
 @click.option("--base", type=str, required=False, help="""""")
 @click.option(
+    "--expire_after",
+    type=click.DateTime(),
+    required=False,
+    help="""The date after which the scenario expires and is automatically cleaned up.
+Defaults to 31 days after creation. Must be after creation and no later
+than 31 days after creation.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -8807,6 +8822,7 @@ def ontologies_ontology_scenario_op_create_scenario(
     client: FoundryClient,
     ontology: str,
     base: typing.Optional[str],
+    expire_after: typing.Optional[datetime],
     preview: typing.Optional[bool],
 ):
     """
@@ -8816,6 +8832,7 @@ def ontologies_ontology_scenario_op_create_scenario(
     result = client.ontologies.OntologyScenario.create_scenario(
         ontology=ontology,
         base=None if base is None else json.loads(base),
+        expire_after=expire_after,
         preview=preview,
     )
     click.echo(repr(result))
@@ -11126,6 +11143,14 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--include_action_type_full_metadata",
+    type=bool,
+    required=False,
+    help="""When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to
+`actionTypes`.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -11137,6 +11162,7 @@ def ontologies_ontology_op_get_full_metadata(
     client: FoundryClient,
     ontology: str,
     branch: typing.Optional[str],
+    include_action_type_full_metadata: typing.Optional[bool],
     preview: typing.Optional[bool],
 ):
     """
@@ -11148,6 +11174,7 @@ def ontologies_ontology_op_get_full_metadata(
     result = client.ontologies.Ontology.get_full_metadata(
         ontology=ontology,
         branch=branch,
+        include_action_type_full_metadata=include_action_type_full_metadata,
         preview=preview,
     )
     click.echo(repr(result))
@@ -11182,6 +11209,14 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--include_action_type_full_metadata",
+    type=bool,
+    required=False,
+    help="""When set to `true`, the `actionTypesFullMetadata` field of the response will be populated in addition to
+`actionTypes`.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -11198,6 +11233,7 @@ def ontologies_ontology_op_load_metadata(
     object_types: str,
     query_types: str,
     branch: typing.Optional[str],
+    include_action_type_full_metadata: typing.Optional[bool],
     preview: typing.Optional[bool],
 ):
     """
@@ -11212,6 +11248,7 @@ def ontologies_ontology_op_load_metadata(
         object_types=json.loads(object_types),
         query_types=json.loads(query_types),
         branch=branch,
+        include_action_type_full_metadata=include_action_type_full_metadata,
         preview=preview,
     )
     click.echo(repr(result))
@@ -13175,6 +13212,62 @@ def ontologies_action_type_full_metadata_op_list(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_action_type_full_metadata.command("search")
+@click.argument("ontology", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to search the action types from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option("--fuzziness", type=str, required=False, help="""""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--where", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_action_type_full_metadata_op_search(
+    client: FoundryClient,
+    ontology: str,
+    branch: typing.Optional[str],
+    fuzziness: typing.Optional[str],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    where: typing.Optional[str],
+):
+    """
+    Search for action types in the given Ontology that match the provided filters. Full action type metadata
+    results are returned by relevance of the match unless an explicit `orderBy` is provided.
+
+    Action types with logic rules that cannot be represented in the API are omitted from the results.
+    As a consequence, totalCount counts all matching action types in the Ontology and may exceed the number
+    of results returned across all pages, and an individual page may be empty even when nextPageToken is present.
+
+    """
+    result = client.ontologies.ActionTypeFullMetadata.search(
+        ontology=ontology,
+        branch=branch,
+        fuzziness=None if fuzziness is None else json.loads(fuzziness),
+        order_by=None if order_by is None else json.loads(order_by),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=None if where is None else json.loads(where),
     )
     click.echo(repr(result))
 

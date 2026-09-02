@@ -1,6 +1,6 @@
 # CbacBannerClassificationString
 
-CbacBannerClassificationString
+The formatted classification string for the requested markings and display type.
 
 ## Type
 ```python

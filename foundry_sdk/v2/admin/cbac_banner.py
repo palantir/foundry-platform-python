@@ -70,7 +70,7 @@ class CbacBannerClient:
         Returns a classification banner string and colors for the given set of marking IDs.
         :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
         :type display_type: Optional[ClassificationBannerDisplayType]
-        :param marking_ids: The marking IDs for which to generate a banner.
+        :param marking_ids: The marking IDs for which to generate a banner. Duplicate entries are ignored.
         :type marking_ids: Optional[List[MarkingId]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -171,7 +171,7 @@ class AsyncCbacBannerClient:
         Returns a classification banner string and colors for the given set of marking IDs.
         :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
         :type display_type: Optional[ClassificationBannerDisplayType]
-        :param marking_ids: The marking IDs for which to generate a banner.
+        :param marking_ids: The marking IDs for which to generate a banner. Duplicate entries are ignored.
         :type marking_ids: Optional[List[MarkingId]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]

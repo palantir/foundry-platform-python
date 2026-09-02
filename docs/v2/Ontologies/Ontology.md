@@ -67,6 +67,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_action_type_full_metadata** | Optional[bool] | When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -85,13 +86,18 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
+include_action_type_full_metadata = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
 
 try:
     api_response = client.ontologies.Ontology.get_full_metadata(
-        ontology, branch=branch, preview=preview
+        ontology,
+        branch=branch,
+        include_action_type_full_metadata=include_action_type_full_metadata,
+        preview=preview,
     )
     print("The get_full_metadata response:\n")
     pprint(api_response)
@@ -172,6 +178,7 @@ Name | Type | Description  | Notes |
 **object_types** | List[ObjectTypeApiName] |  |  |
 **query_types** | List[VersionedQueryTypeApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_action_type_full_metadata** | Optional[bool] | When set to `true`, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -200,6 +207,8 @@ object_types = None
 query_types = None
 # Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | When set to `true`, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
+include_action_type_full_metadata = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
@@ -213,6 +222,7 @@ try:
         object_types=object_types,
         query_types=query_types,
         branch=branch,
+        include_action_type_full_metadata=include_action_type_full_metadata,
         preview=preview,
     )
     print("The load_metadata response:\n")
