@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType}/fullMetadata | Private Beta |
 [**get_full_metadata_batch**](#get_full_metadata_batch) | **POST** /v2/ontologies/{ontology}/actionTypes/getFullMetadataBatch | Private Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/actionTypesFullMetadata | Private Beta |
+[**search**](#search) | **POST** /v2/ontologies/{ontology}/actionTypes/searchFullMetadata | Private Beta |
 
 # **get**
 Gets the full metadata associated with an action type.
@@ -200,6 +201,89 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListActionTypesFullMetadataResponse  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **search**
+Search for action types in the given Ontology that match the provided filters. Full action type metadata
+results are returned by relevance of the match unless an explicit `orderBy` is provided.
+
+Action types with logic rules that cannot be represented in the API are omitted from the results. 
+As a consequence, totalCount counts all matching action types in the Ontology and may exceed the number
+of results returned across all pages, and an individual page may be empty even when nextPageToken is present.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to search the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**fuzziness** | Optional[ActionTypeFuzziness] |  | [optional] |
+**order_by** | Optional[SearchActionTypesOrderByV2] |  | [optional] |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**where** | Optional[ActionTypeSearchJsonQueryV2] |  | [optional] |
+
+### Return type
+**SearchActionTypesFullMetadataResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# Optional[FoundryBranch] | The Foundry branch to search the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[ActionTypeFuzziness]
+fuzziness = None
+# Optional[SearchActionTypesOrderByV2]
+order_by = None
+# Optional[PageSize]
+page_size = None
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[ActionTypeSearchJsonQueryV2]
+where = {"type": "actionTypeDisplayName", "value": {"type": "contains", "value": "promote"}}
+
+
+try:
+    api_response = client.ontologies.ActionTypeFullMetadata.search(
+        ontology,
+        branch=branch,
+        fuzziness=fuzziness,
+        order_by=order_by,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=where,
+    )
+    print("The search response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling ActionTypeFullMetadata.search: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | SearchActionTypesFullMetadataResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

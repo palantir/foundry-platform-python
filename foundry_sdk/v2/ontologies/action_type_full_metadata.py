@@ -238,6 +238,82 @@ class ActionTypeFullMetadataClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def search(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        fuzziness: typing.Optional[ontologies_models.ActionTypeFuzziness] = None,
+        order_by: typing.Optional[ontologies_models.SearchActionTypesOrderByV2] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[ontologies_models.ActionTypeSearchJsonQueryV2] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.SearchActionTypesFullMetadataResponse:
+        """
+        Search for action types in the given Ontology that match the provided filters. Full action type metadata
+        results are returned by relevance of the match unless an explicit `orderBy` is provided.
+
+        Action types with logic rules that cannot be represented in the API are omitted from the results.
+        As a consequence, totalCount counts all matching action types in the Ontology and may exceed the number
+        of results returned across all pages, and an individual page may be empty even when nextPageToken is present.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to search the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param fuzziness:
+        :type fuzziness: Optional[ActionTypeFuzziness]
+        :param order_by:
+        :type order_by: Optional[SearchActionTypesOrderByV2]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param where:
+        :type where: Optional[ActionTypeSearchJsonQueryV2]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.SearchActionTypesFullMetadataResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actionTypes/searchFullMetadata",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.SearchActionTypesFullMetadataRequest(
+                    where=where,
+                    order_by=order_by,
+                    fuzziness=fuzziness,
+                    page_size=page_size,
+                    page_token=page_token,
+                ),
+                response_type=ontologies_models.SearchActionTypesFullMetadataResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _ActionTypeFullMetadataClientRaw:
     def __init__(self, client: ActionTypeFullMetadataClient) -> None:
@@ -246,12 +322,14 @@ class _ActionTypeFullMetadataClientRaw:
             _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
         ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
+        def search(_: ontologies_models.SearchActionTypesFullMetadataResponse): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.get_full_metadata_batch = core.with_raw_response(
             get_full_metadata_batch, client.get_full_metadata_batch
         )
         self.list = core.with_raw_response(list, client.list)
+        self.search = core.with_raw_response(search, client.search)
 
 
 class _ActionTypeFullMetadataClientStreaming:
@@ -261,12 +339,14 @@ class _ActionTypeFullMetadataClientStreaming:
             _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
         ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
+        def search(_: ontologies_models.SearchActionTypesFullMetadataResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.get_full_metadata_batch = core.with_streaming_response(
             get_full_metadata_batch, client.get_full_metadata_batch
         )
         self.list = core.with_streaming_response(list, client.list)
+        self.search = core.with_streaming_response(search, client.search)
 
 
 class AsyncActionTypeFullMetadataClient:
@@ -482,6 +562,82 @@ class AsyncActionTypeFullMetadataClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def search(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        fuzziness: typing.Optional[ontologies_models.ActionTypeFuzziness] = None,
+        order_by: typing.Optional[ontologies_models.SearchActionTypesOrderByV2] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[ontologies_models.ActionTypeSearchJsonQueryV2] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.SearchActionTypesFullMetadataResponse]:
+        """
+        Search for action types in the given Ontology that match the provided filters. Full action type metadata
+        results are returned by relevance of the match unless an explicit `orderBy` is provided.
+
+        Action types with logic rules that cannot be represented in the API are omitted from the results.
+        As a consequence, totalCount counts all matching action types in the Ontology and may exceed the number
+        of results returned across all pages, and an individual page may be empty even when nextPageToken is present.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to search the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param fuzziness:
+        :type fuzziness: Optional[ActionTypeFuzziness]
+        :param order_by:
+        :type order_by: Optional[SearchActionTypesOrderByV2]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param where:
+        :type where: Optional[ActionTypeSearchJsonQueryV2]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.SearchActionTypesFullMetadataResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actionTypes/searchFullMetadata",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.SearchActionTypesFullMetadataRequest(
+                    where=where,
+                    order_by=order_by,
+                    fuzziness=fuzziness,
+                    page_size=page_size,
+                    page_token=page_token,
+                ),
+                response_type=ontologies_models.SearchActionTypesFullMetadataResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncActionTypeFullMetadataClientRaw:
     def __init__(self, client: AsyncActionTypeFullMetadataClient) -> None:
@@ -490,12 +646,14 @@ class _AsyncActionTypeFullMetadataClientRaw:
             _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
         ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
+        def search(_: ontologies_models.SearchActionTypesFullMetadataResponse): ...
 
         self.get = core.async_with_raw_response(get, client.get)
         self.get_full_metadata_batch = core.async_with_raw_response(
             get_full_metadata_batch, client.get_full_metadata_batch
         )
         self.list = core.async_with_raw_response(list, client.list)
+        self.search = core.async_with_raw_response(search, client.search)
 
 
 class _AsyncActionTypeFullMetadataClientStreaming:
@@ -505,9 +663,11 @@ class _AsyncActionTypeFullMetadataClientStreaming:
             _: ontologies_models.GetActionTypeFullMetadataBatchResponse,
         ): ...
         def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
+        def search(_: ontologies_models.SearchActionTypesFullMetadataResponse): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_full_metadata_batch = core.async_with_streaming_response(
             get_full_metadata_batch, client.get_full_metadata_batch
         )
         self.list = core.async_with_streaming_response(list, client.list)
+        self.search = core.async_with_streaming_response(search, client.search)

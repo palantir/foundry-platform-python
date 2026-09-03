@@ -299,7 +299,7 @@ class MarkingClient:
     ) -> admin_models.ParseClassificationsResponse:
         """
         Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
-        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.
+        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -710,7 +710,7 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.ParseClassificationsResponse]:
         """
         Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
-        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Duplicate entries are ignored. At most 1000 entries are accepted.
+        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]

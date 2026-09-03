@@ -20,6 +20,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **base** | Optional[OntologyBase] |  | [optional] |
+**expire_after** | Optional[datetime] | The date after which the scenario expires and is automatically cleaned up. Defaults to 31 days after creation. Must be after creation and no later than 31 days after creation.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -38,13 +39,15 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # Optional[OntologyBase]
 base = {"type": "branch", "branch": "my-branch"}
+# Optional[datetime] | The date after which the scenario expires and is automatically cleaned up. Defaults to 31 days after creation. Must be after creation and no later than 31 days after creation.
+expire_after = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
 
 try:
     api_response = client.ontologies.OntologyScenario.create_scenario(
-        ontology, base=base, preview=preview
+        ontology, base=base, expire_after=expire_after, preview=preview
     )
     print("The create_scenario response:\n")
     pprint(api_response)

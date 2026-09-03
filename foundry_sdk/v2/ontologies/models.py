@@ -1117,6 +1117,12 @@ class CreateOntologyScenarioRequest(core.ModelBase):
     """The request payload for creating an ontology scenario."""
 
     base: typing.Optional[OntologyBase] = None
+    expire_after: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("expireAfter"), default=None)  # type: ignore[literal-required]
+    """
+    The date after which the scenario expires and is automatically cleaned up.
+    Defaults to 31 days after creation. Must be after creation and no later
+    than 31 days after creation.
+    """
 
 
 class CreateOntologyScenarioResponse(core.ModelBase):
@@ -2945,6 +2951,11 @@ class LoadOntologyMetadataRequest(core.ModelBase):
     action_types: typing.List[ActionTypeApiName] = pydantic.Field(alias=str("actionTypes"))  # type: ignore[literal-required]
     query_types: typing.List[VersionedQueryTypeApiName] = pydantic.Field(alias=str("queryTypes"))  # type: ignore[literal-required]
     interface_types: typing.List[InterfaceTypeApiName] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
+    include_action_type_full_metadata: typing.Optional[bool] = pydantic.Field(alias=str("includeActionTypeFullMetadata"), default=None)  # type: ignore[literal-required]
+    """
+    When set to `true`, the `actionTypesFullMetadata` field of the response will be populated in addition to
+    `actionTypes`.
+    """
 
 
 LogicRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
@@ -4181,6 +4192,13 @@ class OntologyFullMetadata(core.ModelBase):
     ontology: OntologyV2
     object_types: typing.Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = pydantic.Field(alias=str("objectTypes"))  # type: ignore[literal-required]
     action_types: typing.Dict[ActionTypeApiName, ActionTypeV2] = pydantic.Field(alias=str("actionTypes"))  # type: ignore[literal-required]
+    action_types_full_metadata: typing.Dict[ActionTypeApiName, ActionTypeFullMetadata] = pydantic.Field(alias=str("actionTypesFullMetadata"))  # type: ignore[literal-required]
+    """
+    The full metadata for the loaded action types. This is only populated if the request opted in to it by
+    setting `includeActionTypeFullMetadata` to `true`. The `actionTypes` field is always populated,
+    regardless of this flag.
+    """
+
     query_types: typing.Dict[VersionedQueryTypeApiName, QueryTypeV2] = pydantic.Field(alias=str("queryTypes"))  # type: ignore[literal-required]
     interface_types: typing.Dict[InterfaceTypeApiName, InterfaceType] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
     shared_property_types: typing.Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("sharedPropertyTypes"))  # type: ignore[literal-required]
@@ -4395,6 +4413,18 @@ class ParameterArraySize(core.ModelBase):
     """Less than or equal."""
 
 
+ParameterConstraintValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union[
+        "StaticConstraintValue", "ParameterLengthConstraintValue", "ParameterValueConstraintValue"
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The source of a constraint bound value: either a literal or a reference to another parameter that is
+resolved when the action is validated or applied.
+"""
+
+
 ParameterDatetimeValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["NowDatetimeValue", "FixedDatetimeValue", "RelativeDatetimeValue"],
     pydantic.Field(discriminator="type"),
@@ -4464,6 +4494,17 @@ class ParameterIdArgument(core.ModelBase):
     type: typing.Literal["parameterId"] = "parameterId"
 
 
+class ParameterLengthConstraintValue(core.ModelBase):
+    """
+    The bound is the number of elements in another list parameter's value on the same action type. Clients
+    should tolerate a reference that cannot be resolved, as the referenced parameter is not itself guaranteed
+    to be surfaced.
+    """
+
+    parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
+    type: typing.Literal["parameterLength"] = "parameterLength"
+
+
 class ParameterNameActionTypesQueryV2(core.ModelBase):
     """Returns action types with a parameter whose name matches the given string predicate."""
 
@@ -4484,6 +4525,16 @@ class ParameterRidActionTypesQueryV2(core.ModelBase):
 
     value: ActionParameterRid
     type: typing.Literal["parameterRid"] = "parameterRid"
+
+
+class ParameterValueConstraintValue(core.ModelBase):
+    """
+    The bound is the value of another parameter on the same action type. Clients should tolerate a reference
+    that cannot be resolved, as the referenced parameter is not itself guaranteed to be surfaced.
+    """
+
+    parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
+    type: typing.Literal["parameterValue"] = "parameterValue"
 
 
 class PermissionModelActionTypesQueryV2(core.ModelBase):
@@ -5332,6 +5383,24 @@ SdkPackageRid: typing_extensions.TypeAlias = core.RID
 
 SdkVersion: typing_extensions.TypeAlias = str
 """SdkVersion"""
+
+
+class SearchActionTypesFullMetadataRequest(core.ModelBase):
+    """SearchActionTypesFullMetadataRequest"""
+
+    where: typing.Optional[ActionTypeSearchJsonQueryV2] = None
+    order_by: typing.Optional[SearchActionTypesOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    fuzziness: typing.Optional[ActionTypeFuzziness] = None
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+
+
+class SearchActionTypesFullMetadataResponse(core.ModelBase):
+    """SearchActionTypesFullMetadataResponse"""
+
+    data: typing.List[ActionTypeFullMetadata]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
 
 
 class SearchActionTypesOrderByV2(core.ModelBase):
@@ -6603,10 +6672,6 @@ OntologyBase: typing_extensions.TypeAlias = OntologyBaseBranch
 """The base used to initialize a scenario."""
 
 
-ParameterConstraintValue: typing_extensions.TypeAlias = StaticConstraintValue
-"""The source of a constraint bound value."""
-
-
 PolygonValue: typing_extensions.TypeAlias = geo_models.Polygon
 """PolygonValue"""
 
@@ -7083,9 +7148,11 @@ __all__ = [
     "ParameterEvaluationResult",
     "ParameterId",
     "ParameterIdArgument",
+    "ParameterLengthConstraintValue",
     "ParameterNameActionTypesQueryV2",
     "ParameterOption",
     "ParameterRidActionTypesQueryV2",
+    "ParameterValueConstraintValue",
     "PermissionModelActionTypesQueryV2",
     "Plaintext",
     "PolygonValue",
@@ -7178,6 +7245,8 @@ __all__ = [
     "SdkPackageName",
     "SdkPackageRid",
     "SdkVersion",
+    "SearchActionTypesFullMetadataRequest",
+    "SearchActionTypesFullMetadataResponse",
     "SearchActionTypesOrderByV2",
     "SearchActionTypesRequestV2",
     "SearchActionTypesResponseV2",

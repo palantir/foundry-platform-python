@@ -61,6 +61,7 @@ class OntologyScenarioClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         base: typing.Optional[ontologies_models.OntologyBase] = None,
+        expire_after: typing.Optional[core.AwareDatetime] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -72,6 +73,8 @@ class OntologyScenarioClient:
         :type ontology: OntologyIdentifier
         :param base:
         :type base: Optional[OntologyBase]
+        :param expire_after: The date after which the scenario expires and is automatically cleaned up. Defaults to 31 days after creation. Must be after creation and no later than 31 days after creation.
+        :type expire_after: Optional[datetime]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -96,6 +99,7 @@ class OntologyScenarioClient:
                 },
                 body=ontologies_models.CreateOntologyScenarioRequest(
                     base=base,
+                    expire_after=expire_after,
                 ),
                 response_type=ontologies_models.CreateOntologyScenarioResponse,
                 request_timeout=request_timeout,
@@ -584,6 +588,7 @@ class AsyncOntologyScenarioClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         base: typing.Optional[ontologies_models.OntologyBase] = None,
+        expire_after: typing.Optional[core.AwareDatetime] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -595,6 +600,8 @@ class AsyncOntologyScenarioClient:
         :type ontology: OntologyIdentifier
         :param base:
         :type base: Optional[OntologyBase]
+        :param expire_after: The date after which the scenario expires and is automatically cleaned up. Defaults to 31 days after creation. Must be after creation and no later than 31 days after creation.
+        :type expire_after: Optional[datetime]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -619,6 +626,7 @@ class AsyncOntologyScenarioClient:
                 },
                 body=ontologies_models.CreateOntologyScenarioRequest(
                     base=base,
+                    expire_after=expire_after,
                 ),
                 response_type=ontologies_models.CreateOntologyScenarioResponse,
                 request_timeout=request_timeout,

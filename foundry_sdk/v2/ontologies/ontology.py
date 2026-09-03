@@ -132,6 +132,7 @@ class OntologyClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_action_type_full_metadata: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -145,6 +146,8 @@ class OntologyClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_action_type_full_metadata: When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
+        :type include_action_type_full_metadata: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -159,6 +162,7 @@ class OntologyClient:
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "includeActionTypeFullMetadata": include_action_type_full_metadata,
                     "preview": preview,
                 },
                 path_params={
@@ -223,6 +227,7 @@ class OntologyClient:
         object_types: typing.List[ontologies_models.ObjectTypeApiName],
         query_types: typing.List[ontologies_models.VersionedQueryTypeApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_action_type_full_metadata: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -244,6 +249,8 @@ class OntologyClient:
         :type query_types: List[VersionedQueryTypeApiName]
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_action_type_full_metadata: When set to `true`, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
+        :type include_action_type_full_metadata: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -273,6 +280,7 @@ class OntologyClient:
                     action_types=action_types,
                     query_types=query_types,
                     interface_types=interface_types,
+                    include_action_type_full_metadata=include_action_type_full_metadata,
                 ),
                 response_type=ontologies_models.OntologyFullMetadata,
                 request_timeout=request_timeout,
@@ -417,6 +425,7 @@ class AsyncOntologyClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_action_type_full_metadata: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -430,6 +439,8 @@ class AsyncOntologyClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_action_type_full_metadata: When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
+        :type include_action_type_full_metadata: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -444,6 +455,7 @@ class AsyncOntologyClient:
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
                 query_params={
                     "branch": branch,
+                    "includeActionTypeFullMetadata": include_action_type_full_metadata,
                     "preview": preview,
                 },
                 path_params={
@@ -508,6 +520,7 @@ class AsyncOntologyClient:
         object_types: typing.List[ontologies_models.ObjectTypeApiName],
         query_types: typing.List[ontologies_models.VersionedQueryTypeApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_action_type_full_metadata: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -529,6 +542,8 @@ class AsyncOntologyClient:
         :type query_types: List[VersionedQueryTypeApiName]
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_action_type_full_metadata: When set to `true`, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
+        :type include_action_type_full_metadata: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -558,6 +573,7 @@ class AsyncOntologyClient:
                     action_types=action_types,
                     query_types=query_types,
                     interface_types=interface_types,
+                    include_action_type_full_metadata=include_action_type_full_metadata,
                 ),
                 response_type=ontologies_models.OntologyFullMetadata,
                 request_timeout=request_timeout,

@@ -2809,9 +2809,11 @@ Namespace | Name | Import |
 **Ontologies** | [ParameterEvaluationResult](docs/v2/Ontologies/models/ParameterEvaluationResult.md) | `from foundry_sdk.v2.ontologies.models import ParameterEvaluationResult` |
 **Ontologies** | [ParameterId](docs/v2/Ontologies/models/ParameterId.md) | `from foundry_sdk.v2.ontologies.models import ParameterId` |
 **Ontologies** | [ParameterIdArgument](docs/v2/Ontologies/models/ParameterIdArgument.md) | `from foundry_sdk.v2.ontologies.models import ParameterIdArgument` |
+**Ontologies** | [ParameterLengthConstraintValue](docs/v2/Ontologies/models/ParameterLengthConstraintValue.md) | `from foundry_sdk.v2.ontologies.models import ParameterLengthConstraintValue` |
 **Ontologies** | [ParameterNameActionTypesQueryV2](docs/v2/Ontologies/models/ParameterNameActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import ParameterNameActionTypesQueryV2` |
 **Ontologies** | [ParameterOption](docs/v2/Ontologies/models/ParameterOption.md) | `from foundry_sdk.v2.ontologies.models import ParameterOption` |
 **Ontologies** | [ParameterRidActionTypesQueryV2](docs/v2/Ontologies/models/ParameterRidActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import ParameterRidActionTypesQueryV2` |
+**Ontologies** | [ParameterValueConstraintValue](docs/v2/Ontologies/models/ParameterValueConstraintValue.md) | `from foundry_sdk.v2.ontologies.models import ParameterValueConstraintValue` |
 **Ontologies** | [PermissionModelActionTypesQueryV2](docs/v2/Ontologies/models/PermissionModelActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import PermissionModelActionTypesQueryV2` |
 **Ontologies** | [Plaintext](docs/v2/Ontologies/models/Plaintext.md) | `from foundry_sdk.v2.ontologies.models import Plaintext` |
 **Ontologies** | [PolygonValue](docs/v2/Ontologies/models/PolygonValue.md) | `from foundry_sdk.v2.ontologies.models import PolygonValue` |
@@ -2904,6 +2906,8 @@ Namespace | Name | Import |
 **Ontologies** | [SdkPackageName](docs/v2/Ontologies/models/SdkPackageName.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageName` |
 **Ontologies** | [SdkPackageRid](docs/v2/Ontologies/models/SdkPackageRid.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageRid` |
 **Ontologies** | [SdkVersion](docs/v2/Ontologies/models/SdkVersion.md) | `from foundry_sdk.v2.ontologies.models import SdkVersion` |
+**Ontologies** | [SearchActionTypesFullMetadataRequest](docs/v2/Ontologies/models/SearchActionTypesFullMetadataRequest.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesFullMetadataRequest` |
+**Ontologies** | [SearchActionTypesFullMetadataResponse](docs/v2/Ontologies/models/SearchActionTypesFullMetadataResponse.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesFullMetadataResponse` |
 **Ontologies** | [SearchActionTypesOrderByV2](docs/v2/Ontologies/models/SearchActionTypesOrderByV2.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesOrderByV2` |
 **Ontologies** | [SearchActionTypesRequestV2](docs/v2/Ontologies/models/SearchActionTypesRequestV2.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesRequestV2` |
 **Ontologies** | [SearchActionTypesResponseV2](docs/v2/Ontologies/models/SearchActionTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import SearchActionTypesResponseV2` |
