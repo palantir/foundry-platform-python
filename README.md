@@ -857,9 +857,11 @@ Namespace | Resource | Operation | HTTP request |
 **Models** | ExperimentSeries | [**json**](docs/v2/Models/ExperimentSeries.md#json) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/json |
 **Models** | ExperimentSeries | [**parquet**](docs/v2/Models/ExperimentSeries.md#parquet) | **GET** /v2/models/{modelRid}/experiments/{experimentRid}/series/{experimentSeriesName}/parquet |
 **Models** | LiveDeployment | [**create**](docs/v2/Models/LiveDeployment.md#create) | **POST** /v2/models/liveDeployments |
+**Models** | LiveDeployment | [**disable**](docs/v2/Models/LiveDeployment.md#disable) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/disable |
 **Models** | LiveDeployment | [**get**](docs/v2/Models/LiveDeployment.md#get) | **GET** /v2/models/liveDeployments/{liveDeploymentRid} |
 **Models** | LiveDeployment | [**list**](docs/v2/Models/LiveDeployment.md#list) | **GET** /v2/models/liveDeployments |
 **Models** | LiveDeployment | [**replace**](docs/v2/Models/LiveDeployment.md#replace) | **PUT** /v2/models/liveDeployments/{liveDeploymentRid} |
+**Models** | LiveDeployment | [**start**](docs/v2/Models/LiveDeployment.md#start) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/start |
 **Models** | LiveDeployment | [**transform_json**](docs/v2/Models/LiveDeployment.md#transform_json) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/transformJson |
 **Models** | Model | [**create**](docs/v2/Models/Model.md#create) | **POST** /v2/models |
 **Models** | Model | [**get**](docs/v2/Models/Model.md#get) | **GET** /v2/models/{modelRid} |
@@ -3921,6 +3923,7 @@ Namespace | Name | Import |
 **Models** | CreateModelStudioConfigVersionPermissionDenied | `from foundry_sdk.v2.models.errors import CreateModelStudioConfigVersionPermissionDenied` |
 **Models** | CreateModelStudioPermissionDenied | `from foundry_sdk.v2.models.errors import CreateModelStudioPermissionDenied` |
 **Models** | CreateModelVersionPermissionDenied | `from foundry_sdk.v2.models.errors import CreateModelVersionPermissionDenied` |
+**Models** | DisableLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import DisableLiveDeploymentPermissionDenied` |
 **Models** | ExperimentArtifactNotFound | `from foundry_sdk.v2.models.errors import ExperimentArtifactNotFound` |
 **Models** | ExperimentNotFound | `from foundry_sdk.v2.models.errors import ExperimentNotFound` |
 **Models** | ExperimentSeriesNotFound | `from foundry_sdk.v2.models.errors import ExperimentSeriesNotFound` |
@@ -3939,6 +3942,7 @@ Namespace | Name | Import |
 **Models** | LatestModelStudioConfigVersionsPermissionDenied | `from foundry_sdk.v2.models.errors import LatestModelStudioConfigVersionsPermissionDenied` |
 **Models** | LaunchModelStudioPermissionDenied | `from foundry_sdk.v2.models.errors import LaunchModelStudioPermissionDenied` |
 **Models** | LiveDeploymentNotFound | `from foundry_sdk.v2.models.errors import LiveDeploymentNotFound` |
+**Models** | LiveDeploymentSourcesCannotBeUpdatedWhileRunning | `from foundry_sdk.v2.models.errors import LiveDeploymentSourcesCannotBeUpdatedWhileRunning` |
 **Models** | ModelApiTypeUnsupportedForFunction | `from foundry_sdk.v2.models.errors import ModelApiTypeUnsupportedForFunction` |
 **Models** | ModelExperimentNotFound | `from foundry_sdk.v2.models.errors import ModelExperimentNotFound` |
 **Models** | ModelFunctionNotFound | `from foundry_sdk.v2.models.errors import ModelFunctionNotFound` |
@@ -3955,6 +3959,7 @@ Namespace | Name | Import |
 **Models** | ReplaceLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import ReplaceLiveDeploymentPermissionDenied` |
 **Models** | ReplaceModelFunctionPermissionDenied | `from foundry_sdk.v2.models.errors import ReplaceModelFunctionPermissionDenied` |
 **Models** | SearchExperimentsPermissionDenied | `from foundry_sdk.v2.models.errors import SearchExperimentsPermissionDenied` |
+**Models** | StartLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import StartLiveDeploymentPermissionDenied` |
 **Models** | ThreadCountTooHigh | `from foundry_sdk.v2.models.errors import ThreadCountTooHigh` |
 **Models** | TrainerNotFound | `from foundry_sdk.v2.models.errors import TrainerNotFound` |
 **Models** | TransformJsonLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import TransformJsonLiveDeploymentPermissionDenied` |

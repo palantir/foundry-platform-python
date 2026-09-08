@@ -8160,6 +8160,28 @@ def models_live_deployment_op_create(
     click.echo(repr(result))
 
 
+@models_live_deployment.command("disable")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_disable(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Disables the live deployment and removes its running replicas while retaining its model and runtime configuration.
+
+    """
+    result = client.models.LiveDeployment.disable(
+        live_deployment_rid=live_deployment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @models_live_deployment.command("get")
 @click.argument("live_deployment_rid", type=str, required=True)
 @click.option(
@@ -8243,6 +8265,28 @@ def models_live_deployment_op_replace(
     result = client.models.LiveDeployment.replace(
         live_deployment_rid=live_deployment_rid,
         runtime_configuration=json.loads(runtime_configuration),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.command("start")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_start(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Starts the live deployment. If the deployment is already starting or running, this operation has no effect.
+
+    """
+    result = client.models.LiveDeployment.start(
+        live_deployment_rid=live_deployment_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -13391,6 +13435,13 @@ Branches are an experimental feature and not all workflows are supported.
 )
 @click.option("--options", type=str, required=False, help="""""")
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to apply the actions against.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -13412,6 +13463,7 @@ def ontologies_action_op_apply_batch(
     requests: str,
     branch: typing.Optional[str],
     options: typing.Optional[str],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -13433,6 +13485,7 @@ def ontologies_action_op_apply_batch(
         requests=json.loads(requests),
         branch=branch,
         options=None if options is None else json.loads(options),
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -13460,6 +13513,13 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to apply the actions against.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -13482,6 +13542,7 @@ def ontologies_action_op_apply_batch_with_overrides(
     branch: typing.Optional[str],
     options: typing.Optional[str],
     preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -13505,6 +13566,7 @@ def ontologies_action_op_apply_batch_with_overrides(
         branch=branch,
         options=None if options is None else json.loads(options),
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
