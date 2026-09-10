@@ -200,6 +200,7 @@ class OntologyObjectClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
@@ -219,6 +220,8 @@ class OntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -238,6 +241,7 @@ class OntologyObjectClient:
                 query_params={
                     "branch": branch,
                     "excludeRid": exclude_rid,
+                    "loadOntologyDefinedDerivedProperties": load_ontology_defined_derived_properties,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "select": select,
@@ -268,6 +272,7 @@ class OntologyObjectClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -301,6 +306,8 @@ class OntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -328,6 +335,7 @@ class OntologyObjectClient:
                 query_params={
                     "branch": branch,
                     "excludeRid": exclude_rid,
+                    "loadOntologyDefinedDerivedProperties": load_ontology_defined_derived_properties,
                     "orderBy": order_by,
                     "pageSize": page_size,
                     "pageToken": page_token,
@@ -364,6 +372,7 @@ class OntologyObjectClient:
         default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -422,6 +431,8 @@ class OntologyObjectClient:
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
         :type execute_in_memory_only: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -472,6 +483,7 @@ class OntologyObjectClient:
                     select=select,
                     select_v2=select_v2,
                     default_load_level=default_load_level,
+                    load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
                     reference_signing_options=reference_signing_options,
@@ -690,6 +702,7 @@ class AsyncOntologyObjectClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
@@ -709,6 +722,8 @@ class AsyncOntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -728,6 +743,7 @@ class AsyncOntologyObjectClient:
                 query_params={
                     "branch": branch,
                     "excludeRid": exclude_rid,
+                    "loadOntologyDefinedDerivedProperties": load_ontology_defined_derived_properties,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "select": select,
@@ -758,6 +774,7 @@ class AsyncOntologyObjectClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -791,6 +808,8 @@ class AsyncOntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -818,6 +837,7 @@ class AsyncOntologyObjectClient:
                 query_params={
                     "branch": branch,
                     "excludeRid": exclude_rid,
+                    "loadOntologyDefinedDerivedProperties": load_ontology_defined_derived_properties,
                     "orderBy": order_by,
                     "pageSize": page_size,
                     "pageToken": page_token,
@@ -854,6 +874,7 @@ class AsyncOntologyObjectClient:
         default_load_level: typing.Optional[ontologies_models.PropertyLoadLevel] = None,
         exclude_rid: typing.Optional[bool] = None,
         execute_in_memory_only: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -912,6 +933,8 @@ class AsyncOntologyObjectClient:
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
         :type execute_in_memory_only: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -962,6 +985,7 @@ class AsyncOntologyObjectClient:
                     select=select,
                     select_v2=select_v2,
                     default_load_level=default_load_level,
+                    load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
                     reference_signing_options=reference_signing_options,
