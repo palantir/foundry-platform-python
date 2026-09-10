@@ -16,6 +16,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **query_api_name** | QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load Query metadata from. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **version** | Optional[FunctionVersion] | The version of the Query to get. If not specified, the latest version is used. The latest version is the one that was most recently published, including pre-release versions.  | [optional] |
@@ -36,6 +37,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
 query_api_name = "getEmployeesInCity"
+# Optional[FoundryBranch] | The Foundry branch to load Query metadata from. Branches are an experimental feature and not all workflows are supported.
+branch = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -48,6 +51,7 @@ try:
     api_response = client.ontologies.Ontology.QueryType.get(
         ontology,
         query_api_name,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         version=version,

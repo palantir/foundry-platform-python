@@ -7812,7 +7812,8 @@ def models_model_model_function_op_create(
     preview: typing.Optional[bool],
 ):
     """
-    Creates a function for the model.
+    Creates a function for the model. If a function already exists for the model, the existing function is updated.
+
     """
     result = client.models.Model.Function.create(
         model_rid=model_rid,
@@ -8677,9 +8678,8 @@ Transactions are an experimental feature and all workflows may not be supported.
     "--version",
     type=str,
     required=False,
-    help="""The version of the Query to execute. If not specified, the latest version is used. The latest version
-is the one that was most recently published, including pre-release versions. When used
-with `branch`, the specified version must exist on the branch.
+    help="""The semantic version range of the Query to execute. Function execution selects a satisfying version from
+this range. If not specified, the version most recently published is used.
 """,
 )
 @click.pass_obj
@@ -10224,6 +10224,17 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection is provided; when specific properties are
+selected, this flag has no effect and the selected properties are always returned.
+
+This feature is experimental and not yet generally available.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -10253,6 +10264,7 @@ def ontologies_ontology_object_op_get(
     primary_key: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select: typing.Optional[str],
@@ -10267,6 +10279,7 @@ def ontologies_ontology_object_op_get(
         primary_key=primary_key,
         branch=branch,
         exclude_rid=exclude_rid,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
@@ -10291,6 +10304,17 @@ Branches are an experimental feature and not all workflows are supported.
     required=False,
     help="""A flag to exclude the retrieval of the `__rid` property. 
 Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection is provided; when specific properties are
+selected, this flag has no effect and the selected properties are always returned.
+
+This feature is experimental and not yet generally available.
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
@@ -10342,6 +10366,7 @@ def ontologies_ontology_object_op_list(
     object_type: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -10371,6 +10396,7 @@ def ontologies_ontology_object_op_list(
         object_type=object_type,
         branch=branch,
         exclude_rid=exclude_rid,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
@@ -10420,6 +10446,17 @@ heavier computation.
 Defaults to false.
 """,
 )
+@click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection is provided; when specific properties are
+selected, this flag has no effect and the selected properties are always returned.
+
+This feature is experimental and not yet generally available.
+""",
+)
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -10467,6 +10504,7 @@ def ontologies_ontology_object_op_search(
     default_load_level: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     execute_in_memory_only: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -10516,6 +10554,7 @@ def ontologies_ontology_object_op_search(
         default_load_level=None if default_load_level is None else json.loads(default_load_level),
         exclude_rid=exclude_rid,
         execute_in_memory_only=execute_in_memory_only,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
@@ -10770,6 +10809,17 @@ Branches are an experimental feature and not all workflows are supported.
 Setting this to true may improve performance of this endpoint for object types in OSV2.
 """,
 )
+@click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection is provided; when specific properties are
+selected, this flag has no effect and the selected properties are always returned.
+
+This feature is experimental and not yet generally available.
+""",
+)
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option(
     "--page_size",
@@ -10815,6 +10865,7 @@ def ontologies_ontology_interface_op_list_interface_linked_objects(
     interface_link_type: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -10846,6 +10897,7 @@ def ontologies_ontology_interface_op_list_interface_linked_objects(
         interface_link_type=interface_link_type,
         branch=branch,
         exclude_rid=exclude_rid,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
@@ -11307,6 +11359,14 @@ def ontologies_ontology_query_type():
 @click.argument("ontology", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load Query metadata from. Branches are an experimental feature and not all workflows
+are supported.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -11333,6 +11393,7 @@ def ontologies_ontology_query_type_op_get(
     client: FoundryClient,
     ontology: str,
     query_api_name: str,
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     version: typing.Optional[str],
@@ -11344,6 +11405,7 @@ def ontologies_ontology_query_type_op_get(
     result = client.ontologies.Ontology.QueryType.get(
         ontology=ontology,
         query_api_name=query_api_name,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         version=version,
@@ -12346,6 +12408,17 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection is provided; when specific properties are
+selected, this flag has no effect and the selected properties are always returned.
+
+This feature is experimental and not yet generally available.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12377,6 +12450,7 @@ def ontologies_linked_object_op_get_linked_object(
     linked_object_primary_key: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select: typing.Optional[str],
@@ -12395,6 +12469,7 @@ def ontologies_linked_object_op_get_linked_object(
         linked_object_primary_key=linked_object_primary_key,
         branch=branch,
         exclude_rid=exclude_rid,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
@@ -12421,6 +12496,17 @@ Branches are an experimental feature and not all workflows are supported.
     required=False,
     help="""A flag to exclude the retrieval of the `__rid` property. 
 Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option(
+    "--load_ontology_defined_derived_properties",
+    type=bool,
+    required=False,
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+Only applies when no explicit property selection is provided; when specific properties are
+selected, this flag has no effect and the selected properties are always returned.
+
+This feature is experimental and not yet generally available.
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
@@ -12474,6 +12560,7 @@ def ontologies_linked_object_op_list_linked_objects(
     link_type: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    load_ontology_defined_derived_properties: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -12505,6 +12592,7 @@ def ontologies_linked_object_op_list_linked_objects(
         link_type=link_type,
         branch=branch,
         exclude_rid=exclude_rid,
+        load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,

@@ -3241,6 +3241,15 @@ class NowDatetimeValue(core.ModelBase):
     type: typing.Literal["now"] = "now"
 
 
+NullabilityPropertyTypeDataConstraint: typing_extensions.TypeAlias = typing.Literal[
+    "NULLABLE", "NOT_NULLABLE"
+]
+"""
+Indicates whether values in mapped datasources and values created through actions may be null. Null values may
+still be observed for objects that are not present in the datasource mapping.
+"""
+
+
 class NumberFormatAffix(core.ModelBase):
     """
     Attach arbitrary text before and/or after the formatted number.
@@ -4792,6 +4801,12 @@ PropertyTypeApiName: typing_extensions.TypeAlias = str
 """PropertyTypeApiName"""
 
 
+class PropertyTypeDataConstraints(core.ModelBase):
+    """Data constraints for a property type, including nullability information."""
+
+    nullability: typing.Optional[NullabilityPropertyTypeDataConstraint] = None
+
+
 PropertyTypeMappingInfo: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StructPropertyMapping", "ColumnPropertyMapping", "EditOnlyPropertyMapping"],
     pydantic.Field(discriminator="type"),
@@ -4852,6 +4867,7 @@ class PropertyV2(core.ModelBase):
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
     type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
+    data_constraints: typing.Optional[PropertyTypeDataConstraints] = pydantic.Field(alias=str("dataConstraints"), default=None)  # type: ignore[literal-required]
 
 
 PropertyValue: typing_extensions.TypeAlias = typing.Any
@@ -5540,6 +5556,15 @@ class SearchObjectsRequestV2(core.ModelBase):
     """
 
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
+    load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    Only applies when no explicit property selection is provided; when specific properties are
+    selected, this flag has no effect and the selected properties are always returned.
+
+    This feature is experimental and not yet generally available.
+    """
+
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
     """
     A flag to exclude the retrieval of the `__rid` property.
@@ -7033,6 +7058,7 @@ __all__ = [
     "NoLoadLevel",
     "NotQueryV2",
     "NowDatetimeValue",
+    "NullabilityPropertyTypeDataConstraint",
     "NumberFormatAffix",
     "NumberFormatCurrency",
     "NumberFormatCurrencyStyle",
@@ -7182,6 +7208,7 @@ __all__ = [
     "PropertySecurity",
     "PropertyTimestampFormattingRule",
     "PropertyTypeApiName",
+    "PropertyTypeDataConstraints",
     "PropertyTypeMappingInfo",
     "PropertyTypeReference",
     "PropertyTypeReferenceOrStringConstant",

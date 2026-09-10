@@ -7,7 +7,8 @@ Method | HTTP request | Release Stage |
 [**replace**](#replace) | **PUT** /v2/models/{modelRid}/function | Public Beta |
 
 # **create**
-Creates a function for the model.
+Creates a function for the model. If a function already exists for the model, the existing function is updated.
+
 
 ### Parameters
 
