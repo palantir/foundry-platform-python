@@ -656,6 +656,11 @@ datetime_with_tz = datetime(2025, 2, 5, 20, 57, 57, 511182, tzinfo=timezone.utc)
 ```
 
 <a id="apis-link"></a>
+<a id="apis-v3-link"></a>
+## Documentation for V3 API endpoints
+
+Namespace | Resource | Operation | HTTP request |
+------------ | ------------- | ------------- | ------------- |
 <a id="apis-v2-link"></a>
 ## Documentation for V2 API endpoints
 
@@ -1018,6 +1023,25 @@ Namespace | Resource | Operation | HTTP request |
 
 
 <a id="models-link"></a>
+<a id="models-v3-link"></a>
+## Documentation for V3 models
+
+Namespace | Name | Import |
+--------- | ---- | ------ |
+**Core** | [PageSize](docs/v3/Core/models/PageSize.md) | `from foundry_sdk.v3.core.models import PageSize` |
+**Core** | [PageToken](docs/v3/Core/models/PageToken.md) | `from foundry_sdk.v3.core.models import PageToken` |
+**Endpoints** | [EndpointSet](docs/v3/Endpoints/models/EndpointSet.md) | `from foundry_sdk.v3.endpoints.models import EndpointSet` |
+**Endpoints** | [EndpointSetEndpoint](docs/v3/Endpoints/models/EndpointSetEndpoint.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetEndpoint` |
+**Endpoints** | [EndpointSetEndpointRid](docs/v3/Endpoints/models/EndpointSetEndpointRid.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetEndpointRid` |
+**Endpoints** | [EndpointSetRid](docs/v3/Endpoints/models/EndpointSetRid.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetRid` |
+**Endpoints** | [EndpointSetVersion](docs/v3/Endpoints/models/EndpointSetVersion.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetVersion` |
+**Endpoints** | [EndpointSetVersionId](docs/v3/Endpoints/models/EndpointSetVersionId.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetVersionId` |
+**Endpoints** | [ListEndpointSetEndpointsResponse](docs/v3/Endpoints/models/ListEndpointSetEndpointsResponse.md) | `from foundry_sdk.v3.endpoints.models import ListEndpointSetEndpointsResponse` |
+**Endpoints** | [ListEndpointSetVersionsResponse](docs/v3/Endpoints/models/ListEndpointSetVersionsResponse.md) | `from foundry_sdk.v3.endpoints.models import ListEndpointSetVersionsResponse` |
+**Orchestrator** | [CompleteProcessExecutionSignalRequest](docs/v3/Orchestrator/models/CompleteProcessExecutionSignalRequest.md) | `from foundry_sdk.v3.orchestrator.models import CompleteProcessExecutionSignalRequest` |
+**Orchestrator** | [ProcessExecutionId](docs/v3/Orchestrator/models/ProcessExecutionId.md) | `from foundry_sdk.v3.orchestrator.models import ProcessExecutionId` |
+**Orchestrator** | [SignalId](docs/v3/Orchestrator/models/SignalId.md) | `from foundry_sdk.v3.orchestrator.models import SignalId` |
+
 <a id="models-v2-link"></a>
 ## Documentation for V2 models
 
@@ -3479,6 +3503,20 @@ Namespace | Name | Import |
 
 <a id="all-errors"></a>
 ## Documentation for errors
+<a id="errors-v3-link"></a>
+## Documentation for V3 errors
+
+Namespace | Name | Import |
+--------- | ---- | ------ |
+**Core** | BatchRequestSizeExceededLimit | `from foundry_sdk.v3.core.errors import BatchRequestSizeExceededLimit` |
+**Core** | MissingBatchRequest | `from foundry_sdk.v3.core.errors import MissingBatchRequest` |
+**Endpoints** | EndpointSetEndpointNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetEndpointNotFound` |
+**Endpoints** | EndpointSetNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetNotFound` |
+**Endpoints** | EndpointSetVersionNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetVersionNotFound` |
+**Orchestrator** | CompleteProcessExecutionSignalPermissionDenied | `from foundry_sdk.v3.orchestrator.errors import CompleteProcessExecutionSignalPermissionDenied` |
+**Orchestrator** | ProcessExecutionExpired | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionExpired` |
+**Orchestrator** | ProcessExecutionNotFound | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionNotFound` |
+**Orchestrator** | ProcessExecutionSignalNotFound | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionSignalNotFound` |
 <a id="errors-v2-link"></a>
 ## Documentation for V2 errors
 

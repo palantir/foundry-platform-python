@@ -208,7 +208,7 @@ See [README](../../../README.md#authorization)
 Search for action types in the given Ontology that match the provided filters. Full action type metadata
 results are returned by relevance of the match unless an explicit `orderBy` is provided.
 
-Action types with logic rules that cannot be represented in the API are omitted from the results. 
+Action types with logic rules that cannot be represented in the API are omitted from the results.
 As a consequence, totalCount counts all matching action types in the Ontology and may exceed the number
 of results returned across all pages, and an individual page may be empty even when nextPageToken is present.
 
@@ -286,4 +286,3 @@ See [README](../../../README.md#authorization)
 **200** | SearchActionTypesFullMetadataResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
