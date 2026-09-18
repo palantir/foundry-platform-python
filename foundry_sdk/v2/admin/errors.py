@@ -431,6 +431,19 @@ class GetCurrentUserPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetForResourcesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getForResources the CbacBanner."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class GetForResourcesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetForResourcesPermissionDenied"]
+    parameters: GetForResourcesPermissionDeniedParameters
+    error_instance_id: str
+
+
 class GetGroupProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to view the provider information for the given group."""
 
@@ -1348,6 +1361,7 @@ __all__ = [
     "GetCbacMarkingRestrictionInfoPermissionDenied",
     "GetCurrentEnrollmentPermissionDenied",
     "GetCurrentUserPermissionDenied",
+    "GetForResourcesPermissionDenied",
     "GetGroupProviderInfoPermissionDenied",
     "GetMarkingCategoryPermissionDenied",
     "GetMarkingPermissionDenied",

@@ -71,7 +71,8 @@ class ModelFunctionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> models_models.ModelFunction:
         """
-        Creates a function for the model.
+        Creates a function for the model. If a function already exists for the model, the existing function is updated.
+
         :param model_rid:
         :type model_rid: ModelRid
         :param api_name:
@@ -90,7 +91,6 @@ class ModelFunctionClient:
         :rtype: models_models.ModelFunction
 
         :raises CreateModelFunctionPermissionDenied: Could not create the ModelFunction.
-        :raises FunctionAlreadyExists: A function already exists for this model.
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
         :raises ModelNotFound: The given Model could not be found.
@@ -122,7 +122,6 @@ class ModelFunctionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateModelFunctionPermissionDenied": models_errors.CreateModelFunctionPermissionDenied,
-                    "FunctionAlreadyExists": models_errors.FunctionAlreadyExists,
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
                     "ModelNotFound": models_errors.ModelNotFound,
@@ -325,7 +324,8 @@ class AsyncModelFunctionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[models_models.ModelFunction]:
         """
-        Creates a function for the model.
+        Creates a function for the model. If a function already exists for the model, the existing function is updated.
+
         :param model_rid:
         :type model_rid: ModelRid
         :param api_name:
@@ -344,7 +344,6 @@ class AsyncModelFunctionClient:
         :rtype: typing.Awaitable[models_models.ModelFunction]
 
         :raises CreateModelFunctionPermissionDenied: Could not create the ModelFunction.
-        :raises FunctionAlreadyExists: A function already exists for this model.
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
         :raises ModelNotFound: The given Model could not be found.
@@ -376,7 +375,6 @@ class AsyncModelFunctionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateModelFunctionPermissionDenied": models_errors.CreateModelFunctionPermissionDenied,
-                    "FunctionAlreadyExists": models_errors.FunctionAlreadyExists,
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
                     "ModelNotFound": models_errors.ModelNotFound,

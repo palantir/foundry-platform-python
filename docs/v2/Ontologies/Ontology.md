@@ -3,7 +3,7 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get**](#get) | **GET** /v2/ontologies/{ontology} | Stable |
-[**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata | Public Beta |
+[**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata | Private Beta |
 [**list**](#list) | **GET** /v2/ontologies | Stable |
 [**load_metadata**](#load_metadata) | **POST** /v2/ontologies/{ontology}/metadata | Private Beta |
 
