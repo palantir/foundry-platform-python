@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.connectivity import models as connectivity_models
 from foundry_sdk.v2.models import models as models_models
 
 
@@ -139,6 +140,53 @@ class CreateModelVersionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class DeploymentSourceCannotExportResourceMarkingsParameters(typing_extensions.TypedDict):
+    """The source does not have exports enabled for all effective markings on the deployed resource."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    sourceRid: connectivity_models.ConnectionRid
+    resourceRid: core.RID
+
+
+@dataclass
+class DeploymentSourceCannotExportResourceMarkings(errors.BadRequestError):
+    name: typing.Literal["DeploymentSourceCannotExportResourceMarkings"]
+    parameters: DeploymentSourceCannotExportResourceMarkingsParameters
+    error_instance_id: str
+
+
+class DeploymentSourceNotEnabledForComputeModulesParameters(typing_extensions.TypedDict):
+    """The source is not enabled for use by Compute Modules."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    sourceRid: connectivity_models.ConnectionRid
+
+
+@dataclass
+class DeploymentSourceNotEnabledForComputeModules(errors.BadRequestError):
+    name: typing.Literal["DeploymentSourceNotEnabledForComputeModules"]
+    parameters: DeploymentSourceNotEnabledForComputeModulesParameters
+    error_instance_id: str
+
+
+class DeploymentSourceNotImportedIntoProjectParameters(typing_extensions.TypedDict):
+    """The source must be in, or imported into, the live deployment's project."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    sourceRid: connectivity_models.ConnectionRid
+    projectRid: core.RID
+
+
+@dataclass
+class DeploymentSourceNotImportedIntoProject(errors.BadRequestError):
+    name: typing.Literal["DeploymentSourceNotImportedIntoProject"]
+    parameters: DeploymentSourceNotImportedIntoProjectParameters
+    error_instance_id: str
+
+
 class DisableLiveDeploymentPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not disable the LiveDeployment."""
 
@@ -201,21 +249,6 @@ class ExperimentSeriesNotFoundParameters(typing_extensions.TypedDict):
 class ExperimentSeriesNotFound(errors.NotFoundError):
     name: typing.Literal["ExperimentSeriesNotFound"]
     parameters: ExperimentSeriesNotFoundParameters
-    error_instance_id: str
-
-
-class FunctionAlreadyExistsParameters(typing_extensions.TypedDict):
-    """A function already exists for this model."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    modelRid: models_models.ModelRid
-
-
-@dataclass
-class FunctionAlreadyExists(errors.ConflictError):
-    name: typing.Literal["FunctionAlreadyExists"]
-    parameters: FunctionAlreadyExistsParameters
     error_instance_id: str
 
 
@@ -708,6 +741,21 @@ class ReplaceModelFunctionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReservedEnvironmentVariableParameters(typing_extensions.TypedDict):
+    """The provided environment variable name is reserved for use by the deployment runtime."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    name: str
+
+
+@dataclass
+class ReservedEnvironmentVariable(errors.BadRequestError):
+    name: typing.Literal["ReservedEnvironmentVariable"]
+    parameters: ReservedEnvironmentVariableParameters
+    error_instance_id: str
+
+
 class SearchExperimentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not search the Experiment."""
 
@@ -822,11 +870,13 @@ __all__ = [
     "CreateModelStudioConfigVersionPermissionDenied",
     "CreateModelStudioPermissionDenied",
     "CreateModelVersionPermissionDenied",
+    "DeploymentSourceCannotExportResourceMarkings",
+    "DeploymentSourceNotEnabledForComputeModules",
+    "DeploymentSourceNotImportedIntoProject",
     "DisableLiveDeploymentPermissionDenied",
     "ExperimentArtifactNotFound",
     "ExperimentNotFound",
     "ExperimentSeriesNotFound",
-    "FunctionAlreadyExists",
     "GpuTypeNotAvailable",
     "InferenceFailure",
     "InferenceInvalidInput",
@@ -857,6 +907,7 @@ __all__ = [
     "PromoteVersionModelPermissionDenied",
     "ReplaceLiveDeploymentPermissionDenied",
     "ReplaceModelFunctionPermissionDenied",
+    "ReservedEnvironmentVariable",
     "SearchExperimentsPermissionDenied",
     "StartLiveDeploymentPermissionDenied",
     "ThreadCountTooHigh",

@@ -81,9 +81,13 @@ class LiveDeploymentClient:
         :rtype: models_models.LiveDeployment
 
         :raises CreateLiveDeploymentPermissionDenied: Could not create the LiveDeployment.
+        :raises DeploymentSourceCannotExportResourceMarkings: The source does not have exports enabled for all effective markings on the deployed resource.
+        :raises DeploymentSourceNotEnabledForComputeModules: The source is not enabled for use by Compute Modules.
+        :raises DeploymentSourceNotImportedIntoProject: The source must be in, or imported into, the live deployment's project.
         :raises GpuTypeNotAvailable: The requested GPU type is not available. Use a GPU type that is available in the deployment's resource queue.
         :raises InvalidGpuCount: The GPU count is invalid. The GPU count must be between 1 and the maximum allowed for the requested GPU type.
         :raises ModelNotFound: The given Model could not be found.
+        :raises ReservedEnvironmentVariable: The provided environment variable name is reserved for use by the deployment runtime.
         :raises ThreadCountTooHigh: The specified thread count exceeds the maximum allowed value.
         """
 
@@ -107,9 +111,13 @@ class LiveDeploymentClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateLiveDeploymentPermissionDenied": models_errors.CreateLiveDeploymentPermissionDenied,
+                    "DeploymentSourceCannotExportResourceMarkings": models_errors.DeploymentSourceCannotExportResourceMarkings,
+                    "DeploymentSourceNotEnabledForComputeModules": models_errors.DeploymentSourceNotEnabledForComputeModules,
+                    "DeploymentSourceNotImportedIntoProject": models_errors.DeploymentSourceNotImportedIntoProject,
                     "GpuTypeNotAvailable": models_errors.GpuTypeNotAvailable,
                     "InvalidGpuCount": models_errors.InvalidGpuCount,
                     "ModelNotFound": models_errors.ModelNotFound,
+                    "ReservedEnvironmentVariable": models_errors.ReservedEnvironmentVariable,
                     "ThreadCountTooHigh": models_errors.ThreadCountTooHigh,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -294,11 +302,15 @@ class LiveDeploymentClient:
         :return: Returns the result object.
         :rtype: models_models.LiveDeployment
 
+        :raises DeploymentSourceCannotExportResourceMarkings: The source does not have exports enabled for all effective markings on the deployed resource.
+        :raises DeploymentSourceNotEnabledForComputeModules: The source is not enabled for use by Compute Modules.
+        :raises DeploymentSourceNotImportedIntoProject: The source must be in, or imported into, the live deployment's project.
         :raises GpuTypeNotAvailable: The requested GPU type is not available. Use a GPU type that is available in the deployment's resource queue.
         :raises InvalidGpuCount: The GPU count is invalid. The GPU count must be between 1 and the maximum allowed for the requested GPU type.
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises LiveDeploymentSourcesCannotBeUpdatedWhileRunning: Sources can only be updated when the live deployment is disabled.
         :raises ReplaceLiveDeploymentPermissionDenied: Could not replace the LiveDeployment.
+        :raises ReservedEnvironmentVariable: The provided environment variable name is reserved for use by the deployment runtime.
         :raises ThreadCountTooHigh: The specified thread count exceeds the maximum allowed value.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
@@ -323,11 +335,15 @@ class LiveDeploymentClient:
                 response_type=models_models.LiveDeployment,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "DeploymentSourceCannotExportResourceMarkings": models_errors.DeploymentSourceCannotExportResourceMarkings,
+                    "DeploymentSourceNotEnabledForComputeModules": models_errors.DeploymentSourceNotEnabledForComputeModules,
+                    "DeploymentSourceNotImportedIntoProject": models_errors.DeploymentSourceNotImportedIntoProject,
                     "GpuTypeNotAvailable": models_errors.GpuTypeNotAvailable,
                     "InvalidGpuCount": models_errors.InvalidGpuCount,
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "LiveDeploymentSourcesCannotBeUpdatedWhileRunning": models_errors.LiveDeploymentSourcesCannotBeUpdatedWhileRunning,
                     "ReplaceLiveDeploymentPermissionDenied": models_errors.ReplaceLiveDeploymentPermissionDenied,
+                    "ReservedEnvironmentVariable": models_errors.ReservedEnvironmentVariable,
                     "ThreadCountTooHigh": models_errors.ThreadCountTooHigh,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },
@@ -550,9 +566,13 @@ class AsyncLiveDeploymentClient:
         :rtype: typing.Awaitable[models_models.LiveDeployment]
 
         :raises CreateLiveDeploymentPermissionDenied: Could not create the LiveDeployment.
+        :raises DeploymentSourceCannotExportResourceMarkings: The source does not have exports enabled for all effective markings on the deployed resource.
+        :raises DeploymentSourceNotEnabledForComputeModules: The source is not enabled for use by Compute Modules.
+        :raises DeploymentSourceNotImportedIntoProject: The source must be in, or imported into, the live deployment's project.
         :raises GpuTypeNotAvailable: The requested GPU type is not available. Use a GPU type that is available in the deployment's resource queue.
         :raises InvalidGpuCount: The GPU count is invalid. The GPU count must be between 1 and the maximum allowed for the requested GPU type.
         :raises ModelNotFound: The given Model could not be found.
+        :raises ReservedEnvironmentVariable: The provided environment variable name is reserved for use by the deployment runtime.
         :raises ThreadCountTooHigh: The specified thread count exceeds the maximum allowed value.
         """
 
@@ -576,9 +596,13 @@ class AsyncLiveDeploymentClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateLiveDeploymentPermissionDenied": models_errors.CreateLiveDeploymentPermissionDenied,
+                    "DeploymentSourceCannotExportResourceMarkings": models_errors.DeploymentSourceCannotExportResourceMarkings,
+                    "DeploymentSourceNotEnabledForComputeModules": models_errors.DeploymentSourceNotEnabledForComputeModules,
+                    "DeploymentSourceNotImportedIntoProject": models_errors.DeploymentSourceNotImportedIntoProject,
                     "GpuTypeNotAvailable": models_errors.GpuTypeNotAvailable,
                     "InvalidGpuCount": models_errors.InvalidGpuCount,
                     "ModelNotFound": models_errors.ModelNotFound,
+                    "ReservedEnvironmentVariable": models_errors.ReservedEnvironmentVariable,
                     "ThreadCountTooHigh": models_errors.ThreadCountTooHigh,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -763,11 +787,15 @@ class AsyncLiveDeploymentClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[models_models.LiveDeployment]
 
+        :raises DeploymentSourceCannotExportResourceMarkings: The source does not have exports enabled for all effective markings on the deployed resource.
+        :raises DeploymentSourceNotEnabledForComputeModules: The source is not enabled for use by Compute Modules.
+        :raises DeploymentSourceNotImportedIntoProject: The source must be in, or imported into, the live deployment's project.
         :raises GpuTypeNotAvailable: The requested GPU type is not available. Use a GPU type that is available in the deployment's resource queue.
         :raises InvalidGpuCount: The GPU count is invalid. The GPU count must be between 1 and the maximum allowed for the requested GPU type.
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises LiveDeploymentSourcesCannotBeUpdatedWhileRunning: Sources can only be updated when the live deployment is disabled.
         :raises ReplaceLiveDeploymentPermissionDenied: Could not replace the LiveDeployment.
+        :raises ReservedEnvironmentVariable: The provided environment variable name is reserved for use by the deployment runtime.
         :raises ThreadCountTooHigh: The specified thread count exceeds the maximum allowed value.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
@@ -792,11 +820,15 @@ class AsyncLiveDeploymentClient:
                 response_type=models_models.LiveDeployment,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "DeploymentSourceCannotExportResourceMarkings": models_errors.DeploymentSourceCannotExportResourceMarkings,
+                    "DeploymentSourceNotEnabledForComputeModules": models_errors.DeploymentSourceNotEnabledForComputeModules,
+                    "DeploymentSourceNotImportedIntoProject": models_errors.DeploymentSourceNotImportedIntoProject,
                     "GpuTypeNotAvailable": models_errors.GpuTypeNotAvailable,
                     "InvalidGpuCount": models_errors.InvalidGpuCount,
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "LiveDeploymentSourcesCannotBeUpdatedWhileRunning": models_errors.LiveDeploymentSourcesCannotBeUpdatedWhileRunning,
                     "ReplaceLiveDeploymentPermissionDenied": models_errors.ReplaceLiveDeploymentPermissionDenied,
+                    "ReservedEnvironmentVariable": models_errors.ReservedEnvironmentVariable,
                     "ThreadCountTooHigh": models_errors.ThreadCountTooHigh,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },

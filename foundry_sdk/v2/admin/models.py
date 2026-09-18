@@ -271,6 +271,16 @@ class EnrollmentRoleAssignment(core.ModelBase):
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
 
+class GetForResourcesRequest(core.ModelBase):
+    """GetForResourcesRequest"""
+
+    resource_rids: typing.List[core.RID] = pydantic.Field(alias=str("resourceRids"))  # type: ignore[literal-required]
+    """Resource RIDs to include. The caller must have access to every resource."""
+
+    display_type: typing.Optional[ClassificationBannerDisplayType] = pydantic.Field(alias=str("displayType"), default=None)  # type: ignore[literal-required]
+    """The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs"""
+
+
 class GetGroupsBatchRequestElement(core.ModelBase):
     """GetGroupsBatchRequestElement"""
 
@@ -998,6 +1008,7 @@ __all__ = [
     "Enrollment",
     "EnrollmentName",
     "EnrollmentRoleAssignment",
+    "GetForResourcesRequest",
     "GetGroupsBatchRequestElement",
     "GetGroupsBatchResponse",
     "GetMarkingsBatchRequestElement",

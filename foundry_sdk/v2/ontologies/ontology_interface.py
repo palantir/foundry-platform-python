@@ -320,6 +320,7 @@ class OntologyInterfaceClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -358,6 +359,8 @@ class OntologyInterfaceClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -383,6 +386,7 @@ class OntologyInterfaceClient:
                 query_params={
                     "branch": branch,
                     "excludeRid": exclude_rid,
+                    "loadOntologyDefinedDerivedProperties": load_ontology_defined_derived_properties,
                     "orderBy": order_by,
                     "pageSize": page_size,
                     "pageToken": page_token,
@@ -1055,6 +1059,7 @@ class AsyncOntologyInterfaceClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        load_ontology_defined_derived_properties: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -1093,6 +1098,8 @@ class AsyncOntologyInterfaceClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -1118,6 +1125,7 @@ class AsyncOntologyInterfaceClient:
                 query_params={
                     "branch": branch,
                     "excludeRid": exclude_rid,
+                    "loadOntologyDefinedDerivedProperties": load_ontology_defined_derived_properties,
                     "orderBy": order_by,
                     "pageSize": page_size,
                     "pageToken": page_token,
