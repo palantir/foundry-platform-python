@@ -227,6 +227,13 @@
         "parquetExperimentSeries",
         "parquetExperimentArtifactTable"
       ]
+    },
+    "v3": {
+      "namespaces": {
+        "Core": true,
+        "Endpoints": true,
+        "Orchestrator": true
+      }
     }
   },
   "optionalLists": [

@@ -42,6 +42,9 @@ from foundry_sdk.v2.third_party_applications import (
     models as models_third_party_applications_v2,
 )  # NOQA
 from foundry_sdk.v2.widgets import models as models_widgets_v2
+from foundry_sdk.v3.core import models as models_core_v3
+from foundry_sdk.v3.endpoints import models as models_endpoints_v3
+from foundry_sdk.v3.orchestrator import models as models_orchestrator_v3
 
 
 def test_can_validate_types():
@@ -78,6 +81,9 @@ def test_can_validate_types():
             for model_name in dir(models_third_party_applications_v2)
         ],
         *[(models_widgets_v2, model_name) for model_name in dir(models_widgets_v2)],
+        *[(models_core_v3, model_name) for model_name in dir(models_core_v3)],
+        *[(models_endpoints_v3, model_name) for model_name in dir(models_endpoints_v3)],
+        *[(models_orchestrator_v3, model_name) for model_name in dir(models_orchestrator_v3)],
     ]:
         klass = getattr(models, model_name)
 
