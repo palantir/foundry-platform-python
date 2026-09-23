@@ -13,14 +13,15 @@
 #  limitations under the License.
 
 
-from typing import Generic, List, Optional, TypeVar
+from typing import Generic
+from typing import List
+from typing import Optional
+from typing import TypeVar
 
-from foundry_sdk._core.page_iterator import (
-    AsyncPageFunction,
-    AsyncPageIterator,
-    PageFunction,
-    PageIterator,
-)
+from foundry_sdk._core.page_iterator import AsyncPageFunction
+from foundry_sdk._core.page_iterator import AsyncPageIterator
+from foundry_sdk._core.page_iterator import PageFunction
+from foundry_sdk._core.page_iterator import PageIterator
 
 T = TypeVar("T")
 

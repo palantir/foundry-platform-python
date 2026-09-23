@@ -17,32 +17,28 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from typing import (
-    Any,
-    AsyncIterator,
-    Awaitable,
-    Generic,
-    Iterator,
-    Optional,
-    Type,
-    TypeVar,
-)
+from typing import Any
+from typing import AsyncIterator
+from typing import Awaitable
+from typing import Generic
+from typing import Iterator
+from typing import Optional
+from typing import Type
+from typing import TypeVar
 
 import httpx
 import pydantic
-from httpx_sse import EventSource, ServerSentEvent, SSEError
+from httpx_sse import EventSource
+from httpx_sse import ServerSentEvent
+from httpx_sse import SSEError
 
-from foundry_sdk._core.api_client import (
-    ApiResponse,
-    AsyncApiResponse,
-    RequestInfo,
-    _decode_value,
-)
-from foundry_sdk._errors import (
-    SseContentTypeError,
-    SseEventDecodeError,
-    StreamConsumedError,
-)
+from foundry_sdk._core.api_client import ApiResponse
+from foundry_sdk._core.api_client import AsyncApiResponse
+from foundry_sdk._core.api_client import RequestInfo
+from foundry_sdk._core.api_client import _decode_value
+from foundry_sdk._errors import SseContentTypeError
+from foundry_sdk._errors import SseEventDecodeError
+from foundry_sdk._errors import StreamConsumedError
 
 T = TypeVar("T")
 

@@ -13,7 +13,8 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.widgets._client import AsyncWidgetsClient, WidgetsClient
+from foundry_sdk.v2.widgets._client import AsyncWidgetsClient
+from foundry_sdk.v2.widgets._client import WidgetsClient
 
 __all__ = [
     "WidgetsClient",

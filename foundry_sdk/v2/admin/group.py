@@ -81,7 +81,7 @@ class GroupClient:
     def MembershipExpirationPolicy(self):
         from foundry_sdk.v2.admin.group_membership_expiration_policy import (
             GroupMembershipExpirationPolicyClient,
-        )
+        )  # NOQA
 
         return GroupMembershipExpirationPolicyClient(
             auth=self._auth,
@@ -573,9 +573,7 @@ class AsyncGroupClient:
 
     @cached_property
     def ProviderInfo(self):
-        from foundry_sdk.v2.admin.group_provider_info import (
-            AsyncGroupProviderInfoClient,
-        )
+        from foundry_sdk.v2.admin.group_provider_info import AsyncGroupProviderInfoClient  # NOQA
 
         return AsyncGroupProviderInfoClient(
             auth=self._auth,
@@ -597,7 +595,7 @@ class AsyncGroupClient:
     def MembershipExpirationPolicy(self):
         from foundry_sdk.v2.admin.group_membership_expiration_policy import (
             AsyncGroupMembershipExpirationPolicyClient,
-        )
+        )  # NOQA
 
         return AsyncGroupMembershipExpirationPolicyClient(
             auth=self._auth,

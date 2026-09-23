@@ -56,7 +56,7 @@ class ProcessExecutionClient:
     def Signal(self):
         from foundry_sdk.v3.orchestrator.process_execution_signal import (
             ProcessExecutionSignalClient,
-        )
+        )  # NOQA
 
         return ProcessExecutionSignalClient(
             auth=self._auth,
@@ -108,7 +108,7 @@ class AsyncProcessExecutionClient:
     def Signal(self):
         from foundry_sdk.v3.orchestrator.process_execution_signal import (
             AsyncProcessExecutionSignalClient,
-        )
+        )  # NOQA
 
         return AsyncProcessExecutionSignalClient(
             auth=self._auth,

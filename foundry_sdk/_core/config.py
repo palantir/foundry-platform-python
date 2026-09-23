@@ -14,7 +14,11 @@
 
 
 from dataclasses import dataclass
-from typing import Any, Dict, Literal, Optional, Union
+from typing import Any
+from typing import Dict
+from typing import Literal
+from typing import Optional
+from typing import Union
 
 
 @dataclass
