@@ -13,7 +13,8 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.admin._client import AdminClient, AsyncAdminClient
+from foundry_sdk.v2.admin._client import AdminClient
+from foundry_sdk.v2.admin._client import AsyncAdminClient
 
 __all__ = [
     "AdminClient",

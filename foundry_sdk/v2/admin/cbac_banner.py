@@ -111,19 +111,82 @@ class CbacBannerClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_for_resources(
+        self,
+        *,
+        resource_rids: typing.List[core.RID],
+        display_type: typing.Optional[admin_models.ClassificationBannerDisplayType] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.CbacBanner:
+        """
+        Returns a combined CBAC banner for the requested resources.
+        :param resource_rids: Resource RIDs to include. The caller must have access to every resource.
+        :type resource_rids: List[RID]
+        :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
+        :type display_type: Optional[ClassificationBannerDisplayType]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.CbacBanner
+
+        :raises CbacUnavailable: CBAC is not available.
+        :raises GetForResourcesPermissionDenied: Could not getForResources the CbacBanner.
+        :raises UnknownClassificationBannerDisplayType: The provided classification banner display type is not recognized.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/cbacBanner/getForResources",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.GetForResourcesRequest(
+                    resource_rids=resource_rids,
+                    display_type=display_type,
+                ),
+                response_type=admin_models.CbacBanner,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CbacUnavailable": admin_errors.CbacUnavailable,
+                    "GetForResourcesPermissionDenied": admin_errors.GetForResourcesPermissionDenied,
+                    "UnknownClassificationBannerDisplayType": admin_errors.UnknownClassificationBannerDisplayType,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _CbacBannerClientRaw:
     def __init__(self, client: CbacBannerClient) -> None:
         def get(_: admin_models.CbacBanner): ...
+        def get_for_resources(_: admin_models.CbacBanner): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.get_for_resources = core.with_raw_response(get_for_resources, client.get_for_resources)
 
 
 class _CbacBannerClientStreaming:
     def __init__(self, client: CbacBannerClient) -> None:
         def get(_: admin_models.CbacBanner): ...
+        def get_for_resources(_: admin_models.CbacBanner): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.get_for_resources = core.with_streaming_response(
+            get_for_resources, client.get_for_resources
+        )
 
 
 class AsyncCbacBannerClient:
@@ -212,16 +275,81 @@ class AsyncCbacBannerClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_for_resources(
+        self,
+        *,
+        resource_rids: typing.List[core.RID],
+        display_type: typing.Optional[admin_models.ClassificationBannerDisplayType] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.CbacBanner]:
+        """
+        Returns a combined CBAC banner for the requested resources.
+        :param resource_rids: Resource RIDs to include. The caller must have access to every resource.
+        :type resource_rids: List[RID]
+        :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
+        :type display_type: Optional[ClassificationBannerDisplayType]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.CbacBanner]
+
+        :raises CbacUnavailable: CBAC is not available.
+        :raises GetForResourcesPermissionDenied: Could not getForResources the CbacBanner.
+        :raises UnknownClassificationBannerDisplayType: The provided classification banner display type is not recognized.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/cbacBanner/getForResources",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.GetForResourcesRequest(
+                    resource_rids=resource_rids,
+                    display_type=display_type,
+                ),
+                response_type=admin_models.CbacBanner,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CbacUnavailable": admin_errors.CbacUnavailable,
+                    "GetForResourcesPermissionDenied": admin_errors.GetForResourcesPermissionDenied,
+                    "UnknownClassificationBannerDisplayType": admin_errors.UnknownClassificationBannerDisplayType,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncCbacBannerClientRaw:
     def __init__(self, client: AsyncCbacBannerClient) -> None:
         def get(_: admin_models.CbacBanner): ...
+        def get_for_resources(_: admin_models.CbacBanner): ...
 
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_for_resources = core.async_with_raw_response(
+            get_for_resources, client.get_for_resources
+        )
 
 
 class _AsyncCbacBannerClientStreaming:
     def __init__(self, client: AsyncCbacBannerClient) -> None:
         def get(_: admin_models.CbacBanner): ...
+        def get_for_resources(_: admin_models.CbacBanner): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_for_resources = core.async_with_streaming_response(
+            get_for_resources, client.get_for_resources
+        )

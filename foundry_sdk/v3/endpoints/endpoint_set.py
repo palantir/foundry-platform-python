@@ -56,9 +56,7 @@ class EndpointSetClient:
 
     @cached_property
     def Endpoint(self):
-        from foundry_sdk.v3.endpoints.endpoint_set_endpoint import (
-            EndpointSetEndpointClient,
-        )
+        from foundry_sdk.v3.endpoints.endpoint_set_endpoint import EndpointSetEndpointClient  # NOQA
 
         return EndpointSetEndpointClient(
             auth=self._auth,
@@ -68,9 +66,7 @@ class EndpointSetClient:
 
     @cached_property
     def Version(self):
-        from foundry_sdk.v3.endpoints.endpoint_set_version import (
-            EndpointSetVersionClient,
-        )
+        from foundry_sdk.v3.endpoints.endpoint_set_version import EndpointSetVersionClient  # NOQA
 
         return EndpointSetVersionClient(
             auth=self._auth,
@@ -169,7 +165,7 @@ class AsyncEndpointSetClient:
     def Endpoint(self):
         from foundry_sdk.v3.endpoints.endpoint_set_endpoint import (
             AsyncEndpointSetEndpointClient,
-        )
+        )  # NOQA
 
         return AsyncEndpointSetEndpointClient(
             auth=self._auth,
@@ -181,7 +177,7 @@ class AsyncEndpointSetClient:
     def Version(self):
         from foundry_sdk.v3.endpoints.endpoint_set_version import (
             AsyncEndpointSetVersionClient,
-        )
+        )  # NOQA
 
         return AsyncEndpointSetVersionClient(
             auth=self._auth,

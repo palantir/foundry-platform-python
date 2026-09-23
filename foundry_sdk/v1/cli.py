@@ -25,7 +25,8 @@ from datetime import datetime
 
 import click
 
-from foundry_sdk import EnvironmentNotConfigured, UserTokenAuth
+from foundry_sdk import EnvironmentNotConfigured
+from foundry_sdk import UserTokenAuth
 from foundry_sdk.v1 import FoundryClient
 
 

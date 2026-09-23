@@ -14,7 +14,8 @@
 
 
 import json
-from typing import Any, Dict
+from typing import Any
+from typing import Dict
 
 from foundry_sdk._errors.palantir_exception import PalantirException
 

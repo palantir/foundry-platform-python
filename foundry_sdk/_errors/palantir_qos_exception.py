@@ -15,7 +15,8 @@
 
 from collections.abc import Mapping
 from enum import Enum
-from typing import Final, Optional
+from typing import Final
+from typing import Optional
 
 from foundry_sdk._errors.palantir_exception import PalantirException
 

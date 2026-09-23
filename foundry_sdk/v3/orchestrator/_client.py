@@ -71,7 +71,7 @@ class AsyncOrchestratorClient:
     ):
         from foundry_sdk.v3.orchestrator.process_execution import (
             AsyncProcessExecutionClient,
-        )
+        )  # NOQA
 
         self.ProcessExecution = AsyncProcessExecutionClient(
             auth=auth, hostname=hostname, config=config

@@ -69,9 +69,7 @@ class MarkingClient:
 
     @cached_property
     def MarkingRoleAssignment(self):
-        from foundry_sdk.v2.admin.marking_role_assignment import (
-            MarkingRoleAssignmentClient,
-        )
+        from foundry_sdk.v2.admin.marking_role_assignment import MarkingRoleAssignmentClient  # NOQA
 
         return MarkingRoleAssignmentClient(
             auth=self._auth,
@@ -482,7 +480,7 @@ class AsyncMarkingClient:
     def MarkingRoleAssignment(self):
         from foundry_sdk.v2.admin.marking_role_assignment import (
             AsyncMarkingRoleAssignmentClient,
-        )
+        )  # NOQA
 
         return AsyncMarkingRoleAssignmentClient(
             auth=self._auth,

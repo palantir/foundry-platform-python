@@ -13,7 +13,8 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.media_sets._client import AsyncMediaSetsClient, MediaSetsClient
+from foundry_sdk.v2.media_sets._client import AsyncMediaSetsClient
+from foundry_sdk.v2.media_sets._client import MediaSetsClient
 
 __all__ = [
     "MediaSetsClient",

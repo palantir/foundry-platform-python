@@ -86,9 +86,7 @@ def test_ontologies_v1_query_type_import():
 
 
 def test_admin_v2_authentication_provider_import():
-    from foundry_sdk.v2.admin.authentication_provider import (
-        AuthenticationProviderClient,
-    )
+    from foundry_sdk.v2.admin.authentication_provider import AuthenticationProviderClient  # NOQA
 
     assert AuthenticationProviderClient is not None
 
@@ -100,9 +98,7 @@ def test_admin_v2_cbac_banner_import():
 
 
 def test_admin_v2_cbac_marking_restrictions_import():
-    from foundry_sdk.v2.admin.cbac_marking_restrictions import (
-        CbacMarkingRestrictionsClient,
-    )
+    from foundry_sdk.v2.admin.cbac_marking_restrictions import CbacMarkingRestrictionsClient  # NOQA
 
     assert CbacMarkingRestrictionsClient is not None
 
@@ -116,7 +112,7 @@ def test_admin_v2_enrollment_import():
 def test_admin_v2_enrollment_role_assignment_import():
     from foundry_sdk.v2.admin.enrollment_role_assignment import (
         EnrollmentRoleAssignmentClient,
-    )
+    )  # NOQA
 
     assert EnrollmentRoleAssignmentClient is not None
 
@@ -142,7 +138,7 @@ def test_admin_v2_group_membership_import():
 def test_admin_v2_group_membership_expiration_policy_import():
     from foundry_sdk.v2.admin.group_membership_expiration_policy import (
         GroupMembershipExpirationPolicyClient,
-    )
+    )  # NOQA
 
     assert GroupMembershipExpirationPolicyClient is not None
 
@@ -174,7 +170,7 @@ def test_admin_v2_marking_category_import():
 def test_admin_v2_marking_category_permissions_import():
     from foundry_sdk.v2.admin.marking_category_permissions import (
         MarkingCategoryPermissionsClient,
-    )
+    )  # NOQA
 
     assert MarkingCategoryPermissionsClient is not None
 
@@ -198,9 +194,7 @@ def test_admin_v2_organization_import():
 
 
 def test_admin_v2_organization_guest_member_import():
-    from foundry_sdk.v2.admin.organization_guest_member import (
-        OrganizationGuestMemberClient,
-    )
+    from foundry_sdk.v2.admin.organization_guest_member import OrganizationGuestMemberClient  # NOQA
 
     assert OrganizationGuestMemberClient is not None
 
@@ -208,7 +202,7 @@ def test_admin_v2_organization_guest_member_import():
 def test_admin_v2_organization_role_assignment_import():
     from foundry_sdk.v2.admin.organization_role_assignment import (
         OrganizationRoleAssignmentClient,
-    )
+    )  # NOQA
 
     assert OrganizationRoleAssignmentClient is not None
 
@@ -360,7 +354,7 @@ def test_filesystem_v2_project_import():
 def test_filesystem_v2_project_resource_reference_import():
     from foundry_sdk.v2.filesystem.project_resource_reference import (
         ProjectResourceReferenceClient,
-    )
+    )  # NOQA
 
     assert ProjectResourceReferenceClient is not None
 
@@ -440,7 +434,7 @@ def test_models_v2_experiment_import():
 def test_models_v2_experiment_artifact_table_import():
     from foundry_sdk.v2.models.experiment_artifact_table import (
         ExperimentArtifactTableClient,
-    )
+    )  # NOQA
 
     assert ExperimentArtifactTableClient is not None
 
@@ -478,7 +472,7 @@ def test_models_v2_model_studio_import():
 def test_models_v2_model_studio_config_version_import():
     from foundry_sdk.v2.models.model_studio_config_version import (
         ModelStudioConfigVersionClient,
-    )
+    )  # NOQA
 
     assert ModelStudioConfigVersionClient is not None
 
@@ -516,7 +510,7 @@ def test_ontologies_v2_action_type_import():
 def test_ontologies_v2_action_type_full_metadata_import():
     from foundry_sdk.v2.ontologies.action_type_full_metadata import (
         ActionTypeFullMetadataClient,
-    )
+    )  # NOQA
 
     assert ActionTypeFullMetadataClient is not None
 
@@ -542,7 +536,7 @@ def test_ontologies_v2_cipher_text_property_import():
 def test_ontologies_v2_geotemporal_series_property_import():
     from foundry_sdk.v2.ontologies.geotemporal_series_property import (
         GeotemporalSeriesPropertyClient,
-    )
+    )  # NOQA
 
     assert GeotemporalSeriesPropertyClient is not None
 
@@ -556,7 +550,7 @@ def test_ontologies_v2_linked_object_import():
 def test_ontologies_v2_media_reference_property_import():
     from foundry_sdk.v2.ontologies.media_reference_property import (
         MediaReferencePropertyClient,
-    )
+    )  # NOQA
 
     assert MediaReferencePropertyClient is not None
 
@@ -622,9 +616,7 @@ def test_ontologies_v2_query_type_import():
 
 
 def test_ontologies_v2_time_series_property_v2_import():
-    from foundry_sdk.v2.ontologies.time_series_property_v2 import (
-        TimeSeriesPropertyV2Client,
-    )
+    from foundry_sdk.v2.ontologies.time_series_property_v2 import TimeSeriesPropertyV2Client  # NOQA
 
     assert TimeSeriesPropertyV2Client is not None
 
@@ -632,7 +624,7 @@ def test_ontologies_v2_time_series_property_v2_import():
 def test_ontologies_v2_time_series_value_bank_property_import():
     from foundry_sdk.v2.ontologies.time_series_value_bank_property import (
         TimeSeriesValueBankPropertyClient,
-    )
+    )  # NOQA
 
     assert TimeSeriesValueBankPropertyClient is not None
 
@@ -694,7 +686,7 @@ def test_streams_v2_subscriber_import():
 def test_third_party_applications_v2_third_party_application_import():
     from foundry_sdk.v2.third_party_applications.third_party_application import (
         ThirdPartyApplicationClient,
-    )
+    )  # NOQA
 
     assert ThirdPartyApplicationClient is not None
 
@@ -768,6 +760,6 @@ def test_orchestrator_v3_process_execution_import():
 def test_orchestrator_v3_process_execution_signal_import():
     from foundry_sdk.v3.orchestrator.process_execution_signal import (
         ProcessExecutionSignalClient,
-    )
+    )  # NOQA
 
     assert ProcessExecutionSignalClient is not None

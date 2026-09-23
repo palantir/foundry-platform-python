@@ -13,7 +13,8 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v2.filesystem._client import AsyncFilesystemClient, FilesystemClient
+from foundry_sdk.v2.filesystem._client import AsyncFilesystemClient
+from foundry_sdk.v2.filesystem._client import FilesystemClient
 
 __all__ = [
     "FilesystemClient",

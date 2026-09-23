@@ -14,6 +14,7 @@ Details about some property of an object.
 **value_type_api_name** | Optional[ValueTypeApiName] | No |  |
 **value_formatting** | Optional[PropertyValueFormattingRule] | No |  |
 **type_classes** | Optional[List[TypeClass]] | No |  |
+**data_constraints** | Optional[PropertyTypeDataConstraints] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

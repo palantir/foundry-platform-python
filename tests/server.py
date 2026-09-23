@@ -14,11 +14,15 @@
 
 
 import time
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
-from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi import APIRouter
+from fastapi import FastAPI
+from fastapi import HTTPException
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from pydantic import Field
 
 app = FastAPI()
 router = APIRouter()

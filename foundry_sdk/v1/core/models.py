@@ -138,7 +138,7 @@ FolderRid: typing_extensions.TypeAlias = core.RID
 
 
 FoundryBranch: typing_extensions.TypeAlias = str
-"""The Foundry branch identifier, specifically its rid. Different identifier types may be used in the future as values."""
+"""The global Foundry branch, specified as either its rid or its dataset branch identifier."""
 
 
 class IntegerType(core.ModelBase):

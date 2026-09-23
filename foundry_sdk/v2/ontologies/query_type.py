@@ -62,6 +62,7 @@ class QueryTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         query_api_name: ontologies_models.QueryApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
@@ -75,6 +76,8 @@ class QueryTypeClient:
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
+        :param branch: The Foundry branch to load Query metadata from. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -92,6 +95,7 @@ class QueryTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "version": version,
@@ -295,6 +299,7 @@ class AsyncQueryTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         query_api_name: ontologies_models.QueryApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
@@ -308,6 +313,8 @@ class AsyncQueryTypeClient:
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
+        :param branch: The Foundry branch to load Query metadata from. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -325,6 +332,7 @@ class AsyncQueryTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "version": version,

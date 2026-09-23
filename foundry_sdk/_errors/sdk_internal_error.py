@@ -15,7 +15,9 @@
 
 import functools
 import sys
-from typing import Any, Callable, TypeVar
+from typing import Any
+from typing import Callable
+from typing import TypeVar
 
 import pydantic
 from httpx import __version__ as __httpx_version__

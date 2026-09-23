@@ -13,7 +13,8 @@
 #  limitations under the License.
 
 
-from foundry_sdk.v3.endpoints._client import AsyncEndpointsClient, EndpointsClient
+from foundry_sdk.v3.endpoints._client import AsyncEndpointsClient
+from foundry_sdk.v3.endpoints._client import EndpointsClient
 
 __all__ = [
     "EndpointsClient",

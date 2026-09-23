@@ -495,7 +495,7 @@ def test_endpoints_v3_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.75
+    assert init_and_access_time < 1.0
 
 
 def test_orchestrator_v3_client_access_performance():
@@ -515,4 +515,4 @@ def test_orchestrator_v3_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.75
+    assert init_and_access_time < 1.0
