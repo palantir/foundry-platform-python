@@ -8,6 +8,7 @@ The specific type of GPU hardware to use.
 | `"A10G"` |
 | `"A16"` |
 | `"B200"` |
+| `"B300"` |
 | `"H100"` |
 | `"H200"` |
 | `"L4"` |
