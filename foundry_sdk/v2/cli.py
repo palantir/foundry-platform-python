@@ -7118,6 +7118,50 @@ def media_sets_media_set_op_retrieve(
     click.echo(result)
 
 
+@media_sets_media_set.command("tile")
+@click.argument("media_set_rid", type=str, required=True)
+@click.argument("media_item_rid", type=str, required=True)
+@click.argument("z", type=int, required=True)
+@click.argument("x", type=int, required=True)
+@click.argument("y", type=int, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
+@click.pass_obj
+def media_sets_media_set_op_tile(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_rid: str,
+    z: int,
+    x: int,
+    y: int,
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
+):
+    """
+    Gets a PNG map tile for a media item. Only PNG tiles are currently supported.
+    Returns `204 No Content` for a blank tile.
+    Returns `400 Bad Request` when the tile path or coordinates are invalid or the tile transformation is unavailable.
+    Returns `404 Not Found` when the requested media set or media item does not exist.
+
+    """
+    result = client.media_sets.MediaSet.tile(
+        media_set_rid=media_set_rid,
+        media_item_rid=media_item_rid,
+        z=z,
+        x=x,
+        y=y,
+        preview=preview,
+        read_token=read_token,
+    )
+    click.echo(repr(result))
+
+
 @media_sets_media_set.command("transform")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
@@ -11369,6 +11413,7 @@ def ontologies_ontology_op_load_metadata(
 ):
     """
     Load Ontology metadata for the requested object, link, action, query, and interface types.
+    Requested object types include the backing datasources that the user has access to see.
 
     """
     result = client.ontologies.Ontology.load_metadata(

@@ -165,6 +165,7 @@ See [README](../../../README.md#authorization)
 
 # **load_metadata**
 Load Ontology metadata for the requested object, link, action, query, and interface types.
+Requested object types include the backing datasources that the user has access to see.
 
 
 ### Parameters

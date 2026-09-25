@@ -87,6 +87,23 @@ class InvalidMediaItemSchema(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidTilePathParameters(typing_extensions.TypedDict):
+    """The tile path is invalid. The zoom level, column, and row must be valid tile coordinates."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    zoom: int
+    xCoordinate: int
+    yCoordinate: int
+
+
+@dataclass
+class InvalidTilePath(errors.BadRequestError):
+    name: typing.Literal["InvalidTilePath"]
+    parameters: InvalidTilePathParameters
+    error_instance_id: str
+
+
 class MediaItemHasUnsupportedSecuritySettingsParameters(typing_extensions.TypedDict):
     """The file cannot be read because it contains unsupported security settings (for example, public-key security handlers in a PDF)."""
 
@@ -550,6 +567,7 @@ __all__ = [
     "GetMediaItemRidByPathPermissionDenied",
     "InvalidMediaItemRid",
     "InvalidMediaItemSchema",
+    "InvalidTilePath",
     "MediaItemHasUnsupportedSecuritySettings",
     "MediaItemImageUnparsable",
     "MediaItemIsPasswordProtected",

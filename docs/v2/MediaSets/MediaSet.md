@@ -18,6 +18,7 @@ Method | HTTP request | Release Stage |
 [**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
 [**register**](#register) | **POST** /v2/mediasets/{mediaSetRid}/items/register | Public Beta |
 [**retrieve**](#retrieve) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve | Private Beta |
+[**tile**](#tile) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/tiles/{z}/{x}/{y} | Private Beta |
 [**transform**](#transform) | **POST** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform | Public Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
 [**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Stable |
@@ -990,6 +991,77 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | bytes  | Retrieves the thumbnail of an image (if available).  | */* |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **tile**
+Gets a PNG map tile for a media item. Only PNG tiles are currently supported.
+Returns `204 No Content` for a blank tile.
+Returns `400 Bad Request` when the tile path or coordinates are invalid or the tile transformation is unavailable.
+Returns `404 Not Found` when the requested media set or media item does not exist.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**z** | int | The tile zoom level. |  |
+**x** | int | The tile column. |  |
+**y** | int | The tile row. |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**read_token** | Optional[MediaItemReadToken] |  | [optional] |
+
+### Return type
+**Optional[bytes]**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemRid | The RID of the media item.
+media_item_rid = None
+# int | The tile zoom level.
+z = None
+# int | The tile column.
+x = None
+# int | The tile row.
+y = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaItemReadToken]
+read_token = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.tile(
+        media_set_rid, media_item_rid, z, x, y, preview=preview, read_token=read_token
+    )
+    print("The tile response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.tile: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Optional[bytes]  | The PNG tile. | */* |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

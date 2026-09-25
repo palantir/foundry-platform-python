@@ -4105,9 +4105,9 @@ class ObjectTypeV2(core.ModelBase):
 
     datasources: typing.Optional[typing.List[ObjectTypeDatasource]] = None
     """
-    The datasources backing this object type which the user has access to see. Only populated when the request
-    specifies `includeDatasources=true`. This list may be empty if the user doesn't have access to any
-    datasources.
+    The datasources backing this object type which the user has access to see. This field is populated by the
+    `loadOntologyMetadata` endpoint and when other requests specify `includeDatasources=true`. This list may be
+    empty if the user doesn't have access to any datasources.
     """
 
 
