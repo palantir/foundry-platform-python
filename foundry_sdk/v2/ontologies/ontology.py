@@ -234,6 +234,7 @@ class OntologyClient:
     ) -> ontologies_models.OntologyFullMetadata:
         """
         Load Ontology metadata for the requested object, link, action, query, and interface types.
+        Requested object types include the backing datasources that the user has access to see.
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -527,6 +528,7 @@ class AsyncOntologyClient:
     ) -> typing.Awaitable[ontologies_models.OntologyFullMetadata]:
         """
         Load Ontology metadata for the requested object, link, action, query, and interface types.
+        Requested object types include the backing datasources that the user has access to see.
 
         :param ontology:
         :type ontology: OntologyIdentifier

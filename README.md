@@ -2150,6 +2150,7 @@ Namespace | Name | Import |
 **MediaSets** | [PngFormat](docs/v2/MediaSets/models/PngFormat.md) | `from foundry_sdk.v2.media_sets.models import PngFormat` |
 **MediaSets** | [Pttml](docs/v2/MediaSets/models/Pttml.md) | `from foundry_sdk.v2.media_sets.models import Pttml` |
 **MediaSets** | [PutMediaItemResponse](docs/v2/MediaSets/models/PutMediaItemResponse.md) | `from foundry_sdk.v2.media_sets.models import PutMediaItemResponse` |
+**MediaSets** | [RegisteredModelRidLocatorWrapper](docs/v2/MediaSets/models/RegisteredModelRidLocatorWrapper.md) | `from foundry_sdk.v2.media_sets.models import RegisteredModelRidLocatorWrapper` |
 **MediaSets** | [RegisterMediaItemRequest](docs/v2/MediaSets/models/RegisterMediaItemRequest.md) | `from foundry_sdk.v2.media_sets.models import RegisterMediaItemRequest` |
 **MediaSets** | [RegisterMediaItemResponse](docs/v2/MediaSets/models/RegisterMediaItemResponse.md) | `from foundry_sdk.v2.media_sets.models import RegisterMediaItemResponse` |
 **MediaSets** | [RenderImageLayerOperation](docs/v2/MediaSets/models/RenderImageLayerOperation.md) | `from foundry_sdk.v2.media_sets.models import RenderImageLayerOperation` |
@@ -3925,6 +3926,7 @@ Namespace | Name | Import |
 **MediaSets** | GetMediaItemRidByPathPermissionDenied | `from foundry_sdk.v2.media_sets.errors import GetMediaItemRidByPathPermissionDenied` |
 **MediaSets** | InvalidMediaItemRid | `from foundry_sdk.v2.media_sets.errors import InvalidMediaItemRid` |
 **MediaSets** | InvalidMediaItemSchema | `from foundry_sdk.v2.media_sets.errors import InvalidMediaItemSchema` |
+**MediaSets** | InvalidTilePath | `from foundry_sdk.v2.media_sets.errors import InvalidTilePath` |
 **MediaSets** | MediaItemHasUnsupportedSecuritySettings | `from foundry_sdk.v2.media_sets.errors import MediaItemHasUnsupportedSecuritySettings` |
 **MediaSets** | MediaItemImageUnparsable | `from foundry_sdk.v2.media_sets.errors import MediaItemImageUnparsable` |
 **MediaSets** | MediaItemIsPasswordProtected | `from foundry_sdk.v2.media_sets.errors import MediaItemIsPasswordProtected` |

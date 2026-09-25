@@ -1149,6 +1149,13 @@ class JpgFormat(core.ModelBase):
     type: typing.Literal["jpg"] = "jpg"
 
 
+LanguageModelLocator: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["ApiNameLocatorWrapper", "RegisteredModelRidLocatorWrapper"],
+    pydantic.Field(discriminator="type"),
+]
+"""Locator for identifying a language model."""
+
+
 class LayoutAwareExtractionParameters(core.ModelBase):
     """Parameters for layout-aware content extraction."""
 
@@ -1725,6 +1732,15 @@ class RegisterMediaItemResponse(core.ModelBase):
 
     media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
     media_type: core_models.MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
+
+
+class RegisteredModelRidLocatorWrapper(core.ModelBase):
+    """Locator that identifies an LMS registered model by its resource identifier."""
+
+    registered_model_rid: core.RID = pydantic.Field(alias=str("registeredModelRid"))  # type: ignore[literal-required]
+    """The resource identifier of the registered language model."""
+
+    type: typing.Literal["registeredModelRid"] = "registeredModelRid"
 
 
 class RenderImageLayerOperation(core.ModelBase):
@@ -2471,10 +2487,6 @@ ImageToEmbeddingOperation: typing_extensions.TypeAlias = GenerateEmbeddingOperat
 """The operation to perform for image to embedding conversion."""
 
 
-LanguageModelLocator: typing_extensions.TypeAlias = ApiNameLocatorWrapper
-"""Locator for identifying a language model."""
-
-
 LlmSpec: typing_extensions.TypeAlias = ChatLlmSpecWrapper
 """Specification for language model requests."""
 
@@ -2668,6 +2680,7 @@ __all__ = [
     "PutMediaItemResponse",
     "RegisterMediaItemRequest",
     "RegisterMediaItemResponse",
+    "RegisteredModelRidLocatorWrapper",
     "RenderImageLayerOperation",
     "RenderPageOperation",
     "RenderPageToFitBoundingBoxOperation",
