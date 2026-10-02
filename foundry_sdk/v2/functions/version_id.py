@@ -45,7 +45,6 @@ class VersionIdClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class VersionIdClient:
     ) -> functions_models.VersionId:
         """
         Gets a specific version of a value type with the given RID and version ID.
+
+
+        Required scopes: [api:functions-read]
 
         :param value_type_rid:
         :type value_type_rid: ValueTypeRid
@@ -142,7 +144,6 @@ class AsyncVersionIdClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -165,6 +166,9 @@ class AsyncVersionIdClient:
     ) -> typing.Awaitable[functions_models.VersionId]:
         """
         Gets a specific version of a value type with the given RID and version ID.
+
+
+        Required scopes: [api:functions-read]
 
         :param value_type_rid:
         :type value_type_rid: ValueTypeRid

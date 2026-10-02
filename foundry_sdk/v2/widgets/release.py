@@ -45,7 +45,6 @@ class ReleaseClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class ReleaseClient:
     ) -> None:
         """
         Delete the Release with the specified version.
+
+        Required scopes: [api:widgets-write]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -118,6 +120,9 @@ class ReleaseClient:
     ) -> widgets_models.Release:
         """
         Get the Release with the specified version.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -173,6 +178,9 @@ class ReleaseClient:
         Lists all Releases.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param page_size: The page size to use for the endpoint.
@@ -251,7 +259,6 @@ class AsyncReleaseClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -274,6 +281,9 @@ class AsyncReleaseClient:
     ) -> typing.Awaitable[None]:
         """
         Delete the Release with the specified version.
+
+        Required scopes: [api:widgets-write]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -324,6 +334,9 @@ class AsyncReleaseClient:
     ) -> typing.Awaitable[widgets_models.Release]:
         """
         Get the Release with the specified version.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -379,6 +392,9 @@ class AsyncReleaseClient:
         Lists all Releases.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param page_size: The page size to use for the endpoint.

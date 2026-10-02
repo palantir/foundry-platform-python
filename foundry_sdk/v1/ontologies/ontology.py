@@ -44,7 +44,6 @@ class OntologyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -96,6 +95,9 @@ class OntologyClient:
         """
         Gets a specific ontology with the given Ontology RID.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -134,6 +136,9 @@ class OntologyClient:
     ) -> ontologies_models.ListOntologiesResponse:
         """
         Lists the Ontologies visible to the current user.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -197,7 +202,6 @@ class AsyncOntologyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -249,6 +253,9 @@ class AsyncOntologyClient:
         """
         Gets a specific ontology with the given Ontology RID.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -287,6 +294,9 @@ class AsyncOntologyClient:
     ) -> typing.Awaitable[ontologies_models.ListOntologiesResponse]:
         """
         Lists the Ontologies visible to the current user.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

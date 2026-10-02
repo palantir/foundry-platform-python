@@ -569,6 +569,16 @@ class Schedule(core.ModelBase):
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
 
 
+class ScheduleFailedTrigger(core.ModelBase):
+    """
+    Trigger whenever the specified schedule fails to complete its
+    action.
+    """
+
+    schedule_rid: core_models.ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
+    type: typing.Literal["scheduleFailed"] = "scheduleFailed"
+
+
 SchedulePaused: typing_extensions.TypeAlias = bool
 """SchedulePaused"""
 
@@ -834,6 +844,7 @@ Trigger: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "MediaSetUpdatedTrigger",
         "TimeTrigger",
         "ManualTrigger",
+        "ScheduleFailedTrigger",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -924,6 +935,7 @@ __all__ = [
     "RetryBackoffDuration",
     "RetryCount",
     "Schedule",
+    "ScheduleFailedTrigger",
     "SchedulePaused",
     "ScheduleRun",
     "ScheduleRunError",

@@ -45,7 +45,6 @@ class OrganizationGuestMemberClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class OrganizationGuestMemberClient:
     ) -> None:
         """
         Adds principals as guest members of an Organization. Attempting to add a primary member through this endpoint will not add the principal as a guest, but will still return a successful response.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -126,6 +128,9 @@ class OrganizationGuestMemberClient:
         """
         Lists all guest members of an Organization.
 
+
+        Required scopes: [api:admin-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param preview: Enables the use of preview functionality.
@@ -177,6 +182,9 @@ class OrganizationGuestMemberClient:
     ) -> None:
         """
         Removes principals from being guest members of an Organization. Attempting to remove a primary member through this endpoint will not remove the primary member, but will still return a successful response.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -260,7 +268,6 @@ class AsyncOrganizationGuestMemberClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -283,6 +290,9 @@ class AsyncOrganizationGuestMemberClient:
     ) -> typing.Awaitable[None]:
         """
         Adds principals as guest members of an Organization. Attempting to add a primary member through this endpoint will not add the principal as a guest, but will still return a successful response.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -341,6 +351,9 @@ class AsyncOrganizationGuestMemberClient:
         """
         Lists all guest members of an Organization.
 
+
+        Required scopes: [api:admin-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param preview: Enables the use of preview functionality.
@@ -392,6 +405,9 @@ class AsyncOrganizationGuestMemberClient:
     ) -> typing.Awaitable[None]:
         """
         Removes principals from being guest members of an Organization. Attempting to remove a primary member through this endpoint will not remove the primary member, but will still return a successful response.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid

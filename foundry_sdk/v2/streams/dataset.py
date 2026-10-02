@@ -50,7 +50,6 @@ class DatasetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -90,6 +89,9 @@ class DatasetClient:
         Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
         default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
         [streams](https://palantir.com/docs/foundry/data-integration/streams/) user documentation.
+
+
+        Required scopes: [api:streams-write]
 
         :param name:
         :type name: DatasetName
@@ -190,7 +192,6 @@ class AsyncDatasetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -230,6 +231,9 @@ class AsyncDatasetClient:
         Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
         default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
         [streams](https://palantir.com/docs/foundry/data-integration/streams/) user documentation.
+
+
+        Required scopes: [api:streams-write]
 
         :param name:
         :type name: DatasetName

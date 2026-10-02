@@ -46,6 +46,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:v3:endpoint-set-endpoint:read:get]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -99,6 +101,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:v3:endpoint-set-endpoint:read:list]
 
 See [README](../../../README.md#authorization)
 

@@ -44,7 +44,6 @@ class LinkedObjectClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -77,6 +76,9 @@ class LinkedObjectClient:
         Get a specific linked object that originates from another object.
 
         If there is no link between the two objects, `LinkedObjectNotFound` is thrown.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -173,6 +175,9 @@ class LinkedObjectClient:
         in the response.
 
         Note that null value properties will not be returned.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -286,7 +291,6 @@ class AsyncLinkedObjectClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -319,6 +323,9 @@ class AsyncLinkedObjectClient:
         Get a specific linked object that originates from another object.
 
         If there is no link between the two objects, `LinkedObjectNotFound` is thrown.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -415,6 +422,9 @@ class AsyncLinkedObjectClient:
         in the response.
 
         Note that null value properties will not be returned.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

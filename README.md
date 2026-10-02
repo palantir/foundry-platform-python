@@ -561,7 +561,7 @@ print(result.data)
 
 If you are using a static type checker (for example, [mypy](https://mypy-lang.org), [pyright](https://github.com/microsoft/pyright)), you
 get static type analysis for the arguments you provide to the function and with the response. For example, if you pass an `int`
-to `name` but `name` expects a string or if you try to access `branchName` on the returned [`Branch`](docs/Branch.md) object (the
+to `name` but `name` expects a string or if you try to access `branchName` on the returned [`Branch`](docs/v2/Datasets/models/Branch.md) object (the
 property is actually called `name`), you will get the following errors:
 
 
@@ -3117,6 +3117,7 @@ Namespace | Name | Import |
 **Orchestration** | [RetryBackoffDuration](docs/v2/Orchestration/models/RetryBackoffDuration.md) | `from foundry_sdk.v2.orchestration.models import RetryBackoffDuration` |
 **Orchestration** | [RetryCount](docs/v2/Orchestration/models/RetryCount.md) | `from foundry_sdk.v2.orchestration.models import RetryCount` |
 **Orchestration** | [Schedule](docs/v2/Orchestration/models/Schedule.md) | `from foundry_sdk.v2.orchestration.models import Schedule` |
+**Orchestration** | [ScheduleFailedTrigger](docs/v2/Orchestration/models/ScheduleFailedTrigger.md) | `from foundry_sdk.v2.orchestration.models import ScheduleFailedTrigger` |
 **Orchestration** | [SchedulePaused](docs/v2/Orchestration/models/SchedulePaused.md) | `from foundry_sdk.v2.orchestration.models import SchedulePaused` |
 **Orchestration** | [ScheduleRun](docs/v2/Orchestration/models/ScheduleRun.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRun` |
 **Orchestration** | [ScheduleRunError](docs/v2/Orchestration/models/ScheduleRunError.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRunError` |

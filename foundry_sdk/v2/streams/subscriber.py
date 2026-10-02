@@ -45,7 +45,6 @@ class SubscriberClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -76,6 +75,9 @@ class SubscriberClient:
 
         For example, if you processed a record at offset 50, commit `{"0": 50}` and the next
         read from partition "0" will start at offset 51.
+
+
+        Required scopes: [api:streams-write]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -150,6 +152,9 @@ class SubscriberClient:
         If a subscriber with the same ID already exists for this stream, the existing registration
         is returned. If a subscriber with the same ID exists for a different stream, an error is returned.
 
+
+        Required scopes: [api:streams-write]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param stream_branch_name:
@@ -215,6 +220,9 @@ class SubscriberClient:
         Delete a subscriber and all its committed offset state. After deletion, the subscriber ID
         can be reused to create a new subscriber.
 
+
+        Required scopes: [api:streams-write]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param stream_branch_name:
@@ -273,6 +281,9 @@ class SubscriberClient:
         """
         Get the current read position for a subscriber. Returns the offset per partition where the next read
         will begin.
+
+
+        Required scopes: [api:streams-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -348,6 +359,9 @@ class SubscriberClient:
         If `autoCommit` is false, you must call `commitOffsets` to update the read position.
         Use manual commits for at-least-once processing where you need to ensure records are
         processed before acknowledging them.
+
+
+        Required scopes: [api:streams-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -429,6 +443,9 @@ class SubscriberClient:
         - `earliest`: Reset to the beginning of each partition (offset 0)
         - `latest`: Reset to the current end of each partition
         - `specific`: Reset to explicit offsets for each partition
+
+
+        Required scopes: [api:streams-write]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -534,7 +551,6 @@ class AsyncSubscriberClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -565,6 +581,9 @@ class AsyncSubscriberClient:
 
         For example, if you processed a record at offset 50, commit `{"0": 50}` and the next
         read from partition "0" will start at offset 51.
+
+
+        Required scopes: [api:streams-write]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -639,6 +658,9 @@ class AsyncSubscriberClient:
         If a subscriber with the same ID already exists for this stream, the existing registration
         is returned. If a subscriber with the same ID exists for a different stream, an error is returned.
 
+
+        Required scopes: [api:streams-write]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param stream_branch_name:
@@ -704,6 +726,9 @@ class AsyncSubscriberClient:
         Delete a subscriber and all its committed offset state. After deletion, the subscriber ID
         can be reused to create a new subscriber.
 
+
+        Required scopes: [api:streams-write]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param stream_branch_name:
@@ -762,6 +787,9 @@ class AsyncSubscriberClient:
         """
         Get the current read position for a subscriber. Returns the offset per partition where the next read
         will begin.
+
+
+        Required scopes: [api:streams-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -837,6 +865,9 @@ class AsyncSubscriberClient:
         If `autoCommit` is false, you must call `commitOffsets` to update the read position.
         Use manual commits for at-least-once processing where you need to ensure records are
         processed before acknowledging them.
+
+
+        Required scopes: [api:streams-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -918,6 +949,9 @@ class AsyncSubscriberClient:
         - `earliest`: Reset to the beginning of each partition (offset 0)
         - `latest`: Reset to the current end of each partition
         - `specific`: Reset to explicit offsets for each partition
+
+
+        Required scopes: [api:streams-write]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid

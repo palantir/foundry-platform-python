@@ -48,7 +48,6 @@ class MarkingClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -93,6 +92,9 @@ class MarkingClient:
     ) -> admin_models.Marking:
         """
         Creates a new Marking.
+
+        Required scopes: [api:admin-write]
+
         :param category_id:
         :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
@@ -161,6 +163,9 @@ class MarkingClient:
     ) -> admin_models.Marking:
         """
         Get the Marking with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param request_timeout: timeout setting for this request in seconds.
@@ -211,6 +216,9 @@ class MarkingClient:
         Execute multiple get requests on Marking.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetMarkingsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -250,6 +258,9 @@ class MarkingClient:
     ) -> core.ResourceIterator[admin_models.Marking]:
         """
         Maximum page size 100.
+
+        Required scopes: [api:admin-read]
+
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -297,6 +308,9 @@ class MarkingClient:
     ) -> admin_models.ParseClassificationsResponse:
         """
         Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+
+        Required scopes: [api:admin-read]
+
         :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
         :param preview: Enables the use of preview functionality.
@@ -349,6 +363,9 @@ class MarkingClient:
     ) -> admin_models.Marking:
         """
         Replace the Marking with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param name:
@@ -457,7 +474,6 @@ class AsyncMarkingClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -504,6 +520,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.Marking]:
         """
         Creates a new Marking.
+
+        Required scopes: [api:admin-write]
+
         :param category_id:
         :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
@@ -572,6 +591,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.Marking]:
         """
         Get the Marking with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param request_timeout: timeout setting for this request in seconds.
@@ -622,6 +644,9 @@ class AsyncMarkingClient:
         Execute multiple get requests on Marking.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetMarkingsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -661,6 +686,9 @@ class AsyncMarkingClient:
     ) -> core.AsyncResourceIterator[admin_models.Marking]:
         """
         Maximum page size 100.
+
+        Required scopes: [api:admin-read]
+
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -708,6 +736,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.ParseClassificationsResponse]:
         """
         Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+
+        Required scopes: [api:admin-read]
+
         :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
         :param preview: Enables the use of preview functionality.
@@ -760,6 +791,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.Marking]:
         """
         Replace the Marking with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param name:

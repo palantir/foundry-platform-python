@@ -46,7 +46,6 @@ class ExperimentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -91,6 +90,9 @@ class ExperimentClient:
     ) -> models_models.Experiment:
         """
         Retrieve a single experiment with all metadata, parameters, series metadata, and summary metrics.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -151,6 +153,9 @@ class ExperimentClient:
         Search experiments using complex nested queries on experiment metadata, parameters, series,
         and summary metrics. Supports AND/OR/NOT combinations and various predicates.
         Returns a maximum of 100 results per page.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -242,7 +247,6 @@ class AsyncExperimentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -287,6 +291,9 @@ class AsyncExperimentClient:
     ) -> typing.Awaitable[models_models.Experiment]:
         """
         Retrieve a single experiment with all metadata, parameters, series metadata, and summary metrics.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -347,6 +354,9 @@ class AsyncExperimentClient:
         Search experiments using complex nested queries on experiment metadata, parameters, series,
         and summary metrics. Supports AND/OR/NOT combinations and various predicates.
         Returns a maximum of 100 results per page.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid

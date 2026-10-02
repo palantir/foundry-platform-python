@@ -45,7 +45,6 @@ class RepositoryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class RepositoryClient:
     ) -> widgets_models.Repository:
         """
         Get the Repository with the specified rid.
+
+        Required scopes: [api:widgets-read]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param preview: Enables the use of preview functionality.
@@ -117,6 +119,9 @@ class RepositoryClient:
     ) -> widgets_models.Release:
         """
         Publish a new release of a widget set.
+
+        Required scopes: [api:widgets-write]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param body: The zip file that contains the contents of your widget set. It must include a valid manifest file at the path `.palantir/widgets.config.json`.
@@ -197,7 +202,6 @@ class AsyncRepositoryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -219,6 +223,9 @@ class AsyncRepositoryClient:
     ) -> typing.Awaitable[widgets_models.Repository]:
         """
         Get the Repository with the specified rid.
+
+        Required scopes: [api:widgets-read]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param preview: Enables the use of preview functionality.
@@ -269,6 +276,9 @@ class AsyncRepositoryClient:
     ) -> typing.Awaitable[widgets_models.Release]:
         """
         Publish a new release of a widget set.
+
+        Required scopes: [api:widgets-write]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param body: The zip file that contains the contents of your widget set. It must include a valid manifest file at the path `.palantir/widgets.config.json`.

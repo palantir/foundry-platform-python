@@ -51,6 +51,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:datasets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -110,6 +112,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:datasets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -157,6 +161,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:datasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -216,6 +222,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:datasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -350,6 +358,8 @@ except Exception as e:
 
 ### Authorization
 
+Required scopes: [api:datasets-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -408,6 +418,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:datasets-write]
 
 See [README](../../../README.md#authorization)
 

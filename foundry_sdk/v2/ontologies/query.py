@@ -44,7 +44,6 @@ class QueryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -81,6 +80,9 @@ class QueryClient:
         The latest version is the one that was most recently published, which may be a pre-release version.
 
         Optional parameters do not need to be supplied.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -180,7 +182,6 @@ class AsyncQueryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -217,6 +218,9 @@ class AsyncQueryClient:
         The latest version is the one that was most recently published, which may be a pre-release version.
 
         Optional parameters do not need to be supplied.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

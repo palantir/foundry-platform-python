@@ -14,10 +14,13 @@
 
 
 import os
+import tempfile
 
 from foundry_sdk import ConfidentialClientAuth
 from foundry_sdk import Config
 from foundry_sdk import FoundryClient
+from foundry_sdk._core.hostname_supplier import EndpointType
+from foundry_sdk._core.hostname_supplier import ServiceDiscoveryHostnameSupplier
 from foundry_sdk._core.hostname_supplier import StaticHostnameSupplier
 
 
@@ -71,3 +74,44 @@ def test_client_does_not_override_user_supplied_hostname():
     assert auth._hostname_supplier.is_user_supplied
     # Config still successfully parameterized
     assert auth._config == config
+
+
+def test_client_builds_from_service_discovery_alone():
+    """Regression test: in a service-discovered environment (a Compute Module, for example) there
+    is no FOUNDRY_HOSTNAME and no hostname argument. Construction must succeed, and each endpoint
+    type must resolve to its own discovered service rather than to one shared hostname."""
+    previous_hostname = os.environ.pop("FOUNDRY_HOSTNAME", None)
+    with tempfile.NamedTemporaryFile("w", suffix=".yml", delete=False) as discovery_file:
+        discovery_file.write(
+            "api-gateway:\n"
+            "  - https://api-gateway.example.com:8443/api\n"
+            "multipass:\n"
+            "  - https://multipass.example.com:8443/multipass/api\n"
+            "stream-proxy:\n"
+            "  - https://stream-proxy.example.com:8443/api\n"
+        )
+        discovery_file.flush()
+        os.environ["FOUNDRY_SERVICE_DISCOVERY_V2"] = discovery_file.name
+
+        try:
+            auth = ConfidentialClientAuth(client_id="abc123", client_secret="xyz789")
+            client = FoundryClient(auth=auth)
+            # The auth object is not parameterized until the API clients are initialized via the property call
+            client.datasets.Dataset._auth
+
+            assert isinstance(auth._hostname_supplier, ServiceDiscoveryHostnameSupplier)
+            # Auth goes to multipass, not to the api-gateway or to a single flattened hostname
+            assert auth._get_base_url() == "https://multipass.example.com:8443/multipass/api"
+            supplier = auth._hostname_supplier
+            assert (
+                supplier.get_endpoint(EndpointType.GENERIC)
+                == "https://api-gateway.example.com:8443/api"
+            )
+            assert (
+                supplier.get_endpoint(EndpointType.HIGH_SCALE)
+                == "https://stream-proxy.example.com:8443/api"
+            )
+        finally:
+            del os.environ["FOUNDRY_SERVICE_DISCOVERY_V2"]
+            if previous_hostname is not None:
+                os.environ["FOUNDRY_HOSTNAME"] = previous_hostname

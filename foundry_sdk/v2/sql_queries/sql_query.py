@@ -46,7 +46,6 @@ class SqlQueryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class SqlQueryClient:
     ) -> None:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
+
+
+        Required scopes: [api:sql-queries-execute]
 
         :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
@@ -125,6 +127,9 @@ class SqlQueryClient:
         Executes a new query. Only the user that invoked the query can operate on the query. The size of query
         results are limited by default to 1 million rows. Contact your Palantir representative to discuss limit
         increases.
+
+
+        Required scopes: [api:sql-queries-execute]
 
         :param query: The SQL query to execute. Queries should conform to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Datasets can be referenced in SQL queries by path or by RID. See the  [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) for more details.
         :type query: str
@@ -201,6 +206,9 @@ class SqlQueryClient:
         """
         Executes a SQL query against the Ontology. Results are returned synchronously in
         [Apache Arrow](https://arrow.apache.org/) format.
+
+
+        Required scopes: [api:sql-queries-execute, api:ontologies-read]
 
         :param query: The SQL query to execute.
         :type query: str
@@ -288,6 +296,9 @@ class SqlQueryClient:
         This endpoint implements long polling and requests will time out after one minute. They can be safely
         retried while the query is still running.
 
+
+        Required scopes: [api:sql-queries-read]
+
         :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
         :param request_timeout: timeout setting for this request in seconds.
@@ -344,6 +355,9 @@ class SqlQueryClient:
     ) -> sql_queries_models.QueryStatus:
         """
         Gets the status of a query.
+
+
+        Required scopes: [api:sql-queries-read]
 
         :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
@@ -439,7 +453,6 @@ class AsyncSqlQueryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -460,6 +473,9 @@ class AsyncSqlQueryClient:
     ) -> typing.Awaitable[None]:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
+
+
+        Required scopes: [api:sql-queries-execute]
 
         :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
@@ -518,6 +534,9 @@ class AsyncSqlQueryClient:
         Executes a new query. Only the user that invoked the query can operate on the query. The size of query
         results are limited by default to 1 million rows. Contact your Palantir representative to discuss limit
         increases.
+
+
+        Required scopes: [api:sql-queries-execute]
 
         :param query: The SQL query to execute. Queries should conform to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Datasets can be referenced in SQL queries by path or by RID. See the  [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) for more details.
         :type query: str
@@ -594,6 +613,9 @@ class AsyncSqlQueryClient:
         """
         Executes a SQL query against the Ontology. Results are returned synchronously in
         [Apache Arrow](https://arrow.apache.org/) format.
+
+
+        Required scopes: [api:sql-queries-execute, api:ontologies-read]
 
         :param query: The SQL query to execute.
         :type query: str
@@ -681,6 +703,9 @@ class AsyncSqlQueryClient:
                 This endpoint implements long polling and requests will time out after one minute. They can be safely
                 retried while the query is still running.
 
+
+                Required scopes: [api:sql-queries-read]
+
                 :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
                 :type sql_query_id: SqlQueryId
                 :param request_timeout: timeout setting for this request in seconds.
@@ -737,6 +762,9 @@ class AsyncSqlQueryClient:
     ) -> typing.Awaitable[sql_queries_models.QueryStatus]:
         """
         Gets the status of a query.
+
+
+        Required scopes: [api:sql-queries-read]
 
         :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId

@@ -43,7 +43,6 @@ class TimeSeriesPropertyV2Client:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -69,6 +68,9 @@ class TimeSeriesPropertyV2Client:
     ) -> typing.Optional[ontologies_models.TimeSeriesPoint]:
         """
         Get the first point of a time series property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -130,6 +132,9 @@ class TimeSeriesPropertyV2Client:
     ) -> typing.Optional[ontologies_models.TimeSeriesPoint]:
         """
         Get the last point of a time series property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -194,6 +199,9 @@ class TimeSeriesPropertyV2Client:
     ) -> bytes:
         """
         Stream all of the points of a time series property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -292,7 +300,6 @@ class AsyncTimeSeriesPropertyV2Client:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -318,6 +325,9 @@ class AsyncTimeSeriesPropertyV2Client:
     ) -> typing.Awaitable[typing.Optional[ontologies_models.TimeSeriesPoint]]:
         """
         Get the first point of a time series property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -379,6 +389,9 @@ class AsyncTimeSeriesPropertyV2Client:
     ) -> typing.Awaitable[typing.Optional[ontologies_models.TimeSeriesPoint]]:
         """
         Get the last point of a time series property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -443,6 +456,9 @@ class AsyncTimeSeriesPropertyV2Client:
     ) -> typing.Awaitable[bytes]:
         """
         Stream all of the points of a time series property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
