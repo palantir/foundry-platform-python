@@ -46,7 +46,6 @@ class RoleClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class RoleClient:
     ) -> admin_models.Role:
         """
         Get the Role with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param role_id:
         :type role_id: RoleId
         :param preview: Enables the use of preview functionality.
@@ -121,6 +123,9 @@ class RoleClient:
         Execute multiple get requests on Role.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetRolesBatchRequestElement]
         :param preview: Enables the use of preview functionality.
@@ -190,7 +195,6 @@ class AsyncRoleClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -212,6 +216,9 @@ class AsyncRoleClient:
     ) -> typing.Awaitable[admin_models.Role]:
         """
         Get the Role with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param role_id:
         :type role_id: RoleId
         :param preview: Enables the use of preview functionality.
@@ -265,6 +272,9 @@ class AsyncRoleClient:
         Execute multiple get requests on Role.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetRolesBatchRequestElement]
         :param preview: Enables the use of preview functionality.

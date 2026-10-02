@@ -46,7 +46,6 @@ class MarkingCategoryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -70,6 +69,9 @@ class MarkingCategoryClient:
     ) -> admin_models.MarkingCategory:
         """
         Creates a new MarkingCategory.
+
+        Required scopes: [api:admin-write]
+
         :param description:
         :type description: MarkingCategoryDescription
         :param initial_permissions: The initial permissions for the Marking Category. This can be changed later through MarkingCategoryPermission operations. The provided permissions must include at least one ADMINISTER role assignment.  WARNING: If you do not list your own principal ID or the ID of a Group that you are a member of as an ADMINISTER, you will create a Marking Category that you cannot administer.
@@ -130,6 +132,9 @@ class MarkingCategoryClient:
     ) -> admin_models.MarkingCategory:
         """
         Get the MarkingCategory with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
         :param request_timeout: timeout setting for this request in seconds.
@@ -176,6 +181,9 @@ class MarkingCategoryClient:
     ) -> core.ResourceIterator[admin_models.MarkingCategory]:
         """
         Maximum page size 100.
+
+        Required scopes: [api:admin-read]
+
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -225,6 +233,9 @@ class MarkingCategoryClient:
     ) -> admin_models.MarkingCategory:
         """
         Replace the MarkingCategory with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
         :param description:
@@ -319,7 +330,6 @@ class AsyncMarkingCategoryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -343,6 +353,9 @@ class AsyncMarkingCategoryClient:
     ) -> typing.Awaitable[admin_models.MarkingCategory]:
         """
         Creates a new MarkingCategory.
+
+        Required scopes: [api:admin-write]
+
         :param description:
         :type description: MarkingCategoryDescription
         :param initial_permissions: The initial permissions for the Marking Category. This can be changed later through MarkingCategoryPermission operations. The provided permissions must include at least one ADMINISTER role assignment.  WARNING: If you do not list your own principal ID or the ID of a Group that you are a member of as an ADMINISTER, you will create a Marking Category that you cannot administer.
@@ -403,6 +416,9 @@ class AsyncMarkingCategoryClient:
     ) -> typing.Awaitable[admin_models.MarkingCategory]:
         """
         Get the MarkingCategory with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
         :param request_timeout: timeout setting for this request in seconds.
@@ -449,6 +465,9 @@ class AsyncMarkingCategoryClient:
     ) -> core.AsyncResourceIterator[admin_models.MarkingCategory]:
         """
         Maximum page size 100.
+
+        Required scopes: [api:admin-read]
+
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -498,6 +517,9 @@ class AsyncMarkingCategoryClient:
     ) -> typing.Awaitable[admin_models.MarkingCategory]:
         """
         Replace the MarkingCategory with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
         :param description:

@@ -46,7 +46,6 @@ class FolderClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -72,6 +71,9 @@ class FolderClient:
 
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
+
+
+        Required scopes: []
 
         :param folder_rid:
         :type folder_rid: FolderRid
@@ -132,6 +134,9 @@ class FolderClient:
     ) -> filesystem_models.Folder:
         """
         Creates a new Folder.
+
+        Required scopes: [api:filesystem-write]
+
         :param display_name:
         :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
@@ -193,6 +198,9 @@ class FolderClient:
     ) -> filesystem_models.Folder:
         """
         Get the Folder with the specified rid.
+
+        Required scopes: [api:filesystem-read]
+
         :param folder_rid:
         :type folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -246,6 +254,9 @@ class FolderClient:
 
 
         The maximum batch size for this endpoint is 1000.
+
+        Required scopes: [api:filesystem-read]
+
         :param body: Body of the request
         :type body: List[GetFoldersBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -287,6 +298,9 @@ class FolderClient:
     ) -> filesystem_models.Folder:
         """
         Replace the Folder with the specified rid.
+
+        Required scopes: [api:filesystem-write]
+
         :param folder_rid:
         :type folder_rid: FolderRid
         :param display_name:
@@ -397,7 +411,6 @@ class AsyncFolderClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -423,6 +436,9 @@ class AsyncFolderClient:
 
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
+
+
+        Required scopes: []
 
         :param folder_rid:
         :type folder_rid: FolderRid
@@ -483,6 +499,9 @@ class AsyncFolderClient:
     ) -> typing.Awaitable[filesystem_models.Folder]:
         """
         Creates a new Folder.
+
+        Required scopes: [api:filesystem-write]
+
         :param display_name:
         :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
@@ -544,6 +563,9 @@ class AsyncFolderClient:
     ) -> typing.Awaitable[filesystem_models.Folder]:
         """
         Get the Folder with the specified rid.
+
+        Required scopes: [api:filesystem-read]
+
         :param folder_rid:
         :type folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -597,6 +619,9 @@ class AsyncFolderClient:
 
 
         The maximum batch size for this endpoint is 1000.
+
+        Required scopes: [api:filesystem-read]
+
         :param body: Body of the request
         :type body: List[GetFoldersBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -638,6 +663,9 @@ class AsyncFolderClient:
     ) -> typing.Awaitable[filesystem_models.Folder]:
         """
         Replace the Folder with the specified rid.
+
+        Required scopes: [api:filesystem-write]
+
         :param folder_rid:
         :type folder_rid: FolderRid
         :param display_name:

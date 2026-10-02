@@ -45,7 +45,6 @@ class MarkingMemberClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -66,6 +65,9 @@ class MarkingMemberClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
+
+
+        Required scopes: [api:admin-write]
 
         :param marking_id:
         :type marking_id: MarkingId
@@ -125,6 +127,9 @@ class MarkingMemberClient:
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
+
+        Required scopes: [api:admin-write]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param page_size: The page size to use for the endpoint.
@@ -182,6 +187,9 @@ class MarkingMemberClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
+
+
+        Required scopes: [api:admin-write]
 
         :param marking_id:
         :type marking_id: MarkingId
@@ -263,7 +271,6 @@ class AsyncMarkingMemberClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -284,6 +291,9 @@ class AsyncMarkingMemberClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
+
+
+        Required scopes: [api:admin-write]
 
         :param marking_id:
         :type marking_id: MarkingId
@@ -343,6 +353,9 @@ class AsyncMarkingMemberClient:
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
+
+        Required scopes: [api:admin-write]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param page_size: The page size to use for the endpoint.
@@ -400,6 +413,9 @@ class AsyncMarkingMemberClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
+
+
+        Required scopes: [api:admin-write]
 
         :param marking_id:
         :type marking_id: MarkingId

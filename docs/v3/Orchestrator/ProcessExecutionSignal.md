@@ -55,6 +55,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:v3:process-execution-signal:write:complete]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details

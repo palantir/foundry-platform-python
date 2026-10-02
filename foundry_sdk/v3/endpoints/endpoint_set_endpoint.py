@@ -45,7 +45,6 @@ class EndpointSetEndpointClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -66,6 +65,9 @@ class EndpointSetEndpointClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> endpoints_models.EndpointSetEndpoint:
         """
+
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:get]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
@@ -116,6 +118,9 @@ class EndpointSetEndpointClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[endpoints_models.EndpointSetEndpoint]:
         """
+
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:list]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
@@ -194,7 +199,6 @@ class AsyncEndpointSetEndpointClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -215,6 +219,9 @@ class AsyncEndpointSetEndpointClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[endpoints_models.EndpointSetEndpoint]:
         """
+
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:get]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
@@ -265,6 +272,9 @@ class AsyncEndpointSetEndpointClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[endpoints_models.EndpointSetEndpoint]:
         """
+
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:list]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid

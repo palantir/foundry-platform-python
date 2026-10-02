@@ -45,7 +45,6 @@ class CbacMarkingRestrictionsClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class CbacMarkingRestrictionsClient:
     ) -> admin_models.CbacMarkingRestrictions:
         """
         Returns disallowed, implied, and required markings for the given set of marking IDs.
+
+        Required scopes: [api:admin-read]
+
         :param marking_ids: The marking IDs for which to get restrictions.
         :type marking_ids: Optional[List[MarkingId]]
         :param preview: Enables the use of preview functionality.
@@ -140,7 +142,6 @@ class AsyncCbacMarkingRestrictionsClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -162,6 +163,9 @@ class AsyncCbacMarkingRestrictionsClient:
     ) -> typing.Awaitable[admin_models.CbacMarkingRestrictions]:
         """
         Returns disallowed, implied, and required markings for the given set of marking IDs.
+
+        Required scopes: [api:admin-read]
+
         :param marking_ids: The marking IDs for which to get restrictions.
         :type marking_ids: Optional[List[MarkingId]]
         :param preview: Enables the use of preview functionality.

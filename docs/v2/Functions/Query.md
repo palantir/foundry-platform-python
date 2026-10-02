@@ -99,6 +99,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:functions-execute]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -197,6 +199,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:functions-execute]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -265,6 +269,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:functions-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -323,6 +329,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:functions-read]
 
 See [README](../../../README.md#authorization)
 
@@ -383,6 +391,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:functions-read]
 
 See [README](../../../README.md#authorization)
 
@@ -496,6 +506,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:functions-execute]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -607,6 +619,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:functions-execute]
 
 See [README](../../../README.md#authorization)
 

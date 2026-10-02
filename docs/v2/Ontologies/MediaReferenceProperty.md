@@ -20,8 +20,10 @@ Name | Type | Description  | Notes |
 **property** | PropertyApiName | The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to read the media reference property from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **bytes**
@@ -47,10 +49,14 @@ property = "profile_picture"
 branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to read the media reference property from.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 
 
 try:
@@ -61,8 +67,10 @@ try:
         property,
         branch=branch,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     print("The get_media_content response:\n")
     pprint(api_response)
@@ -74,6 +82,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 
@@ -98,8 +108,10 @@ Name | Type | Description  | Notes |
 **property** | PropertyApiName | The API name of the media reference backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to read the media reference property from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **MediaMetadata**
@@ -125,10 +137,14 @@ property = None
 branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to read the media reference property from.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 
 
 try:
@@ -139,8 +155,10 @@ try:
         property,
         branch=branch,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     print("The get_media_metadata response:\n")
     pprint(api_response)
@@ -152,6 +170,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 
@@ -222,6 +242,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read, api:ontologies-write]
 
 See [README](../../../README.md#authorization)
 

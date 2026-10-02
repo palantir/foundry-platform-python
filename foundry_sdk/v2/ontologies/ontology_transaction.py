@@ -44,7 +44,6 @@ class OntologyTransactionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -70,6 +69,9 @@ class OntologyTransactionClient:
     ) -> ontologies_models.PostTransactionEditsResponse:
         """
         Applies a set of edits to a transaction in order.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -151,7 +153,6 @@ class AsyncOntologyTransactionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -177,6 +178,9 @@ class AsyncOntologyTransactionClient:
     ) -> typing.Awaitable[ontologies_models.PostTransactionEditsResponse]:
         """
         Applies a set of edits to a transaction in order.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

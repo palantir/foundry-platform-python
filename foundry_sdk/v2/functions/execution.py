@@ -45,7 +45,6 @@ class ExecutionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class ExecutionClient:
     ) -> functions_models.CancelExecutionResponse:
         """
         Cancel a running async query execution. This endpoint is idempotent.
+
+
+        Required scopes: [api:functions-execute]
 
         :param execution_id:
         :type execution_id: ExecutionId
@@ -128,6 +130,9 @@ class ExecutionClient:
         connection open for up to the specified number of seconds. If the
         execution completes within that window, the result is returned
         immediately. Otherwise, the running variant is returned.
+
+
+        Required scopes: [api:functions-execute]
 
         :param execution_id:
         :type execution_id: ExecutionId
@@ -208,7 +213,6 @@ class AsyncExecutionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -230,6 +234,9 @@ class AsyncExecutionClient:
     ) -> typing.Awaitable[functions_models.CancelExecutionResponse]:
         """
         Cancel a running async query execution. This endpoint is idempotent.
+
+
+        Required scopes: [api:functions-execute]
 
         :param execution_id:
         :type execution_id: ExecutionId
@@ -291,6 +298,9 @@ class AsyncExecutionClient:
         connection open for up to the specified number of seconds. If the
         execution completes within that window, the result is returned
         immediately. Otherwise, the running variant is returned.
+
+
+        Required scopes: [api:functions-execute]
 
         :param execution_id:
         :type execution_id: ExecutionId

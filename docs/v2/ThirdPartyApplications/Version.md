@@ -53,6 +53,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [third-party-application:deploy-application-website]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -106,6 +108,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [third-party-application:deploy-application-website]
 
 See [README](../../../README.md#authorization)
 
@@ -165,6 +169,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [third-party-application:deploy-application-website]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -221,6 +227,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [third-party-application:deploy-application-website]
 
 See [README](../../../README.md#authorization)
 
@@ -293,6 +301,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [third-party-application:deploy-application-website]
 
 See [README](../../../README.md#authorization)
 

@@ -45,7 +45,6 @@ class EndpointSetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -85,6 +84,9 @@ class EndpointSetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> endpoints_models.EndpointSet:
         """
+
+
+        Required scopes: [api:v3:endpoint-set:read:get]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
@@ -152,7 +154,6 @@ class AsyncEndpointSetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -196,6 +197,9 @@ class AsyncEndpointSetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[endpoints_models.EndpointSet]:
         """
+
+
+        Required scopes: [api:v3:endpoint-set:read:get]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid

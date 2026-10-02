@@ -45,7 +45,6 @@ class EnrollmentRoleAssignmentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class EnrollmentRoleAssignmentClient:
     ) -> None:
         """
         Assign roles to principals for the given Enrollment. At most 100 role assignments can be added in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
@@ -128,6 +130,9 @@ class EnrollmentRoleAssignmentClient:
         """
         List all principals who are assigned a role for the given Enrollment.
 
+
+        Required scopes: [api:admin-read]
+
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
         :param preview: Enables the use of preview functionality.
@@ -179,6 +184,9 @@ class EnrollmentRoleAssignmentClient:
     ) -> None:
         """
         Remove roles from principals for the given Enrollment. At most 100 role assignments can be removed in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
@@ -264,7 +272,6 @@ class AsyncEnrollmentRoleAssignmentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -287,6 +294,9 @@ class AsyncEnrollmentRoleAssignmentClient:
     ) -> typing.Awaitable[None]:
         """
         Assign roles to principals for the given Enrollment. At most 100 role assignments can be added in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
@@ -347,6 +357,9 @@ class AsyncEnrollmentRoleAssignmentClient:
         """
         List all principals who are assigned a role for the given Enrollment.
 
+
+        Required scopes: [api:admin-read]
+
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
         :param preview: Enables the use of preview functionality.
@@ -398,6 +411,9 @@ class AsyncEnrollmentRoleAssignmentClient:
     ) -> typing.Awaitable[None]:
         """
         Remove roles from principals for the given Enrollment. At most 100 role assignments can be removed in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid

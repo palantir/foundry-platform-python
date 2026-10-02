@@ -45,7 +45,6 @@ class BranchClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class BranchClient:
     ) -> datasets_models.Branch:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
+
+
+        Required scopes: [api:datasets-write]
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Branch.
         :type dataset_rid: DatasetRid
@@ -132,6 +134,9 @@ class BranchClient:
         """
         Deletes the Branch with the given BranchId.
 
+
+        Required scopes: [api:datasets-write]
+
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -184,6 +189,9 @@ class BranchClient:
         """
         Get a Branch of a Dataset.
 
+
+        Required scopes: [api:datasets-read]
+
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -234,6 +242,9 @@ class BranchClient:
     ) -> core.ResourceIterator[datasets_models.Branch]:
         """
         Lists the Branches of a Dataset.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
         :type dataset_rid: DatasetRid
@@ -318,7 +329,6 @@ class AsyncBranchClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -341,6 +351,9 @@ class AsyncBranchClient:
     ) -> typing.Awaitable[datasets_models.Branch]:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
+
+
+        Required scopes: [api:datasets-write]
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Branch.
         :type dataset_rid: DatasetRid
@@ -405,6 +418,9 @@ class AsyncBranchClient:
         """
         Deletes the Branch with the given BranchId.
 
+
+        Required scopes: [api:datasets-write]
+
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -457,6 +473,9 @@ class AsyncBranchClient:
         """
         Get a Branch of a Dataset.
 
+
+        Required scopes: [api:datasets-read]
+
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -507,6 +526,9 @@ class AsyncBranchClient:
     ) -> core.AsyncResourceIterator[datasets_models.Branch]:
         """
         Lists the Branches of a Dataset.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
         :type dataset_rid: DatasetRid

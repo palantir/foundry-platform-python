@@ -45,7 +45,6 @@ class ExperimentSeriesClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -72,6 +71,9 @@ class ExperimentSeriesClient:
         """
         Retrieve raw time-series data for a single series in JSON format.
         Results are paginated with a default page size of 200 and a maximum of 1000.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -139,6 +141,9 @@ class ExperimentSeriesClient:
     ) -> core.TableResponse:
         """
         Retrieve raw time-series data for a single series as a streamed binary response in Apache Parquet format.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -225,7 +230,6 @@ class AsyncExperimentSeriesClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -252,6 +256,9 @@ class AsyncExperimentSeriesClient:
         """
         Retrieve raw time-series data for a single series in JSON format.
         Results are paginated with a default page size of 200 and a maximum of 1000.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -319,6 +326,9 @@ class AsyncExperimentSeriesClient:
     ) -> typing.Awaitable[core.TableResponse]:
         """
                 Retrieve raw time-series data for a single series as a streamed binary response in Apache Parquet format.
+
+
+                Required scopes: [api:models-read]
 
                 :param model_rid:
                 :type model_rid: ModelRid

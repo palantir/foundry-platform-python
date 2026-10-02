@@ -45,7 +45,6 @@ class QueryTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -71,6 +70,9 @@ class QueryTypeClient:
     ) -> ontologies_models.QueryTypeV2:
         """
         Gets a specific query type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -139,6 +141,9 @@ class QueryTypeClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -199,6 +204,9 @@ class QueryTypeClient:
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -282,7 +290,6 @@ class AsyncQueryTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -308,6 +315,9 @@ class AsyncQueryTypeClient:
     ) -> typing.Awaitable[ontologies_models.QueryTypeV2]:
         """
         Gets a specific query type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -376,6 +386,9 @@ class AsyncQueryTypeClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -436,6 +449,9 @@ class AsyncQueryTypeClient:
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
