@@ -44,7 +44,6 @@ class OntologyScenarioClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class OntologyScenarioClient:
     ) -> ontologies_models.CreateOntologyScenarioResponse:
         """
         Creates an ontology scenario.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -134,6 +136,9 @@ class OntologyScenarioClient:
 
         Each page may be smaller than the requested page size.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param scenario_rid: The unique resource identifier of the scenario.
@@ -196,6 +201,9 @@ class OntologyScenarioClient:
         many-to-many link types that have been modified, grouped by their source object type. One-to-many
         link type edits are surfaced as object edits on the object type that owns the foreign key property.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param scenario_rid: The unique resource identifier of the scenario.
@@ -248,6 +256,9 @@ class OntologyScenarioClient:
 
         Note that only many-to-many link type are returned by this endpoint. One-to-many link type edits are
         surfaced as object edits on the object type that owns the foreign key property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -308,6 +319,9 @@ class OntologyScenarioClient:
         both objects are returned.
 
         Each page may be smaller than the requested page size.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -370,6 +384,9 @@ class OntologyScenarioClient:
         """
         Returns the list of object type API names that have been modified within a given scenario.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param scenario_rid: The unique resource identifier of the scenario.
@@ -424,6 +441,9 @@ class OntologyScenarioClient:
         Only objects that the user has permission to view are returned.
 
         Each page may be smaller than the requested page size.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -571,7 +591,6 @@ class AsyncOntologyScenarioClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -595,6 +614,9 @@ class AsyncOntologyScenarioClient:
     ) -> typing.Awaitable[ontologies_models.CreateOntologyScenarioResponse]:
         """
         Creates an ontology scenario.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -661,6 +683,9 @@ class AsyncOntologyScenarioClient:
 
         Each page may be smaller than the requested page size.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param scenario_rid: The unique resource identifier of the scenario.
@@ -723,6 +748,9 @@ class AsyncOntologyScenarioClient:
         many-to-many link types that have been modified, grouped by their source object type. One-to-many
         link type edits are surfaced as object edits on the object type that owns the foreign key property.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param scenario_rid: The unique resource identifier of the scenario.
@@ -775,6 +803,9 @@ class AsyncOntologyScenarioClient:
 
         Note that only many-to-many link type are returned by this endpoint. One-to-many link type edits are
         surfaced as object edits on the object type that owns the foreign key property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -835,6 +866,9 @@ class AsyncOntologyScenarioClient:
         both objects are returned.
 
         Each page may be smaller than the requested page size.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -897,6 +931,9 @@ class AsyncOntologyScenarioClient:
         """
         Returns the list of object type API names that have been modified within a given scenario.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param scenario_rid: The unique resource identifier of the scenario.
@@ -951,6 +988,9 @@ class AsyncOntologyScenarioClient:
         Only objects that the user has permission to view are returned.
 
         Each page may be smaller than the requested page size.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

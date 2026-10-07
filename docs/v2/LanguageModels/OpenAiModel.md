@@ -64,6 +64,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:language-models-execute]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details

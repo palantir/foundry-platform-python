@@ -45,7 +45,6 @@ class ActionTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -70,6 +69,9 @@ class ActionTypeClient:
     ) -> ontologies_models.ActionTypeV2:
         """
         Gets a specific action type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -125,6 +127,9 @@ class ActionTypeClient:
     ) -> ontologies_models.ActionTypeV2:
         """
         Gets a specific action type with the given RID.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -184,6 +189,9 @@ class ActionTypeClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -241,6 +249,9 @@ class ActionTypeClient:
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -303,6 +314,9 @@ class ActionTypeClient:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response. Search results are eventually
         consistent with the latest Ontology version and may lag slightly behind the last Ontology modification.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -408,7 +422,6 @@ class AsyncActionTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -433,6 +446,9 @@ class AsyncActionTypeClient:
     ) -> typing.Awaitable[ontologies_models.ActionTypeV2]:
         """
         Gets a specific action type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -488,6 +504,9 @@ class AsyncActionTypeClient:
     ) -> typing.Awaitable[ontologies_models.ActionTypeV2]:
         """
         Gets a specific action type with the given RID.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -547,6 +566,9 @@ class AsyncActionTypeClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -604,6 +626,9 @@ class AsyncActionTypeClient:
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -666,6 +691,9 @@ class AsyncActionTypeClient:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response. Search results are eventually
         consistent with the latest Ontology version and may lag slightly behind the last Ontology modification.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

@@ -57,6 +57,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: []
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -109,6 +111,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:filesystem-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -155,6 +159,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:filesystem-read]
 
 See [README](../../../README.md#authorization)
 
@@ -205,6 +211,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:filesystem-read]
 
 See [README](../../../README.md#authorization)
 
@@ -263,6 +271,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:filesystem-write]
 
 See [README](../../../README.md#authorization)
 

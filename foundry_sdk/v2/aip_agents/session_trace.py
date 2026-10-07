@@ -45,7 +45,6 @@ class SessionTraceClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -71,6 +70,9 @@ class SessionTraceClient:
         Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at
         an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
         poll this endpoint to check the realtime progress of a response until the trace is completed.
+
+
+        Required scopes: [api:aip-agents-read]
 
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
@@ -152,7 +154,6 @@ class AsyncSessionTraceClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -178,6 +179,9 @@ class AsyncSessionTraceClient:
         Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at
         an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
         poll this endpoint to check the realtime progress of a response until the trace is completed.
+
+
+        Required scopes: [api:aip-agents-read]
 
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid

@@ -58,6 +58,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:connectivity-virtual-table-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details

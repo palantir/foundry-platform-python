@@ -44,7 +44,6 @@ class CipherTextPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -69,6 +68,9 @@ class CipherTextPropertyClient:
     ) -> ontologies_models.DecryptionResult:
         """
         Decrypt the value of a ciphertext property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -132,6 +134,9 @@ class CipherTextPropertyClient:
 
         The Cipher Channel used is resolved based on the supplied `cipherChannelStrategy`, using the channel of the
         object's existing ciphertext value and/or the default channel configured for the property in ontology metadata.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -206,6 +211,9 @@ class CipherTextPropertyClient:
         endpoint requires the CipherText property to have a configured `defaultCipherChannelRid`; if none is
         configured an error will be thrown. To encrypt against the channel of an existing object's value, use the
         **Encrypt** endpoint that accepts a `primaryKey` instead.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -299,7 +307,6 @@ class AsyncCipherTextPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -324,6 +331,9 @@ class AsyncCipherTextPropertyClient:
     ) -> typing.Awaitable[ontologies_models.DecryptionResult]:
         """
         Decrypt the value of a ciphertext property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -387,6 +397,9 @@ class AsyncCipherTextPropertyClient:
 
         The Cipher Channel used is resolved based on the supplied `cipherChannelStrategy`, using the channel of the
         object's existing ciphertext value and/or the default channel configured for the property in ontology metadata.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -461,6 +474,9 @@ class AsyncCipherTextPropertyClient:
         endpoint requires the CipherText property to have a configured `defaultCipherChannelRid`; if none is
         configured an error will be thrown. To encrypt against the channel of an existing object's value, use the
         **Encrypt** endpoint that accepts a `primaryKey` instead.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

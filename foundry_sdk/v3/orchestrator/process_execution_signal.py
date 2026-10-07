@@ -44,7 +44,6 @@ class ProcessExecutionSignalClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -72,6 +71,9 @@ class ProcessExecutionSignalClient:
         If the execution is suspended waiting on this signal, it resumes once its wait conditions are
         satisfied. Resuming an execution runs user-authored logic. Only the token that originally invoked the
         process execution can complete its signals.
+
+        Required scopes: [api:v3:process-execution-signal:write:complete]
+
         :param process_execution_id:
         :type process_execution_id: ProcessExecutionId
         :param signal_id:
@@ -147,7 +149,6 @@ class AsyncProcessExecutionSignalClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -175,6 +176,9 @@ class AsyncProcessExecutionSignalClient:
         If the execution is suspended waiting on this signal, it resumes once its wait conditions are
         satisfied. Resuming an execution runs user-authored logic. Only the token that originally invoked the
         process execution can complete its signals.
+
+        Required scopes: [api:v3:process-execution-signal:write:complete]
+
         :param process_execution_id:
         :type process_execution_id: ProcessExecutionId
         :param signal_id:

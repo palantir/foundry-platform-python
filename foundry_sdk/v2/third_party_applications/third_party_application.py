@@ -50,7 +50,6 @@ class ThirdPartyApplicationClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -82,6 +81,9 @@ class ThirdPartyApplicationClient:
     ) -> third_party_applications_models.ThirdPartyApplication:
         """
         Get the ThirdPartyApplication with the specified rid.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param preview: Enables the use of preview functionality.
@@ -152,7 +154,6 @@ class AsyncThirdPartyApplicationClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -184,6 +185,9 @@ class AsyncThirdPartyApplicationClient:
     ) -> typing.Awaitable[third_party_applications_models.ThirdPartyApplication]:
         """
         Get the ThirdPartyApplication with the specified rid.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param preview: Enables the use of preview functionality.

@@ -46,7 +46,6 @@ class FileImportClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -73,6 +72,9 @@ class FileImportClient:
     ) -> connectivity_models.FileImport:
         """
         Creates a new FileImport.
+
+        Required scopes: [api:connectivity-file-import-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset. Can not be modified after the file import is created.
@@ -160,6 +162,9 @@ class FileImportClient:
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
+
+        Required scopes: [api:connectivity-file-import-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
@@ -208,6 +213,9 @@ class FileImportClient:
         """
         Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
+
+
+        Required scopes: [api:connectivity-file-import-execute]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -258,6 +266,9 @@ class FileImportClient:
     ) -> connectivity_models.FileImport:
         """
         Get the FileImport with the specified rid.
+
+        Required scopes: [api:connectivity-file-import-read]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
@@ -307,6 +318,9 @@ class FileImportClient:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
+
+
+        Required scopes: [api:connectivity-file-import-read]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -363,6 +377,9 @@ class FileImportClient:
     ) -> connectivity_models.FileImport:
         """
         Replace the FileImport with the specified rid.
+
+        Required scopes: [api:connectivity-file-import-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
@@ -478,7 +495,6 @@ class AsyncFileImportClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -505,6 +521,9 @@ class AsyncFileImportClient:
     ) -> typing.Awaitable[connectivity_models.FileImport]:
         """
         Creates a new FileImport.
+
+        Required scopes: [api:connectivity-file-import-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset. Can not be modified after the file import is created.
@@ -592,6 +611,9 @@ class AsyncFileImportClient:
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
+
+        Required scopes: [api:connectivity-file-import-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
@@ -640,6 +662,9 @@ class AsyncFileImportClient:
         """
         Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
+
+
+        Required scopes: [api:connectivity-file-import-execute]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -690,6 +715,9 @@ class AsyncFileImportClient:
     ) -> typing.Awaitable[connectivity_models.FileImport]:
         """
         Get the FileImport with the specified rid.
+
+        Required scopes: [api:connectivity-file-import-read]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
@@ -739,6 +767,9 @@ class AsyncFileImportClient:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
+
+
+        Required scopes: [api:connectivity-file-import-read]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -795,6 +826,9 @@ class AsyncFileImportClient:
     ) -> typing.Awaitable[connectivity_models.FileImport]:
         """
         Replace the FileImport with the specified rid.
+
+        Required scopes: [api:connectivity-file-import-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param file_import_rid:

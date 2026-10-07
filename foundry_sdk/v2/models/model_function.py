@@ -46,7 +46,6 @@ class ModelFunctionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -72,6 +71,9 @@ class ModelFunctionClient:
     ) -> models_models.ModelFunction:
         """
         Creates a function for the model. If a function already exists for the model, the existing function is updated.
+
+
+        Required scopes: [api:models-write]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -145,6 +147,9 @@ class ModelFunctionClient:
     ) -> models_models.ModelFunction:
         """
         Gets the function for the model.
+
+        Required scopes: [api:models-read]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param preview: Enables the use of preview functionality.
@@ -198,6 +203,9 @@ class ModelFunctionClient:
     ) -> models_models.ModelFunction:
         """
         Replaces the function for the model.
+
+        Required scopes: [api:models-write]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param api_name:
@@ -299,7 +307,6 @@ class AsyncModelFunctionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -325,6 +332,9 @@ class AsyncModelFunctionClient:
     ) -> typing.Awaitable[models_models.ModelFunction]:
         """
         Creates a function for the model. If a function already exists for the model, the existing function is updated.
+
+
+        Required scopes: [api:models-write]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -398,6 +408,9 @@ class AsyncModelFunctionClient:
     ) -> typing.Awaitable[models_models.ModelFunction]:
         """
         Gets the function for the model.
+
+        Required scopes: [api:models-read]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param preview: Enables the use of preview functionality.
@@ -451,6 +464,9 @@ class AsyncModelFunctionClient:
     ) -> typing.Awaitable[models_models.ModelFunction]:
         """
         Replaces the function for the model.
+
+        Required scopes: [api:models-write]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param api_name:

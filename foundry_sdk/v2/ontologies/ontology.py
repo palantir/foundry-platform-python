@@ -45,7 +45,6 @@ class OntologyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -97,6 +96,9 @@ class OntologyClient:
         """
         Gets a specific ontology for a given Ontology API name or RID.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
@@ -141,6 +143,9 @@ class OntologyClient:
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
         This endpoint is designed to return as much metadata as possible in a single request to support OSDK workflows.
         It may omit certain entities rather than fail the request.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -191,6 +196,9 @@ class OntologyClient:
         """
         Lists the Ontologies visible to the current user.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -235,6 +243,9 @@ class OntologyClient:
         """
         Load Ontology metadata for the requested object, link, action, query, and interface types.
         Requested object types include the backing datasources that the user has access to see.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -339,7 +350,6 @@ class AsyncOntologyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -391,6 +401,9 @@ class AsyncOntologyClient:
         """
         Gets a specific ontology for a given Ontology API name or RID.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
@@ -435,6 +448,9 @@ class AsyncOntologyClient:
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
         This endpoint is designed to return as much metadata as possible in a single request to support OSDK workflows.
         It may omit certain entities rather than fail the request.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -485,6 +501,9 @@ class AsyncOntologyClient:
         """
         Lists the Ontologies visible to the current user.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -529,6 +548,9 @@ class AsyncOntologyClient:
         """
         Load Ontology metadata for the requested object, link, action, query, and interface types.
         Requested object types include the backing datasources that the user has access to see.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

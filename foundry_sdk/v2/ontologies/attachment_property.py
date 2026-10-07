@@ -44,7 +44,6 @@ class AttachmentPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -71,6 +70,9 @@ class AttachmentPropertyClient:
     ) -> ontologies_models.AttachmentMetadataResponse:
         """
         Get the metadata of attachments parented to the given object.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -137,6 +139,9 @@ class AttachmentPropertyClient:
     ) -> ontologies_models.AttachmentV2:
         """
         Get the metadata of a particular attachment in an attachment list.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -206,6 +211,9 @@ class AttachmentPropertyClient:
         """
         Get the content of an attachment.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -273,6 +281,9 @@ class AttachmentPropertyClient:
         Get the content of an attachment by its RID.
 
         The RID must exist in the attachment array of the property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -378,7 +389,6 @@ class AsyncAttachmentPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -405,6 +415,9 @@ class AsyncAttachmentPropertyClient:
     ) -> typing.Awaitable[ontologies_models.AttachmentMetadataResponse]:
         """
         Get the metadata of attachments parented to the given object.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -471,6 +484,9 @@ class AsyncAttachmentPropertyClient:
     ) -> typing.Awaitable[ontologies_models.AttachmentV2]:
         """
         Get the metadata of a particular attachment in an attachment list.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -540,6 +556,9 @@ class AsyncAttachmentPropertyClient:
         """
         Get the content of an attachment.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -607,6 +626,9 @@ class AsyncAttachmentPropertyClient:
         Get the content of an attachment by its RID.
 
         The RID must exist in the attachment array of the property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

@@ -51,7 +51,6 @@ class DatasetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -103,6 +102,9 @@ class DatasetClient:
     ) -> datasets_models.Dataset:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
+
+
+        Required scopes: [api:datasets-write]
 
         :param name:
         :type name: DatasetName
@@ -169,6 +171,9 @@ class DatasetClient:
     ) -> datasets_models.Dataset:
         """
         Get the Dataset with the specified rid.
+
+        Required scopes: [api:datasets-read]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -222,6 +227,9 @@ class DatasetClient:
         [Get Dataset Health Checks](https://palantir.com/docs/foundry/api/datasets/get-dataset-health-checks/).
         For the full report history of a specific check, use
         [Get Latest Check Reports](https://palantir.com/docs/foundry/api/v2/data-health-v2-resources/checks/get-latest-check-reports).
+
+
+        Required scopes: [api:data-health-read, api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -281,6 +289,9 @@ class DatasetClient:
     ) -> datasets_models.ListHealthChecksResponse:
         """
         Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+
+        Required scopes: [api:data-health-read, api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -344,6 +355,9 @@ class DatasetClient:
         especially for schedules managed by Marketplace. This operation will return outdated results in the
         meantime.
 
+
+        Required scopes: [api:orchestration-read, api:datasets-read]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
@@ -404,6 +418,9 @@ class DatasetClient:
     ) -> datasets_models.GetDatasetSchemaResponse:
         """
         Gets a dataset's schema. If no `endTransactionRid` is provided, the latest committed version will be used.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -475,6 +492,9 @@ class DatasetClient:
 
 
         The maximum batch size for this endpoint is 1000.
+
+        Required scopes: [api:datasets-read]
+
         :param body: Body of the request
         :type body: List[GetSchemaDatasetsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -519,6 +539,9 @@ class DatasetClient:
     ) -> core.ResourceIterator[datasets_models.JobDetails]:
         """
         Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -593,6 +616,9 @@ class DatasetClient:
         """
         Adds a schema on an existing dataset using a PUT request.
 
+
+        Required scopes: [api:datasets-write]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param schema: The schema that will be added.
@@ -666,6 +692,9 @@ class DatasetClient:
         Gets the content of a dataset as a table in the specified format.
 
         This endpoint currently does not support views (virtual datasets composed of other datasets).
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -747,6 +776,9 @@ class DatasetClient:
     ) -> core.ResourceIterator[datasets_models.Transaction]:
         """
         Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -874,7 +906,6 @@ class AsyncDatasetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -926,6 +957,9 @@ class AsyncDatasetClient:
     ) -> typing.Awaitable[datasets_models.Dataset]:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
+
+
+        Required scopes: [api:datasets-write]
 
         :param name:
         :type name: DatasetName
@@ -992,6 +1026,9 @@ class AsyncDatasetClient:
     ) -> typing.Awaitable[datasets_models.Dataset]:
         """
         Get the Dataset with the specified rid.
+
+        Required scopes: [api:datasets-read]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -1045,6 +1082,9 @@ class AsyncDatasetClient:
         [Get Dataset Health Checks](https://palantir.com/docs/foundry/api/datasets/get-dataset-health-checks/).
         For the full report history of a specific check, use
         [Get Latest Check Reports](https://palantir.com/docs/foundry/api/v2/data-health-v2-resources/checks/get-latest-check-reports).
+
+
+        Required scopes: [api:data-health-read, api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1104,6 +1144,9 @@ class AsyncDatasetClient:
     ) -> typing.Awaitable[datasets_models.ListHealthChecksResponse]:
         """
         Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+
+        Required scopes: [api:data-health-read, api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1167,6 +1210,9 @@ class AsyncDatasetClient:
         especially for schedules managed by Marketplace. This operation will return outdated results in the
         meantime.
 
+
+        Required scopes: [api:orchestration-read, api:datasets-read]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
@@ -1227,6 +1273,9 @@ class AsyncDatasetClient:
     ) -> typing.Awaitable[datasets_models.GetDatasetSchemaResponse]:
         """
         Gets a dataset's schema. If no `endTransactionRid` is provided, the latest committed version will be used.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1298,6 +1347,9 @@ class AsyncDatasetClient:
 
 
         The maximum batch size for this endpoint is 1000.
+
+        Required scopes: [api:datasets-read]
+
         :param body: Body of the request
         :type body: List[GetSchemaDatasetsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1342,6 +1394,9 @@ class AsyncDatasetClient:
     ) -> core.AsyncResourceIterator[datasets_models.JobDetails]:
         """
         Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1416,6 +1471,9 @@ class AsyncDatasetClient:
         """
         Adds a schema on an existing dataset using a PUT request.
 
+
+        Required scopes: [api:datasets-write]
+
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param schema: The schema that will be added.
@@ -1489,6 +1547,9 @@ class AsyncDatasetClient:
                 Gets the content of a dataset as a table in the specified format.
 
                 This endpoint currently does not support views (virtual datasets composed of other datasets).
+
+
+                Required scopes: [api:datasets-read]
 
                 :param dataset_rid:
                 :type dataset_rid: DatasetRid
@@ -1570,6 +1631,9 @@ class AsyncDatasetClient:
     ) -> core.AsyncResourceIterator[datasets_models.Transaction]:
         """
         Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
+
+
+        Required scopes: [api:datasets-read]
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid

@@ -10314,6 +10314,13 @@ This feature is experimental and not yet generally available.
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to read the object from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -10335,6 +10342,14 @@ This feature is experimental and not yet generally available.
 the properties.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_op_get(
     client: FoundryClient,
@@ -10344,9 +10359,11 @@ def ontologies_ontology_object_op_get(
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     load_ontology_defined_derived_properties: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Gets a specific object with the given primary key.
@@ -10359,9 +10376,11 @@ def ontologies_ontology_object_op_get(
         branch=branch,
         exclude_rid=exclude_rid,
         load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 
@@ -12307,6 +12326,13 @@ def ontologies_media_reference_property():
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to read the media reference property from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12320,6 +12346,14 @@ def ontologies_media_reference_property():
     help="""The version of the generated SDK.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
 @click.pass_obj
 def ontologies_media_reference_property_op_get_media_content(
     client: FoundryClient,
@@ -12329,8 +12363,10 @@ def ontologies_media_reference_property_op_get_media_content(
     property: str,
     branch: typing.Optional[str],
     preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Gets the content of a media item referenced by this property.
@@ -12343,8 +12379,10 @@ def ontologies_media_reference_property_op_get_media_content(
         property=property,
         branch=branch,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     click.echo(result)
 
@@ -12369,6 +12407,13 @@ def ontologies_media_reference_property_op_get_media_content(
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to read the media reference property from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12382,6 +12427,14 @@ def ontologies_media_reference_property_op_get_media_content(
     help="""The version of the generated SDK.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
 @click.pass_obj
 def ontologies_media_reference_property_op_get_media_metadata(
     client: FoundryClient,
@@ -12391,8 +12444,10 @@ def ontologies_media_reference_property_op_get_media_metadata(
     property: str,
     branch: typing.Optional[str],
     preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Gets metadata about the media item referenced by this property.
@@ -12405,8 +12460,10 @@ def ontologies_media_reference_property_op_get_media_metadata(
         property=property,
         branch=branch,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 

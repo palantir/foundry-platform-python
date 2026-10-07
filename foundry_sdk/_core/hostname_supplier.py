@@ -30,11 +30,6 @@ class EndpointType(Enum):
 
 class HostnameSupplier(ABC):
     @abstractmethod
-    def get_hostname(self) -> str:
-        """Return the base hostname (e.g., 'https://example.com')."""
-        ...
-
-    @abstractmethod
     def get_endpoint(self, endpoint_type: EndpointType) -> str:
         """Return a base URL including scheme for an endpoint-specific URL."""
         ...
@@ -53,9 +48,6 @@ class StaticHostnameSupplier(HostnameSupplier):
         self._multipass_url = base_url + "/multipass/api"
         self._stream_proxy_url = base_url + "/api"
         self._is_user_supplied = is_user_supplied
-
-    def get_hostname(self) -> str:
-        return self._base_url
 
     def get_endpoint(self, endpoint_type: EndpointType) -> str:
         if endpoint_type == EndpointType.GENERIC:
@@ -78,13 +70,6 @@ class ServiceDiscoveryHostnameSupplier(HostnameSupplier):
     ) -> None:
         self._services = services
         self._fallback_supplier = fallback_supplier
-
-    def get_hostname(self) -> str:
-        if self._fallback_supplier is not None:
-            return self._fallback_supplier.get_hostname()
-        raise ValueError(
-            "Unable to provide hostname. Please provide a hostname parameter to the client."
-        )
 
     @cache
     def get_endpoint(  # pyright: ignore[reportIncompatibleMethodOverride]

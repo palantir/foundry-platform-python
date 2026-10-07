@@ -45,7 +45,6 @@ class OpenAiModelClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -70,6 +69,9 @@ class OpenAiModelClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> language_models_models.OpenAiEmbeddingsResponse:
         """
+
+
+        Required scopes: [api:language-models-execute]
 
         :param open_ai_model_model_id:
         :type open_ai_model_model_id: LanguageModelApiName
@@ -157,7 +159,6 @@ class AsyncOpenAiModelClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -182,6 +183,9 @@ class AsyncOpenAiModelClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[language_models_models.OpenAiEmbeddingsResponse]:
         """
+
+
+        Required scopes: [api:language-models-execute]
 
         :param open_ai_model_model_id:
         :type open_ai_model_model_id: LanguageModelApiName
