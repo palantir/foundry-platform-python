@@ -232,7 +232,10 @@
       "namespaces": {
         "Core": true,
         "Endpoints": true,
-        "Orchestrator": true
+        "Filesystem": true,
+        "Marketplace": true,
+        "Orchestrator": true,
+        "Tiles": true
       }
     }
   },
