@@ -90,6 +90,7 @@ ActionParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         core_models.IntegerType,
         core_models.GeoShapeType,
         core_models.LongType,
+        core_models.TimeSeriesReferenceType,
         "OntologyObjectTypeReferenceType",
         core_models.BooleanType,
         core_models.MarkingType,
@@ -1204,6 +1205,7 @@ Represents the value of data in the following format. Note that these values can
 | TwoDimensionalAggregation           | JSON object                                           | `{"groups": [{"key": "alpha", "value": 100}, {"key": "beta", "value": 101}]}`                                                                                 |
 | ThreeDimensionalAggregation         | JSON object                                           | `{"groups": [{"key": "NYC", "groups": [{"key": "Engineer", "value" : 100}]}]}`                                                                                |
 | Timestamp                           | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                                                                                                      |
+| Time Series Reference               | JSON object with a type discriminator                 | `{"type":"seriesId","seriesId":"sensor-123"}`, `{"type":"templateRid","templateRid":{"templateRid":"ri.time-series-catalog.main.template.2f944bae-5851-4204-8615-920c969a9f2e","templateVersion":"1"}}`, or `{"type":"qualifiedSeriesId","qualifiedSeriesId":{"seriesId":"sensor-123","syncRid":"ri.time-series-catalog.main.sync.2f944bae-5851-4204-8615-920c969a9f2e"}}` |
 """
 
 
@@ -2403,6 +2405,12 @@ IntervalQueryRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
 """Sub-rule used for evaluating an IntervalQuery"""
 
 
+InvalidTimeSeriesReferenceReason: typing_extensions.TypeAlias = typing.Literal[
+    "ACCESS_DENIED", "DATASOURCE_MISMATCH", "INVALID_SERIES_ID_FORMAT", "UNKNOWN"
+]
+"""The specific reason a time series reference edited by an Action failed validation."""
+
+
 class IsNullQueryV2(core.ModelBase):
     """
     Returns objects based on the existence of the specified field. Allows you to specify a property to query on
@@ -2801,6 +2809,7 @@ class LoadObjectSetResponseV2(core.ModelBase):
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
     property_securities: typing.Optional[typing.List[PropertySecurities]] = pydantic.Field(alias=str("propertySecurities"), default=None)  # type: ignore[literal-required]
+    object_set_entities: typing.Optional[ObjectSetEntities] = pydantic.Field(alias=str("objectSetEntities"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
@@ -2882,6 +2891,7 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
     interface_to_object_type_mappings_v2: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappingsV2] = pydantic.Field(alias=str("interfaceToObjectTypeMappingsV2"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
     property_securities: typing.Optional[typing.List[PropertySecurities]] = pydantic.Field(alias=str("propertySecurities"), default=None)  # type: ignore[literal-required]
+    object_set_entities: typing.Optional[ObjectSetEntities] = pydantic.Field(alias=str("objectSetEntities"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
@@ -3602,6 +3612,19 @@ class ObjectSetBaseType(core.ModelBase):
     """The API name of the object type."""
 
     type: typing.Literal["base"] = "base"
+
+
+class ObjectSetEntities(core.ModelBase):
+    """
+    The concrete object types referenced while evaluating the complete object set, including object types
+    implementing referenced interfaces and types used by link traversals or derived properties.
+    These types are identified by API name and may not have objects in the returned page.
+    Entity information can change and should be refreshed when reloading the set.
+    This field is only returned on the first page when entity information is available.
+    An omitted field indicates unavailable dependency information.
+    """
+
+    object_type_api_names: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypeApiNames"))  # type: ignore[literal-required]
 
 
 class ObjectSetFilterType(core.ModelBase):
@@ -6982,6 +7005,7 @@ __all__ = [
     "IntersectsPolygonQuery",
     "IntervalQuery",
     "IntervalQueryRule",
+    "InvalidTimeSeriesReferenceReason",
     "IsNullQueryV2",
     "KnownType",
     "LeastPropertyExpression",
@@ -7089,6 +7113,7 @@ __all__ = [
     "ObjectSetAsBaseObjectTypesType",
     "ObjectSetAsTypeType",
     "ObjectSetBaseType",
+    "ObjectSetEntities",
     "ObjectSetFilterType",
     "ObjectSetInterfaceBaseType",
     "ObjectSetInterfaceLinkSearchAroundType",

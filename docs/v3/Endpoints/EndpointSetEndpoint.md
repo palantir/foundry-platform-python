@@ -14,6 +14,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **endpoint_set_rid** | EndpointSetRid |  |  |
 **endpoint_rid** | EndpointSetEndpointRid |  |  |
+**preview** | Optional[PreviewMode] |  | [optional] |
 
 ### Return type
 **EndpointSetEndpoint**
@@ -31,10 +32,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 endpoint_set_rid = None
 # EndpointSetEndpointRid
 endpoint_rid = None
+# Optional[PreviewMode]
+preview = None
 
 
 try:
-    api_response = client.endpoints.EndpointSet.Endpoint.get(endpoint_set_rid, endpoint_rid)
+    api_response = client.endpoints.EndpointSet.Endpoint.get(
+        endpoint_set_rid, endpoint_rid, preview=preview
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -45,6 +50,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:v3:endpoint-set-endpoint:read:get]
 
 See [README](../../../README.md#authorization)
 
@@ -65,6 +72,7 @@ Name | Type | Description  | Notes |
 **endpoint_set_rid** | EndpointSetRid |  |  |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] |  | [optional] |
 
 ### Return type
 **ListEndpointSetEndpointsResponse**
@@ -84,11 +92,13 @@ endpoint_set_rid = None
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[PreviewMode]
+preview = None
 
 
 try:
     for endpoint_set_endpoint in client.endpoints.EndpointSet.Endpoint.list(
-        endpoint_set_rid, page_size=page_size, page_token=page_token
+        endpoint_set_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(endpoint_set_endpoint)
 except foundry_sdk.PalantirRPCException as e:
@@ -99,6 +109,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:v3:endpoint-set-endpoint:read:list]
 
 See [README](../../../README.md#authorization)
 

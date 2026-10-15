@@ -45,7 +45,6 @@ class AgentVersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class AgentVersionClient:
     ) -> aip_agents_models.AgentVersion:
         """
         Get version details for an Agent.
+
+        Required scopes: [api:aip-agents-read]
+
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
@@ -128,6 +130,9 @@ class AgentVersionClient:
         """
         List all versions for an Agent.
         Versions are returned in descending order, by most recent versions first.
+
+
+        Required scopes: [api:aip-agents-read]
 
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
@@ -209,7 +214,6 @@ class AsyncAgentVersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -232,6 +236,9 @@ class AsyncAgentVersionClient:
     ) -> typing.Awaitable[aip_agents_models.AgentVersion]:
         """
         Get version details for an Agent.
+
+        Required scopes: [api:aip-agents-read]
+
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
@@ -292,6 +299,9 @@ class AsyncAgentVersionClient:
         """
         List all versions for an Agent.
         Versions are returned in descending order, by most recent versions first.
+
+
+        Required scopes: [api:aip-agents-read]
 
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid

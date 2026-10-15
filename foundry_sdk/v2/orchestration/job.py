@@ -46,7 +46,6 @@ class JobClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -70,6 +69,9 @@ class JobClient:
         Get the Job with the specified rid.
 
         Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
+
+        Required scopes: [api:orchestration-read]
 
         :param job_rid: The RID of a Job.
         :type job_rid: JobRid
@@ -127,6 +129,9 @@ class JobClient:
 
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:orchestration-read]
+
         :param body: Body of the request
         :type body: List[GetJobsBatchRequestElement]
         :param preview: Enables the use of preview functionality.
@@ -196,7 +201,6 @@ class AsyncJobClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -220,6 +224,9 @@ class AsyncJobClient:
         Get the Job with the specified rid.
 
         Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
+
+        Required scopes: [api:orchestration-read]
 
         :param job_rid: The RID of a Job.
         :type job_rid: JobRid
@@ -277,6 +284,9 @@ class AsyncJobClient:
 
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:orchestration-read]
+
         :param body: Body of the request
         :type body: List[GetJobsBatchRequestElement]
         :param preview: Enables the use of preview functionality.

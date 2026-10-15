@@ -44,7 +44,6 @@ class ObjectTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -66,6 +65,9 @@ class ObjectTypeClient:
     ) -> ontologies_models.ObjectType:
         """
         Gets a specific object type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -111,6 +113,9 @@ class ObjectTypeClient:
     ) -> ontologies_models.LinkTypeSide:
         """
         Get an outgoing link for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
@@ -164,6 +169,9 @@ class ObjectTypeClient:
         more results available, at least one result will be present in the
         response.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -213,6 +221,9 @@ class ObjectTypeClient:
     ) -> core.ResourceIterator[ontologies_models.LinkTypeSide]:
         """
         List the outgoing links for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
@@ -306,7 +317,6 @@ class AsyncObjectTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -328,6 +338,9 @@ class AsyncObjectTypeClient:
     ) -> typing.Awaitable[ontologies_models.ObjectType]:
         """
         Gets a specific object type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -373,6 +386,9 @@ class AsyncObjectTypeClient:
     ) -> typing.Awaitable[ontologies_models.LinkTypeSide]:
         """
         Get an outgoing link for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
@@ -426,6 +442,9 @@ class AsyncObjectTypeClient:
         more results available, at least one result will be present in the
         response.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -475,6 +494,9 @@ class AsyncObjectTypeClient:
     ) -> core.AsyncResourceIterator[ontologies_models.LinkTypeSide]:
         """
         List the outgoing links for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid

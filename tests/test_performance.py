@@ -498,6 +498,26 @@ def test_endpoints_v3_models_import_performance():
     assert init_and_access_time < 1.0
 
 
+def test_filesystem_v3_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').filesystem",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3', None);import foundry_sdk; import foundry_sdk.v3",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_filesystem_v3_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v3.filesystem.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3.filesystem.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 1.0
+
+
 def test_orchestrator_v3_client_access_performance():
     init_and_access_time = timeit.timeit(
         stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').orchestrator",
@@ -512,6 +532,26 @@ def test_orchestrator_v3_models_import_performance():
     init_and_access_time = timeit.timeit(
         stmt="import foundry_sdk.v3.orchestrator.models",
         setup="import sys; sys.modules.pop('foundry_sdk.v3.orchestrator.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 1.0
+
+
+def test_tiles_v3_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').tiles",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3', None);import foundry_sdk; import foundry_sdk.v3",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_tiles_v3_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v3.tiles.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3.tiles.models', None)",
         number=1,
     )
 

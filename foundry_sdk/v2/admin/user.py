@@ -48,7 +48,6 @@ class UserClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -89,6 +88,9 @@ class UserClient:
     ) -> None:
         """
         Delete the User with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param user_id:
         :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
@@ -135,6 +137,9 @@ class UserClient:
     ) -> admin_models.User:
         """
         Get the User with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param user_id:
         :type user_id: UserId
         :param status:
@@ -191,6 +196,9 @@ class UserClient:
         Execute multiple get requests on User.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetUsersBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -227,6 +235,9 @@ class UserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.User:
         """
+
+
+        Required scopes: [api:admin-read]
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -267,6 +278,9 @@ class UserClient:
     ) -> admin_models.GetUserMarkingsResponse:
         """
         Retrieve Markings that the user is currently a member of.
+
+        Required scopes: [api:admin-read]
+
         :param user_id:
         :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
@@ -318,6 +332,9 @@ class UserClient:
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:admin-read]
+
         :param include:
         :type include: Optional[UserStatus]
         :param page_size: The page size to use for the endpoint.
@@ -368,6 +385,9 @@ class UserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Optional[bytes]:
         """
+
+
+        Required scopes: [api:admin-read]
 
         :param user_id:
         :type user_id: UserId
@@ -427,6 +447,9 @@ class UserClient:
 
         The caller must have permission to manage users for the target user's organization.
 
+
+        Required scopes: [api:admin-write]
+
         :param user_id:
         :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
@@ -475,6 +498,9 @@ class UserClient:
         """
         Perform a case-insensitive prefix search for active users based on username, given name and family name.
         Deleted users are not included in results. To list deleted users, use the `list` endpoint with `include=DELETED`.
+
+
+        Required scopes: [api:admin-read]
 
         :param where:
         :type where: UserSearchFilter
@@ -579,7 +605,6 @@ class AsyncUserClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -620,6 +645,9 @@ class AsyncUserClient:
     ) -> typing.Awaitable[None]:
         """
         Delete the User with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param user_id:
         :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
@@ -666,6 +694,9 @@ class AsyncUserClient:
     ) -> typing.Awaitable[admin_models.User]:
         """
         Get the User with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param user_id:
         :type user_id: UserId
         :param status:
@@ -722,6 +753,9 @@ class AsyncUserClient:
         Execute multiple get requests on User.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetUsersBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -758,6 +792,9 @@ class AsyncUserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.User]:
         """
+
+
+        Required scopes: [api:admin-read]
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -798,6 +835,9 @@ class AsyncUserClient:
     ) -> typing.Awaitable[admin_models.GetUserMarkingsResponse]:
         """
         Retrieve Markings that the user is currently a member of.
+
+        Required scopes: [api:admin-read]
+
         :param user_id:
         :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
@@ -849,6 +889,9 @@ class AsyncUserClient:
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:admin-read]
+
         :param include:
         :type include: Optional[UserStatus]
         :param page_size: The page size to use for the endpoint.
@@ -899,6 +942,9 @@ class AsyncUserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[typing.Optional[bytes]]:
         """
+
+
+        Required scopes: [api:admin-read]
 
         :param user_id:
         :type user_id: UserId
@@ -958,6 +1004,9 @@ class AsyncUserClient:
 
         The caller must have permission to manage users for the target user's organization.
 
+
+        Required scopes: [api:admin-write]
+
         :param user_id:
         :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
@@ -1006,6 +1055,9 @@ class AsyncUserClient:
         """
         Perform a case-insensitive prefix search for active users based on username, given name and family name.
         Deleted users are not included in results. To list deleted users, use the `list` endpoint with `include=DELETED`.
+
+
+        Required scopes: [api:admin-read]
 
         :param where:
         :type where: UserSearchFilter

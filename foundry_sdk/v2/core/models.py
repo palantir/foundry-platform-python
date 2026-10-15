@@ -835,6 +835,12 @@ TimeSeriesItemType: typing_extensions.TypeAlias = typing_extensions.Annotated[
 """A union of the types supported by time series properties."""
 
 
+class TimeSeriesReferenceType(core.ModelBase):
+    """TimeSeriesReferenceType"""
+
+    type: typing.Literal["timeSeriesReference"] = "timeSeriesReference"
+
+
 TimeUnit: typing_extensions.TypeAlias = typing.Literal[
     "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS"
 ]
@@ -1076,6 +1082,7 @@ __all__ = [
     "StructFieldType",
     "TableRid",
     "TimeSeriesItemType",
+    "TimeSeriesReferenceType",
     "TimeUnit",
     "TimeseriesType",
     "TimestampType",

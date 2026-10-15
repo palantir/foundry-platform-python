@@ -13,7 +13,8 @@ Metadata for imagery (image) media items.
 **geo** | Optional[GeoMetadata] | No |  |
 **pages** | Optional[int] | No | The number of pages associated with this image. Usually 1, but may be more for some formats (multi-page TIFFs, for example).  |
 **orientation** | Optional[Orientation] | No |  |
-**size_bytes** | int | Yes | The size of the media item in bytes. |
+**size_bytes** | int | Yes | Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger.  |
+**size_bytes_long** | MediaItemSizeBytes | Yes |  |
 **type** | Literal["imagery"] | Yes | None |
 
 

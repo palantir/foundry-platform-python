@@ -48,7 +48,6 @@ class ConnectionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -110,6 +109,9 @@ class ConnectionClient:
         By using this endpoint, you acknowledge and accept any potential risks associated with the temporary
         in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
         use the Foundry UI instead.
+
+
+        Required scopes: [api:connectivity-connection-write]
 
         :param configuration:
         :type configuration: CreateConnectionRequestConnectionConfiguration
@@ -176,6 +178,9 @@ class ConnectionClient:
     ) -> connectivity_models.Connection:
         """
         Get the Connection with the specified rid.
+
+        Required scopes: [api:connectivity-connection-read]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -224,6 +229,9 @@ class ConnectionClient:
         """
         Retrieves the ConnectionConfiguration of the [Connection](https://palantir.com/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
+
+
+        Required scopes: [api:connectivity-connection-read]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -279,6 +287,9 @@ class ConnectionClient:
 
 
         The maximum batch size for this endpoint is 200.
+
+        Required scopes: [api:connectivity-connection-read]
+
         :param body: Body of the request
         :type body: List[GetConfigurationConnectionsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -319,6 +330,9 @@ class ConnectionClient:
         """
         Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
         Only users with Information Security Officer role can modify the export settings.
+
+
+        Required scopes: [api:connectivity-connection-write]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -381,6 +395,9 @@ class ConnectionClient:
         in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
         use the Foundry UI instead.
 
+
+        Required scopes: [api:connectivity-connection-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
@@ -435,6 +452,9 @@ class ConnectionClient:
         """
         Upload custom jdbc drivers to an existing JDBC connection.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+
+        Required scopes: [api:connectivity-connection-write]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -547,7 +567,6 @@ class AsyncConnectionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -609,6 +628,9 @@ class AsyncConnectionClient:
         By using this endpoint, you acknowledge and accept any potential risks associated with the temporary
         in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
         use the Foundry UI instead.
+
+
+        Required scopes: [api:connectivity-connection-write]
 
         :param configuration:
         :type configuration: CreateConnectionRequestConnectionConfiguration
@@ -675,6 +697,9 @@ class AsyncConnectionClient:
     ) -> typing.Awaitable[connectivity_models.Connection]:
         """
         Get the Connection with the specified rid.
+
+        Required scopes: [api:connectivity-connection-read]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -723,6 +748,9 @@ class AsyncConnectionClient:
         """
         Retrieves the ConnectionConfiguration of the [Connection](https://palantir.com/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
+
+
+        Required scopes: [api:connectivity-connection-read]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -778,6 +806,9 @@ class AsyncConnectionClient:
 
 
         The maximum batch size for this endpoint is 200.
+
+        Required scopes: [api:connectivity-connection-read]
+
         :param body: Body of the request
         :type body: List[GetConfigurationConnectionsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -818,6 +849,9 @@ class AsyncConnectionClient:
         """
         Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
         Only users with Information Security Officer role can modify the export settings.
+
+
+        Required scopes: [api:connectivity-connection-write]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
@@ -880,6 +914,9 @@ class AsyncConnectionClient:
         in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
         use the Foundry UI instead.
 
+
+        Required scopes: [api:connectivity-connection-write]
+
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
@@ -934,6 +971,9 @@ class AsyncConnectionClient:
         """
         Upload custom jdbc drivers to an existing JDBC connection.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+
+        Required scopes: [api:connectivity-connection-write]
 
         :param connection_rid:
         :type connection_rid: ConnectionRid

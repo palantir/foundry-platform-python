@@ -48,7 +48,6 @@ class MarkingClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -80,6 +79,62 @@ class MarkingClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def canonicalize(
+        self,
+        *,
+        marking_ids: typing.List[core_models.MarkingId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.CanonicalizeMarkingsResponse:
+        """
+        Returns a canonical set of CBAC marking IDs for the supplied markings. Requires permission to view
+        classification markings.
+
+
+        Required scopes: [api:admin-read]
+
+        :param marking_ids: The marking IDs to canonicalize.
+        :type marking_ids: List[MarkingId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.CanonicalizeMarkingsResponse
+
+        :raises CanonicalizeMarkingsPermissionDenied: You do not have permission to view classification markings.
+        :raises CbacUnavailable: CBAC is not available.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/canonicalize",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.CanonicalizeMarkingsRequest(
+                    marking_ids=marking_ids,
+                ),
+                response_type=admin_models.CanonicalizeMarkingsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CanonicalizeMarkingsPermissionDenied": admin_errors.CanonicalizeMarkingsPermissionDenied,
+                    "CbacUnavailable": admin_errors.CbacUnavailable,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def create(
         self,
         *,
@@ -93,6 +148,9 @@ class MarkingClient:
     ) -> admin_models.Marking:
         """
         Creates a new Marking.
+
+        Required scopes: [api:admin-write]
+
         :param category_id:
         :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
@@ -152,6 +210,64 @@ class MarkingClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def flatten(
+        self,
+        *,
+        marking_expressions: typing.List[admin_models.MarkingExpression],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.FlattenMarkingExpressionsResponse:
+        """
+        Flattens up to 1,000 marking expressions. For each expression, returns a set of markings with the same
+        access requirement, or a stricter one if an exact flat representation is unavailable. You must have
+        permission to view every input marking. Each clause must contain markings from one category; a clause
+        in a conjunctive category must contain exactly one marking.
+
+
+        Required scopes: [api:admin-read]
+
+        :param marking_expressions: The expressions to flatten, in result order.
+        :type marking_expressions: List[MarkingExpression]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.FlattenMarkingExpressionsResponse
+
+        :raises FlattenMarkingExpressionsBatchLimitExceeded: Cannot flatten more than 1,000 marking expressions in one request.
+        :raises FlattenMarkingExpressionsPermissionDenied: You do not have permission to view one or more of the supplied markings.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/flatten",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.FlattenMarkingExpressionsRequest(
+                    marking_expressions=marking_expressions,
+                ),
+                response_type=admin_models.FlattenMarkingExpressionsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "FlattenMarkingExpressionsBatchLimitExceeded": admin_errors.FlattenMarkingExpressionsBatchLimitExceeded,
+                    "FlattenMarkingExpressionsPermissionDenied": admin_errors.FlattenMarkingExpressionsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get(
         self,
         marking_id: core_models.MarkingId,
@@ -161,6 +277,9 @@ class MarkingClient:
     ) -> admin_models.Marking:
         """
         Get the Marking with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param request_timeout: timeout setting for this request in seconds.
@@ -211,6 +330,9 @@ class MarkingClient:
         Execute multiple get requests on Marking.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetMarkingsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -243,6 +365,7 @@ class MarkingClient:
     def list(
         self,
         *,
+        include_deleted: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -250,6 +373,11 @@ class MarkingClient:
     ) -> core.ResourceIterator[admin_models.Marking]:
         """
         Maximum page size 100.
+
+        Required scopes: [api:admin-read]
+
+        :param include_deleted: Whether to include deleted Markings. Defaults to true when omitted.
+        :type include_deleted: Optional[bool]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -267,6 +395,7 @@ class MarkingClient:
                 method="GET",
                 resource_path="/v2/admin/markings",
                 query_params={
+                    "includeDeleted": include_deleted,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -297,6 +426,9 @@ class MarkingClient:
     ) -> admin_models.ParseClassificationsResponse:
         """
         Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+
+        Required scopes: [api:admin-read]
+
         :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
         :param preview: Enables the use of preview functionality.
@@ -349,6 +481,9 @@ class MarkingClient:
     ) -> admin_models.Marking:
         """
         Replace the Marking with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param name:
@@ -401,14 +536,18 @@ class MarkingClient:
 
 class _MarkingClientRaw:
     def __init__(self, client: MarkingClient) -> None:
+        def canonicalize(_: admin_models.CanonicalizeMarkingsResponse): ...
         def create(_: admin_models.Marking): ...
+        def flatten(_: admin_models.FlattenMarkingExpressionsResponse): ...
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
         def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
+        self.canonicalize = core.with_raw_response(canonicalize, client.canonicalize)
         self.create = core.with_raw_response(create, client.create)
+        self.flatten = core.with_raw_response(flatten, client.flatten)
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.list = core.with_raw_response(list, client.list)
@@ -420,14 +559,18 @@ class _MarkingClientRaw:
 
 class _MarkingClientStreaming:
     def __init__(self, client: MarkingClient) -> None:
+        def canonicalize(_: admin_models.CanonicalizeMarkingsResponse): ...
         def create(_: admin_models.Marking): ...
+        def flatten(_: admin_models.FlattenMarkingExpressionsResponse): ...
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
         def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
+        self.canonicalize = core.with_streaming_response(canonicalize, client.canonicalize)
         self.create = core.with_streaming_response(create, client.create)
+        self.flatten = core.with_streaming_response(flatten, client.flatten)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.list = core.with_streaming_response(list, client.list)
@@ -457,7 +600,6 @@ class AsyncMarkingClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -491,6 +633,62 @@ class AsyncMarkingClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def canonicalize(
+        self,
+        *,
+        marking_ids: typing.List[core_models.MarkingId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.CanonicalizeMarkingsResponse]:
+        """
+        Returns a canonical set of CBAC marking IDs for the supplied markings. Requires permission to view
+        classification markings.
+
+
+        Required scopes: [api:admin-read]
+
+        :param marking_ids: The marking IDs to canonicalize.
+        :type marking_ids: List[MarkingId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.CanonicalizeMarkingsResponse]
+
+        :raises CanonicalizeMarkingsPermissionDenied: You do not have permission to view classification markings.
+        :raises CbacUnavailable: CBAC is not available.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/canonicalize",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.CanonicalizeMarkingsRequest(
+                    marking_ids=marking_ids,
+                ),
+                response_type=admin_models.CanonicalizeMarkingsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CanonicalizeMarkingsPermissionDenied": admin_errors.CanonicalizeMarkingsPermissionDenied,
+                    "CbacUnavailable": admin_errors.CbacUnavailable,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def create(
         self,
         *,
@@ -504,6 +702,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.Marking]:
         """
         Creates a new Marking.
+
+        Required scopes: [api:admin-write]
+
         :param category_id:
         :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
@@ -563,6 +764,64 @@ class AsyncMarkingClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def flatten(
+        self,
+        *,
+        marking_expressions: typing.List[admin_models.MarkingExpression],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.FlattenMarkingExpressionsResponse]:
+        """
+        Flattens up to 1,000 marking expressions. For each expression, returns a set of markings with the same
+        access requirement, or a stricter one if an exact flat representation is unavailable. You must have
+        permission to view every input marking. Each clause must contain markings from one category; a clause
+        in a conjunctive category must contain exactly one marking.
+
+
+        Required scopes: [api:admin-read]
+
+        :param marking_expressions: The expressions to flatten, in result order.
+        :type marking_expressions: List[MarkingExpression]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.FlattenMarkingExpressionsResponse]
+
+        :raises FlattenMarkingExpressionsBatchLimitExceeded: Cannot flatten more than 1,000 marking expressions in one request.
+        :raises FlattenMarkingExpressionsPermissionDenied: You do not have permission to view one or more of the supplied markings.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/flatten",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.FlattenMarkingExpressionsRequest(
+                    marking_expressions=marking_expressions,
+                ),
+                response_type=admin_models.FlattenMarkingExpressionsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "FlattenMarkingExpressionsBatchLimitExceeded": admin_errors.FlattenMarkingExpressionsBatchLimitExceeded,
+                    "FlattenMarkingExpressionsPermissionDenied": admin_errors.FlattenMarkingExpressionsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get(
         self,
         marking_id: core_models.MarkingId,
@@ -572,6 +831,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.Marking]:
         """
         Get the Marking with the specified id.
+
+        Required scopes: [api:admin-read]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param request_timeout: timeout setting for this request in seconds.
@@ -622,6 +884,9 @@ class AsyncMarkingClient:
         Execute multiple get requests on Marking.
 
         The maximum batch size for this endpoint is 500.
+
+        Required scopes: [api:admin-read]
+
         :param body: Body of the request
         :type body: List[GetMarkingsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
@@ -654,6 +919,7 @@ class AsyncMarkingClient:
     def list(
         self,
         *,
+        include_deleted: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -661,6 +927,11 @@ class AsyncMarkingClient:
     ) -> core.AsyncResourceIterator[admin_models.Marking]:
         """
         Maximum page size 100.
+
+        Required scopes: [api:admin-read]
+
+        :param include_deleted: Whether to include deleted Markings. Defaults to true when omitted.
+        :type include_deleted: Optional[bool]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -678,6 +949,7 @@ class AsyncMarkingClient:
                 method="GET",
                 resource_path="/v2/admin/markings",
                 query_params={
+                    "includeDeleted": include_deleted,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -708,6 +980,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.ParseClassificationsResponse]:
         """
         Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+
+        Required scopes: [api:admin-read]
+
         :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
         :param preview: Enables the use of preview functionality.
@@ -760,6 +1035,9 @@ class AsyncMarkingClient:
     ) -> typing.Awaitable[admin_models.Marking]:
         """
         Replace the Marking with the specified id.
+
+        Required scopes: [api:admin-write]
+
         :param marking_id:
         :type marking_id: MarkingId
         :param name:
@@ -812,14 +1090,18 @@ class AsyncMarkingClient:
 
 class _AsyncMarkingClientRaw:
     def __init__(self, client: AsyncMarkingClient) -> None:
+        def canonicalize(_: admin_models.CanonicalizeMarkingsResponse): ...
         def create(_: admin_models.Marking): ...
+        def flatten(_: admin_models.FlattenMarkingExpressionsResponse): ...
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
         def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
+        self.canonicalize = core.async_with_raw_response(canonicalize, client.canonicalize)
         self.create = core.async_with_raw_response(create, client.create)
+        self.flatten = core.async_with_raw_response(flatten, client.flatten)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.list = core.async_with_raw_response(list, client.list)
@@ -831,14 +1113,18 @@ class _AsyncMarkingClientRaw:
 
 class _AsyncMarkingClientStreaming:
     def __init__(self, client: AsyncMarkingClient) -> None:
+        def canonicalize(_: admin_models.CanonicalizeMarkingsResponse): ...
         def create(_: admin_models.Marking): ...
+        def flatten(_: admin_models.FlattenMarkingExpressionsResponse): ...
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
         def parse_classifications(_: admin_models.ParseClassificationsResponse): ...
         def replace(_: admin_models.Marking): ...
 
+        self.canonicalize = core.async_with_streaming_response(canonicalize, client.canonicalize)
         self.create = core.async_with_streaming_response(create, client.create)
+        self.flatten = core.async_with_streaming_response(flatten, client.flatten)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.list = core.async_with_streaming_response(list, client.list)

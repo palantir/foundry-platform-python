@@ -45,7 +45,6 @@ class AuthenticationProviderClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class AuthenticationProviderClient:
     ) -> admin_models.AuthenticationProvider:
         """
         Get the AuthenticationProvider with the specified rid.
+
+        Required scopes: [api:admin-read]
+
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid:
@@ -121,6 +123,9 @@ class AuthenticationProviderClient:
         Lists all AuthenticationProviders.
 
 
+
+        Required scopes: [api:admin-read]
+
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
         :param preview: Enables the use of preview functionality.
@@ -173,6 +178,9 @@ class AuthenticationProviderClient:
         """
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
@@ -245,6 +253,9 @@ class AuthenticationProviderClient:
         """
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
@@ -357,7 +368,6 @@ class AsyncAuthenticationProviderClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -380,6 +390,9 @@ class AsyncAuthenticationProviderClient:
     ) -> typing.Awaitable[admin_models.AuthenticationProvider]:
         """
         Get the AuthenticationProvider with the specified rid.
+
+        Required scopes: [api:admin-read]
+
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid:
@@ -433,6 +446,9 @@ class AsyncAuthenticationProviderClient:
         Lists all AuthenticationProviders.
 
 
+
+        Required scopes: [api:admin-read]
+
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
         :param preview: Enables the use of preview functionality.
@@ -485,6 +501,9 @@ class AsyncAuthenticationProviderClient:
         """
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
@@ -557,6 +576,9 @@ class AsyncAuthenticationProviderClient:
         """
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
+
+
+        Required scopes: [api:admin-write]
 
         :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid

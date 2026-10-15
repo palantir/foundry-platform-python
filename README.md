@@ -561,7 +561,7 @@ print(result.data)
 
 If you are using a static type checker (for example, [mypy](https://mypy-lang.org), [pyright](https://github.com/microsoft/pyright)), you
 get static type analysis for the arguments you provide to the function and with the response. For example, if you pass an `int`
-to `name` but `name` expects a string or if you try to access `branchName` on the returned [`Branch`](docs/Branch.md) object (the
+to `name` but `name` expects a string or if you try to access `branchName` on the returned [`Branch`](docs/v2/Datasets/models/Branch.md) object (the
 property is actually called `name`), you will get the following errors:
 
 
@@ -1027,8 +1027,16 @@ Namespace | Resource | Operation | HTTP request |
 
 Namespace | Name | Import |
 --------- | ---- | ------ |
+**Core** | [BBox](docs/v3/Core/models/BBox.md) | `from foundry_sdk.v3.core.models import BBox` |
+**Core** | [Coordinate](docs/v3/Core/models/Coordinate.md) | `from foundry_sdk.v3.core.models import Coordinate` |
+**Core** | [CreatedTime](docs/v3/Core/models/CreatedTime.md) | `from foundry_sdk.v3.core.models import CreatedTime` |
+**Core** | [FolderRid](docs/v3/Core/models/FolderRid.md) | `from foundry_sdk.v3.core.models import FolderRid` |
 **Core** | [PageSize](docs/v3/Core/models/PageSize.md) | `from foundry_sdk.v3.core.models import PageSize` |
 **Core** | [PageToken](docs/v3/Core/models/PageToken.md) | `from foundry_sdk.v3.core.models import PageToken` |
+**Core** | [Position](docs/v3/Core/models/Position.md) | `from foundry_sdk.v3.core.models import Position` |
+**Core** | [PreviewMode](docs/v3/Core/models/PreviewMode.md) | `from foundry_sdk.v3.core.models import PreviewMode` |
+**Core** | [PrincipalId](docs/v3/Core/models/PrincipalId.md) | `from foundry_sdk.v3.core.models import PrincipalId` |
+**Core** | [UpdatedTime](docs/v3/Core/models/UpdatedTime.md) | `from foundry_sdk.v3.core.models import UpdatedTime` |
 **Endpoints** | [EndpointSet](docs/v3/Endpoints/models/EndpointSet.md) | `from foundry_sdk.v3.endpoints.models import EndpointSet` |
 **Endpoints** | [EndpointSetEndpoint](docs/v3/Endpoints/models/EndpointSetEndpoint.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetEndpoint` |
 **Endpoints** | [EndpointSetEndpointRid](docs/v3/Endpoints/models/EndpointSetEndpointRid.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetEndpointRid` |
@@ -1037,9 +1045,75 @@ Namespace | Name | Import |
 **Endpoints** | [EndpointSetVersionId](docs/v3/Endpoints/models/EndpointSetVersionId.md) | `from foundry_sdk.v3.endpoints.models import EndpointSetVersionId` |
 **Endpoints** | [ListEndpointSetEndpointsResponse](docs/v3/Endpoints/models/ListEndpointSetEndpointsResponse.md) | `from foundry_sdk.v3.endpoints.models import ListEndpointSetEndpointsResponse` |
 **Endpoints** | [ListEndpointSetVersionsResponse](docs/v3/Endpoints/models/ListEndpointSetVersionsResponse.md) | `from foundry_sdk.v3.endpoints.models import ListEndpointSetVersionsResponse` |
+**Filesystem** | [AdditionalField](docs/v3/Filesystem/models/AdditionalField.md) | `from foundry_sdk.v3.filesystem.models import AdditionalField` |
+**Filesystem** | [AdditionalFields](docs/v3/Filesystem/models/AdditionalFields.md) | `from foundry_sdk.v3.filesystem.models import AdditionalFields` |
+**Filesystem** | [Branch](docs/v3/Filesystem/models/Branch.md) | `from foundry_sdk.v3.filesystem.models import Branch` |
+**Filesystem** | [BranchName](docs/v3/Filesystem/models/BranchName.md) | `from foundry_sdk.v3.filesystem.models import BranchName` |
+**Filesystem** | [BranchRid](docs/v3/Filesystem/models/BranchRid.md) | `from foundry_sdk.v3.filesystem.models import BranchRid` |
+**Filesystem** | [Contact](docs/v3/Filesystem/models/Contact.md) | `from foundry_sdk.v3.filesystem.models import Contact` |
+**Filesystem** | [ContactInformation](docs/v3/Filesystem/models/ContactInformation.md) | `from foundry_sdk.v3.filesystem.models import ContactInformation` |
+**Filesystem** | [ContactInformationField](docs/v3/Filesystem/models/ContactInformationField.md) | `from foundry_sdk.v3.filesystem.models import ContactInformationField` |
+**Filesystem** | [CreateFolderRequest](docs/v3/Filesystem/models/CreateFolderRequest.md) | `from foundry_sdk.v3.filesystem.models import CreateFolderRequest` |
+**Filesystem** | [DefaultBranchField](docs/v3/Filesystem/models/DefaultBranchField.md) | `from foundry_sdk.v3.filesystem.models import DefaultBranchField` |
+**Filesystem** | [DeleteFoldersBatchRequestElement](docs/v3/Filesystem/models/DeleteFoldersBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import DeleteFoldersBatchRequestElement` |
+**Filesystem** | [DeleteProjectsBatchRequestElement](docs/v3/Filesystem/models/DeleteProjectsBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import DeleteProjectsBatchRequestElement` |
+**Filesystem** | [DeleteResourcesBatchRequestElement](docs/v3/Filesystem/models/DeleteResourcesBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import DeleteResourcesBatchRequestElement` |
+**Filesystem** | [DeleteSpacesBatchRequestElement](docs/v3/Filesystem/models/DeleteSpacesBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import DeleteSpacesBatchRequestElement` |
+**Filesystem** | [DescriptionField](docs/v3/Filesystem/models/DescriptionField.md) | `from foundry_sdk.v3.filesystem.models import DescriptionField` |
+**Filesystem** | [DisplayName](docs/v3/Filesystem/models/DisplayName.md) | `from foundry_sdk.v3.filesystem.models import DisplayName` |
+**Filesystem** | [DocumentationField](docs/v3/Filesystem/models/DocumentationField.md) | `from foundry_sdk.v3.filesystem.models import DocumentationField` |
+**Filesystem** | [FileSystemId](docs/v3/Filesystem/models/FileSystemId.md) | `from foundry_sdk.v3.filesystem.models import FileSystemId` |
+**Filesystem** | [Folder](docs/v3/Filesystem/models/Folder.md) | `from foundry_sdk.v3.filesystem.models import Folder` |
+**Filesystem** | [FolderBatchResult](docs/v3/Filesystem/models/FolderBatchResult.md) | `from foundry_sdk.v3.filesystem.models import FolderBatchResult` |
+**Filesystem** | [FolderNotFoundError](docs/v3/Filesystem/models/FolderNotFoundError.md) | `from foundry_sdk.v3.filesystem.models import FolderNotFoundError` |
+**Filesystem** | [GetFoldersBatchRequestElement](docs/v3/Filesystem/models/GetFoldersBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import GetFoldersBatchRequestElement` |
+**Filesystem** | [GetFoldersBatchResponse](docs/v3/Filesystem/models/GetFoldersBatchResponse.md) | `from foundry_sdk.v3.filesystem.models import GetFoldersBatchResponse` |
+**Filesystem** | [GetProjectsBatchRequestElement](docs/v3/Filesystem/models/GetProjectsBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import GetProjectsBatchRequestElement` |
+**Filesystem** | [GetProjectsBatchResponse](docs/v3/Filesystem/models/GetProjectsBatchResponse.md) | `from foundry_sdk.v3.filesystem.models import GetProjectsBatchResponse` |
+**Filesystem** | [GetResourcesBatchRequestElement](docs/v3/Filesystem/models/GetResourcesBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import GetResourcesBatchRequestElement` |
+**Filesystem** | [GetResourcesBatchResponse](docs/v3/Filesystem/models/GetResourcesBatchResponse.md) | `from foundry_sdk.v3.filesystem.models import GetResourcesBatchResponse` |
+**Filesystem** | [GetSpacesBatchRequestElement](docs/v3/Filesystem/models/GetSpacesBatchRequestElement.md) | `from foundry_sdk.v3.filesystem.models import GetSpacesBatchRequestElement` |
+**Filesystem** | [GetSpacesBatchResponse](docs/v3/Filesystem/models/GetSpacesBatchResponse.md) | `from foundry_sdk.v3.filesystem.models import GetSpacesBatchResponse` |
+**Filesystem** | [ListSpacesResponse](docs/v3/Filesystem/models/ListSpacesResponse.md) | `from foundry_sdk.v3.filesystem.models import ListSpacesResponse` |
+**Filesystem** | [MavenIdentifier](docs/v3/Filesystem/models/MavenIdentifier.md) | `from foundry_sdk.v3.filesystem.models import MavenIdentifier` |
+**Filesystem** | [NamedAncestorsField](docs/v3/Filesystem/models/NamedAncestorsField.md) | `from foundry_sdk.v3.filesystem.models import NamedAncestorsField` |
+**Filesystem** | [NamedResourceIdentifier](docs/v3/Filesystem/models/NamedResourceIdentifier.md) | `from foundry_sdk.v3.filesystem.models import NamedResourceIdentifier` |
+**Filesystem** | [OrganizationRid](docs/v3/Filesystem/models/OrganizationRid.md) | `from foundry_sdk.v3.filesystem.models import OrganizationRid` |
+**Filesystem** | [PathField](docs/v3/Filesystem/models/PathField.md) | `from foundry_sdk.v3.filesystem.models import PathField` |
+**Filesystem** | [Project](docs/v3/Filesystem/models/Project.md) | `from foundry_sdk.v3.filesystem.models import Project` |
+**Filesystem** | [ProjectBatchResult](docs/v3/Filesystem/models/ProjectBatchResult.md) | `from foundry_sdk.v3.filesystem.models import ProjectBatchResult` |
+**Filesystem** | [ProjectNotFoundError](docs/v3/Filesystem/models/ProjectNotFoundError.md) | `from foundry_sdk.v3.filesystem.models import ProjectNotFoundError` |
+**Filesystem** | [ProjectRid](docs/v3/Filesystem/models/ProjectRid.md) | `from foundry_sdk.v3.filesystem.models import ProjectRid` |
+**Filesystem** | [Resource](docs/v3/Filesystem/models/Resource.md) | `from foundry_sdk.v3.filesystem.models import Resource` |
+**Filesystem** | [ResourceBatchResult](docs/v3/Filesystem/models/ResourceBatchResult.md) | `from foundry_sdk.v3.filesystem.models import ResourceBatchResult` |
+**Filesystem** | [ResourceNotFoundError](docs/v3/Filesystem/models/ResourceNotFoundError.md) | `from foundry_sdk.v3.filesystem.models import ResourceNotFoundError` |
+**Filesystem** | [ResourcePath](docs/v3/Filesystem/models/ResourcePath.md) | `from foundry_sdk.v3.filesystem.models import ResourcePath` |
+**Filesystem** | [ResourceRid](docs/v3/Filesystem/models/ResourceRid.md) | `from foundry_sdk.v3.filesystem.models import ResourceRid` |
+**Filesystem** | [ResourceType](docs/v3/Filesystem/models/ResourceType.md) | `from foundry_sdk.v3.filesystem.models import ResourceType` |
+**Filesystem** | [RoleSetId](docs/v3/Filesystem/models/RoleSetId.md) | `from foundry_sdk.v3.filesystem.models import RoleSetId` |
+**Filesystem** | [Space](docs/v3/Filesystem/models/Space.md) | `from foundry_sdk.v3.filesystem.models import Space` |
+**Filesystem** | [SpaceBatchResult](docs/v3/Filesystem/models/SpaceBatchResult.md) | `from foundry_sdk.v3.filesystem.models import SpaceBatchResult` |
+**Filesystem** | [SpaceNotFoundError](docs/v3/Filesystem/models/SpaceNotFoundError.md) | `from foundry_sdk.v3.filesystem.models import SpaceNotFoundError` |
+**Filesystem** | [SpaceRid](docs/v3/Filesystem/models/SpaceRid.md) | `from foundry_sdk.v3.filesystem.models import SpaceRid` |
+**Filesystem** | [SpaceRidField](docs/v3/Filesystem/models/SpaceRidField.md) | `from foundry_sdk.v3.filesystem.models import SpaceRidField` |
+**Filesystem** | [TrashStatus](docs/v3/Filesystem/models/TrashStatus.md) | `from foundry_sdk.v3.filesystem.models import TrashStatus` |
+**Filesystem** | [TrashStatusField](docs/v3/Filesystem/models/TrashStatusField.md) | `from foundry_sdk.v3.filesystem.models import TrashStatusField` |
+**Filesystem** | [UsageAccountRid](docs/v3/Filesystem/models/UsageAccountRid.md) | `from foundry_sdk.v3.filesystem.models import UsageAccountRid` |
+**Filesystem** | [UserId](docs/v3/Filesystem/models/UserId.md) | `from foundry_sdk.v3.filesystem.models import UserId` |
 **Orchestrator** | [CompleteProcessExecutionSignalRequest](docs/v3/Orchestrator/models/CompleteProcessExecutionSignalRequest.md) | `from foundry_sdk.v3.orchestrator.models import CompleteProcessExecutionSignalRequest` |
 **Orchestrator** | [ProcessExecutionId](docs/v3/Orchestrator/models/ProcessExecutionId.md) | `from foundry_sdk.v3.orchestrator.models import ProcessExecutionId` |
 **Orchestrator** | [SignalId](docs/v3/Orchestrator/models/SignalId.md) | `from foundry_sdk.v3.orchestrator.models import SignalId` |
+**Tiles** | [Capability](docs/v3/Tiles/models/Capability.md) | `from foundry_sdk.v3.tiles.models import Capability` |
+**Tiles** | [ComputeElevationRequest](docs/v3/Tiles/models/ComputeElevationRequest.md) | `from foundry_sdk.v3.tiles.models import ComputeElevationRequest` |
+**Tiles** | [ComputeElevationResponse](docs/v3/Tiles/models/ComputeElevationResponse.md) | `from foundry_sdk.v3.tiles.models import ComputeElevationResponse` |
+**Tiles** | [ElevationPointResult](docs/v3/Tiles/models/ElevationPointResult.md) | `from foundry_sdk.v3.tiles.models import ElevationPointResult` |
+**Tiles** | [ListTileSourcesResponse](docs/v3/Tiles/models/ListTileSourcesResponse.md) | `from foundry_sdk.v3.tiles.models import ListTileSourcesResponse` |
+**Tiles** | [TileFormat](docs/v3/Tiles/models/TileFormat.md) | `from foundry_sdk.v3.tiles.models import TileFormat` |
+**Tiles** | [TileSet](docs/v3/Tiles/models/TileSet.md) | `from foundry_sdk.v3.tiles.models import TileSet` |
+**Tiles** | [TileSource](docs/v3/Tiles/models/TileSource.md) | `from foundry_sdk.v3.tiles.models import TileSource` |
+**Tiles** | [TileSourceId](docs/v3/Tiles/models/TileSourceId.md) | `from foundry_sdk.v3.tiles.models import TileSourceId` |
+**Tiles** | [TilingScheme](docs/v3/Tiles/models/TilingScheme.md) | `from foundry_sdk.v3.tiles.models import TilingScheme` |
+**Tiles** | [VerticalReference](docs/v3/Tiles/models/VerticalReference.md) | `from foundry_sdk.v3.tiles.models import VerticalReference` |
 
 <a id="models-v2-link"></a>
 ## Documentation for V2 models
@@ -1060,6 +1134,8 @@ Namespace | Name | Import |
 **Admin** | [AuthenticationProviderEnabled](docs/v2/Admin/models/AuthenticationProviderEnabled.md) | `from foundry_sdk.v2.admin.models import AuthenticationProviderEnabled` |
 **Admin** | [AuthenticationProviderName](docs/v2/Admin/models/AuthenticationProviderName.md) | `from foundry_sdk.v2.admin.models import AuthenticationProviderName` |
 **Admin** | [AuthenticationProviderRid](docs/v2/Admin/models/AuthenticationProviderRid.md) | `from foundry_sdk.v2.admin.models import AuthenticationProviderRid` |
+**Admin** | [CanonicalizeMarkingsRequest](docs/v2/Admin/models/CanonicalizeMarkingsRequest.md) | `from foundry_sdk.v2.admin.models import CanonicalizeMarkingsRequest` |
+**Admin** | [CanonicalizeMarkingsResponse](docs/v2/Admin/models/CanonicalizeMarkingsResponse.md) | `from foundry_sdk.v2.admin.models import CanonicalizeMarkingsResponse` |
 **Admin** | [CbacBanner](docs/v2/Admin/models/CbacBanner.md) | `from foundry_sdk.v2.admin.models import CbacBanner` |
 **Admin** | [CbacBannerClassificationString](docs/v2/Admin/models/CbacBannerClassificationString.md) | `from foundry_sdk.v2.admin.models import CbacBannerClassificationString` |
 **Admin** | [CbacMarkingRestrictions](docs/v2/Admin/models/CbacMarkingRestrictions.md) | `from foundry_sdk.v2.admin.models import CbacMarkingRestrictions` |
@@ -1075,6 +1151,10 @@ Namespace | Name | Import |
 **Admin** | [Enrollment](docs/v2/Admin/models/Enrollment.md) | `from foundry_sdk.v2.admin.models import Enrollment` |
 **Admin** | [EnrollmentName](docs/v2/Admin/models/EnrollmentName.md) | `from foundry_sdk.v2.admin.models import EnrollmentName` |
 **Admin** | [EnrollmentRoleAssignment](docs/v2/Admin/models/EnrollmentRoleAssignment.md) | `from foundry_sdk.v2.admin.models import EnrollmentRoleAssignment` |
+**Admin** | [FlattenedMarkingExpression](docs/v2/Admin/models/FlattenedMarkingExpression.md) | `from foundry_sdk.v2.admin.models import FlattenedMarkingExpression` |
+**Admin** | [FlattenMarkingExpressionResult](docs/v2/Admin/models/FlattenMarkingExpressionResult.md) | `from foundry_sdk.v2.admin.models import FlattenMarkingExpressionResult` |
+**Admin** | [FlattenMarkingExpressionsRequest](docs/v2/Admin/models/FlattenMarkingExpressionsRequest.md) | `from foundry_sdk.v2.admin.models import FlattenMarkingExpressionsRequest` |
+**Admin** | [FlattenMarkingExpressionsResponse](docs/v2/Admin/models/FlattenMarkingExpressionsResponse.md) | `from foundry_sdk.v2.admin.models import FlattenMarkingExpressionsResponse` |
 **Admin** | [GetForResourcesRequest](docs/v2/Admin/models/GetForResourcesRequest.md) | `from foundry_sdk.v2.admin.models import GetForResourcesRequest` |
 **Admin** | [GetGroupsBatchRequestElement](docs/v2/Admin/models/GetGroupsBatchRequestElement.md) | `from foundry_sdk.v2.admin.models import GetGroupsBatchRequestElement` |
 **Admin** | [GetGroupsBatchResponse](docs/v2/Admin/models/GetGroupsBatchResponse.md) | `from foundry_sdk.v2.admin.models import GetGroupsBatchResponse` |
@@ -1112,6 +1192,7 @@ Namespace | Name | Import |
 **Admin** | [ListUsersResponse](docs/v2/Admin/models/ListUsersResponse.md) | `from foundry_sdk.v2.admin.models import ListUsersResponse` |
 **Admin** | [Marking](docs/v2/Admin/models/Marking.md) | `from foundry_sdk.v2.admin.models import Marking` |
 **Admin** | [MarkingCategory](docs/v2/Admin/models/MarkingCategory.md) | `from foundry_sdk.v2.admin.models import MarkingCategory` |
+**Admin** | [MarkingCategoryDeleted](docs/v2/Admin/models/MarkingCategoryDeleted.md) | `from foundry_sdk.v2.admin.models import MarkingCategoryDeleted` |
 **Admin** | [MarkingCategoryDescription](docs/v2/Admin/models/MarkingCategoryDescription.md) | `from foundry_sdk.v2.admin.models import MarkingCategoryDescription` |
 **Admin** | [MarkingCategoryId](docs/v2/Admin/models/MarkingCategoryId.md) | `from foundry_sdk.v2.admin.models import MarkingCategoryId` |
 **Admin** | [MarkingCategoryName](docs/v2/Admin/models/MarkingCategoryName.md) | `from foundry_sdk.v2.admin.models import MarkingCategoryName` |
@@ -1120,6 +1201,9 @@ Namespace | Name | Import |
 **Admin** | [MarkingCategoryRole](docs/v2/Admin/models/MarkingCategoryRole.md) | `from foundry_sdk.v2.admin.models import MarkingCategoryRole` |
 **Admin** | [MarkingCategoryRoleAssignment](docs/v2/Admin/models/MarkingCategoryRoleAssignment.md) | `from foundry_sdk.v2.admin.models import MarkingCategoryRoleAssignment` |
 **Admin** | [MarkingCategoryType](docs/v2/Admin/models/MarkingCategoryType.md) | `from foundry_sdk.v2.admin.models import MarkingCategoryType` |
+**Admin** | [MarkingClause](docs/v2/Admin/models/MarkingClause.md) | `from foundry_sdk.v2.admin.models import MarkingClause` |
+**Admin** | [MarkingDeleted](docs/v2/Admin/models/MarkingDeleted.md) | `from foundry_sdk.v2.admin.models import MarkingDeleted` |
+**Admin** | [MarkingExpression](docs/v2/Admin/models/MarkingExpression.md) | `from foundry_sdk.v2.admin.models import MarkingExpression` |
 **Admin** | [MarkingMember](docs/v2/Admin/models/MarkingMember.md) | `from foundry_sdk.v2.admin.models import MarkingMember` |
 **Admin** | [MarkingName](docs/v2/Admin/models/MarkingName.md) | `from foundry_sdk.v2.admin.models import MarkingName` |
 **Admin** | [MarkingRole](docs/v2/Admin/models/MarkingRole.md) | `from foundry_sdk.v2.admin.models import MarkingRole` |
@@ -1159,6 +1243,7 @@ Namespace | Name | Import |
 **Admin** | [SearchGroupsResponse](docs/v2/Admin/models/SearchGroupsResponse.md) | `from foundry_sdk.v2.admin.models import SearchGroupsResponse` |
 **Admin** | [SearchUsersRequest](docs/v2/Admin/models/SearchUsersRequest.md) | `from foundry_sdk.v2.admin.models import SearchUsersRequest` |
 **Admin** | [SearchUsersResponse](docs/v2/Admin/models/SearchUsersResponse.md) | `from foundry_sdk.v2.admin.models import SearchUsersResponse` |
+**Admin** | [UnflattenableMarkingExpression](docs/v2/Admin/models/UnflattenableMarkingExpression.md) | `from foundry_sdk.v2.admin.models import UnflattenableMarkingExpression` |
 **Admin** | [User](docs/v2/Admin/models/User.md) | `from foundry_sdk.v2.admin.models import User` |
 **Admin** | [UserProviderInfo](docs/v2/Admin/models/UserProviderInfo.md) | `from foundry_sdk.v2.admin.models import UserProviderInfo` |
 **Admin** | [UserSearchFilter](docs/v2/Admin/models/UserSearchFilter.md) | `from foundry_sdk.v2.admin.models import UserSearchFilter` |
@@ -1588,6 +1673,7 @@ Namespace | Name | Import |
 **Core** | [StructFieldType](docs/v2/Core/models/StructFieldType.md) | `from foundry_sdk.v2.core.models import StructFieldType` |
 **Core** | [TableRid](docs/v2/Core/models/TableRid.md) | `from foundry_sdk.v2.core.models import TableRid` |
 **Core** | [TimeSeriesItemType](docs/v2/Core/models/TimeSeriesItemType.md) | `from foundry_sdk.v2.core.models import TimeSeriesItemType` |
+**Core** | [TimeSeriesReferenceType](docs/v2/Core/models/TimeSeriesReferenceType.md) | `from foundry_sdk.v2.core.models import TimeSeriesReferenceType` |
 **Core** | [TimeseriesType](docs/v2/Core/models/TimeseriesType.md) | `from foundry_sdk.v2.core.models import TimeseriesType` |
 **Core** | [TimestampType](docs/v2/Core/models/TimestampType.md) | `from foundry_sdk.v2.core.models import TimestampType` |
 **Core** | [TimeUnit](docs/v2/Core/models/TimeUnit.md) | `from foundry_sdk.v2.core.models import TimeUnit` |
@@ -2064,6 +2150,8 @@ Namespace | Name | Import |
 **MediaSets** | [ExtractFirstFrameOperation](docs/v2/MediaSets/models/ExtractFirstFrameOperation.md) | `from foundry_sdk.v2.media_sets.models import ExtractFirstFrameOperation` |
 **MediaSets** | [ExtractFormFieldsOperation](docs/v2/MediaSets/models/ExtractFormFieldsOperation.md) | `from foundry_sdk.v2.media_sets.models import ExtractFormFieldsOperation` |
 **MediaSets** | [ExtractFramesAtTimestampsOperation](docs/v2/MediaSets/models/ExtractFramesAtTimestampsOperation.md) | `from foundry_sdk.v2.media_sets.models import ExtractFramesAtTimestampsOperation` |
+**MediaSets** | [ExtractImageLayoutAwareTextV2Operation](docs/v2/MediaSets/models/ExtractImageLayoutAwareTextV2Operation.md) | `from foundry_sdk.v2.media_sets.models import ExtractImageLayoutAwareTextV2Operation` |
+**MediaSets** | [ExtractImageTextV2Operation](docs/v2/MediaSets/models/ExtractImageTextV2Operation.md) | `from foundry_sdk.v2.media_sets.models import ExtractImageTextV2Operation` |
 **MediaSets** | [ExtractSceneFramesOperation](docs/v2/MediaSets/models/ExtractSceneFramesOperation.md) | `from foundry_sdk.v2.media_sets.models import ExtractSceneFramesOperation` |
 **MediaSets** | [ExtractTableOfContentsOperation](docs/v2/MediaSets/models/ExtractTableOfContentsOperation.md) | `from foundry_sdk.v2.media_sets.models import ExtractTableOfContentsOperation` |
 **MediaSets** | [ExtractTextFromPagesToArrayOperation](docs/v2/MediaSets/models/ExtractTextFromPagesToArrayOperation.md) | `from foundry_sdk.v2.media_sets.models import ExtractTextFromPagesToArrayOperation` |
@@ -2117,6 +2205,7 @@ Namespace | Name | Import |
 **MediaSets** | [MailboxWrapper](docs/v2/MediaSets/models/MailboxWrapper.md) | `from foundry_sdk.v2.media_sets.models import MailboxWrapper` |
 **MediaSets** | [MediaAttribution](docs/v2/MediaSets/models/MediaAttribution.md) | `from foundry_sdk.v2.media_sets.models import MediaAttribution` |
 **MediaSets** | [MediaItemMetadata](docs/v2/MediaSets/models/MediaItemMetadata.md) | `from foundry_sdk.v2.media_sets.models import MediaItemMetadata` |
+**MediaSets** | [MediaItemSizeBytes](docs/v2/MediaSets/models/MediaItemSizeBytes.md) | `from foundry_sdk.v2.media_sets.models import MediaItemSizeBytes` |
 **MediaSets** | [MediaItemXmlFormat](docs/v2/MediaSets/models/MediaItemXmlFormat.md) | `from foundry_sdk.v2.media_sets.models import MediaItemXmlFormat` |
 **MediaSets** | [MediaSchema](docs/v2/MediaSets/models/MediaSchema.md) | `from foundry_sdk.v2.media_sets.models import MediaSchema` |
 **MediaSets** | [MkvVideoContainerFormat](docs/v2/MediaSets/models/MkvVideoContainerFormat.md) | `from foundry_sdk.v2.media_sets.models import MkvVideoContainerFormat` |
@@ -2646,6 +2735,7 @@ Namespace | Name | Import |
 **Ontologies** | [IntersectsPolygonQuery](docs/v2/Ontologies/models/IntersectsPolygonQuery.md) | `from foundry_sdk.v2.ontologies.models import IntersectsPolygonQuery` |
 **Ontologies** | [IntervalQuery](docs/v2/Ontologies/models/IntervalQuery.md) | `from foundry_sdk.v2.ontologies.models import IntervalQuery` |
 **Ontologies** | [IntervalQueryRule](docs/v2/Ontologies/models/IntervalQueryRule.md) | `from foundry_sdk.v2.ontologies.models import IntervalQueryRule` |
+**Ontologies** | [InvalidTimeSeriesReferenceReason](docs/v2/Ontologies/models/InvalidTimeSeriesReferenceReason.md) | `from foundry_sdk.v2.ontologies.models import InvalidTimeSeriesReferenceReason` |
 **Ontologies** | [IsNullQueryV2](docs/v2/Ontologies/models/IsNullQueryV2.md) | `from foundry_sdk.v2.ontologies.models import IsNullQueryV2` |
 **Ontologies** | [KnownType](docs/v2/Ontologies/models/KnownType.md) | `from foundry_sdk.v2.ontologies.models import KnownType` |
 **Ontologies** | [LeastPropertyExpression](docs/v2/Ontologies/models/LeastPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import LeastPropertyExpression` |
@@ -2753,6 +2843,7 @@ Namespace | Name | Import |
 **Ontologies** | [ObjectSetAsBaseObjectTypesType](docs/v2/Ontologies/models/ObjectSetAsBaseObjectTypesType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetAsBaseObjectTypesType` |
 **Ontologies** | [ObjectSetAsTypeType](docs/v2/Ontologies/models/ObjectSetAsTypeType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetAsTypeType` |
 **Ontologies** | [ObjectSetBaseType](docs/v2/Ontologies/models/ObjectSetBaseType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetBaseType` |
+**Ontologies** | [ObjectSetEntities](docs/v2/Ontologies/models/ObjectSetEntities.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetEntities` |
 **Ontologies** | [ObjectSetFilterType](docs/v2/Ontologies/models/ObjectSetFilterType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetFilterType` |
 **Ontologies** | [ObjectSetInterfaceBaseType](docs/v2/Ontologies/models/ObjectSetInterfaceBaseType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetInterfaceBaseType` |
 **Ontologies** | [ObjectSetInterfaceLinkSearchAroundType](docs/v2/Ontologies/models/ObjectSetInterfaceLinkSearchAroundType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetInterfaceLinkSearchAroundType` |
@@ -3117,6 +3208,7 @@ Namespace | Name | Import |
 **Orchestration** | [RetryBackoffDuration](docs/v2/Orchestration/models/RetryBackoffDuration.md) | `from foundry_sdk.v2.orchestration.models import RetryBackoffDuration` |
 **Orchestration** | [RetryCount](docs/v2/Orchestration/models/RetryCount.md) | `from foundry_sdk.v2.orchestration.models import RetryCount` |
 **Orchestration** | [Schedule](docs/v2/Orchestration/models/Schedule.md) | `from foundry_sdk.v2.orchestration.models import Schedule` |
+**Orchestration** | [ScheduleFailedTrigger](docs/v2/Orchestration/models/ScheduleFailedTrigger.md) | `from foundry_sdk.v2.orchestration.models import ScheduleFailedTrigger` |
 **Orchestration** | [SchedulePaused](docs/v2/Orchestration/models/SchedulePaused.md) | `from foundry_sdk.v2.orchestration.models import SchedulePaused` |
 **Orchestration** | [ScheduleRun](docs/v2/Orchestration/models/ScheduleRun.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRun` |
 **Orchestration** | [ScheduleRunError](docs/v2/Orchestration/models/ScheduleRunError.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRunError` |
@@ -3392,6 +3484,7 @@ Namespace | Name | Import |
 **Ontologies** | [InterfacePropertyApiName](docs/v1/Ontologies/models/InterfacePropertyApiName.md) | `from foundry_sdk.v1.ontologies.models import InterfacePropertyApiName` |
 **Ontologies** | [InterfaceTypeApiName](docs/v1/Ontologies/models/InterfaceTypeApiName.md) | `from foundry_sdk.v1.ontologies.models import InterfaceTypeApiName` |
 **Ontologies** | [InterfaceTypeRid](docs/v1/Ontologies/models/InterfaceTypeRid.md) | `from foundry_sdk.v1.ontologies.models import InterfaceTypeRid` |
+**Ontologies** | [InvalidTimeSeriesReferenceReason](docs/v1/Ontologies/models/InvalidTimeSeriesReferenceReason.md) | `from foundry_sdk.v1.ontologies.models import InvalidTimeSeriesReferenceReason` |
 **Ontologies** | [IsNullQuery](docs/v1/Ontologies/models/IsNullQuery.md) | `from foundry_sdk.v1.ontologies.models import IsNullQuery` |
 **Ontologies** | [LegacyObjectTypeId](docs/v1/Ontologies/models/LegacyObjectTypeId.md) | `from foundry_sdk.v1.ontologies.models import LegacyObjectTypeId` |
 **Ontologies** | [LegacyPropertyId](docs/v1/Ontologies/models/LegacyPropertyId.md) | `from foundry_sdk.v1.ontologies.models import LegacyPropertyId` |
@@ -3512,14 +3605,57 @@ Namespace | Name | Import |
 Namespace | Name | Import |
 --------- | ---- | ------ |
 **Core** | BatchRequestSizeExceededLimit | `from foundry_sdk.v3.core.errors import BatchRequestSizeExceededLimit` |
+**Core** | InvalidPageSize | `from foundry_sdk.v3.core.errors import InvalidPageSize` |
 **Core** | MissingBatchRequest | `from foundry_sdk.v3.core.errors import MissingBatchRequest` |
 **Endpoints** | EndpointSetEndpointNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetEndpointNotFound` |
 **Endpoints** | EndpointSetNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetNotFound` |
 **Endpoints** | EndpointSetVersionNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetVersionNotFound` |
+**Filesystem** | CreateFolderOutsideProjectNotSupported | `from foundry_sdk.v3.filesystem.errors import CreateFolderOutsideProjectNotSupported` |
+**Filesystem** | CreateFolderPermissionDenied | `from foundry_sdk.v3.filesystem.errors import CreateFolderPermissionDenied` |
+**Filesystem** | DeleteFolderPermissionDenied | `from foundry_sdk.v3.filesystem.errors import DeleteFolderPermissionDenied` |
+**Filesystem** | DeleteOntologyResourcePermissionDenied | `from foundry_sdk.v3.filesystem.errors import DeleteOntologyResourcePermissionDenied` |
+**Filesystem** | DeleteProjectPermissionDenied | `from foundry_sdk.v3.filesystem.errors import DeleteProjectPermissionDenied` |
+**Filesystem** | DeleteResourcePermissionDenied | `from foundry_sdk.v3.filesystem.errors import DeleteResourcePermissionDenied` |
+**Filesystem** | DeleteServiceSpaceNotSupported | `from foundry_sdk.v3.filesystem.errors import DeleteServiceSpaceNotSupported` |
+**Filesystem** | DeleteSpacePermissionDenied | `from foundry_sdk.v3.filesystem.errors import DeleteSpacePermissionDenied` |
+**Filesystem** | DeleteUserSpaceNotSupported | `from foundry_sdk.v3.filesystem.errors import DeleteUserSpaceNotSupported` |
+**Filesystem** | FolderNotFound | `from foundry_sdk.v3.filesystem.errors import FolderNotFound` |
+**Filesystem** | FoldersNotFound | `from foundry_sdk.v3.filesystem.errors import FoldersNotFound` |
+**Filesystem** | GetResourceTimedOut | `from foundry_sdk.v3.filesystem.errors import GetResourceTimedOut` |
+**Filesystem** | GetRootFolderNotSupported | `from foundry_sdk.v3.filesystem.errors import GetRootFolderNotSupported` |
+**Filesystem** | InvalidDisplayName | `from foundry_sdk.v3.filesystem.errors import InvalidDisplayName` |
+**Filesystem** | InvalidDisplayNameOnRestore | `from foundry_sdk.v3.filesystem.errors import InvalidDisplayNameOnRestore` |
+**Filesystem** | InvalidFolders | `from foundry_sdk.v3.filesystem.errors import InvalidFolders` |
+**Filesystem** | InvalidParentFolder | `from foundry_sdk.v3.filesystem.errors import InvalidParentFolder` |
+**Filesystem** | InvalidPath | `from foundry_sdk.v3.filesystem.errors import InvalidPath` |
+**Filesystem** | InvalidProjects | `from foundry_sdk.v3.filesystem.errors import InvalidProjects` |
+**Filesystem** | InvalidSpaces | `from foundry_sdk.v3.filesystem.errors import InvalidSpaces` |
+**Filesystem** | ListSpacesTimedOut | `from foundry_sdk.v3.filesystem.errors import ListSpacesTimedOut` |
+**Filesystem** | MissingDisplayName | `from foundry_sdk.v3.filesystem.errors import MissingDisplayName` |
+**Filesystem** | ParentFolderNotFound | `from foundry_sdk.v3.filesystem.errors import ParentFolderNotFound` |
+**Filesystem** | PathNotFound | `from foundry_sdk.v3.filesystem.errors import PathNotFound` |
+**Filesystem** | ProjectNotFound | `from foundry_sdk.v3.filesystem.errors import ProjectNotFound` |
+**Filesystem** | ProjectsNotFound | `from foundry_sdk.v3.filesystem.errors import ProjectsNotFound` |
+**Filesystem** | ResourceDisplayNameAlreadyExists | `from foundry_sdk.v3.filesystem.errors import ResourceDisplayNameAlreadyExists` |
+**Filesystem** | ResourceNotDirectlyTrashed | `from foundry_sdk.v3.filesystem.errors import ResourceNotDirectlyTrashed` |
+**Filesystem** | ResourceNotFound | `from foundry_sdk.v3.filesystem.errors import ResourceNotFound` |
+**Filesystem** | ResourceRegisteredForDeletion | `from foundry_sdk.v3.filesystem.errors import ResourceRegisteredForDeletion` |
+**Filesystem** | RestoreOntologyResourcePermissionDenied | `from foundry_sdk.v3.filesystem.errors import RestoreOntologyResourcePermissionDenied` |
+**Filesystem** | RestoreResourcePermissionDenied | `from foundry_sdk.v3.filesystem.errors import RestoreResourcePermissionDenied` |
+**Filesystem** | SpaceNotFound | `from foundry_sdk.v3.filesystem.errors import SpaceNotFound` |
+**Filesystem** | SpacesNotFound | `from foundry_sdk.v3.filesystem.errors import SpacesNotFound` |
+**Filesystem** | TrashingAutosavedResourcesNotSupported | `from foundry_sdk.v3.filesystem.errors import TrashingAutosavedResourcesNotSupported` |
+**Filesystem** | TrashingHiddenResourcesNotSupported | `from foundry_sdk.v3.filesystem.errors import TrashingHiddenResourcesNotSupported` |
+**Filesystem** | TrashingHomeFoldersNotSupported | `from foundry_sdk.v3.filesystem.errors import TrashingHomeFoldersNotSupported` |
+**Filesystem** | TrashingRootFolderNotSupported | `from foundry_sdk.v3.filesystem.errors import TrashingRootFolderNotSupported` |
+**Filesystem** | TrashingSpacesNotSupported | `from foundry_sdk.v3.filesystem.errors import TrashingSpacesNotSupported` |
 **Orchestrator** | CompleteProcessExecutionSignalPermissionDenied | `from foundry_sdk.v3.orchestrator.errors import CompleteProcessExecutionSignalPermissionDenied` |
 **Orchestrator** | ProcessExecutionExpired | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionExpired` |
 **Orchestrator** | ProcessExecutionNotFound | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionNotFound` |
 **Orchestrator** | ProcessExecutionSignalNotFound | `from foundry_sdk.v3.orchestrator.errors import ProcessExecutionSignalNotFound` |
+**Tiles** | MaxElevationPointCountExceeded | `from foundry_sdk.v3.tiles.errors import MaxElevationPointCountExceeded` |
+**Tiles** | TileSourceCapabilityNotSupported | `from foundry_sdk.v3.tiles.errors import TileSourceCapabilityNotSupported` |
+**Tiles** | TileSourceNotFound | `from foundry_sdk.v3.tiles.errors import TileSourceNotFound` |
 <a id="errors-v2-link"></a>
 ## Documentation for V2 errors
 
@@ -3534,6 +3670,7 @@ Namespace | Name | Import |
 **Admin** | AttributesNotEditable | `from foundry_sdk.v2.admin.errors import AttributesNotEditable` |
 **Admin** | AuthenticationProviderNotFound | `from foundry_sdk.v2.admin.errors import AuthenticationProviderNotFound` |
 **Admin** | CannotReplaceProviderInfoForPrincipalInProtectedRealm | `from foundry_sdk.v2.admin.errors import CannotReplaceProviderInfoForPrincipalInProtectedRealm` |
+**Admin** | CanonicalizeMarkingsPermissionDenied | `from foundry_sdk.v2.admin.errors import CanonicalizeMarkingsPermissionDenied` |
 **Admin** | CbacBannerNotFound | `from foundry_sdk.v2.admin.errors import CbacBannerNotFound` |
 **Admin** | CbacMarkingRestrictionsNotFound | `from foundry_sdk.v2.admin.errors import CbacMarkingRestrictionsNotFound` |
 **Admin** | CbacUnavailable | `from foundry_sdk.v2.admin.errors import CbacUnavailable` |
@@ -3550,6 +3687,8 @@ Namespace | Name | Import |
 **Admin** | EnrollmentNotFound | `from foundry_sdk.v2.admin.errors import EnrollmentNotFound` |
 **Admin** | EnrollmentRoleNotFound | `from foundry_sdk.v2.admin.errors import EnrollmentRoleNotFound` |
 **Admin** | ExpirationForTransitiveGroupMembersNotSupported | `from foundry_sdk.v2.admin.errors import ExpirationForTransitiveGroupMembersNotSupported` |
+**Admin** | FlattenMarkingExpressionsBatchLimitExceeded | `from foundry_sdk.v2.admin.errors import FlattenMarkingExpressionsBatchLimitExceeded` |
+**Admin** | FlattenMarkingExpressionsPermissionDenied | `from foundry_sdk.v2.admin.errors import FlattenMarkingExpressionsPermissionDenied` |
 **Admin** | GetCbacBannerPermissionDenied | `from foundry_sdk.v2.admin.errors import GetCbacBannerPermissionDenied` |
 **Admin** | GetCbacMarkingRestrictionInfoPermissionDenied | `from foundry_sdk.v2.admin.errors import GetCbacMarkingRestrictionInfoPermissionDenied` |
 **Admin** | GetCurrentEnrollmentPermissionDenied | `from foundry_sdk.v2.admin.errors import GetCurrentEnrollmentPermissionDenied` |
@@ -4083,6 +4222,7 @@ Namespace | Name | Import |
 **Ontologies** | InvalidRangeQuery | `from foundry_sdk.v2.ontologies.errors import InvalidRangeQuery` |
 **Ontologies** | InvalidSortOrder | `from foundry_sdk.v2.ontologies.errors import InvalidSortOrder` |
 **Ontologies** | InvalidSortType | `from foundry_sdk.v2.ontologies.errors import InvalidSortType` |
+**Ontologies** | InvalidTimeSeriesReference | `from foundry_sdk.v2.ontologies.errors import InvalidTimeSeriesReference` |
 **Ontologies** | InvalidTransactionEditPropertyValue | `from foundry_sdk.v2.ontologies.errors import InvalidTransactionEditPropertyValue` |
 **Ontologies** | InvalidUserId | `from foundry_sdk.v2.ontologies.errors import InvalidUserId` |
 **Ontologies** | InvalidVectorDimension | `from foundry_sdk.v2.ontologies.errors import InvalidVectorDimension` |
@@ -4418,6 +4558,7 @@ Namespace | Name | Import |
 **Ontologies** | InvalidRangeQuery | `from foundry_sdk.v1.ontologies.errors import InvalidRangeQuery` |
 **Ontologies** | InvalidSortOrder | `from foundry_sdk.v1.ontologies.errors import InvalidSortOrder` |
 **Ontologies** | InvalidSortType | `from foundry_sdk.v1.ontologies.errors import InvalidSortType` |
+**Ontologies** | InvalidTimeSeriesReference | `from foundry_sdk.v1.ontologies.errors import InvalidTimeSeriesReference` |
 **Ontologies** | InvalidTransactionEditPropertyValue | `from foundry_sdk.v1.ontologies.errors import InvalidTransactionEditPropertyValue` |
 **Ontologies** | InvalidUserId | `from foundry_sdk.v1.ontologies.errors import InvalidUserId` |
 **Ontologies** | InvalidVectorDimension | `from foundry_sdk.v1.ontologies.errors import InvalidVectorDimension` |

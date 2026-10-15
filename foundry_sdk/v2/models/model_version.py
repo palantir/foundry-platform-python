@@ -45,7 +45,6 @@ class ModelVersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -71,6 +70,9 @@ class ModelVersionClient:
     ) -> models_models.ModelVersion:
         """
         Creates a new Model Version on an existing model.
+
+        Required scopes: [api:models-write]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param backing_repositories:
@@ -142,6 +144,9 @@ class ModelVersionClient:
     ) -> models_models.ModelVersion:
         """
         Retrieves a Model Version by its Resource Identifier (RID).
+
+        Required scopes: [api:models-read]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param model_version_rid:
@@ -198,6 +203,9 @@ class ModelVersionClient:
     ) -> core.ResourceIterator[models_models.ModelVersion]:
         """
         Lists all Model Versions for a given Model.
+
+        Required scopes: [api:models-read]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param branch: The branch to list versions from. Defaults to master on most enrollments.
@@ -287,7 +295,6 @@ class AsyncModelVersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -313,6 +320,9 @@ class AsyncModelVersionClient:
     ) -> typing.Awaitable[models_models.ModelVersion]:
         """
         Creates a new Model Version on an existing model.
+
+        Required scopes: [api:models-write]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param backing_repositories:
@@ -384,6 +394,9 @@ class AsyncModelVersionClient:
     ) -> typing.Awaitable[models_models.ModelVersion]:
         """
         Retrieves a Model Version by its Resource Identifier (RID).
+
+        Required scopes: [api:models-read]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param model_version_rid:
@@ -440,6 +453,9 @@ class AsyncModelVersionClient:
     ) -> core.AsyncResourceIterator[models_models.ModelVersion]:
         """
         Lists all Model Versions for a given Model.
+
+        Required scopes: [api:models-read]
+
         :param model_rid:
         :type model_rid: ModelRid
         :param branch: The branch to list versions from. Defaults to master on most enrollments.

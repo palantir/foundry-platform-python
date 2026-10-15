@@ -60,6 +60,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:admin-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -107,6 +109,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:admin-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -123,6 +127,7 @@ Maximum page size 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
+**include_deleted** | Optional[bool] | Whether to include deleted Marking Categories. Defaults to true when omitted. | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 
@@ -138,6 +143,8 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
+# Optional[bool] | Whether to include deleted Marking Categories. Defaults to true when omitted.
+include_deleted = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -146,7 +153,7 @@ page_token = None
 
 try:
     for marking_category in client.admin.MarkingCategory.list(
-        page_size=page_size, page_token=page_token
+        include_deleted=include_deleted, page_size=page_size, page_token=page_token
     ):
         pprint(marking_category)
 except foundry_sdk.PalantirRPCException as e:
@@ -157,6 +164,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:admin-read]
 
 See [README](../../../README.md#authorization)
 
@@ -215,6 +224,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:admin-write]
 
 See [README](../../../README.md#authorization)
 

@@ -11,7 +11,8 @@ GetMediaItemInfoResponse
 **attribution** | Optional[MediaAttribution] | No |  |
 **originally_uploaded_file_mime_type** | Optional[MediaType] | No |  |
 **mime_type** | Optional[MediaType] | No |  |
-**size_bytes** | Optional[int] | No | The size of the media item in bytes. |
+**size_bytes** | Optional[int] | No | Deprecated: use `sizeBytesLong`. Omitted for items of 2 GiB or larger.  |
+**size_bytes_long** | MediaItemSizeBytes | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

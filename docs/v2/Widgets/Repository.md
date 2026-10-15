@@ -46,6 +46,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:widgets-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -65,6 +67,7 @@ Name | Type | Description  | Notes |
 **repository_rid** | RepositoryRid | A Resource Identifier (RID) identifying a repository. |  |
 **body** | bytes | The zip file that contains the contents of your widget set. It must include a valid manifest file at the path `.palantir/widgets.config.json`.  |  |
 **repository_version** | RepositoryVersion |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to publish the release on, specified as either its RID or dataset branch identifier. If omitted, publishes the release on the default branch.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -85,13 +88,15 @@ repository_rid = "ri.stemma.main.repository.e1r31370-3cf3-4ac4-9269-h1432d7fb0b4
 body = None
 # RepositoryVersion
 repository_version = None
+# Optional[FoundryBranch] | The Foundry branch to publish the release on, specified as either its RID or dataset branch identifier. If omitted, publishes the release on the default branch.
+branch = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
     api_response = client.widgets.Repository.publish(
-        repository_rid, body, repository_version=repository_version, preview=preview
+        repository_rid, body, repository_version=repository_version, branch=branch, preview=preview
     )
     print("The publish response:\n")
     pprint(api_response)
@@ -103,6 +108,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:widgets-write]
 
 See [README](../../../README.md#authorization)
 

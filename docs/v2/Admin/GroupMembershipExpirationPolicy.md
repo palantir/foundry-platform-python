@@ -46,6 +46,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:admin-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -103,6 +105,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:admin-write]
 
 See [README](../../../README.md#authorization)
 

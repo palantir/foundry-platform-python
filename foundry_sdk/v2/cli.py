@@ -715,6 +715,12 @@ def admin_marking_category_op_get(
 
 @admin_marking_category.command("list")
 @click.option(
+    "--include_deleted",
+    type=bool,
+    required=False,
+    help="""Whether to include deleted Marking Categories. Defaults to true when omitted.""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -728,6 +734,7 @@ and use it to populate the `pageToken` field of the next request.""",
 @click.pass_obj
 def admin_marking_category_op_list(
     client: FoundryClient,
+    include_deleted: typing.Optional[bool],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -735,6 +742,7 @@ def admin_marking_category_op_list(
     Maximum page size 100.
     """
     result = client.admin.MarkingCategory.list(
+        include_deleted=include_deleted,
         page_size=page_size,
         page_token=page_token,
     )
@@ -771,6 +779,29 @@ def admin_marking_category_op_replace(
 @admin.group("marking")
 def admin_marking():
     pass
+
+
+@admin_marking.command("canonicalize")
+@click.option("--marking_ids", type=str, required=True, help="""The marking IDs to canonicalize.""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_marking_op_canonicalize(
+    client: FoundryClient,
+    marking_ids: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Returns a canonical set of CBAC marking IDs for the supplied markings. Requires permission to view
+    classification markings.
+
+    """
+    result = client.admin.Marking.canonicalize(
+        marking_ids=json.loads(marking_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
 
 
 @admin_marking.command("create")
@@ -817,6 +848,36 @@ def admin_marking_op_create(
     click.echo(repr(result))
 
 
+@admin_marking.command("flatten")
+@click.option(
+    "--marking_expressions",
+    type=str,
+    required=True,
+    help="""The expressions to flatten, in result order.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_marking_op_flatten(
+    client: FoundryClient,
+    marking_expressions: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Flattens up to 1,000 marking expressions. For each expression, returns a set of markings with the same
+    access requirement, or a stricter one if an exact flat representation is unavailable. You must have
+    permission to view every input marking. Each clause must contain markings from one category; a clause
+    in a conjunctive category must contain exactly one marking.
+
+    """
+    result = client.admin.Marking.flatten(
+        marking_expressions=json.loads(marking_expressions),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_marking.command("get")
 @click.argument("marking_id", type=str, required=True)
 @click.pass_obj
@@ -853,6 +914,12 @@ def admin_marking_op_get_batch(
 
 @admin_marking.command("list")
 @click.option(
+    "--include_deleted",
+    type=bool,
+    required=False,
+    help="""Whether to include deleted Markings. Defaults to true when omitted.""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -866,6 +933,7 @@ and use it to populate the `pageToken` field of the next request.""",
 @click.pass_obj
 def admin_marking_op_list(
     client: FoundryClient,
+    include_deleted: typing.Optional[bool],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -873,6 +941,7 @@ def admin_marking_op_list(
     Maximum page size 100.
     """
     result = client.admin.Marking.list(
+        include_deleted=include_deleted,
         page_size=page_size,
         page_token=page_token,
     )
@@ -10314,6 +10383,13 @@ This feature is experimental and not yet generally available.
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to read the object from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -10335,6 +10411,14 @@ This feature is experimental and not yet generally available.
 the properties.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_op_get(
     client: FoundryClient,
@@ -10344,9 +10428,11 @@ def ontologies_ontology_object_op_get(
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     load_ontology_defined_derived_properties: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Gets a specific object with the given primary key.
@@ -10359,9 +10445,11 @@ def ontologies_ontology_object_op_get(
         branch=branch,
         exclude_rid=exclude_rid,
         load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 
@@ -12307,6 +12395,20 @@ def ontologies_media_reference_property():
 """,
 )
 @click.option(
+    "--range",
+    type=str,
+    required=False,
+    help="""The single byte range to read, for example `bytes=0-1023` or `bytes=1024-`.
+""",
+)
+@click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to read the media reference property from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12320,6 +12422,14 @@ def ontologies_media_reference_property():
     help="""The version of the generated SDK.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
 @click.pass_obj
 def ontologies_media_reference_property_op_get_media_content(
     client: FoundryClient,
@@ -12329,11 +12439,20 @@ def ontologies_media_reference_property_op_get_media_content(
     property: str,
     branch: typing.Optional[str],
     preview: typing.Optional[bool],
+    range: typing.Optional[str],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Gets the content of a media item referenced by this property.
+
+    Supports a single byte range specified by the `Range` header as `bytes=start-end` or `bytes=start-`.
+    A satisfiable range returns `206 Partial Content` with `Content-Range`, `Accept-Ranges`, and the
+    content length of the returned range. An unsatisfiable range returns `416 Range Not Satisfiable`
+    with `Content-Range: bytes */<total length>` and an empty body. Unsupported or malformed ranges
+    are ignored, returning the full content with `200 OK`.
 
     """
     result = client.ontologies.MediaReferenceProperty.get_media_content(
@@ -12343,8 +12462,11 @@ def ontologies_media_reference_property_op_get_media_content(
         property=property,
         branch=branch,
         preview=preview,
+        range=range,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     click.echo(result)
 
@@ -12369,6 +12491,13 @@ def ontologies_media_reference_property_op_get_media_content(
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to read the media reference property from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12382,6 +12511,14 @@ def ontologies_media_reference_property_op_get_media_content(
     help="""The version of the generated SDK.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
 @click.pass_obj
 def ontologies_media_reference_property_op_get_media_metadata(
     client: FoundryClient,
@@ -12391,8 +12528,10 @@ def ontologies_media_reference_property_op_get_media_metadata(
     property: str,
     branch: typing.Optional[str],
     preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Gets metadata about the media item referenced by this property.
@@ -12405,8 +12544,10 @@ def ontologies_media_reference_property_op_get_media_metadata(
         property=property,
         branch=branch,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 
@@ -12791,6 +12932,20 @@ def ontologies_cipher_text_property():
     help="""The Foundry branch to read from. If not specified, the default branch will be used.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_cipher_text_property_op_decrypt(
     client: FoundryClient,
@@ -12799,6 +12954,8 @@ def ontologies_cipher_text_property_op_decrypt(
     primary_key: str,
     property: str,
     branch: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Decrypt the value of a ciphertext property.
@@ -12810,6 +12967,8 @@ def ontologies_cipher_text_property_op_decrypt(
         primary_key=primary_key,
         property=property,
         branch=branch,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -12842,6 +13001,20 @@ to `PREFER_EXISTING`.
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_cipher_text_property_op_encrypt(
     client: FoundryClient,
@@ -12855,6 +13028,8 @@ def ontologies_cipher_text_property_op_encrypt(
         typing.Literal["PREFER_EXISTING", "PREFER_DEFAULT", "EXISTING_ONLY", "DEFAULT_ONLY"]
     ],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Encrypt a plaintext value into a CipherText value for the given object's CipherText property.
@@ -12872,6 +13047,8 @@ def ontologies_cipher_text_property_op_encrypt(
         branch=branch,
         cipher_channel_strategy=cipher_channel_strategy,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -12895,6 +13072,20 @@ def ontologies_cipher_text_property_op_encrypt(
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_cipher_text_property_op_encrypt_with_default_channel(
     client: FoundryClient,
@@ -12904,6 +13095,8 @@ def ontologies_cipher_text_property_op_encrypt_with_default_channel(
     plaintext: str,
     branch: typing.Optional[str],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Encrypt a plaintext value into a CipherText value for the given object type property.
@@ -12921,6 +13114,8 @@ def ontologies_cipher_text_property_op_encrypt_with_default_channel(
         plaintext=plaintext,
         branch=branch,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -14897,7 +15092,8 @@ def streams_dataset_stream_op_publish_binary_record(
     "--record",
     type=str,
     required=True,
-    help="""The record to publish to the stream
+    help="""The record to publish to the stream. Timestamp fields used as stream keys must use Unix epoch
+milliseconds.
 """,
 )
 @click.option(
@@ -14940,7 +15136,8 @@ def streams_dataset_stream_op_publish_record(
     "--records",
     type=str,
     required=True,
-    help="""The records to publish to the stream
+    help="""The records to publish to the stream. Timestamp fields used as stream keys must use Unix epoch
+milliseconds.
 """,
 )
 @click.option(
@@ -15660,6 +15857,14 @@ def widgets_widget_set_release_op_get(
 @widgets_widget_set_release.command("list")
 @click.argument("widget_set_rid", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list releases from, specified as either its RID or dataset branch identifier.
+If omitted, lists releases from the default branch.
+""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -15677,6 +15882,7 @@ and use it to populate the `pageToken` field of the next request.""",
 def widgets_widget_set_release_op_list(
     client: FoundryClient,
     widget_set_rid: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -15688,6 +15894,7 @@ def widgets_widget_set_release_op_list(
     """
     result = client.widgets.WidgetSet.Release.list(
         widget_set_rid=widget_set_rid,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
@@ -15726,6 +15933,14 @@ def widgets_repository_op_get(
 @click.argument("body", type=click.File("rb"), required=True)
 @click.option("--repository_version", type=str, required=True, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to publish the release on, specified as either its RID or dataset branch identifier.
+If omitted, publishes the release on the default branch.
+""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
@@ -15734,6 +15949,7 @@ def widgets_repository_op_publish(
     repository_rid: str,
     body: io.BufferedReader,
     repository_version: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -15743,6 +15959,7 @@ def widgets_repository_op_publish(
         repository_rid=repository_rid,
         body=body.read(),
         repository_version=repository_version,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))

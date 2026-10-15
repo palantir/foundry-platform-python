@@ -10,6 +10,7 @@ Marking
 **name** | MarkingName | Yes |  |
 **description** | Optional[str] | No |  |
 **organization** | Optional[OrganizationRid] | No | If this marking is associated with an Organization, its RID will be populated here.  |
+**deleted** | MarkingDeleted | Yes | Whether the Marking has been deleted. |
 **created_time** | CreatedTime | Yes |  |
 **created_by** | Optional[CreatedBy] | No |  |
 

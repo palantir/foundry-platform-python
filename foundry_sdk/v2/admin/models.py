@@ -110,6 +110,20 @@ AuthenticationProviderRid: typing_extensions.TypeAlias = core.RID
 """AuthenticationProviderRid"""
 
 
+class CanonicalizeMarkingsRequest(core.ModelBase):
+    """CanonicalizeMarkingsRequest"""
+
+    marking_ids: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("markingIds"))  # type: ignore[literal-required]
+    """The marking IDs to canonicalize."""
+
+
+class CanonicalizeMarkingsResponse(core.ModelBase):
+    """CanonicalizeMarkingsResponse"""
+
+    marking_ids: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("markingIds"))  # type: ignore[literal-required]
+    """The CBAC marking IDs after applying the classification rules."""
+
+
 class CbacBanner(core.ModelBase):
     """CbacBanner"""
 
@@ -269,6 +283,36 @@ class EnrollmentRoleAssignment(core.ModelBase):
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
+
+
+FlattenMarkingExpressionResult: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["FlattenedMarkingExpression", "UnflattenableMarkingExpression"],
+    pydantic.Field(discriminator="type"),
+]
+"""FlattenMarkingExpressionResult"""
+
+
+class FlattenMarkingExpressionsRequest(core.ModelBase):
+    """FlattenMarkingExpressionsRequest"""
+
+    marking_expressions: typing.List[MarkingExpression] = pydantic.Field(alias=str("markingExpressions"))  # type: ignore[literal-required]
+    """The expressions to flatten, in result order."""
+
+
+class FlattenMarkingExpressionsResponse(core.ModelBase):
+    """FlattenMarkingExpressionsResponse"""
+
+    results: typing.List[FlattenMarkingExpressionResult]
+    """A result for each input expression, in the same order."""
+
+
+class FlattenedMarkingExpression(core.ModelBase):
+    """FlattenedMarkingExpression"""
+
+    marking_ids: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("markingIds"))  # type: ignore[literal-required]
+    """The flattened marking IDs. An empty list is a valid result with no marking IDs."""
+
+    type: typing.Literal["flattened"] = "flattened"
 
 
 class GetForResourcesRequest(core.ModelBase):
@@ -530,6 +574,9 @@ class Marking(core.ModelBase):
     organization: typing.Optional[core_models.OrganizationRid] = None
     """If this marking is associated with an Organization, its RID will be populated here."""
 
+    deleted: MarkingDeleted
+    """Whether the Marking has been deleted."""
+
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
 
@@ -543,8 +590,15 @@ class MarkingCategory(core.ModelBase):
     category_type: MarkingCategoryType = pydantic.Field(alias=str("categoryType"))  # type: ignore[literal-required]
     marking_type: MarkingType = pydantic.Field(alias=str("markingType"))  # type: ignore[literal-required]
     markings: typing.List[core_models.MarkingId]
+    deleted: MarkingCategoryDeleted
+    """Whether the Marking Category has been deleted."""
+
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
+
+
+MarkingCategoryDeleted: typing_extensions.TypeAlias = bool
+"""Whether the Marking Category has been deleted."""
 
 
 MarkingCategoryDescription: typing_extensions.TypeAlias = str
@@ -596,6 +650,27 @@ class MarkingCategoryRoleAssignment(core.ModelBase):
 
 MarkingCategoryType: typing_extensions.TypeAlias = typing.Literal["CONJUNCTIVE", "DISJUNCTIVE"]
 """MarkingCategoryType"""
+
+
+class MarkingClause(core.ModelBase):
+    """
+    All markings in a clause must belong to the same category. A clause in a conjunctive category must contain
+    exactly one marking.
+    """
+
+    or_: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("or"))  # type: ignore[literal-required]
+    """Any one of these markings satisfies the clause."""
+
+
+MarkingDeleted: typing_extensions.TypeAlias = bool
+"""Whether the Marking has been deleted."""
+
+
+class MarkingExpression(core.ModelBase):
+    """A marking expression in conjunctive normal form."""
+
+    and_: typing.List[MarkingClause] = pydantic.Field(alias=str("and"))  # type: ignore[literal-required]
+    """Every clause must be satisfied."""
 
 
 class MarkingMember(core.ModelBase):
@@ -924,6 +999,12 @@ class SearchUsersResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
+class UnflattenableMarkingExpression(core.ModelBase):
+    """No flat set of markings could be produced for the expression."""
+
+    type: typing.Literal["unflattenable"] = "unflattenable"
+
+
 class User(core.ModelBase):
     """User"""
 
@@ -993,6 +1074,8 @@ __all__ = [
     "AuthenticationProviderEnabled",
     "AuthenticationProviderName",
     "AuthenticationProviderRid",
+    "CanonicalizeMarkingsRequest",
+    "CanonicalizeMarkingsResponse",
     "CbacBanner",
     "CbacBannerClassificationString",
     "CbacMarkingRestrictions",
@@ -1008,6 +1091,10 @@ __all__ = [
     "Enrollment",
     "EnrollmentName",
     "EnrollmentRoleAssignment",
+    "FlattenMarkingExpressionResult",
+    "FlattenMarkingExpressionsRequest",
+    "FlattenMarkingExpressionsResponse",
+    "FlattenedMarkingExpression",
     "GetForResourcesRequest",
     "GetGroupsBatchRequestElement",
     "GetGroupsBatchResponse",
@@ -1045,6 +1132,7 @@ __all__ = [
     "ListUsersResponse",
     "Marking",
     "MarkingCategory",
+    "MarkingCategoryDeleted",
     "MarkingCategoryDescription",
     "MarkingCategoryId",
     "MarkingCategoryName",
@@ -1053,6 +1141,9 @@ __all__ = [
     "MarkingCategoryRole",
     "MarkingCategoryRoleAssignment",
     "MarkingCategoryType",
+    "MarkingClause",
+    "MarkingDeleted",
+    "MarkingExpression",
     "MarkingMember",
     "MarkingName",
     "MarkingRole",
@@ -1092,6 +1183,7 @@ __all__ = [
     "SearchGroupsResponse",
     "SearchUsersRequest",
     "SearchUsersResponse",
+    "UnflattenableMarkingExpression",
     "User",
     "UserProviderInfo",
     "UserSearchFilter",

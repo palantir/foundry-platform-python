@@ -91,6 +91,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:ontologies-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -161,6 +163,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:ontologies-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -184,9 +188,11 @@ Name | Type | Description  | Notes |
 **branch** | Optional[FoundryBranch] | The Foundry branch to get the object from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **load_ontology_defined_derived_properties** | Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to read the object from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **select** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **OntologyObjectV2**
@@ -212,12 +218,16 @@ branch = None
 exclude_rid = None
 # Optional[bool] | A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
 load_ontology_defined_derived_properties = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to read the object from.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
 # Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 select = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 
 
 try:
@@ -228,9 +238,11 @@ try:
         branch=branch,
         exclude_rid=exclude_rid,
         load_ontology_defined_derived_properties=load_ontology_defined_derived_properties,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select=select,
+        transaction_id=transaction_id,
     )
     print("The get response:\n")
     pprint(api_response)
@@ -242,6 +254,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 
@@ -347,6 +361,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 
@@ -488,6 +504,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 

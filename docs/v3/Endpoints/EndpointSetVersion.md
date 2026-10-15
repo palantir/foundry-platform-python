@@ -14,6 +14,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **endpoint_set_rid** | EndpointSetRid |  |  |
 **version_id** | EndpointSetVersionId |  |  |
+**preview** | Optional[PreviewMode] |  | [optional] |
 
 ### Return type
 **EndpointSetVersion**
@@ -31,10 +32,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 endpoint_set_rid = None
 # EndpointSetVersionId
 version_id = None
+# Optional[PreviewMode]
+preview = None
 
 
 try:
-    api_response = client.endpoints.EndpointSet.Version.get(endpoint_set_rid, version_id)
+    api_response = client.endpoints.EndpointSet.Version.get(
+        endpoint_set_rid, version_id, preview=preview
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -45,6 +50,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:v3:endpoint-set-version:read:get]
 
 See [README](../../../README.md#authorization)
 
@@ -65,6 +72,7 @@ Name | Type | Description  | Notes |
 **endpoint_set_rid** | EndpointSetRid |  |  |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] |  | [optional] |
 
 ### Return type
 **ListEndpointSetVersionsResponse**
@@ -84,11 +92,13 @@ endpoint_set_rid = None
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[PreviewMode]
+preview = None
 
 
 try:
     for endpoint_set_version in client.endpoints.EndpointSet.Version.list(
-        endpoint_set_rid, page_size=page_size, page_token=page_token
+        endpoint_set_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(endpoint_set_version)
 except foundry_sdk.PalantirRPCException as e:
@@ -99,6 +109,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:v3:endpoint-set-version:read:list]
 
 See [README](../../../README.md#authorization)
 

@@ -46,7 +46,6 @@ class CheckClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -79,6 +78,9 @@ class CheckClient:
     ) -> data_health_models.Check:
         """
         Creates a new Check.
+
+        Required scopes: [api:data-health-write]
+
         :param config:
         :type config: CheckConfig
         :param intent:
@@ -145,6 +147,9 @@ class CheckClient:
     ) -> None:
         """
         Delete the Check with the specified rid.
+
+        Required scopes: [api:data-health-write]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param preview: Enables the use of preview functionality.
@@ -193,6 +198,9 @@ class CheckClient:
     ) -> data_health_models.Check:
         """
         Get the Check with the specified rid.
+
+        Required scopes: [api:data-health-read]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param preview: Enables the use of preview functionality.
@@ -245,6 +253,9 @@ class CheckClient:
     ) -> data_health_models.Check:
         """
         Replace the Check with the specified rid. Changing the type of a check after it has been created is not supported.
+
+        Required scopes: [api:data-health-write]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param config:
@@ -349,7 +360,6 @@ class AsyncCheckClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -382,6 +392,9 @@ class AsyncCheckClient:
     ) -> typing.Awaitable[data_health_models.Check]:
         """
         Creates a new Check.
+
+        Required scopes: [api:data-health-write]
+
         :param config:
         :type config: CheckConfig
         :param intent:
@@ -448,6 +461,9 @@ class AsyncCheckClient:
     ) -> typing.Awaitable[None]:
         """
         Delete the Check with the specified rid.
+
+        Required scopes: [api:data-health-write]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param preview: Enables the use of preview functionality.
@@ -496,6 +512,9 @@ class AsyncCheckClient:
     ) -> typing.Awaitable[data_health_models.Check]:
         """
         Get the Check with the specified rid.
+
+        Required scopes: [api:data-health-read]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param preview: Enables the use of preview functionality.
@@ -548,6 +567,9 @@ class AsyncCheckClient:
     ) -> typing.Awaitable[data_health_models.Check]:
         """
         Replace the Check with the specified rid. Changing the type of a check after it has been created is not supported.
+
+        Required scopes: [api:data-health-write]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param config:

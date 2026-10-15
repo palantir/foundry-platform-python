@@ -1,7 +1,11 @@
 # ExtractDocumentLayoutAwareTextV2Operation
 
-Extract layout aware text with bounding boxes across all pages using the v2 text extraction endpoint.
-This only supports PDFs.
+Extracts text blocks and bounding boxes from a PDF as structured JSON grouped by page.
+Replaces the deprecated `documentToText.extractLayoutAwareContent` operation
+(`DocumentExtractLayoutAwareContentOperation`). The response schema differs from the legacy
+result, so consumers must update their result parsing when migrating.
+The `config.format` option selects plain text, Markdown, or HTML for each block's content;
+the result remains structured JSON. This operation only supports PDFs.
 
 
 ## Properties

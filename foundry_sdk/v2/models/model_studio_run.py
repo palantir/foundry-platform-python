@@ -45,7 +45,6 @@ class ModelStudioRunClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -70,6 +69,9 @@ class ModelStudioRunClient:
     ) -> core.ResourceIterator[models_models.ModelStudioRun]:
         """
         Lists all runs for a Model Studio.
+
+        Required scopes: [api:models-read]
+
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
         :param config_version: Filter runs by configuration version.
@@ -151,7 +153,6 @@ class AsyncModelStudioRunClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -176,6 +177,9 @@ class AsyncModelStudioRunClient:
     ) -> core.AsyncResourceIterator[models_models.ModelStudioRun]:
         """
         Lists all runs for a Model Studio.
+
+        Required scopes: [api:models-read]
+
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
         :param config_version: Filter runs by configuration version.

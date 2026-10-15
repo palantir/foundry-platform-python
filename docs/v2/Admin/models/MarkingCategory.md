@@ -11,6 +11,7 @@ MarkingCategory
 **category_type** | MarkingCategoryType | Yes |  |
 **marking_type** | MarkingType | Yes |  |
 **markings** | List[MarkingId] | Yes |  |
+**deleted** | MarkingCategoryDeleted | Yes | Whether the Marking Category has been deleted. |
 **created_time** | CreatedTime | Yes |  |
 **created_by** | Optional[CreatedBy] | No |  |
 

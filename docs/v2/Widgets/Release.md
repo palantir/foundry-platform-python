@@ -52,6 +52,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:widgets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -107,6 +109,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:widgets-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -126,6 +130,7 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **widget_set_rid** | WidgetSetRid | A Resource Identifier (RID) identifying a widget set. |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list releases from, specified as either its RID or dataset branch identifier. If omitted, lists releases from the default branch.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -144,6 +149,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # WidgetSetRid | A Resource Identifier (RID) identifying a widget set.
 widget_set_rid = "ri.widgetregistry..widget-set.21dt2c42-b7df-4b23-880b-1436a3dred2e"
+# Optional[FoundryBranch] | The Foundry branch to list releases from, specified as either its RID or dataset branch identifier. If omitted, lists releases from the default branch.
+branch = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -154,7 +161,7 @@ preview = None
 
 try:
     for release in client.widgets.WidgetSet.Release.list(
-        widget_set_rid, page_size=page_size, page_token=page_token, preview=preview
+        widget_set_rid, branch=branch, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(release)
 except foundry_sdk.PalantirRPCException as e:
@@ -165,6 +172,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:widgets-read]
 
 See [README](../../../README.md#authorization)
 

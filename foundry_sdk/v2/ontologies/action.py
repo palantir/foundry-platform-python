@@ -44,7 +44,6 @@ class ActionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -86,6 +85,9 @@ class ActionClient:
 
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -175,6 +177,9 @@ class ActionClient:
 
         Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -256,6 +261,9 @@ class ActionClient:
 
         Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -332,6 +340,9 @@ class ActionClient:
         """
         Same as regular apply action operation, but allows specifying overrides for UniqueIdentifier and
         CurrentTime generated action parameters.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -445,7 +456,6 @@ class AsyncActionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -487,6 +497,9 @@ class AsyncActionClient:
 
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -576,6 +589,9 @@ class AsyncActionClient:
 
         Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -657,6 +673,9 @@ class AsyncActionClient:
 
         Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -733,6 +752,9 @@ class AsyncActionClient:
         """
         Same as regular apply action operation, but allows specifying overrides for UniqueIdentifier and
         CurrentTime generated action parameters.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param ontology:
         :type ontology: OntologyIdentifier

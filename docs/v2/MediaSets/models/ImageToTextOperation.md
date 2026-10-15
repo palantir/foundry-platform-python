@@ -9,6 +9,8 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
+ExtractImageLayoutAwareTextV2Operation | extractLayoutAwareTextV2
+ExtractImageTextV2Operation | extractTextV2
 ImageExtractLayoutAwareContentOperation | extractLayoutAwareContent
 ImageOcrOperation | ocr
 

@@ -1,0 +1,11 @@
+# CanonicalizeMarkingsRequest
+
+CanonicalizeMarkingsRequest
+
+## Properties
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
+**marking_ids** | List[MarkingId] | Yes | The marking IDs to canonicalize. |
+
+
+[[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

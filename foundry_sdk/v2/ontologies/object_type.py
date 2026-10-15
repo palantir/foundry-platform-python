@@ -45,7 +45,6 @@ class ObjectTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -69,6 +68,9 @@ class ObjectTypeClient:
     ) -> ontologies_models.ObjectTypeV2:
         """
         Gets a specific object type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -130,6 +132,9 @@ class ObjectTypeClient:
         permissions.
 
         The maximum batch size for this endpoint is 100.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -197,6 +202,9 @@ class ObjectTypeClient:
         The edits are returned in reverse chronological order (most recent first) by default.
 
         Note that filters are ignored for OSv1 object types.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology: The ontology RID or API name
         :type ontology: OntologyIdentifier
@@ -274,6 +282,9 @@ class ObjectTypeClient:
         """
         Gets the full metadata for a specific object type with the given API name.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -348,6 +359,9 @@ class ObjectTypeClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -405,6 +419,9 @@ class ObjectTypeClient:
     ) -> ontologies_models.LinkTypeSideV2:
         """
         Get an outgoing link for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -470,6 +487,9 @@ class ObjectTypeClient:
         silently omitted from the response.
 
         The maximum batch size for this endpoint is 100.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -537,6 +557,9 @@ class ObjectTypeClient:
         Note: the `aliases` field is not populated on this endpoint and will always be empty. To retrieve object type
         aliases, use the get-by-RID read paths (e.g. `getObjectTypeV2`).
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
@@ -593,6 +616,9 @@ class ObjectTypeClient:
     ) -> core.ResourceIterator[ontologies_models.LinkTypeSideV2]:
         """
         List the outgoing links for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -733,7 +759,6 @@ class AsyncObjectTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -757,6 +782,9 @@ class AsyncObjectTypeClient:
     ) -> typing.Awaitable[ontologies_models.ObjectTypeV2]:
         """
         Gets a specific object type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -818,6 +846,9 @@ class AsyncObjectTypeClient:
         permissions.
 
         The maximum batch size for this endpoint is 100.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -885,6 +916,9 @@ class AsyncObjectTypeClient:
         The edits are returned in reverse chronological order (most recent first) by default.
 
         Note that filters are ignored for OSv1 object types.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology: The ontology RID or API name
         :type ontology: OntologyIdentifier
@@ -962,6 +996,9 @@ class AsyncObjectTypeClient:
         """
         Gets the full metadata for a specific object type with the given API name.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -1036,6 +1073,9 @@ class AsyncObjectTypeClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -1093,6 +1133,9 @@ class AsyncObjectTypeClient:
     ) -> typing.Awaitable[ontologies_models.LinkTypeSideV2]:
         """
         Get an outgoing link for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -1158,6 +1201,9 @@ class AsyncObjectTypeClient:
         silently omitted from the response.
 
         The maximum batch size for this endpoint is 100.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -1225,6 +1271,9 @@ class AsyncObjectTypeClient:
         Note: the `aliases` field is not populated on this endpoint and will always be empty. To retrieve object type
         aliases, use the get-by-RID read paths (e.g. `getObjectTypeV2`).
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
@@ -1281,6 +1330,9 @@ class AsyncObjectTypeClient:
     ) -> core.AsyncResourceIterator[ontologies_models.LinkTypeSideV2]:
         """
         List the outgoing links for an object type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

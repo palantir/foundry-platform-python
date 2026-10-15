@@ -45,7 +45,6 @@ class ActionTypeFullMetadataClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -69,6 +68,9 @@ class ActionTypeFullMetadataClient:
     ) -> ontologies_models.ActionTypeFullMetadata:
         """
         Gets the full metadata associated with an action type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -133,6 +135,9 @@ class ActionTypeFullMetadataClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -194,6 +199,9 @@ class ActionTypeFullMetadataClient:
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -262,6 +270,9 @@ class ActionTypeFullMetadataClient:
         Action types with logic rules that cannot be represented in the API are omitted from the results.
         As a consequence, totalCount counts all matching action types in the Ontology and may exceed the number
         of results returned across all pages, and an individual page may be empty even when nextPageToken is present.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -369,7 +380,6 @@ class AsyncActionTypeFullMetadataClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -393,6 +403,9 @@ class AsyncActionTypeFullMetadataClient:
     ) -> typing.Awaitable[ontologies_models.ActionTypeFullMetadata]:
         """
         Gets the full metadata associated with an action type.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -457,6 +470,9 @@ class AsyncActionTypeFullMetadataClient:
 
         The maximum batch size for this endpoint is 100.
 
+
+        Required scopes: [api:ontologies-read]
+
         :param ontology:
         :type ontology: OntologyIdentifier
         :param requests:
@@ -518,6 +534,9 @@ class AsyncActionTypeFullMetadataClient:
 
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -586,6 +605,9 @@ class AsyncActionTypeFullMetadataClient:
         Action types with logic rules that cannot be represented in the API are omitted from the results.
         As a consequence, totalCount counts all matching action types in the Ontology and may exceed the number
         of results returned across all pages, and an individual page may be empty even when nextPageToken is present.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
