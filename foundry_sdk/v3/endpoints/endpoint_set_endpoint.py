@@ -45,7 +45,6 @@ class EndpointSetEndpointClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -62,15 +61,21 @@ class EndpointSetEndpointClient:
         endpoint_set_rid: endpoints_models.EndpointSetRid,
         endpoint_rid: endpoints_models.EndpointSetEndpointRid,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> endpoints_models.EndpointSetEndpoint:
         """
 
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:get]
+
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
         :param endpoint_rid:
         :type endpoint_rid: EndpointSetEndpointRid
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -84,7 +89,9 @@ class EndpointSetEndpointClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v3/platform/endpointSets/{endpointSetRid}/endpoints/{endpointRid}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "endpointSetRid": endpoint_set_rid,
                     "endpointRid": endpoint_rid,
@@ -112,10 +119,14 @@ class EndpointSetEndpointClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[endpoints_models.EndpointSetEndpoint]:
         """
+
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:list]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
@@ -123,6 +134,8 @@ class EndpointSetEndpointClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -138,6 +151,7 @@ class EndpointSetEndpointClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "preview": preview,
                 },
                 path_params={
                     "endpointSetRid": endpoint_set_rid,
@@ -194,7 +208,6 @@ class AsyncEndpointSetEndpointClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -211,15 +224,21 @@ class AsyncEndpointSetEndpointClient:
         endpoint_set_rid: endpoints_models.EndpointSetRid,
         endpoint_rid: endpoints_models.EndpointSetEndpointRid,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[endpoints_models.EndpointSetEndpoint]:
         """
 
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:get]
+
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
         :param endpoint_rid:
         :type endpoint_rid: EndpointSetEndpointRid
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -233,7 +252,9 @@ class AsyncEndpointSetEndpointClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v3/platform/endpointSets/{endpointSetRid}/endpoints/{endpointRid}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "endpointSetRid": endpoint_set_rid,
                     "endpointRid": endpoint_rid,
@@ -261,10 +282,14 @@ class AsyncEndpointSetEndpointClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[endpoints_models.EndpointSetEndpoint]:
         """
+
+
+        Required scopes: [api:v3:endpoint-set-endpoint:read:list]
 
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
@@ -272,6 +297,8 @@ class AsyncEndpointSetEndpointClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -287,6 +314,7 @@ class AsyncEndpointSetEndpointClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "preview": preview,
                 },
                 path_params={
                     "endpointSetRid": endpoint_set_rid,

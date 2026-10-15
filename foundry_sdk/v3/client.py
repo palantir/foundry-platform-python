@@ -43,10 +43,14 @@ class FoundryClient:
         hostname_supplier = create_hostname_supplier(hostname, config)
 
         from foundry_sdk.v3.endpoints._client import EndpointsClient
+        from foundry_sdk.v3.filesystem._client import FilesystemClient
         from foundry_sdk.v3.orchestrator._client import OrchestratorClient
+        from foundry_sdk.v3.tiles._client import TilesClient
 
         self.endpoints = EndpointsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.filesystem = FilesystemClient(auth=auth, hostname=hostname_supplier, config=config)
         self.orchestrator = OrchestratorClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.tiles = TilesClient(auth=auth, hostname=hostname_supplier, config=config)
 
 
 class AsyncFoundryClient:
@@ -76,9 +80,15 @@ class AsyncFoundryClient:
         hostname_supplier = create_hostname_supplier(hostname, config)
 
         from foundry_sdk.v3.endpoints._client import AsyncEndpointsClient
+        from foundry_sdk.v3.filesystem._client import AsyncFilesystemClient
         from foundry_sdk.v3.orchestrator._client import AsyncOrchestratorClient
+        from foundry_sdk.v3.tiles._client import AsyncTilesClient
 
         self.endpoints = AsyncEndpointsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.filesystem = AsyncFilesystemClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
         self.orchestrator = AsyncOrchestratorClient(
             auth=auth, hostname=hostname_supplier, config=config
         )
+        self.tiles = AsyncTilesClient(auth=auth, hostname=hostname_supplier, config=config)

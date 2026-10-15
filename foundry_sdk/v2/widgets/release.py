@@ -45,7 +45,6 @@ class ReleaseClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class ReleaseClient:
     ) -> None:
         """
         Delete the Release with the specified version.
+
+        Required scopes: [api:widgets-write]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -118,6 +120,9 @@ class ReleaseClient:
     ) -> widgets_models.Release:
         """
         Get the Release with the specified version.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -163,6 +168,7 @@ class ReleaseClient:
         self,
         widget_set_rid: widgets_models.WidgetSetRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -173,8 +179,13 @@ class ReleaseClient:
         Lists all Releases.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
+        :param branch: The Foundry branch to list releases from, specified as either its RID or dataset branch identifier. If omitted, lists releases from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -192,6 +203,7 @@ class ReleaseClient:
                 method="GET",
                 resource_path="/v2/widgets/widgetSets/{widgetSetRid}/releases",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,
@@ -251,7 +263,6 @@ class AsyncReleaseClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -274,6 +285,9 @@ class AsyncReleaseClient:
     ) -> typing.Awaitable[None]:
         """
         Delete the Release with the specified version.
+
+        Required scopes: [api:widgets-write]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -324,6 +338,9 @@ class AsyncReleaseClient:
     ) -> typing.Awaitable[widgets_models.Release]:
         """
         Get the Release with the specified version.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
         :param release_version: The semantic version of the widget set.
@@ -369,6 +386,7 @@ class AsyncReleaseClient:
         self,
         widget_set_rid: widgets_models.WidgetSetRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -379,8 +397,13 @@ class AsyncReleaseClient:
         Lists all Releases.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:widgets-read]
+
         :param widget_set_rid: A Resource Identifier (RID) identifying a widget set.
         :type widget_set_rid: WidgetSetRid
+        :param branch: The Foundry branch to list releases from, specified as either its RID or dataset branch identifier. If omitted, lists releases from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -398,6 +421,7 @@ class AsyncReleaseClient:
                 method="GET",
                 resource_path="/v2/widgets/widgetSets/{widgetSetRid}/releases",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,

@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v3.core import models as core_models
 from foundry_sdk.v3.orchestrator import errors as orchestrator_errors
 from foundry_sdk.v3.orchestrator import models as orchestrator_models
 
@@ -44,7 +45,6 @@ class ProcessExecutionSignalClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -62,6 +62,7 @@ class ProcessExecutionSignalClient:
         signal_id: orchestrator_models.SignalId,
         *,
         payload: typing.Optional[typing.Any] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -72,12 +73,17 @@ class ProcessExecutionSignalClient:
         If the execution is suspended waiting on this signal, it resumes once its wait conditions are
         satisfied. Resuming an execution runs user-authored logic. Only the token that originally invoked the
         process execution can complete its signals.
+
+        Required scopes: [api:v3:process-execution-signal:write:complete]
+
         :param process_execution_id:
         :type process_execution_id: ProcessExecutionId
         :param signal_id:
         :type signal_id: SignalId
         :param payload: Arbitrary JSON passed to the process execution that consumes the signal. Empty when the completion carries no payload.
         :type payload: Optional[Any]
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -92,7 +98,9 @@ class ProcessExecutionSignalClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v3/platform/processExecutions/{processExecutionId}/signals/{signalId}/complete",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "processExecutionId": process_execution_id,
                     "signalId": signal_id,
@@ -147,7 +155,6 @@ class AsyncProcessExecutionSignalClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -165,6 +172,7 @@ class AsyncProcessExecutionSignalClient:
         signal_id: orchestrator_models.SignalId,
         *,
         payload: typing.Optional[typing.Any] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -175,12 +183,17 @@ class AsyncProcessExecutionSignalClient:
         If the execution is suspended waiting on this signal, it resumes once its wait conditions are
         satisfied. Resuming an execution runs user-authored logic. Only the token that originally invoked the
         process execution can complete its signals.
+
+        Required scopes: [api:v3:process-execution-signal:write:complete]
+
         :param process_execution_id:
         :type process_execution_id: ProcessExecutionId
         :param signal_id:
         :type signal_id: SignalId
         :param payload: Arbitrary JSON passed to the process execution that consumes the signal. Empty when the completion carries no payload.
         :type payload: Optional[Any]
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -195,7 +208,9 @@ class AsyncProcessExecutionSignalClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v3/platform/processExecutions/{processExecutionId}/signals/{signalId}/complete",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "processExecutionId": process_execution_id,
                     "signalId": signal_id,

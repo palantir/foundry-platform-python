@@ -45,7 +45,6 @@ class ScheduleVersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class ScheduleVersionClient:
     ) -> orchestration_models.ScheduleVersion:
         """
         Get the ScheduleVersion with the specified rid.
+
+        Required scopes: [api:orchestration-read]
+
         :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
         :param preview: Enables the use of preview functionality.
@@ -114,6 +116,9 @@ class ScheduleVersionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Optional[orchestration_models.Schedule]:
         """
+
+
+        Required scopes: [api:orchestration-read]
 
         :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
@@ -185,7 +190,6 @@ class AsyncScheduleVersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -207,6 +211,9 @@ class AsyncScheduleVersionClient:
     ) -> typing.Awaitable[orchestration_models.ScheduleVersion]:
         """
         Get the ScheduleVersion with the specified rid.
+
+        Required scopes: [api:orchestration-read]
+
         :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
         :param preview: Enables the use of preview functionality.
@@ -254,6 +261,9 @@ class AsyncScheduleVersionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[typing.Optional[orchestration_models.Schedule]]:
         """
+
+
+        Required scopes: [api:orchestration-read]
 
         :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid

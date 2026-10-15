@@ -44,7 +44,6 @@ class CipherTextPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -64,11 +63,16 @@ class CipherTextPropertyClient:
         property: ontologies_models.PropertyApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.DecryptionResult:
         """
         Decrypt the value of a ciphertext property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -80,6 +84,10 @@ class CipherTextPropertyClient:
         :type property: PropertyApiName
         :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -92,6 +100,8 @@ class CipherTextPropertyClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/ciphertexts/{property}/decrypt",
                 query_params={
                     "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -124,6 +134,8 @@ class CipherTextPropertyClient:
         branch: typing.Optional[core_models.FoundryBranch] = None,
         cipher_channel_strategy: typing.Optional[ontologies_models.CipherChannelStrategy] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.EncryptionResult:
@@ -132,6 +144,9 @@ class CipherTextPropertyClient:
 
         The Cipher Channel used is resolved based on the supplied `cipherChannelStrategy`, using the channel of the
         object's existing ciphertext value and/or the default channel configured for the property in ontology metadata.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -149,6 +164,10 @@ class CipherTextPropertyClient:
         :type cipher_channel_strategy: Optional[CipherChannelStrategy]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -163,6 +182,8 @@ class CipherTextPropertyClient:
                     "branch": branch,
                     "cipherChannelStrategy": cipher_channel_strategy,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -196,6 +217,8 @@ class CipherTextPropertyClient:
         plaintext: ontologies_models.Plaintext,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.EncryptionResult:
@@ -206,6 +229,9 @@ class CipherTextPropertyClient:
         endpoint requires the CipherText property to have a configured `defaultCipherChannelRid`; if none is
         configured an error will be thrown. To encrypt against the channel of an existing object's value, use the
         **Encrypt** endpoint that accepts a `primaryKey` instead.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -219,6 +245,10 @@ class CipherTextPropertyClient:
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -232,6 +262,8 @@ class CipherTextPropertyClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -299,7 +331,6 @@ class AsyncCipherTextPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -319,11 +350,16 @@ class AsyncCipherTextPropertyClient:
         property: ontologies_models.PropertyApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.DecryptionResult]:
         """
         Decrypt the value of a ciphertext property.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -335,6 +371,10 @@ class AsyncCipherTextPropertyClient:
         :type property: PropertyApiName
         :param branch: The Foundry branch to read from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -347,6 +387,8 @@ class AsyncCipherTextPropertyClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/ciphertexts/{property}/decrypt",
                 query_params={
                     "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -379,6 +421,8 @@ class AsyncCipherTextPropertyClient:
         branch: typing.Optional[core_models.FoundryBranch] = None,
         cipher_channel_strategy: typing.Optional[ontologies_models.CipherChannelStrategy] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.EncryptionResult]:
@@ -387,6 +431,9 @@ class AsyncCipherTextPropertyClient:
 
         The Cipher Channel used is resolved based on the supplied `cipherChannelStrategy`, using the channel of the
         object's existing ciphertext value and/or the default channel configured for the property in ontology metadata.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -404,6 +451,10 @@ class AsyncCipherTextPropertyClient:
         :type cipher_channel_strategy: Optional[CipherChannelStrategy]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -418,6 +469,8 @@ class AsyncCipherTextPropertyClient:
                     "branch": branch,
                     "cipherChannelStrategy": cipher_channel_strategy,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -451,6 +504,8 @@ class AsyncCipherTextPropertyClient:
         plaintext: ontologies_models.Plaintext,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.EncryptionResult]:
@@ -461,6 +516,9 @@ class AsyncCipherTextPropertyClient:
         endpoint requires the CipherText property to have a configured `defaultCipherChannelRid`; if none is
         configured an error will be thrown. To encrypt against the channel of an existing object's value, use the
         **Encrypt** endpoint that accepts a `primaryKey` instead.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -474,6 +532,10 @@ class AsyncCipherTextPropertyClient:
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -487,6 +549,8 @@ class AsyncCipherTextPropertyClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,

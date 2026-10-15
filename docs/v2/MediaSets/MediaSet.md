@@ -68,6 +68,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -126,6 +128,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -208,6 +212,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -261,6 +267,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-write]
 
 See [README](../../../README.md#authorization)
 
@@ -318,6 +326,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -368,6 +378,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -431,6 +443,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-transform]
 
 See [README](../../../README.md#authorization)
 
@@ -502,6 +516,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -564,6 +580,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-transform]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -619,6 +637,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -677,6 +697,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -733,6 +755,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -788,6 +812,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -847,6 +873,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -924,6 +952,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -984,6 +1014,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -1055,6 +1087,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-read]
 
 See [README](../../../README.md#authorization)
 
@@ -1133,6 +1167,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:mediasets-transform]
 
 See [README](../../../README.md#authorization)
 
@@ -1218,6 +1254,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:mediasets-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -1281,6 +1319,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read, api:ontologies-write]
 
 See [README](../../../README.md#authorization)
 

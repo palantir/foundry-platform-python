@@ -7,7 +7,8 @@ Metadata for 3D model media items.
 | ------------ | ------------- | ------------- | ------------- |
 **format** | Model3dDecodeFormat | Yes |  |
 **model_type** | Model3dType | Yes |  |
-**size_bytes** | int | Yes | The size of the media item in bytes. |
+**size_bytes** | int | Yes | Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger.  |
+**size_bytes_long** | MediaItemSizeBytes | Yes |  |
 **type** | Literal["model3d"] | Yes | None |
 
 

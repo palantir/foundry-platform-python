@@ -21,6 +21,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v3.core import models as core_models
 from foundry_sdk.v3.endpoints import errors as endpoints_errors
 from foundry_sdk.v3.endpoints import models as endpoints_models
 
@@ -45,7 +46,6 @@ class EndpointSetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -81,13 +81,19 @@ class EndpointSetClient:
         self,
         endpoint_set_rid: endpoints_models.EndpointSetRid,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> endpoints_models.EndpointSet:
         """
 
+
+        Required scopes: [api:v3:endpoint-set:read:get]
+
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -100,7 +106,9 @@ class EndpointSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v3/platform/endpointSets/{endpointSetRid}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "endpointSetRid": endpoint_set_rid,
                 },
@@ -152,7 +160,6 @@ class AsyncEndpointSetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -192,13 +199,19 @@ class AsyncEndpointSetClient:
         self,
         endpoint_set_rid: endpoints_models.EndpointSetRid,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[endpoints_models.EndpointSet]:
         """
 
+
+        Required scopes: [api:v3:endpoint-set:read:get]
+
         :param endpoint_set_rid:
         :type endpoint_set_rid: EndpointSetRid
+        :param preview:
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -211,7 +224,9 @@ class AsyncEndpointSetClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v3/platform/endpointSets/{endpointSetRid}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "endpointSetRid": endpoint_set_rid,
                 },

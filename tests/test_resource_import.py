@@ -751,6 +751,30 @@ def test_endpoints_v3_endpoint_set_version_import():
     assert EndpointSetVersionClient is not None
 
 
+def test_filesystem_v3_folder_import():
+    from foundry_sdk.v3.filesystem.folder import FolderClient
+
+    assert FolderClient is not None
+
+
+def test_filesystem_v3_project_import():
+    from foundry_sdk.v3.filesystem.project import ProjectClient
+
+    assert ProjectClient is not None
+
+
+def test_filesystem_v3_resource_import():
+    from foundry_sdk.v3.filesystem.resource import ResourceClient
+
+    assert ResourceClient is not None
+
+
+def test_filesystem_v3_space_import():
+    from foundry_sdk.v3.filesystem.space import SpaceClient
+
+    assert SpaceClient is not None
+
+
 def test_orchestrator_v3_process_execution_import():
     from foundry_sdk.v3.orchestrator.process_execution import ProcessExecutionClient
 
@@ -763,3 +787,9 @@ def test_orchestrator_v3_process_execution_signal_import():
     )  # NOQA
 
     assert ProcessExecutionSignalClient is not None
+
+
+def test_tiles_v3_tile_source_import():
+    from foundry_sdk.v3.tiles.tile_source import TileSourceClient
+
+    assert TileSourceClient is not None

@@ -49,7 +49,6 @@ class VersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -71,6 +70,9 @@ class VersionClient:
     ) -> None:
         """
         Delete the Version with the specified version.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: The semantic version of the Website.
@@ -116,6 +118,9 @@ class VersionClient:
     ) -> third_party_applications_models.Version:
         """
         Get the Version with the specified version.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: The semantic version of the Website.
@@ -166,6 +171,9 @@ class VersionClient:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: The page size to use for the endpoint.
@@ -214,6 +222,9 @@ class VersionClient:
     ) -> third_party_applications_models.Version:
         """
         Upload a new version of the Website.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
@@ -268,6 +279,9 @@ class VersionClient:
     ) -> third_party_applications_models.Version:
         """
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
+
+
+        Required scopes: [third-party-application:deploy-application-website]
 
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
@@ -362,7 +376,6 @@ class AsyncVersionClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -384,6 +397,9 @@ class AsyncVersionClient:
     ) -> typing.Awaitable[None]:
         """
         Delete the Version with the specified version.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: The semantic version of the Website.
@@ -429,6 +445,9 @@ class AsyncVersionClient:
     ) -> typing.Awaitable[third_party_applications_models.Version]:
         """
         Get the Version with the specified version.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: The semantic version of the Website.
@@ -479,6 +498,9 @@ class AsyncVersionClient:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: The page size to use for the endpoint.
@@ -527,6 +549,9 @@ class AsyncVersionClient:
     ) -> typing.Awaitable[third_party_applications_models.Version]:
         """
         Upload a new version of the Website.
+
+        Required scopes: [third-party-application:deploy-application-website]
+
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
@@ -581,6 +606,9 @@ class AsyncVersionClient:
     ) -> typing.Awaitable[third_party_applications_models.Version]:
         """
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
+
+
+        Required scopes: [third-party-application:deploy-application-website]
 
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid

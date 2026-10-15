@@ -45,7 +45,6 @@ class ResourceTagClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class ResourceTagClient:
     ) -> None:
         """
         Apply tags to a resource.
+
+        Required scopes: [api:filesystem-write]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param tag_rids:
@@ -129,6 +131,9 @@ class ResourceTagClient:
         """
         List the tags applied to a resource.
 
+
+        Required scopes: [api:filesystem-read]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param preview: Enables the use of preview functionality.
@@ -178,6 +183,9 @@ class ResourceTagClient:
     ) -> None:
         """
         Remove tags from a resource.
+
+        Required scopes: [api:filesystem-write]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param tag_rids:
@@ -264,7 +272,6 @@ class AsyncResourceTagClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -287,6 +294,9 @@ class AsyncResourceTagClient:
     ) -> typing.Awaitable[None]:
         """
         Apply tags to a resource.
+
+        Required scopes: [api:filesystem-write]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param tag_rids:
@@ -348,6 +358,9 @@ class AsyncResourceTagClient:
         """
         List the tags applied to a resource.
 
+
+        Required scopes: [api:filesystem-read]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param preview: Enables the use of preview functionality.
@@ -397,6 +410,9 @@ class AsyncResourceTagClient:
     ) -> typing.Awaitable[None]:
         """
         Remove tags from a resource.
+
+        Required scopes: [api:filesystem-write]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param tag_rids:

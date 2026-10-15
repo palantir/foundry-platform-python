@@ -45,6 +45,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:widgets-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details

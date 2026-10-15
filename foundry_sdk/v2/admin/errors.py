@@ -161,6 +161,19 @@ class CannotReplaceProviderInfoForPrincipalInProtectedRealm(errors.BadRequestErr
     error_instance_id: str
 
 
+class CanonicalizeMarkingsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """You do not have permission to view classification markings."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CanonicalizeMarkingsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CanonicalizeMarkingsPermissionDenied"]
+    parameters: CanonicalizeMarkingsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class CbacBannerNotFoundParameters(typing_extensions.TypedDict):
     """The given CbacBanner could not be found."""
 
@@ -372,6 +385,40 @@ class ExpirationForTransitiveGroupMembersNotSupportedParameters(typing_extension
 class ExpirationForTransitiveGroupMembersNotSupported(errors.BadRequestError):
     name: typing.Literal["ExpirationForTransitiveGroupMembersNotSupported"]
     parameters: ExpirationForTransitiveGroupMembersNotSupportedParameters
+    error_instance_id: str
+
+
+class FlattenMarkingExpressionsBatchLimitExceededParameters(typing_extensions.TypedDict):
+    """Cannot flatten more than 1,000 marking expressions in one request."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    maximumMarkingExpressionCount: int
+    """The maximum number of marking expressions allowed in one request."""
+
+    providedMarkingExpressionCount: int
+    """The number of marking expressions in the request."""
+
+
+@dataclass
+class FlattenMarkingExpressionsBatchLimitExceeded(errors.BadRequestError):
+    name: typing.Literal["FlattenMarkingExpressionsBatchLimitExceeded"]
+    parameters: FlattenMarkingExpressionsBatchLimitExceededParameters
+    error_instance_id: str
+
+
+class FlattenMarkingExpressionsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """You do not have permission to view one or more of the supplied markings."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    markingIds: typing.List[core_models.MarkingId]
+
+
+@dataclass
+class FlattenMarkingExpressionsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["FlattenMarkingExpressionsPermissionDenied"]
+    parameters: FlattenMarkingExpressionsPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -1341,6 +1388,7 @@ __all__ = [
     "AttributesNotEditable",
     "AuthenticationProviderNotFound",
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
+    "CanonicalizeMarkingsPermissionDenied",
     "CbacBannerNotFound",
     "CbacMarkingRestrictionsNotFound",
     "CbacUnavailable",
@@ -1357,6 +1405,8 @@ __all__ = [
     "EnrollmentNotFound",
     "EnrollmentRoleNotFound",
     "ExpirationForTransitiveGroupMembersNotSupported",
+    "FlattenMarkingExpressionsBatchLimitExceeded",
+    "FlattenMarkingExpressionsPermissionDenied",
     "GetCbacBannerPermissionDenied",
     "GetCbacMarkingRestrictionInfoPermissionDenied",
     "GetCurrentEnrollmentPermissionDenied",

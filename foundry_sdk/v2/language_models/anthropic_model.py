@@ -45,7 +45,6 @@ class AnthropicModelClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -78,6 +77,9 @@ class AnthropicModelClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> language_models_models.AnthropicMessagesResponse:
         """
+
+
+        Required scopes: [api:language-models-execute]
 
         :param anthropic_model_model_id:
         :type anthropic_model_model_id: LanguageModelApiName
@@ -193,7 +195,6 @@ class AsyncAnthropicModelClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -226,6 +227,9 @@ class AsyncAnthropicModelClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[language_models_models.AnthropicMessagesResponse]:
         """
+
+
+        Required scopes: [api:language-models-execute]
 
         :param anthropic_model_model_id:
         :type anthropic_model_model_id: LanguageModelApiName

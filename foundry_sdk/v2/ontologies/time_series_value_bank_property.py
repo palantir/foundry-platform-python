@@ -44,7 +44,6 @@ class TimeSeriesValueBankPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -71,6 +70,9 @@ class TimeSeriesValueBankPropertyClient:
     ) -> typing.Optional[ontologies_models.TimeseriesEntry]:
         """
         Get the latest value of a property backed by a timeseries. If a specific geotime series integration has both a history and a live integration, we will give precedence to the live integration.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -137,6 +139,9 @@ class TimeSeriesValueBankPropertyClient:
     ) -> bytes:
         """
         Stream all of the points of a time series property (this includes geotime series references).
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -230,7 +235,6 @@ class AsyncTimeSeriesValueBankPropertyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -257,6 +261,9 @@ class AsyncTimeSeriesValueBankPropertyClient:
     ) -> typing.Awaitable[typing.Optional[ontologies_models.TimeseriesEntry]]:
         """
         Get the latest value of a property backed by a timeseries. If a specific geotime series integration has both a history and a live integration, we will give precedence to the live integration.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -323,6 +330,9 @@ class AsyncTimeSeriesValueBankPropertyClient:
     ) -> typing.Awaitable[bytes]:
         """
         Stream all of the points of a time series property (this includes geotime series references).
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

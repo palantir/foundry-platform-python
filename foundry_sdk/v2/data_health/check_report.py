@@ -45,7 +45,6 @@ class CheckReportClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -68,6 +67,9 @@ class CheckReportClient:
     ) -> data_health_models.CheckReport:
         """
         Get the CheckReport with the specified rid.
+
+        Required scopes: [api:data-health-read]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param check_report_rid:
@@ -123,6 +125,9 @@ class CheckReportClient:
         """
         Get the most recent check reports for this Check. Reports are returned
         in reverse chronological order (most recent first).
+
+
+        Required scopes: [api:data-health-read]
 
         :param check_rid:
         :type check_rid: CheckRid
@@ -205,7 +210,6 @@ class AsyncCheckReportClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -228,6 +232,9 @@ class AsyncCheckReportClient:
     ) -> typing.Awaitable[data_health_models.CheckReport]:
         """
         Get the CheckReport with the specified rid.
+
+        Required scopes: [api:data-health-read]
+
         :param check_rid:
         :type check_rid: CheckRid
         :param check_report_rid:
@@ -283,6 +290,9 @@ class AsyncCheckReportClient:
         """
         Get the most recent check reports for this Check. Reports are returned
         in reverse chronological order (most recent first).
+
+
+        Required scopes: [api:data-health-read]
 
         :param check_rid:
         :type check_rid: CheckRid

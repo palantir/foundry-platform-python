@@ -46,7 +46,6 @@ class ValueTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -78,6 +77,9 @@ class ValueTypeClient:
     ) -> functions_models.ValueType:
         """
         Gets a specific value type with the given RID. The latest version is returned.
+
+
+        Required scopes: [api:functions-read]
 
         :param value_type_rid:
         :type value_type_rid: ValueTypeRid
@@ -149,7 +151,6 @@ class AsyncValueTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -181,6 +182,9 @@ class AsyncValueTypeClient:
     ) -> typing.Awaitable[functions_models.ValueType]:
         """
         Gets a specific value type with the given RID. The latest version is returned.
+
+
+        Required scopes: [api:functions-read]
 
         :param value_type_rid:
         :type value_type_rid: ValueTypeRid

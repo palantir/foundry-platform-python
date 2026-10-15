@@ -46,7 +46,6 @@ class ResourceRoleClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class ResourceRoleClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
+
+
+        Required scopes: [api:filesystem-write]
 
         :param resource_rid:
         :type resource_rid: ResourceRid
@@ -125,6 +127,9 @@ class ResourceRoleClient:
         """
         List the roles on a resource.
 
+
+        Required scopes: [api:filesystem-read]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param include_inherited: Whether to include inherited roles on the resource.
@@ -178,6 +183,9 @@ class ResourceRoleClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
+
+
+        Required scopes: [api:filesystem-write]
 
         :param resource_rid:
         :type resource_rid: ResourceRid
@@ -259,7 +267,6 @@ class AsyncResourceRoleClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -280,6 +287,9 @@ class AsyncResourceRoleClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
+
+
+        Required scopes: [api:filesystem-write]
 
         :param resource_rid:
         :type resource_rid: ResourceRid
@@ -338,6 +348,9 @@ class AsyncResourceRoleClient:
         """
         List the roles on a resource.
 
+
+        Required scopes: [api:filesystem-read]
+
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param include_inherited: Whether to include inherited roles on the resource.
@@ -391,6 +404,9 @@ class AsyncResourceRoleClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
+
+
+        Required scopes: [api:filesystem-write]
 
         :param resource_rid:
         :type resource_rid: ResourceRid

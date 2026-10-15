@@ -45,7 +45,6 @@ class DevModeSettingsClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -66,6 +65,9 @@ class DevModeSettingsClient:
     ) -> widgets_models.DevModeSettings:
         """
         Enable dev mode for the user associated with the provided token.
+
+        Required scopes: [api:widgets-write]
+
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -112,6 +114,9 @@ class DevModeSettingsClient:
         """
         Set the dev mode settings for the given widget set for the user associated with the
         provided token. Uses widget IDs to identify widgets within the set.
+
+
+        Required scopes: [api:widgets-write]
 
         :param settings:
         :type settings: WidgetSetDevModeSettingsById
@@ -195,7 +200,6 @@ class AsyncDevModeSettingsClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -216,6 +220,9 @@ class AsyncDevModeSettingsClient:
     ) -> typing.Awaitable[widgets_models.DevModeSettings]:
         """
         Enable dev mode for the user associated with the provided token.
+
+        Required scopes: [api:widgets-write]
+
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -262,6 +269,9 @@ class AsyncDevModeSettingsClient:
         """
         Set the dev mode settings for the given widget set for the user associated with the
         provided token. Uses widget IDs to identify widgets within the set.
+
+
+        Required scopes: [api:widgets-write]
 
         :param settings:
         :type settings: WidgetSetDevModeSettingsById

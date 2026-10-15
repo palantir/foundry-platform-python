@@ -45,7 +45,6 @@ class DevModeSettingsV2Client:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -66,6 +65,9 @@ class DevModeSettingsV2Client:
     ) -> widgets_models.DevModeSettingsV2:
         """
         Enable dev mode for the user associated with the provided token.
+
+        Required scopes: [api:widgets-write]
+
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -125,6 +127,9 @@ class DevModeSettingsV2Client:
 
         See https://github.com/palantir/osdk-ts for the widget library API types for the
         dev settings manifest.
+
+
+        Required scopes: [api:widgets-write]
 
         :param manifest:
         :type manifest: Any
@@ -222,7 +227,6 @@ class AsyncDevModeSettingsV2Client:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -243,6 +247,9 @@ class AsyncDevModeSettingsV2Client:
     ) -> typing.Awaitable[widgets_models.DevModeSettingsV2]:
         """
         Enable dev mode for the user associated with the provided token.
+
+        Required scopes: [api:widgets-write]
+
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -302,6 +309,9 @@ class AsyncDevModeSettingsV2Client:
 
         See https://github.com/palantir/osdk-ts for the widget library API types for the
         dev settings manifest.
+
+
+        Required scopes: [api:widgets-write]
 
         :param manifest:
         :type manifest: Any

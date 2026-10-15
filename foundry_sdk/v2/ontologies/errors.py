@@ -1221,6 +1221,27 @@ class InvalidSortType(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidTimeSeriesReferenceParameters(typing_extensions.TypedDict):
+    """
+    A time series reference edited by the Action failed validation. The `reason` indicates the specific
+    failure: `ACCESS_DENIED` when the caller cannot access the referenced series or derived series
+    template, `DATASOURCE_MISMATCH` when the reference does not belong to a time series sync backing the
+    edited property, `INVALID_SERIES_ID_FORMAT` when a raw series ID is provided for a property that is
+    not backed by exactly one time series sync, and `UNKNOWN` when the reason could not be determined.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: ontologies_models.InvalidTimeSeriesReferenceReason
+
+
+@dataclass
+class InvalidTimeSeriesReference(errors.BadRequestError):
+    name: typing.Literal["InvalidTimeSeriesReference"]
+    parameters: InvalidTimeSeriesReferenceParameters
+    error_instance_id: str
+
+
 class InvalidTransactionEditPropertyValueParameters(typing_extensions.TypedDict):
     """
     The value of the given property is invalid. See the documentation of `DataValue` for details on
@@ -2698,6 +2719,7 @@ __all__ = [
     "InvalidRangeQuery",
     "InvalidSortOrder",
     "InvalidSortType",
+    "InvalidTimeSeriesReference",
     "InvalidTransactionEditPropertyValue",
     "InvalidUserId",
     "InvalidVectorDimension",

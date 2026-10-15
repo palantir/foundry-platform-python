@@ -46,7 +46,6 @@ class LogFileClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class LogFileClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
         """
+
+
+        Required scopes: [api:audit-read]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -120,6 +122,9 @@ class LogFileClient:
         Lists all LogFiles.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:audit-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param end_date: List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.
@@ -205,7 +210,6 @@ class AsyncLogFileClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -226,6 +230,9 @@ class AsyncLogFileClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[bytes]:
         """
+
+
+        Required scopes: [api:audit-read]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -279,6 +286,9 @@ class AsyncLogFileClient:
         Lists all LogFiles.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+
+        Required scopes: [api:audit-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param end_date: List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.

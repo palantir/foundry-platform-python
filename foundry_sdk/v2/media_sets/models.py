@@ -110,8 +110,9 @@ class AudioMediaItemMetadata(core.ModelBase):
     format: AudioDecodeFormat
     specification: AudioSpecification
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     type: typing.Literal["audio"] = "audio"
 
 
@@ -220,8 +221,9 @@ class CadMediaItemMetadata(core.ModelBase):
 
     format: CadDecodeFormat
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     units: typing.Optional[CadUnits] = None
     type: typing.Literal["cad"] = "cad"
 
@@ -471,8 +473,9 @@ class DicomMediaItemMetadata(core.ModelBase):
     """
 
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     type: typing.Literal["dicom"] = "dicom"
 
 
@@ -528,7 +531,11 @@ DocumentDecodeFormat: typing_extensions.TypeAlias = typing.Literal[
 
 
 class DocumentExtractLayoutAwareContentOperation(core.ModelBase):
-    """Extracts content from a document with layout information preserved."""
+    """
+    Deprecated. Use `documentToText.extractLayoutAwareTextV2`
+    (`ExtractDocumentLayoutAwareTextV2Operation`) instead.
+    The replacement uses a different response schema; update result parsing when migrating.
+    """
 
     parameters: LayoutAwareExtractionParameters
     type: typing.Literal["extractLayoutAwareContent"] = "extractLayoutAwareContent"
@@ -542,8 +549,9 @@ class DocumentMediaItemMetadata(core.ModelBase):
     """The number of pages in the document."""
 
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     title: typing.Optional[str] = None
     """The title of the document, if available."""
 
@@ -632,8 +640,9 @@ class EmailMediaItemMetadata(core.ModelBase):
 
     format: EmailDecodeFormat
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     sender: typing.List[Mailbox]
     """The sender(s) of the email."""
 
@@ -714,8 +723,12 @@ class ExtractDocumentLayoutAwareTextV2Config(core.ModelBase):
 
 class ExtractDocumentLayoutAwareTextV2Operation(core.ModelBase):
     """
-    Extract layout aware text with bounding boxes across all pages using the v2 text extraction endpoint.
-    This only supports PDFs.
+    Extracts text blocks and bounding boxes from a PDF as structured JSON grouped by page.
+    Replaces the deprecated `documentToText.extractLayoutAwareContent` operation
+    (`DocumentExtractLayoutAwareContentOperation`). The response schema differs from the legacy
+    result, so consumers must update their result parsing when migrating.
+    The `config.format` option selects plain text, Markdown, or HTML for each block's content;
+    the result remains structured JSON. This operation only supports PDFs.
     """
 
     page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
@@ -781,6 +794,38 @@ class ExtractFramesAtTimestampsOperation(core.ModelBase):
     """The timestamp in seconds."""
 
     type: typing.Literal["extractFramesAtTimestamps"] = "extractFramesAtTimestamps"
+
+
+class ExtractImageLayoutAwareTextV2Operation(core.ModelBase):
+    """
+    Extracts text blocks and bounding boxes from an image as structured JSON.
+    Replaces the deprecated `imageToText.extractLayoutAwareContent` operation
+    (`ImageExtractLayoutAwareContentOperation`). The block schema differs from the legacy
+    result, so consumers must update their result parsing when migrating.
+    The `format` option selects plain text, Markdown, or HTML for each block's content;
+    the result remains structured JSON.
+    """
+
+    format: typing.Optional[TextOutputFormat] = None
+    languages: typing.List[OcrLanguageOrScript]
+    """List of OCR languages or scripts to use."""
+
+    type: typing.Literal["extractLayoutAwareTextV2"] = "extractLayoutAwareTextV2"
+
+
+class ExtractImageTextV2Operation(core.ModelBase):
+    """
+    Extracts text from an image and returns JSON containing combined text and per-page text.
+    The `format` option selects plain text, Markdown, or HTML.
+    To include text blocks and bounding boxes, use `imageToText.extractLayoutAwareTextV2`
+    (`ExtractImageLayoutAwareTextV2Operation`) instead.
+    """
+
+    format: typing.Optional[TextOutputFormat] = None
+    languages: typing.List[OcrLanguageOrScript]
+    """List of OCR languages or scripts to use."""
+
+    type: typing.Literal["extractTextV2"] = "extractTextV2"
 
 
 class ExtractSceneFramesOperation(core.ModelBase):
@@ -894,7 +939,9 @@ class GetMediaItemInfoResponse(core.ModelBase):
     originally_uploaded_file_mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("originallyUploadedFileMimeType"), default=None)  # type: ignore[literal-required]
     mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("mimeType"), default=None)  # type: ignore[literal-required]
     size_bytes: typing.Optional[int] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Omitted for items of 2 GiB or larger."""
+
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
 
 
 class GetMediaItemRidByPathResponse(core.ModelBase):
@@ -993,7 +1040,11 @@ ImageAttributeKey: typing_extensions.TypeAlias = str
 
 
 class ImageExtractLayoutAwareContentOperation(core.ModelBase):
-    """Extracts text from an image with layout information preserved."""
+    """
+    Deprecated. Use `imageToText.extractLayoutAwareTextV2`
+    (`ExtractImageLayoutAwareTextV2Operation`) instead.
+    The replacement uses a different block schema; update result parsing when migrating.
+    """
 
     parameters: LayoutAwareExtractionParameters
     type: typing.Literal["extractLayoutAwareContent"] = "extractLayoutAwareContent"
@@ -1073,7 +1124,12 @@ class ImageToEmbeddingTransformation(core.ModelBase):
 
 
 ImageToTextOperation: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union["ImageExtractLayoutAwareContentOperation", "ImageOcrOperation"],
+    typing.Union[
+        "ExtractImageLayoutAwareTextV2Operation",
+        "ExtractImageTextV2Operation",
+        "ImageExtractLayoutAwareContentOperation",
+        "ImageOcrOperation",
+    ],
     pydantic.Field(discriminator="type"),
 ]
 """The operation to perform for image to text conversion."""
@@ -1138,8 +1194,9 @@ class ImageryMediaItemMetadata(core.ModelBase):
 
     orientation: typing.Optional[Orientation] = None
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     type: typing.Literal["imagery"] = "imagery"
 
 
@@ -1237,6 +1294,10 @@ MediaItemMetadata: typing_extensions.TypeAlias = typing_extensions.Annotated[
 Detailed metadata about a media item, including type-specific information such as dimensions for images,
 duration for audio/video, page count for documents, etc.
 """
+
+
+MediaItemSizeBytes: typing_extensions.TypeAlias = core.Long
+"""The size of the media item in bytes."""
 
 
 MediaItemXmlFormat: typing_extensions.TypeAlias = typing.Literal["DOCX", "XLSX", "PPTX"]
@@ -1372,8 +1433,9 @@ class Model3dMediaItemMetadata(core.ModelBase):
     format: Model3dDecodeFormat
     model_type: Model3dType = pydantic.Field(alias=str("modelType"))  # type: ignore[literal-required]
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     type: typing.Literal["model3d"] = "model3d"
 
 
@@ -1877,8 +1939,9 @@ class SpreadsheetMediaItemMetadata(core.ModelBase):
     """The names of the sheets in the spreadsheet."""
 
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     title: typing.Optional[str] = None
     """The title of the spreadsheet, if available."""
 
@@ -2299,8 +2362,9 @@ class UntypedMediaItemMetadata(core.ModelBase):
     """Metadata for untyped media items (media items without a recognized type)."""
 
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     type: typing.Literal["untyped"] = "untyped"
 
 
@@ -2341,8 +2405,9 @@ class VideoMediaItemMetadata(core.ModelBase):
     format: VideoDecodeFormat
     specification: VideoSpecification
     size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
-    """The size of the media item in bytes."""
+    """Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger."""
 
+    size_bytes_long: MediaItemSizeBytes = pydantic.Field(alias=str("sizeBytesLong"))  # type: ignore[literal-required]
     type: typing.Literal["video"] = "video"
 
 
@@ -2592,6 +2657,8 @@ __all__ = [
     "ExtractFirstFrameOperation",
     "ExtractFormFieldsOperation",
     "ExtractFramesAtTimestampsOperation",
+    "ExtractImageLayoutAwareTextV2Operation",
+    "ExtractImageTextV2Operation",
     "ExtractSceneFramesOperation",
     "ExtractTableOfContentsOperation",
     "ExtractTextFromPagesToArrayOperation",
@@ -2645,6 +2712,7 @@ __all__ = [
     "MailboxWrapper",
     "MediaAttribution",
     "MediaItemMetadata",
+    "MediaItemSizeBytes",
     "MediaItemXmlFormat",
     "MediaSchema",
     "MkvVideoContainerFormat",

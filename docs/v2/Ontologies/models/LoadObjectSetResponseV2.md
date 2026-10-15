@@ -10,6 +10,7 @@ Represents the API response when loading an `ObjectSet`.
 **total_count** | TotalCount | Yes |  |
 **compute_usage** | Optional[ComputeSeconds] | No |  |
 **property_securities** | Optional[List[PropertySecurities]] | No |  |
+**object_set_entities** | Optional[ObjectSetEntities] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

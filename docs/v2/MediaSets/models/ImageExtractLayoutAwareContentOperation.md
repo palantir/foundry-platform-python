@@ -1,6 +1,9 @@
 # ImageExtractLayoutAwareContentOperation
 
-Extracts text from an image with layout information preserved.
+Deprecated. Use `imageToText.extractLayoutAwareTextV2`
+(`ExtractImageLayoutAwareTextV2Operation`) instead.
+The replacement uses a different block schema; update result parsing when migrating.
+
 
 ## Properties
 | Name | Type | Required | Description |

@@ -46,7 +46,6 @@ class AgentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -90,6 +89,9 @@ class AgentClient:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
+
+
+        Required scopes: [api:aip-agents-write]
 
         :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
@@ -144,6 +146,9 @@ class AgentClient:
     ) -> aip_agents_models.Agent:
         """
         Get details for an Agent.
+
+        Required scopes: [api:aip-agents-read]
+
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param preview: Enables the use of preview functionality.
@@ -227,7 +232,6 @@ class AsyncAgentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -271,6 +275,9 @@ class AsyncAgentClient:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
+
+
+        Required scopes: [api:aip-agents-write]
 
         :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
@@ -325,6 +332,9 @@ class AsyncAgentClient:
     ) -> typing.Awaitable[aip_agents_models.Agent]:
         """
         Get details for an Agent.
+
+        Required scopes: [api:aip-agents-read]
+
         :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param preview: Enables the use of preview functionality.

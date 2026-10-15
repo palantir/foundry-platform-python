@@ -379,6 +379,7 @@ Represents the value of data in the following format. Note that these values can
 | TwoDimensionalAggregation           | JSON object                                           | `{"groups": [{"key": "alpha", "value": 100}, {"key": "beta", "value": 101}]}`                                                                                 |
 | ThreeDimensionalAggregation         | JSON object                                           | `{"groups": [{"key": "NYC", "groups": [{"key": "Engineer", "value" : 100}]}]}`                                                                                |
 | Timestamp                           | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                                                                                                      |
+| Time Series Reference               | JSON object with a type discriminator                 | `{"type":"seriesId","seriesId":"sensor-123"}`, `{"type":"templateRid","templateRid":{"templateRid":"ri.time-series-catalog.main.template.2f944bae-5851-4204-8615-920c969a9f2e","templateVersion":"1"}}`, or `{"type":"qualifiedSeriesId","qualifiedSeriesId":{"seriesId":"sensor-123","syncRid":"ri.time-series-catalog.main.sync.2f944bae-5851-4204-8615-920c969a9f2e"}}` |
 """
 
 
@@ -522,6 +523,12 @@ type, use the `List interface types` endpoint or check the **Ontology Manager**.
 
 InterfaceTypeRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier of an interface, useful for interacting with other Foundry APIs."""
+
+
+InvalidTimeSeriesReferenceReason: typing_extensions.TypeAlias = typing.Literal[
+    "ACCESS_DENIED", "DATASOURCE_MISMATCH", "INVALID_SERIES_ID_FORMAT", "UNKNOWN"
+]
+"""The specific reason a time series reference edited by an Action failed validation."""
 
 
 class IsNullQuery(core.ModelBase):
@@ -1643,6 +1650,7 @@ __all__ = [
     "InterfacePropertyApiName",
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
+    "InvalidTimeSeriesReferenceReason",
     "IsNullQuery",
     "LegacyObjectTypeId",
     "LegacyPropertyId",

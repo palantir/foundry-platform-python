@@ -76,6 +76,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:streams-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -127,6 +129,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:streams-read]
 
 See [README](../../../README.md#authorization)
 
@@ -186,6 +190,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:streams-read]
 
 See [README](../../../README.md#authorization)
 
@@ -262,6 +268,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:streams-read]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -321,6 +329,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:streams-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -341,7 +351,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
 **stream_branch_name** | BranchName |  |  |
-**record** | Record | The record to publish to the stream  |  |
+**record** | Record | The record to publish to the stream. Timestamp fields used as stream keys must use Unix epoch milliseconds.  |  |
 **view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
@@ -360,7 +370,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 dataset_rid = None
 # BranchName
 stream_branch_name = None
-# Record | The record to publish to the stream
+# Record | The record to publish to the stream. Timestamp fields used as stream keys must use Unix epoch milliseconds.
 record = {"timestamp": 1731426022784, "value": "Hello, World!"}
 # Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
@@ -380,6 +390,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:streams-write]
 
 See [README](../../../README.md#authorization)
 
@@ -401,7 +413,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
 **stream_branch_name** | BranchName |  |  |
-**records** | List[Record] | The records to publish to the stream  |  |
+**records** | List[Record] | The records to publish to the stream. Timestamp fields used as stream keys must use Unix epoch milliseconds.  |  |
 **view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
@@ -420,7 +432,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 dataset_rid = None
 # BranchName
 stream_branch_name = None
-# List[Record] | The records to publish to the stream
+# List[Record] | The records to publish to the stream. Timestamp fields used as stream keys must use Unix epoch milliseconds.
 records = [{"timestamp": 1731426022784, "value": "Hello, World!"}]
 # Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
@@ -440,6 +452,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:streams-write]
 
 See [README](../../../README.md#authorization)
 
@@ -526,6 +540,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:streams-write]
 
 See [README](../../../README.md#authorization)
 

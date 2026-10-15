@@ -44,7 +44,6 @@ class AttachmentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -65,6 +64,9 @@ class AttachmentClient:
     ) -> ontologies_models.AttachmentV2:
         """
         Get the metadata of an attachment.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
@@ -105,6 +107,9 @@ class AttachmentClient:
     ) -> bytes:
         """
         Get the content of an attachment.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
@@ -152,6 +157,9 @@ class AttachmentClient:
         Previously mapped attachments which are not connected to any object anymore are also removed on
         a biweekly basis.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+
+        Required scopes: [api:ontologies-write]
 
         :param body: Body of the request
         :type body: bytes
@@ -207,6 +215,9 @@ class AttachmentClient:
         """
         This endpoint is identical to `/v2/ontologies/attachments/upload` but additionally accepts a previously
         generated `AttachmentRid`.
+
+
+        Required scopes: [api:ontologies-write]
 
         :param attachment_rid: The `AttachmentRid` of the attachment being uploaded.
         :type attachment_rid: AttachmentRid
@@ -298,7 +309,6 @@ class AsyncAttachmentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -319,6 +329,9 @@ class AsyncAttachmentClient:
     ) -> typing.Awaitable[ontologies_models.AttachmentV2]:
         """
         Get the metadata of an attachment.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
@@ -359,6 +372,9 @@ class AsyncAttachmentClient:
     ) -> typing.Awaitable[bytes]:
         """
         Get the content of an attachment.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
@@ -406,6 +422,9 @@ class AsyncAttachmentClient:
         Previously mapped attachments which are not connected to any object anymore are also removed on
         a biweekly basis.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+
+        Required scopes: [api:ontologies-write]
 
         :param body: Body of the request
         :type body: bytes
@@ -461,6 +480,9 @@ class AsyncAttachmentClient:
         """
         This endpoint is identical to `/v2/ontologies/attachments/upload` but additionally accepts a previously
         generated `AttachmentRid`.
+
+
+        Required scopes: [api:ontologies-write]
 
         :param attachment_rid: The `AttachmentRid` of the attachment being uploaded.
         :type attachment_rid: AttachmentRid

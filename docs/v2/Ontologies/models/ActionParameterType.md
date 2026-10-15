@@ -18,6 +18,7 @@ DoubleType | double
 IntegerType | integer
 GeoShapeType | geoshape
 LongType | long
+TimeSeriesReferenceType | timeSeriesReference
 OntologyObjectTypeReferenceType | objectType
 BooleanType | boolean
 MarkingType | marking

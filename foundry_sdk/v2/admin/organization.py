@@ -46,7 +46,6 @@ class OrganizationClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -96,6 +95,9 @@ class OrganizationClient:
     ) -> admin_models.Organization:
         """
         Creates a new Organization.
+
+        Required scopes: [api:admin-write]
+
         :param administrators: The initial administrators of the Organization. At least one principal must be provided.
         :type administrators: List[PrincipalId]
         :param enrollment_rid: The RID of the Enrollment that this Organization belongs to. This must be provided.
@@ -166,6 +168,9 @@ class OrganizationClient:
     ) -> admin_models.Organization:
         """
         Get the Organization with the specified rid.
+
+        Required scopes: [api:admin-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -209,6 +214,9 @@ class OrganizationClient:
     ) -> admin_models.ListAvailableOrganizationRolesResponse:
         """
         List all roles that can be assigned to a principal for the given Organization.
+
+
+        Required scopes: [api:admin-read]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -258,6 +266,9 @@ class OrganizationClient:
     ) -> admin_models.Organization:
         """
         Replace the Organization with the specified rid.
+
+        Required scopes: [api:admin-write]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
@@ -357,7 +368,6 @@ class AsyncOrganizationClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -407,6 +417,9 @@ class AsyncOrganizationClient:
     ) -> typing.Awaitable[admin_models.Organization]:
         """
         Creates a new Organization.
+
+        Required scopes: [api:admin-write]
+
         :param administrators: The initial administrators of the Organization. At least one principal must be provided.
         :type administrators: List[PrincipalId]
         :param enrollment_rid: The RID of the Enrollment that this Organization belongs to. This must be provided.
@@ -477,6 +490,9 @@ class AsyncOrganizationClient:
     ) -> typing.Awaitable[admin_models.Organization]:
         """
         Get the Organization with the specified rid.
+
+        Required scopes: [api:admin-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -520,6 +536,9 @@ class AsyncOrganizationClient:
     ) -> typing.Awaitable[admin_models.ListAvailableOrganizationRolesResponse]:
         """
         List all roles that can be assigned to a principal for the given Organization.
+
+
+        Required scopes: [api:admin-read]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -569,6 +588,9 @@ class AsyncOrganizationClient:
     ) -> typing.Awaitable[admin_models.Organization]:
         """
         Replace the Organization with the specified rid.
+
+        Required scopes: [api:admin-write]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:

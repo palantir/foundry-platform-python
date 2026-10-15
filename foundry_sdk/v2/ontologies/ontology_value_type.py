@@ -44,7 +44,6 @@ class OntologyValueTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class OntologyValueTypeClient:
     ) -> ontologies_models.OntologyValueType:
         """
         Gets a specific value type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -115,6 +117,9 @@ class OntologyValueTypeClient:
     ) -> ontologies_models.ListOntologyValueTypesResponse:
         """
         Lists the latest versions of the value types for the given Ontology.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -186,7 +191,6 @@ class AsyncOntologyValueTypeClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -209,6 +213,9 @@ class AsyncOntologyValueTypeClient:
     ) -> typing.Awaitable[ontologies_models.OntologyValueType]:
         """
         Gets a specific value type with the given API name.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -257,6 +264,9 @@ class AsyncOntologyValueTypeClient:
     ) -> typing.Awaitable[ontologies_models.ListOntologyValueTypesResponse]:
         """
         Lists the latest versions of the value types for the given Ontology.
+
+
+        Required scopes: [api:ontologies-read]
 
         :param ontology:
         :type ontology: OntologyIdentifier

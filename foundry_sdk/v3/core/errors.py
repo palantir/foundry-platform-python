@@ -19,6 +19,7 @@ from dataclasses import dataclass
 import typing_extensions
 
 from foundry_sdk import _errors as errors
+from foundry_sdk.v3.core import models as core_models
 
 
 class BatchRequestSizeExceededLimitParameters(typing_extensions.TypedDict):
@@ -36,6 +37,21 @@ class BatchRequestSizeExceededLimit(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidPageSizeParameters(typing_extensions.TypedDict):
+    """The provided page size was negative. Page sizes must be greater than or equal to zero."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    pageSize: core_models.PageSize
+
+
+@dataclass
+class InvalidPageSize(errors.BadRequestError):
+    name: typing.Literal["InvalidPageSize"]
+    parameters: InvalidPageSizeParameters
+    error_instance_id: str
+
+
 class MissingBatchRequestParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -50,5 +66,6 @@ class MissingBatchRequest(errors.BadRequestError):
 
 __all__ = [
     "BatchRequestSizeExceededLimit",
+    "InvalidPageSize",
     "MissingBatchRequest",
 ]

@@ -44,7 +44,6 @@ class MediaSetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class MediaSetClient:
     ) -> None:
         """
         Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -115,6 +117,9 @@ class MediaSetClient:
     ) -> media_sets_models.TrackedTransformationResponse:
         """
         Starts calculation of a thumbnail for a given image.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -179,6 +184,9 @@ class MediaSetClient:
         For transactional media sets, a transaction ID must be provided. The deletion will not be
         visible until the transaction is committed.
 
+
+        Required scopes: [api:mediasets-write]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_path: The path of the media item to clear.
@@ -238,6 +246,9 @@ class MediaSetClient:
         """
         Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
+
+        Required scopes: [api:mediasets-write]
+
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param transaction_id:
@@ -284,6 +295,9 @@ class MediaSetClient:
     ) -> media_sets_models.TransactionId:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -333,6 +347,9 @@ class MediaSetClient:
         """
         Gets information about the media set.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -381,6 +398,9 @@ class MediaSetClient:
         """
         Gets the result of a completed transformation job. Returns the transformed media content as binary data.
         This endpoint will return an error if the transformation job has not completed successfully.
+
+
+        Required scopes: [api:mediasets-transform]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -439,6 +459,9 @@ class MediaSetClient:
     ) -> media_sets_models.GetMediaItemRidByPathResponse:
         """
         Returns the media item RID for the media item with the specified path.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -500,6 +523,9 @@ class MediaSetClient:
         """
         Gets the status of a transformation job.
 
+
+        Required scopes: [api:mediasets-transform]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -555,6 +581,9 @@ class MediaSetClient:
         """
         Gets information about the media item.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -604,6 +633,9 @@ class MediaSetClient:
         Gets detailed metadata about the media item, including type-specific information
         such as dimensions for images, duration for audio/video, page count for documents, etc.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -651,6 +683,9 @@ class MediaSetClient:
     ) -> bytes:
         """
         Gets the content of a media item.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -700,6 +735,9 @@ class MediaSetClient:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
@@ -748,6 +786,9 @@ class MediaSetClient:
     ) -> core_models.MediaReference:
         """
         Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -806,6 +847,9 @@ class MediaSetClient:
         Registers a media item that currently resides in a federated media store. Registration will validate the item
         against the media set's schema and perform initial metadata extraction.
         This endpoint is only applicable for federated media sets.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -873,6 +917,9 @@ class MediaSetClient:
 
         Thumbnails are 200px wide in the format of `image/webp`
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -931,6 +978,9 @@ class MediaSetClient:
         Returns `204 No Content` for a blank tile.
         Returns `400 Bad Request` when the tile path or coordinates are invalid or the tile transformation is unavailable.
         Returns `404 Not Found` when the requested media set or media item does not exist.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -1000,6 +1050,9 @@ class MediaSetClient:
         Transforming a media item requires that you are able to read the media item, either via `api:mediasets-read` or
         via a `MediaItemReadToken`
 
+
+        Required scopes: [api:mediasets-transform]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -1067,6 +1120,9 @@ class MediaSetClient:
         Uploads a media item to an existing media set.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
         A branch name, or branch rid, or view rid may optionally be specified.  If none is specified, the item will be uploaded to the default branch. If more than one is specified, an error is thrown.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -1140,6 +1196,9 @@ class MediaSetClient:
 
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
         Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param body: Body of the request
         :type body: bytes
@@ -1282,7 +1341,6 @@ class AsyncMediaSetClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -1305,6 +1363,9 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[None]:
         """
         Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -1353,6 +1414,9 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[media_sets_models.TrackedTransformationResponse]:
         """
         Starts calculation of a thumbnail for a given image.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -1417,6 +1481,9 @@ class AsyncMediaSetClient:
         For transactional media sets, a transaction ID must be provided. The deletion will not be
         visible until the transaction is committed.
 
+
+        Required scopes: [api:mediasets-write]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_path: The path of the media item to clear.
@@ -1476,6 +1543,9 @@ class AsyncMediaSetClient:
         """
         Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
+
+        Required scopes: [api:mediasets-write]
+
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param transaction_id:
@@ -1522,6 +1592,9 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[media_sets_models.TransactionId]:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -1571,6 +1644,9 @@ class AsyncMediaSetClient:
         """
         Gets information about the media set.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -1619,6 +1695,9 @@ class AsyncMediaSetClient:
         """
         Gets the result of a completed transformation job. Returns the transformed media content as binary data.
         This endpoint will return an error if the transformation job has not completed successfully.
+
+
+        Required scopes: [api:mediasets-transform]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -1677,6 +1756,9 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[media_sets_models.GetMediaItemRidByPathResponse]:
         """
         Returns the media item RID for the media item with the specified path.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -1738,6 +1820,9 @@ class AsyncMediaSetClient:
         """
         Gets the status of a transformation job.
 
+
+        Required scopes: [api:mediasets-transform]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -1793,6 +1878,9 @@ class AsyncMediaSetClient:
         """
         Gets information about the media item.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -1842,6 +1930,9 @@ class AsyncMediaSetClient:
         Gets detailed metadata about the media item, including type-specific information
         such as dimensions for images, duration for audio/video, page count for documents, etc.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -1889,6 +1980,9 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[bytes]:
         """
         Gets the content of a media item.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -1938,6 +2032,9 @@ class AsyncMediaSetClient:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
@@ -1986,6 +2083,9 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[core_models.MediaReference]:
         """
         Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -2044,6 +2144,9 @@ class AsyncMediaSetClient:
         Registers a media item that currently resides in a federated media store. Registration will validate the item
         against the media set's schema and perform initial metadata extraction.
         This endpoint is only applicable for federated media sets.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -2111,6 +2214,9 @@ class AsyncMediaSetClient:
 
         Thumbnails are 200px wide in the format of `image/webp`
 
+
+        Required scopes: [api:mediasets-read]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -2169,6 +2275,9 @@ class AsyncMediaSetClient:
         Returns `204 No Content` for a blank tile.
         Returns `400 Bad Request` when the tile path or coordinates are invalid or the tile transformation is unavailable.
         Returns `404 Not Found` when the requested media set or media item does not exist.
+
+
+        Required scopes: [api:mediasets-read]
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -2238,6 +2347,9 @@ class AsyncMediaSetClient:
         Transforming a media item requires that you are able to read the media item, either via `api:mediasets-read` or
         via a `MediaItemReadToken`
 
+
+        Required scopes: [api:mediasets-transform]
+
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -2305,6 +2417,9 @@ class AsyncMediaSetClient:
         Uploads a media item to an existing media set.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
         A branch name, or branch rid, or view rid may optionally be specified.  If none is specified, the item will be uploaded to the default branch. If more than one is specified, an error is thrown.
+
+
+        Required scopes: [api:mediasets-write]
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -2378,6 +2493,9 @@ class AsyncMediaSetClient:
 
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
         Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
 
         :param body: Body of the request
         :type body: bytes

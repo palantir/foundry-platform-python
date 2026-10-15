@@ -12,6 +12,7 @@ Method | HTTP request | Release Stage |
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **endpoint_set_rid** | EndpointSetRid |  |  |
+**preview** | Optional[PreviewMode] |  | [optional] |
 
 ### Return type
 **EndpointSet**
@@ -27,10 +28,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # EndpointSetRid
 endpoint_set_rid = None
+# Optional[PreviewMode]
+preview = None
 
 
 try:
-    api_response = client.endpoints.EndpointSet.get(endpoint_set_rid)
+    api_response = client.endpoints.EndpointSet.get(endpoint_set_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -41,6 +44,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:v3:endpoint-set:read:get]
 
 See [README](../../../README.md#authorization)
 

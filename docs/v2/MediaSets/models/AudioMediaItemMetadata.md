@@ -7,7 +7,8 @@ Metadata for audio media items.
 | ------------ | ------------- | ------------- | ------------- |
 **format** | AudioDecodeFormat | Yes |  |
 **specification** | AudioSpecification | Yes |  |
-**size_bytes** | int | Yes | The size of the media item in bytes. |
+**size_bytes** | int | Yes | Deprecated: use `sizeBytesLong`. Saturates at 2,147,483,647 for items of 2 GiB or larger.  |
+**size_bytes_long** | MediaItemSizeBytes | Yes |  |
 **type** | Literal["audio"] | Yes | None |
 
 

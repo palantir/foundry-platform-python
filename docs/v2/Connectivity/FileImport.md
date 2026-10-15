@@ -73,6 +73,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:connectivity-file-import-write]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -125,6 +127,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:connectivity-file-import-write]
 
 See [README](../../../README.md#authorization)
 
@@ -180,6 +184,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 ### Authorization
 
+Required scopes: [api:connectivity-file-import-execute]
+
 See [README](../../../README.md#authorization)
 
 ### HTTP response details
@@ -229,6 +235,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:connectivity-file-import-read]
 
 See [README](../../../README.md#authorization)
 
@@ -285,6 +293,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:connectivity-file-import-read]
 
 See [README](../../../README.md#authorization)
 
@@ -354,6 +364,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:connectivity-file-import-write]
 
 See [README](../../../README.md#authorization)
 

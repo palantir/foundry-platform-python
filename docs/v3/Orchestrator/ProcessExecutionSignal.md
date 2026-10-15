@@ -19,6 +19,7 @@ Name | Type | Description  | Notes |
 **process_execution_id** | ProcessExecutionId |  |  |
 **signal_id** | SignalId |  |  |
 **payload** | Optional[Any] | Arbitrary JSON passed to the process execution that consumes the signal. Empty when the completion carries no payload. | [optional] |
+**preview** | Optional[PreviewMode] |  | [optional] |
 
 ### Return type
 **None**
@@ -38,11 +39,13 @@ process_execution_id = None
 signal_id = None
 # Optional[Any] | Arbitrary JSON passed to the process execution that consumes the signal. Empty when the completion carries no payload.
 payload = None
+# Optional[PreviewMode]
+preview = None
 
 
 try:
     api_response = client.orchestrator.ProcessExecution.Signal.complete(
-        process_execution_id, signal_id, payload=payload
+        process_execution_id, signal_id, payload=payload, preview=preview
     )
     print("The complete response:\n")
     pprint(api_response)
@@ -54,6 +57,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:v3:process-execution-signal:write:complete]
 
 See [README](../../../README.md#authorization)
 

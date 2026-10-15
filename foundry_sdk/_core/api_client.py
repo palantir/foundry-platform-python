@@ -235,7 +235,7 @@ def _get_is_optional(_type: ValueType) -> Tuple[bool, ValueType]:
 @functools.lru_cache(maxsize=64)
 def _get_type_adapter(_type: ValueType) -> pydantic.TypeAdapter:
     """Get a cached TypeAdapter for the given type"""
-    return pydantic.TypeAdapter(_type)
+    return pydantic.TypeAdapter(cast(Any, _type))
 
 
 def _decode_value(response_type: ValueType, data: Any) -> Any:

@@ -45,7 +45,6 @@ class ExperimentArtifactTableClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -73,6 +72,9 @@ class ExperimentArtifactTableClient:
         Read table data from an experiment artifact as a streamed binary response containing JSON.
         The response body is a JSON array of row objects, where each object maps column names to values.
         Results are paginated by row count with a default page size of 10 and a maximum of 100.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -140,6 +142,9 @@ class ExperimentArtifactTableClient:
     ) -> core.TableResponse:
         """
         Read raw table data from experiment artifacts in Parquet format.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -226,7 +231,6 @@ class AsyncExperimentArtifactTableClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -254,6 +258,9 @@ class AsyncExperimentArtifactTableClient:
         Read table data from an experiment artifact as a streamed binary response containing JSON.
         The response body is a JSON array of row objects, where each object maps column names to values.
         Results are paginated by row count with a default page size of 10 and a maximum of 100.
+
+
+        Required scopes: [api:models-read]
 
         :param model_rid:
         :type model_rid: ModelRid
@@ -321,6 +328,9 @@ class AsyncExperimentArtifactTableClient:
     ) -> typing.Awaitable[core.TableResponse]:
         """
                 Read raw table data from experiment artifacts in Parquet format.
+
+
+                Required scopes: [api:models-read]
 
                 :param model_rid:
                 :type model_rid: ModelRid

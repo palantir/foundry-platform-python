@@ -45,7 +45,6 @@ class GroupMembershipExpirationPolicyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class GroupMembershipExpirationPolicyClient:
     ) -> admin_models.GroupMembershipExpirationPolicy:
         """
         Get the GroupMembershipExpirationPolicy.
+
+        Required scopes: [api:admin-read]
+
         :param group_id:
         :type group_id: GroupId
         :param preview: Enables the use of preview functionality.
@@ -119,6 +121,9 @@ class GroupMembershipExpirationPolicyClient:
     ) -> admin_models.GroupMembershipExpirationPolicy:
         """
         Replace the GroupMembershipExpirationPolicy.
+
+        Required scopes: [api:admin-write]
+
         :param group_id:
         :type group_id: GroupId
         :param maximum_duration: Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added.
@@ -203,7 +208,6 @@ class AsyncGroupMembershipExpirationPolicyClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -225,6 +229,9 @@ class AsyncGroupMembershipExpirationPolicyClient:
     ) -> typing.Awaitable[admin_models.GroupMembershipExpirationPolicy]:
         """
         Get the GroupMembershipExpirationPolicy.
+
+        Required scopes: [api:admin-read]
+
         :param group_id:
         :type group_id: GroupId
         :param preview: Enables the use of preview functionality.
@@ -277,6 +284,9 @@ class AsyncGroupMembershipExpirationPolicyClient:
     ) -> typing.Awaitable[admin_models.GroupMembershipExpirationPolicy]:
         """
         Replace the GroupMembershipExpirationPolicy.
+
+        Required scopes: [api:admin-write]
+
         :param group_id:
         :type group_id: GroupId
         :param maximum_duration: Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added.

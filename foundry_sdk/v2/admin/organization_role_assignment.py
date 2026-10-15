@@ -45,7 +45,6 @@ class OrganizationRoleAssignmentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class OrganizationRoleAssignmentClient:
     ) -> None:
         """
         Assign roles to principals for the given Organization. At most 100 role assignments can be added in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -120,6 +122,9 @@ class OrganizationRoleAssignmentClient:
         """
         List all principals who are assigned a role for the given Organization.
 
+
+        Required scopes: [api:admin-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -166,6 +171,9 @@ class OrganizationRoleAssignmentClient:
     ) -> None:
         """
         Remove roles from principals for the given Organization. At most 100 role assignments can be removed in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -245,7 +253,6 @@ class AsyncOrganizationRoleAssignmentClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -267,6 +274,9 @@ class AsyncOrganizationRoleAssignmentClient:
     ) -> typing.Awaitable[None]:
         """
         Assign roles to principals for the given Organization. At most 100 role assignments can be added in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
@@ -320,6 +330,9 @@ class AsyncOrganizationRoleAssignmentClient:
         """
         List all principals who are assigned a role for the given Organization.
 
+
+        Required scopes: [api:admin-read]
+
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -366,6 +379,9 @@ class AsyncOrganizationRoleAssignmentClient:
     ) -> typing.Awaitable[None]:
         """
         Remove roles from principals for the given Organization. At most 100 role assignments can be removed in a single request.
+
+
+        Required scopes: [api:admin-write]
 
         :param organization_rid:
         :type organization_rid: OrganizationRid

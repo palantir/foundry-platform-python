@@ -214,7 +214,10 @@ class PublishRecordToStreamRequest(core.ModelBase):
     """PublishRecordToStreamRequest"""
 
     record: Record
-    """The record to publish to the stream"""
+    """
+    The record to publish to the stream. Timestamp fields used as stream keys must use Unix epoch
+    milliseconds.
+    """
 
     view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
     """
@@ -230,7 +233,10 @@ class PublishRecordsToStreamRequest(core.ModelBase):
     """PublishRecordsToStreamRequest"""
 
     records: typing.List[Record]
-    """The records to publish to the stream"""
+    """
+    The records to publish to the stream. Timestamp fields used as stream keys must use Unix epoch
+    milliseconds.
+    """
 
     view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
     """

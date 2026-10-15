@@ -45,7 +45,6 @@ class RepositoryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -67,6 +66,9 @@ class RepositoryClient:
     ) -> widgets_models.Repository:
         """
         Get the Repository with the specified rid.
+
+        Required scopes: [api:widgets-read]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param preview: Enables the use of preview functionality.
@@ -111,18 +113,24 @@ class RepositoryClient:
         body: bytes,
         *,
         repository_version: widgets_models.RepositoryVersion,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> widgets_models.Release:
         """
         Publish a new release of a widget set.
+
+        Required scopes: [api:widgets-write]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param body: The zip file that contains the contents of your widget set. It must include a valid manifest file at the path `.palantir/widgets.config.json`.
         :type body: bytes
         :param repository_version:
         :type repository_version: RepositoryVersion
+        :param branch: The Foundry branch to publish the release on, specified as either its RID or dataset branch identifier. If omitted, publishes the release on the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -139,6 +147,7 @@ class RepositoryClient:
                 resource_path="/v2/widgets/repositories/{repositoryRid}/publish",
                 query_params={
                     "repositoryVersion": repository_version,
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -197,7 +206,6 @@ class AsyncRepositoryClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
-        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -219,6 +227,9 @@ class AsyncRepositoryClient:
     ) -> typing.Awaitable[widgets_models.Repository]:
         """
         Get the Repository with the specified rid.
+
+        Required scopes: [api:widgets-read]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param preview: Enables the use of preview functionality.
@@ -263,18 +274,24 @@ class AsyncRepositoryClient:
         body: bytes,
         *,
         repository_version: widgets_models.RepositoryVersion,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[widgets_models.Release]:
         """
         Publish a new release of a widget set.
+
+        Required scopes: [api:widgets-write]
+
         :param repository_rid: A Resource Identifier (RID) identifying a repository.
         :type repository_rid: RepositoryRid
         :param body: The zip file that contains the contents of your widget set. It must include a valid manifest file at the path `.palantir/widgets.config.json`.
         :type body: bytes
         :param repository_version:
         :type repository_version: RepositoryVersion
+        :param branch: The Foundry branch to publish the release on, specified as either its RID or dataset branch identifier. If omitted, publishes the release on the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -291,6 +308,7 @@ class AsyncRepositoryClient:
                 resource_path="/v2/widgets/repositories/{repositoryRid}/publish",
                 query_params={
                     "repositoryVersion": repository_version,
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={

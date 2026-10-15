@@ -19,6 +19,8 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the CipherText property.  |  |
 **property** | PropertyApiName | The API name of the CipherText property. To find the API name for your CipherText property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **DecryptionResult**
@@ -42,11 +44,21 @@ primary_key = 50030
 property = "performance"
 # Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.
 branch = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
     api_response = client.ontologies.CipherTextProperty.decrypt(
-        ontology, object_type, primary_key, property, branch=branch
+        ontology,
+        object_type,
+        primary_key,
+        property,
+        branch=branch,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The decrypt response:\n")
     pprint(api_response)
@@ -58,6 +70,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 
@@ -87,6 +101,8 @@ Name | Type | Description  | Notes |
 **branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **cipher_channel_strategy** | Optional[CipherChannelStrategy] | The strategy controlling which Cipher Channel is used to encrypt the value. If not specified, defaults to `PREFER_EXISTING`.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **EncryptionResult**
@@ -116,6 +132,10 @@ branch = None
 cipher_channel_strategy = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -128,6 +148,8 @@ try:
         branch=branch,
         cipher_channel_strategy=cipher_channel_strategy,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The encrypt response:\n")
     pprint(api_response)
@@ -139,6 +161,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 
@@ -168,6 +192,8 @@ Name | Type | Description  | Notes |
 **plaintext** | Plaintext |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to read from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **EncryptionResult**
@@ -193,11 +219,22 @@ plaintext = "Jane Doe"
 branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
     api_response = client.ontologies.CipherTextProperty.encrypt_with_default_channel(
-        ontology, object_type, property, plaintext=plaintext, branch=branch, preview=preview
+        ontology,
+        object_type,
+        property,
+        plaintext=plaintext,
+        branch=branch,
+        preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The encrypt_with_default_channel response:\n")
     pprint(api_response)
@@ -209,6 +246,8 @@ except foundry_sdk.PalantirRPCException as e:
 
 
 ### Authorization
+
+Required scopes: [api:ontologies-read]
 
 See [README](../../../README.md#authorization)
 

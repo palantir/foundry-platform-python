@@ -1,6 +1,9 @@
 # DocumentExtractLayoutAwareContentOperation
 
-Extracts content from a document with layout information preserved.
+Deprecated. Use `documentToText.extractLayoutAwareTextV2`
+(`ExtractDocumentLayoutAwareTextV2Operation`) instead.
+The replacement uses a different response schema; update result parsing when migrating.
+
 
 ## Properties
 | Name | Type | Required | Description |
