@@ -27,9 +27,9 @@ from foundry_sdk.v2.ontologies import models as ontologies_models
 
 class ActionTypeNotFoundParameters(typing_extensions.TypedDict):
     """
-    An action tool configured on the Agent references an action type that could not be found.
+    An action tool configured on the Chatbot Studio Agent references an action type that could not be found.
     This can surface at runtime if the action type was deleted or is not accessible to the calling token.
-    Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
+    Verify the action type exists and is accessible, then review the Chatbot Studio Agent's tools in AIP Chatbot Studio.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -50,9 +50,9 @@ class ActionTypeNotFound(errors.BadRequestError):
 
 class AgentIterationsExceededLimitParameters(typing_extensions.TypedDict):
     """
-    The Agent was unable to produce an answer in the set number of maximum iterations.
-    This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex.
-    Try a different query or review the Agent configuration in AIP Chatbot Studio.
+    The Chatbot Studio Agent was unable to produce an answer in the set number of maximum iterations.
+    This can happen if the Chatbot Studio Agent gets confused or stuck in a loop, or if the query is too complex.
+    Try a different query or review the Chatbot Studio Agent configuration in AIP Chatbot Studio.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -76,7 +76,7 @@ class AgentNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
 
 @dataclass
@@ -92,10 +92,10 @@ class AgentVersionNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     agentVersionString: aip_agents_models.AgentVersionString
-    """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
+    """The semantic version of the Chatbot Studio Agent, formatted as "majorVersion.minorVersion"."""
 
 
 @dataclass
@@ -111,7 +111,7 @@ class BlockingContinueSessionPermissionDeniedParameters(typing_extensions.TypedD
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -159,7 +159,7 @@ class CancelSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -178,7 +178,7 @@ class ContentNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -218,7 +218,7 @@ class CreateSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
 
 @dataclass
@@ -234,7 +234,7 @@ class DeleteSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -249,7 +249,7 @@ class DeleteSessionPermissionDenied(errors.PermissionDeniedError):
 
 class FunctionLocatorNotFoundParameters(typing_extensions.TypedDict):
     """
-    The specified function locator is configured for use by the Agent but could not be found.
+    The specified function locator is configured for use by the Chatbot Studio Agent but could not be found.
     The function type or version may not exist or the client token does not have access.
     """
 
@@ -272,8 +272,8 @@ class FunctionLocatorNotFound(errors.NotFoundError):
 
 class GetAllSessionsAgentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """
-    The calling user does not have permission to list all sessions across all Agents.
-    Listing all sessions across all agents requires the `api:aip-agents-write` scope.
+    The calling user does not have permission to list all sessions across all Chatbot Studio Agents.
+    Listing all sessions across all Chatbot Studio Agents requires the `api:aip-agents-write` scope.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -292,7 +292,7 @@ class GetRagContextForSessionPermissionDeniedParameters(typing_extensions.TypedD
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -306,7 +306,7 @@ class GetRagContextForSessionPermissionDenied(errors.PermissionDeniedError):
 
 
 class InvalidAgentVersionParameters(typing_extensions.TypedDict):
-    """The provided version string is not a valid format for an Agent version."""
+    """The provided version string is not a valid format for a Chatbot Studio Agent version."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -323,9 +323,9 @@ class InvalidAgentVersion(errors.BadRequestError):
 
 class InvalidParameterParameters(typing_extensions.TypedDict):
     """
-    The provided application variable is not valid for the Agent for this session.
-    Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio.
-    The Agent version used for the session can be checked through the API with `getSession`.
+    The provided application variable is not valid for the Chatbot Studio Agent for this session.
+    Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio.
+    The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -344,9 +344,9 @@ class InvalidParameter(errors.BadRequestError):
 
 class InvalidParameterTypeParameters(typing_extensions.TypedDict):
     """
-    The provided value does not match the expected type for the application variable configured on the Agent for this session.
-    Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio.
-    The Agent version used for the session can be checked through the API with `getSession`.
+    The provided value does not match the expected type for the application variable configured on the Chatbot Studio Agent for this session.
+    Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio.
+    The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -380,8 +380,8 @@ class ListSessionsForAgentsPermissionDenied(errors.PermissionDeniedError):
 
 class NoPublishedAgentVersionParameters(typing_extensions.TypedDict):
     """
-    Failed to retrieve the latest published version of the Agent because the Agent has no published versions.
-    Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
+    Failed to retrieve the latest published version of the Chatbot Studio Agent because the Chatbot Studio Agent has no published versions.
+    Try publishing the Chatbot Studio Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Chatbot Studio Agent to use.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -398,7 +398,7 @@ class NoPublishedAgentVersion(errors.BadRequestError):
 
 class ObjectTypeIdsNotFoundParameters(typing_extensions.TypedDict):
     """
-    Some object types are configured for use by the Agent but could not be found.
+    Some object types are configured for use by the Chatbot Studio Agent but could not be found.
     The object types either do not exist or the client token does not have access.
     Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
     """
@@ -421,7 +421,7 @@ class ObjectTypeIdsNotFound(errors.NotFoundError):
 
 class ObjectTypeRidsNotFoundParameters(typing_extensions.TypedDict):
     """
-    Some object types are configured for use by the Agent but could not be found.
+    Some object types are configured for use by the Chatbot Studio Agent but could not be found.
     The object types either do not exist or the client token does not have access.
     Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
     """
@@ -444,7 +444,7 @@ class ObjectTypeRidsNotFound(errors.NotFoundError):
 
 class OntologyEntitiesNotFoundParameters(typing_extensions.TypedDict):
     """
-    Some ontology types are configured for use by the Agent but could not be found.
+    Some ontology types are configured for use by the Chatbot Studio Agent but could not be found.
     The types either do not exist or the client token does not have access.
     Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
     """
@@ -547,7 +547,7 @@ class SessionNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -586,7 +586,7 @@ class SessionTraceNotFoundParameters(typing_extensions.TypedDict):
     """The unique identifier for the trace."""
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -605,7 +605,7 @@ class StreamingContinueSessionPermissionDeniedParameters(typing_extensions.Typed
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -620,9 +620,9 @@ class StreamingContinueSessionPermissionDenied(errors.PermissionDeniedError):
 
 class UnsupportedLanguageModelRidParameters(typing_extensions.TypedDict):
     """
-    The Agent is configured with a language model that is not supported or could not be resolved.
+    The Chatbot Studio Agent is configured with a language model that is not supported or could not be resolved.
     This can surface at runtime if the model was deprecated or is not accessible to the calling token.
-    Update the Agent's language model in AIP Chatbot Studio.
+    Update the Chatbot Studio Agent's language model in AIP Chatbot Studio.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -633,7 +633,7 @@ class UnsupportedLanguageModelRidParameters(typing_extensions.TypedDict):
 
     languageModelRid: language_models_models.LanguageModelRid
     modelPurpose: aip_agents_models.ModelPurpose
-    """The purpose for which the unsupported language model is configured on the Agent."""
+    """The purpose for which the unsupported language model is configured on the Chatbot Studio Agent."""
 
 
 @dataclass
@@ -649,7 +649,7 @@ class UpdateSessionTitlePermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
+    """An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""

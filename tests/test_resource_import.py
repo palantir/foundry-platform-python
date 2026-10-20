@@ -775,6 +775,38 @@ def test_filesystem_v3_space_import():
     assert SpaceClient is not None
 
 
+def test_marketplace_v3_marketplace_installation_import():
+    from foundry_sdk.v3.marketplace.marketplace_installation import (
+        MarketplaceInstallationClient,
+    )  # NOQA
+
+    assert MarketplaceInstallationClient is not None
+
+
+def test_marketplace_v3_marketplace_installation_inputs_import():
+    from foundry_sdk.v3.marketplace.marketplace_installation_inputs import (
+        MarketplaceInstallationInputsClient,
+    )  # NOQA
+
+    assert MarketplaceInstallationInputsClient is not None
+
+
+def test_marketplace_v3_marketplace_installation_job_import():
+    from foundry_sdk.v3.marketplace.marketplace_installation_job import (
+        MarketplaceInstallationJobClient,
+    )  # NOQA
+
+    assert MarketplaceInstallationJobClient is not None
+
+
+def test_marketplace_v3_marketplace_installation_job_details_import():
+    from foundry_sdk.v3.marketplace.marketplace_installation_job_details import (
+        MarketplaceInstallationJobDetailsClient,
+    )  # NOQA
+
+    assert MarketplaceInstallationJobDetailsClient is not None
+
+
 def test_orchestrator_v3_process_execution_import():
     from foundry_sdk.v3.orchestrator.process_execution import ProcessExecutionClient
 

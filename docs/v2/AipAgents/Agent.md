@@ -6,7 +6,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid} | Public Beta |
 
 # **all_sessions**
-List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+List all conversation sessions between the calling user and all accessible Chatbot Studio Agents that were created by this client.
 Sessions are returned in order of most recently updated first.
 
 
@@ -64,15 +64,15 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-Get details for an Agent.
+Get details for a Chatbot Studio Agent.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**version** | Optional[AgentVersionString] | The version of the Agent to retrieve. If not specified, the latest published version will be returned.  | [optional] |
+**version** | Optional[AgentVersionString] | The version of the Chatbot Studio Agent to retrieve. If not specified, the latest published version will be returned.  | [optional] |
 
 ### Return type
 **Agent**
@@ -86,11 +86,11 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[AgentVersionString] | The version of the Agent to retrieve. If not specified, the latest published version will be returned.
+# Optional[AgentVersionString] | The version of the Chatbot Studio Agent to retrieve. If not specified, the latest published version will be returned.
 version = None
 
 

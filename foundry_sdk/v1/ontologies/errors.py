@@ -1959,6 +1959,24 @@ class OntologyNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class OntologyScenarioNotFoundParameters(typing_extensions.TypedDict):
+    """
+    The requested scenario could not be found. It may not exist, may have expired, or the caller may not have
+    permission to access it.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    scenarioRid: ontologies_models.OntologyScenarioRid
+
+
+@dataclass
+class OntologyScenarioNotFound(errors.NotFoundError):
+    name: typing.Literal["OntologyScenarioNotFound"]
+    parameters: OntologyScenarioNotFoundParameters
+    error_instance_id: str
+
+
 class OntologySyncingParameters(typing_extensions.TypedDict):
     """
     The requested object type has been changed in the **Ontology Manager** and changes are currently being applied. Wait a
@@ -2331,6 +2349,26 @@ class PropertyTypesSearchNotSupportedParameters(typing_extensions.TypedDict):
 class PropertyTypesSearchNotSupported(errors.BadRequestError):
     name: typing.Literal["PropertyTypesSearchNotSupported"]
     parameters: PropertyTypesSearchNotSupportedParameters
+    error_instance_id: str
+
+
+class QueryDeploymentNotAvailableParameters(typing_extensions.TypedDict):
+    """
+    The query could not be executed because the deployment backing the function is not available. The function
+    may have no deployment configured, the requested version may not be deployed, or the deployment may not be
+    running. The owner of the function must deploy or start it before the query can be executed.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
+
+
+@dataclass
+class QueryDeploymentNotAvailable(errors.InternalServerError):
+    name: typing.Literal["QueryDeploymentNotAvailable"]
+    parameters: QueryDeploymentNotAvailableParameters
     error_instance_id: str
 
 
@@ -2762,6 +2800,7 @@ __all__ = [
     "OntologyDefinitionOutOfSync",
     "OntologyEditsExceededLimit",
     "OntologyNotFound",
+    "OntologyScenarioNotFound",
     "OntologySyncing",
     "OntologySyncingObjectTypes",
     "ParameterObjectNotFound",
@@ -2784,6 +2823,7 @@ __all__ = [
     "PropertyTypeNotFound",
     "PropertyTypeRidNotFound",
     "PropertyTypesSearchNotSupported",
+    "QueryDeploymentNotAvailable",
     "QueryEncounteredUserFacingError",
     "QueryMemoryExceededLimit",
     "QueryNotFound",

@@ -1,6 +1,6 @@
 # AgentRid
 
-An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 
 ## Type
 ```python

@@ -79,6 +79,42 @@ class AsyncInvalidQueryOutputValue(errors.BadRequestError):
     error_instance_id: str
 
 
+class AsyncQueryCanceledParameters(typing_extensions.TypedDict):
+    """The async query execution was canceled."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+
+
+@dataclass
+class AsyncQueryCanceled(errors.BadRequestError):
+    name: typing.Literal["AsyncQueryCanceled"]
+    parameters: AsyncQueryCanceledParameters
+    error_instance_id: str
+
+
+class AsyncQueryDeploymentNotAvailableParameters(typing_extensions.TypedDict):
+    """
+    The async query could not be executed because the deployment backing the function is not available. The
+    function may have no deployment configured, the requested version may not be deployed, or the deployment may
+    not be running. The owner of the function must deploy or start it before the query can be executed.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+
+
+@dataclass
+class AsyncQueryDeploymentNotAvailable(errors.InternalServerError):
+    name: typing.Literal["AsyncQueryDeploymentNotAvailable"]
+    parameters: AsyncQueryDeploymentNotAvailableParameters
+    error_instance_id: str
+
+
 class AsyncQueryEncounteredUserFacingErrorParameters(typing_extensions.TypedDict):
     """
     The authored `Query` failed during async execution because of a user induced error. The message argument
@@ -397,6 +433,42 @@ class MissingParameter(errors.BadRequestError):
     error_instance_id: str
 
 
+class QueryCanceledParameters(typing_extensions.TypedDict):
+    """The query execution was canceled."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: functions_models.FunctionRid
+    functionVersion: functions_models.FunctionVersion
+
+
+@dataclass
+class QueryCanceled(errors.BadRequestError):
+    name: typing.Literal["QueryCanceled"]
+    parameters: QueryCanceledParameters
+    error_instance_id: str
+
+
+class QueryDeploymentNotAvailableParameters(typing_extensions.TypedDict):
+    """
+    The query could not be executed because the deployment backing the function is not available. The function
+    may have no deployment configured, the requested version may not be deployed, or the deployment may not be
+    running. The owner of the function must deploy or start it before the query can be executed.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: functions_models.FunctionRid
+    functionVersion: functions_models.FunctionVersion
+
+
+@dataclass
+class QueryDeploymentNotAvailable(errors.InternalServerError):
+    name: typing.Literal["QueryDeploymentNotAvailable"]
+    parameters: QueryDeploymentNotAvailableParameters
+    error_instance_id: str
+
+
 class QueryEncounteredUserFacingErrorParameters(typing_extensions.TypedDict):
     """
     The authored `Query` failed to execute because of a user induced error. The message argument
@@ -583,6 +655,8 @@ __all__ = [
     "AsyncConsistentSnapshotError",
     "AsyncFunctionNotSupportedWithTransaction",
     "AsyncInvalidQueryOutputValue",
+    "AsyncQueryCanceled",
+    "AsyncQueryDeploymentNotAvailable",
     "AsyncQueryEncounteredUserFacingError",
     "AsyncQueryMemoryExceededLimit",
     "AsyncQueryRuntimeError",
@@ -602,6 +676,8 @@ __all__ = [
     "InvalidQueryParameterValue",
     "InvalidVersionResolutionParameters",
     "MissingParameter",
+    "QueryCanceled",
+    "QueryDeploymentNotAvailable",
     "QueryEncounteredUserFacingError",
     "QueryMemoryExceededLimit",
     "QueryNotFound",

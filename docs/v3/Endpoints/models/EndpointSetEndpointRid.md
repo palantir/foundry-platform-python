@@ -1,6 +1,6 @@
 # EndpointSetEndpointRid
 
-EndpointSetEndpointRid
+A rid for an endpoint definition within an endpoint set.
 
 ## Type
 ```python

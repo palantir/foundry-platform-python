@@ -1,6 +1,6 @@
 # PageSize
 
-PageSize
+The page size to use for the endpoint.
 
 ## Type
 ```python

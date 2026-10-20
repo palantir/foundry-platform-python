@@ -8,7 +8,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/admin/markings/{markingId} | Stable |
 [**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch | Stable |
 [**list**](#list) | **GET** /v2/admin/markings | Stable |
-[**parse_classifications**](#parse_classifications) | **POST** /v2/admin/markings/parseClassifications | Public Beta |
+[**parse_classifications**](#parse_classifications) | **POST** /v2/admin/markings/parseClassifications | Stable |
 [**replace**](#replace) | **PUT** /v2/admin/markings/{markingId} | Stable |
 
 # **canonicalize**
@@ -300,6 +300,7 @@ Maximum page size 100.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **include_deleted** | Optional[bool] | Whether to include deleted Markings. Defaults to true when omitted. | [optional] |
+**marking_type** | Optional[MarkingType] | The marking type of the Markings to return. Defaults to all marking types when omitted.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 
@@ -317,6 +318,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # Optional[bool] | Whether to include deleted Markings. Defaults to true when omitted.
 include_deleted = None
+# Optional[MarkingType] | The marking type of the Markings to return. Defaults to all marking types when omitted.
+marking_type = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -325,7 +328,10 @@ page_token = None
 
 try:
     for marking in client.admin.Marking.list(
-        include_deleted=include_deleted, page_size=page_size, page_token=page_token
+        include_deleted=include_deleted,
+        marking_type=marking_type,
+        page_size=page_size,
+        page_token=page_token,
     ):
         pprint(marking)
 except foundry_sdk.PalantirRPCException as e:
@@ -349,14 +355,15 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **parse_classifications**
-Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+Parses classification marking strings (e.g. `MTS//MNF`) into their component marking IDs.
+Strings that cannot be parsed are returned in `errors` with a human-readable message.
+
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**classification_strings** | List[str] | The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**classification_strings** | List[str] | The classification strings to parse, e.g. `MTS//MNF`. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed only once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.  |  |
 
 ### Return type
 **ParseClassificationsResponse**
@@ -370,15 +377,13 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# List[str] | The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
+# List[str] | The classification strings to parse, e.g. `MTS//MNF`. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed only once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
 classification_strings = ["MTS//MNF", "INVALID_MARKING"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.admin.Marking.parse_classifications(
-        classification_strings=classification_strings, preview=preview
+        classification_strings=classification_strings
     )
     print("The parse_classifications response:\n")
     pprint(api_response)

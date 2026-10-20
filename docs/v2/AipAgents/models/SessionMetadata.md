@@ -1,6 +1,6 @@
 # SessionMetadata
 
-Metadata for a conversation session with an Agent.
+Metadata for a conversation session with a Chatbot Studio Agent.
 
 ## Properties
 | Name | Type | Required | Description |
@@ -8,7 +8,7 @@ Metadata for a conversation session with an Agent.
 **title** | str | Yes | The title of the session. |
 **created_time** | datetime | Yes | The time the session was created. |
 **updated_time** | datetime | Yes | The time the session was last updated. |
-**message_count** | int | Yes | The count of messages in the session. Includes both user messages and Agent replies, so each complete exchange counts as two messages.  |
+**message_count** | int | Yes | The count of messages in the session. Includes both user messages and Chatbot Studio Agent replies, so each complete exchange counts as two messages.  |
 **estimated_expires_time** | datetime | Yes | The estimated time at which the session is due to expire. Once a session has expired, it can no longer be accessed and a new session must be created. The expiry time is automatically extended when new exchanges are added to the session.  |
 
 

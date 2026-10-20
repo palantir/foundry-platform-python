@@ -176,6 +176,7 @@ class MarkingCategoryClient:
         self,
         *,
         include_deleted: typing.Optional[bool] = None,
+        marking_type: typing.Optional[admin_models.MarkingType] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -188,6 +189,8 @@ class MarkingCategoryClient:
 
         :param include_deleted: Whether to include deleted Marking Categories. Defaults to true when omitted.
         :type include_deleted: Optional[bool]
+        :param marking_type: The marking type of the Marking Categories to return. Defaults to all marking types when omitted.
+        :type marking_type: Optional[MarkingType]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -198,6 +201,7 @@ class MarkingCategoryClient:
         :rtype: core.ResourceIterator[admin_models.MarkingCategory]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UnknownMarkingType: The provided marking type is not recognized.
         """
 
         return self._api_client.call_api(
@@ -206,6 +210,7 @@ class MarkingCategoryClient:
                 resource_path="/v2/admin/markingCategories",
                 query_params={
                     "includeDeleted": include_deleted,
+                    "markingType": marking_type,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -218,6 +223,7 @@ class MarkingCategoryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UnknownMarkingType": admin_errors.UnknownMarkingType,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -465,6 +471,7 @@ class AsyncMarkingCategoryClient:
         self,
         *,
         include_deleted: typing.Optional[bool] = None,
+        marking_type: typing.Optional[admin_models.MarkingType] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -477,6 +484,8 @@ class AsyncMarkingCategoryClient:
 
         :param include_deleted: Whether to include deleted Marking Categories. Defaults to true when omitted.
         :type include_deleted: Optional[bool]
+        :param marking_type: The marking type of the Marking Categories to return. Defaults to all marking types when omitted.
+        :type marking_type: Optional[MarkingType]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -487,6 +496,7 @@ class AsyncMarkingCategoryClient:
         :rtype: core.AsyncResourceIterator[admin_models.MarkingCategory]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UnknownMarkingType: The provided marking type is not recognized.
         """
 
         return self._api_client.call_api(
@@ -495,6 +505,7 @@ class AsyncMarkingCategoryClient:
                 resource_path="/v2/admin/markingCategories",
                 query_params={
                     "includeDeleted": include_deleted,
+                    "markingType": marking_type,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -507,6 +518,7 @@ class AsyncMarkingCategoryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UnknownMarkingType": admin_errors.UnknownMarkingType,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),

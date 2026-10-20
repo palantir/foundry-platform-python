@@ -141,6 +141,12 @@ FoundryBranch: typing_extensions.TypeAlias = str
 """The global Foundry branch, specified as either its rid or its dataset branch identifier."""
 
 
+class GeoShapeType(core.ModelBase):
+    """GeoShapeType"""
+
+    type: typing.Literal["geoshape"] = "geoshape"
+
+
 class IntegerType(core.ModelBase):
     """IntegerType"""
 
@@ -295,6 +301,7 @@ __all__ = [
     "FloatType",
     "FolderRid",
     "FoundryBranch",
+    "GeoShapeType",
     "IntegerType",
     "LongType",
     "MarkingType",

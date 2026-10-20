@@ -88,7 +88,7 @@ class AgentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[aip_agents_models.Session]:
         """
-        List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+        List all conversation sessions between the calling user and all accessible Chatbot Studio Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
 
@@ -105,7 +105,7 @@ class AgentClient:
         :return: Returns the result object.
         :rtype: core.ResourceIterator[aip_agents_models.Session]
 
-        :raises GetAllSessionsAgentsPermissionDenied: The calling user does not have permission to list all sessions across all Agents. Listing all sessions across all agents requires the `api:aip-agents-write` scope.
+        :raises GetAllSessionsAgentsPermissionDenied: The calling user does not have permission to list all sessions across all Chatbot Studio Agents. Listing all sessions across all Chatbot Studio Agents requires the `api:aip-agents-write` scope.
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
@@ -146,15 +146,15 @@ class AgentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.Agent:
         """
-        Get details for an Agent.
+        Get details for a Chatbot Studio Agent.
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param version: The version of the Agent to retrieve. If not specified, the latest published version will be returned.
+        :param version: The version of the Chatbot Studio Agent to retrieve. If not specified, the latest published version will be returned.
         :type version: Optional[AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -163,8 +163,8 @@ class AgentClient:
 
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
-        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for a Chatbot Studio Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Chatbot Studio Agent because the Chatbot Studio Agent has no published versions. Try publishing the Chatbot Studio Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Chatbot Studio Agent to use.
         """
 
         return self._api_client.call_api(
@@ -275,7 +275,7 @@ class AsyncAgentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[aip_agents_models.Session]:
         """
-        List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+        List all conversation sessions between the calling user and all accessible Chatbot Studio Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
 
@@ -292,7 +292,7 @@ class AsyncAgentClient:
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[aip_agents_models.Session]
 
-        :raises GetAllSessionsAgentsPermissionDenied: The calling user does not have permission to list all sessions across all Agents. Listing all sessions across all agents requires the `api:aip-agents-write` scope.
+        :raises GetAllSessionsAgentsPermissionDenied: The calling user does not have permission to list all sessions across all Chatbot Studio Agents. Listing all sessions across all Chatbot Studio Agents requires the `api:aip-agents-write` scope.
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
@@ -333,15 +333,15 @@ class AsyncAgentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.Agent]:
         """
-        Get details for an Agent.
+        Get details for a Chatbot Studio Agent.
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param version: The version of the Agent to retrieve. If not specified, the latest published version will be returned.
+        :param version: The version of the Chatbot Studio Agent to retrieve. If not specified, the latest published version will be returned.
         :type version: Optional[AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -350,8 +350,8 @@ class AsyncAgentClient:
 
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
-        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for a Chatbot Studio Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Chatbot Studio Agent because the Chatbot Studio Agent has no published versions. Try publishing the Chatbot Studio Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Chatbot Studio Agent to use.
         """
 
         return self._api_client.call_api(

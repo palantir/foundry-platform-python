@@ -1,6 +1,6 @@
 # ToolCallGroup
 
-List of tool calls that were triggered at the same point in the trace for the agent response generation.
+List of tool calls that were triggered at the same point in the trace for the Chatbot Studio Agent response generation.
 
 
 ## Properties

@@ -131,13 +131,19 @@ class CbacBanner(core.ModelBase):
     """The formatted classification string for the requested markings and display type."""
 
     markings: typing.List[core_models.MarkingId]
-    """The marking IDs represented by the classification string."""
+    """
+    The marking IDs that the banner represents, with duplicates removed. Marking IDs that the current
+    CBAC configuration does not recognize are omitted. The order is unspecified.
+    """
 
     text_color: core_models.Color = pydantic.Field(alias=str("textColor"))  # type: ignore[literal-required]
-    """The hexadecimal text color to use when displaying the banner."""
+    """The color to use for the banner text."""
 
     background_colors: typing.List[core_models.Color] = pydantic.Field(alias=str("backgroundColors"))  # type: ignore[literal-required]
-    """The hexadecimal background colors to use when displaying the banner."""
+    """
+    The background colors to use when displaying the banner. The list currently contains a single color,
+    which should be used as a solid background. If more than one color is returned, use the first.
+    """
 
 
 CbacBannerClassificationString: typing_extensions.TypeAlias = str
@@ -574,6 +580,12 @@ class Marking(core.ModelBase):
     organization: typing.Optional[core_models.OrganizationRid] = None
     """If this marking is associated with an Organization, its RID will be populated here."""
 
+    priority: typing.Optional[core.Long] = None
+    """The priority, only used on CBAC markings. Higher numbers mean higher priority."""
+
+    prominence: typing.Optional[MarkingProminence] = None
+    """A hint on whether to emphasize or deemphasize the marking. Only used on CBAC markings."""
+
     deleted: MarkingDeleted
     """Whether the Marking has been deleted."""
 
@@ -589,6 +601,9 @@ class MarkingCategory(core.ModelBase):
     description: MarkingCategoryDescription
     category_type: MarkingCategoryType = pydantic.Field(alias=str("categoryType"))  # type: ignore[literal-required]
     marking_type: MarkingType = pydantic.Field(alias=str("markingType"))  # type: ignore[literal-required]
+    priority: typing.Optional[core.Long] = None
+    """The priority, only used on CBAC categories. Higher numbers mean higher priority."""
+
     markings: typing.List[core_models.MarkingId]
     deleted: MarkingCategoryDeleted
     """Whether the Marking Category has been deleted."""
@@ -684,6 +699,13 @@ MarkingName: typing_extensions.TypeAlias = str
 """MarkingName"""
 
 
+MarkingProminence: typing_extensions.TypeAlias = typing.Literal["COMMON", "UNCOMMON"]
+"""
+How commonly a CBAC marking is used. COMMON markings are frequently applied; UNCOMMON
+markings are rarely needed, so marking pickers may show them in a secondary list.
+"""
+
+
 MarkingRole: typing_extensions.TypeAlias = typing.Literal["ADMINISTER", "DECLASSIFY", "USE"]
 """
 Represents the operations that a user can perform with regards to a Marking.
@@ -761,8 +783,8 @@ class ParseClassificationsRequest(core.ModelBase):
 
     classification_strings: typing.List[str] = pydantic.Field(alias=str("classificationStrings"))  # type: ignore[literal-required]
     """
-    The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries.
-    Duplicate entries count toward this limit but are parsed once. An empty list returns a
+    The classification strings to parse, e.g. `MTS//MNF`. Requests must contain between 1 and 1000 entries.
+    Duplicate entries count toward this limit but are parsed only once. An empty list returns a
     `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
     """
 
@@ -1146,6 +1168,7 @@ __all__ = [
     "MarkingExpression",
     "MarkingMember",
     "MarkingName",
+    "MarkingProminence",
     "MarkingRole",
     "MarkingRoleAssignment",
     "MarkingRoleUpdate",

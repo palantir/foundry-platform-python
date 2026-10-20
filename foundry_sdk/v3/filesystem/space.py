@@ -146,13 +146,13 @@ class SpaceClient:
         :return: Returns the result object.
         :rtype: None
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises DeleteServiceSpaceNotSupported: The service's space cannot be deleted.
         :raises DeleteSpacePermissionDenied: Could not delete the space due to insufficient permissions.
         :raises DeleteUserSpaceNotSupported: The user's space cannot be deleted.
         :raises InvalidSpaces: The given resources are not spaces.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises SpacesNotFound: The specified spaces could not be found.
         :raises TrashingSpacesNotSupported: Space trashing has been disabled.
         """
@@ -269,10 +269,10 @@ class SpaceClient:
         :return: Returns the result object.
         :rtype: filesystem_models.GetSpacesBatchResponse
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises InvalidSpaces: The given resources are not spaces.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises SpacesNotFound: The specified spaces could not be found.
         """
 
@@ -577,13 +577,13 @@ class AsyncSpaceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises DeleteServiceSpaceNotSupported: The service's space cannot be deleted.
         :raises DeleteSpacePermissionDenied: Could not delete the space due to insufficient permissions.
         :raises DeleteUserSpaceNotSupported: The user's space cannot be deleted.
         :raises InvalidSpaces: The given resources are not spaces.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises SpacesNotFound: The specified spaces could not be found.
         :raises TrashingSpacesNotSupported: Space trashing has been disabled.
         """
@@ -700,10 +700,10 @@ class AsyncSpaceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.GetSpacesBatchResponse]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises InvalidSpaces: The given resources are not spaces.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises SpacesNotFound: The specified spaces could not be found.
         """
 

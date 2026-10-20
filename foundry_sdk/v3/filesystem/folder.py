@@ -216,12 +216,12 @@ class FolderClient:
         :return: Returns the result object.
         :rtype: None
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteFolderPermissionDenied: Could not delete the folder due to insufficient permissions.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises FoldersNotFound: The specified folders could not be found.
         :raises InvalidFolders: The given resources are not folders.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises TrashingHiddenResourcesNotSupported: Hidden resources cannot be trashed.
         :raises TrashingHomeFoldersNotSupported: Home folders cannot be trashed. Home folders are created and managed by the platform.
         :raises TrashingRootFolderNotSupported: The root folder cannot be trashed.
@@ -345,12 +345,12 @@ class FolderClient:
         :return: Returns the result object.
         :rtype: filesystem_models.GetFoldersBatchResponse
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises FoldersNotFound: The specified folders could not be found.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises GetRootFolderNotSupported: The root folder cannot be retrieved.
         :raises InvalidFolders: The given resources are not folders.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         """
 
         return self._api_client.call_api(
@@ -660,12 +660,12 @@ class AsyncFolderClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteFolderPermissionDenied: Could not delete the folder due to insufficient permissions.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises FoldersNotFound: The specified folders could not be found.
         :raises InvalidFolders: The given resources are not folders.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises TrashingHiddenResourcesNotSupported: Hidden resources cannot be trashed.
         :raises TrashingHomeFoldersNotSupported: Home folders cannot be trashed. Home folders are created and managed by the platform.
         :raises TrashingRootFolderNotSupported: The root folder cannot be trashed.
@@ -789,12 +789,12 @@ class AsyncFolderClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.GetFoldersBatchResponse]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises FoldersNotFound: The specified folders could not be found.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises GetRootFolderNotSupported: The root folder cannot be retrieved.
         :raises InvalidFolders: The given resources are not folders.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         """
 
         return self._api_client.call_api(

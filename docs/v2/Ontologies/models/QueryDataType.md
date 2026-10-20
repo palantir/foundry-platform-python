@@ -30,6 +30,7 @@ VoidType | void
 EntrySetType | entrySet
 DoubleType | double
 QueryUnionType | union
+GeoShapeType | geoshape
 BooleanType | boolean
 MediaReferenceType | mediaReference
 NullType | null

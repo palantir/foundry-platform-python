@@ -5,7 +5,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/sessionTraces/{sessionTraceId} | Public Beta |
 
 # **get**
-Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at
+Get the trace of a Chatbot Studio Agent response. The trace lists the sequence of steps that a Chatbot Studio Agent took to arrive at
 an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
 poll this endpoint to check the realtime progress of a response until the trace is completed.
 
@@ -14,7 +14,7 @@ poll this endpoint to check the realtime progress of a response until the trace 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
 **session_trace_id** | SessionTraceId | The unique identifier for the trace.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -31,7 +31,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"

@@ -1,13 +1,13 @@
 # SessionExchangeContexts
 
-Retrieved context which was passed to the Agent as input for the exchange.
+Retrieved context which was passed to the Chatbot Studio Agent as input for the exchange.
 
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**object_contexts** | List[ObjectContext] | Yes | Relevant object context for the user's message that was included in the prompt to the Agent.  |
-**function_retrieved_contexts** | List[FunctionRetrievedContext] | Yes | Context retrieved from running a function that was included as additional context in the prompt to the Agent.  |
+**object_contexts** | List[ObjectContext] | Yes | Relevant object context for the user's message that was included in the prompt to the Chatbot Studio Agent.  |
+**function_retrieved_contexts** | List[FunctionRetrievedContext] | Yes | Context retrieved from running a function that was included as additional context in the prompt to the Chatbot Studio Agent.  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

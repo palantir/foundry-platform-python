@@ -94,8 +94,8 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.SessionExchangeResult:
         """
-        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+        Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+        Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
         Blocks on returning the result of the added exchange until the response is fully generated.
         Streamed responses are also supported; see `streamingContinue` for details.
         Concurrent requests to continue the same session are not supported.
@@ -104,15 +104,15 @@ class SessionClient:
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
-        :param user_input: The user message for the Agent to respond to.
+        :param user_input: The user message for the Chatbot Studio Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -123,24 +123,24 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.SessionExchangeResult
 
-        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
-        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Chatbot Studio.
+        :raises ActionTypeNotFound: An action tool configured on the Chatbot Studio Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Chatbot Studio Agent's tools in AIP Chatbot Studio.
+        :raises AgentIterationsExceededLimit: The Chatbot Studio Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Chatbot Studio Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Chatbot Studio Agent configuration in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
         :raises ContextSizeExceededLimit: Failed to generate a response for a session because the context size of the LLM has been exceeded. Clients should either retry with a shorter message or create a new session and try re-sending the message.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
         :raises RetryAttemptsExceeded: Failed to generate a response after retrying up to the configured number of retry attempts. Clients should wait and retry.
         :raises RetryDeadlineExceeded: Failed to generate a response after retrying up to the configured retry deadline. Clients should wait and retry.
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
-        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
+        :raises UnsupportedLanguageModelRid: The Chatbot Studio Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Chatbot Studio Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -205,14 +205,14 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.CancelSessionResponse:
         """
-        Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
-        Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
+        Cancel an in-progress streamed exchange with a Chatbot Studio Agent which was initiated with `streamingContinue`.
+        Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Chatbot Studio Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -277,15 +277,15 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.Session:
         """
-        Create a new conversation session between the calling user and an Agent.
+        Create a new conversation session between the calling user and a Chatbot Studio Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
+        :param agent_version: The version of the Chatbot Studio Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Chatbot Studio Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -294,18 +294,18 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.Session
 
-        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
+        :raises ActionTypeNotFound: An action tool configured on the Chatbot Studio Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Chatbot Studio Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         :raises CreateSessionPermissionDenied: Could not create the Session.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for a Chatbot Studio Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Chatbot Studio Agent because the Chatbot Studio Agent has no published versions. Try publishing the Chatbot Studio Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Chatbot Studio Agent to use.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
-        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
+        :raises UnsupportedLanguageModelRid: The Chatbot Studio Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Chatbot Studio Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -358,13 +358,13 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
-        Delete a conversation session between the calling user and an Agent.
+        Delete a conversation session between the calling user and a Chatbot Studio Agent.
         Once deleted, the session can no longer be accessed and will not appear in session lists.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -417,11 +417,11 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.Session:
         """
-        Get the details of a conversation session between the calling user and an Agent.
+        Get the details of a conversation session between the calling user and a Chatbot Studio Agent.
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -475,7 +475,7 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[aip_agents_models.Session]:
         """
-        List all conversation sessions between the calling user and an Agent that was created by this client.
+        List all conversation sessions between the calling user and a Chatbot Studio Agent that was created by this client.
         This does not list sessions for the user created by other clients.
         For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
@@ -483,7 +483,7 @@ class SessionClient:
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
@@ -542,18 +542,18 @@ class SessionClient:
     ) -> aip_agents_models.AgentSessionRagContextResponse:
         """
         Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
-        This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
+        This allows clients to pre-retrieve context for a user message before sending it to the Chatbot Studio Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Chatbot Studio Agent.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
-        :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
+        :param user_input: The user message to retrieve relevant context for from the configured Chatbot Studio Agent data sources.
         :type user_input: UserTextInput
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -563,11 +563,11 @@ class SessionClient:
         :rtype: aip_agents_models.AgentSessionRagContextResponse
 
         :raises AgentNotFound: The given Agent could not be found.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         """
 
@@ -625,9 +625,9 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
         """
-        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+        Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+        Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
+        Returns a stream of the Chatbot Studio Agent response text (formatted using markdown) for clients to consume as the response is generated.
         On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
         Streamed exchanges also support cancellation; see `cancel` for details.
         Concurrent requests to continue the same session are not supported.
@@ -636,15 +636,15 @@ class SessionClient:
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
-        :param user_input: The user message for the Agent to respond to.
+        :param user_input: The user message for the Chatbot Studio Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
@@ -657,18 +657,18 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: bytes
 
-        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
+        :raises ActionTypeNotFound: An action tool configured on the Chatbot Studio Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Chatbot Studio Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
-        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
+        :raises UnsupportedLanguageModelRid: The Chatbot Studio Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Chatbot Studio Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -728,12 +728,12 @@ class SessionClient:
     ) -> None:
         """
         Update the title for a session.
-        Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
+        Use this to set a custom title for a session to help identify it in the list of sessions with a Chatbot Studio Agent.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -896,8 +896,8 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.SessionExchangeResult]:
         """
-        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+        Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+        Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
         Blocks on returning the result of the added exchange until the response is fully generated.
         Streamed responses are also supported; see `streamingContinue` for details.
         Concurrent requests to continue the same session are not supported.
@@ -906,15 +906,15 @@ class AsyncSessionClient:
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
-        :param user_input: The user message for the Agent to respond to.
+        :param user_input: The user message for the Chatbot Studio Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -925,24 +925,24 @@ class AsyncSessionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[aip_agents_models.SessionExchangeResult]
 
-        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
-        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Chatbot Studio.
+        :raises ActionTypeNotFound: An action tool configured on the Chatbot Studio Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Chatbot Studio Agent's tools in AIP Chatbot Studio.
+        :raises AgentIterationsExceededLimit: The Chatbot Studio Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Chatbot Studio Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Chatbot Studio Agent configuration in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
         :raises ContextSizeExceededLimit: Failed to generate a response for a session because the context size of the LLM has been exceeded. Clients should either retry with a shorter message or create a new session and try re-sending the message.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
         :raises RetryAttemptsExceeded: Failed to generate a response after retrying up to the configured number of retry attempts. Clients should wait and retry.
         :raises RetryDeadlineExceeded: Failed to generate a response after retrying up to the configured retry deadline. Clients should wait and retry.
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
-        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
+        :raises UnsupportedLanguageModelRid: The Chatbot Studio Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Chatbot Studio Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -1007,14 +1007,14 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.CancelSessionResponse]:
         """
-        Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
-        Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
+        Cancel an in-progress streamed exchange with a Chatbot Studio Agent which was initiated with `streamingContinue`.
+        Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Chatbot Studio Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -1079,15 +1079,15 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.Session]:
         """
-        Create a new conversation session between the calling user and an Agent.
+        Create a new conversation session between the calling user and a Chatbot Studio Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
+        :param agent_version: The version of the Chatbot Studio Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Chatbot Studio Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -1096,18 +1096,18 @@ class AsyncSessionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[aip_agents_models.Session]
 
-        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
+        :raises ActionTypeNotFound: An action tool configured on the Chatbot Studio Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Chatbot Studio Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         :raises CreateSessionPermissionDenied: Could not create the Session.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for a Chatbot Studio Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Chatbot Studio Agent because the Chatbot Studio Agent has no published versions. Try publishing the Chatbot Studio Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Chatbot Studio Agent to use.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
-        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
+        :raises UnsupportedLanguageModelRid: The Chatbot Studio Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Chatbot Studio Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -1160,13 +1160,13 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
-        Delete a conversation session between the calling user and an Agent.
+        Delete a conversation session between the calling user and a Chatbot Studio Agent.
         Once deleted, the session can no longer be accessed and will not appear in session lists.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -1219,11 +1219,11 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.Session]:
         """
-        Get the details of a conversation session between the calling user and an Agent.
+        Get the details of a conversation session between the calling user and a Chatbot Studio Agent.
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -1277,7 +1277,7 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[aip_agents_models.Session]:
         """
-        List all conversation sessions between the calling user and an Agent that was created by this client.
+        List all conversation sessions between the calling user and a Chatbot Studio Agent that was created by this client.
         This does not list sessions for the user created by other clients.
         For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
@@ -1285,7 +1285,7 @@ class AsyncSessionClient:
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
@@ -1344,18 +1344,18 @@ class AsyncSessionClient:
     ) -> typing.Awaitable[aip_agents_models.AgentSessionRagContextResponse]:
         """
         Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
-        This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
+        This allows clients to pre-retrieve context for a user message before sending it to the Chatbot Studio Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Chatbot Studio Agent.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
-        :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
+        :param user_input: The user message to retrieve relevant context for from the configured Chatbot Studio Agent data sources.
         :type user_input: UserTextInput
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -1365,11 +1365,11 @@ class AsyncSessionClient:
         :rtype: typing.Awaitable[aip_agents_models.AgentSessionRagContextResponse]
 
         :raises AgentNotFound: The given Agent could not be found.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         """
 
@@ -1427,9 +1427,9 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[bytes]:
         """
-        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+        Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+        Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
+        Returns a stream of the Chatbot Studio Agent response text (formatted using markdown) for clients to consume as the response is generated.
         On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
         Streamed exchanges also support cancellation; see `cancel` for details.
         Concurrent requests to continue the same session are not supported.
@@ -1438,15 +1438,15 @@ class AsyncSessionClient:
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
-        :param user_input: The user message for the Agent to respond to.
+        :param user_input: The user message for the Chatbot Studio Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
@@ -1459,18 +1459,18 @@ class AsyncSessionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[bytes]
 
-        :raises ActionTypeNotFound: An action tool configured on the Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Agent's tools in AIP Chatbot Studio.
+        :raises ActionTypeNotFound: An action tool configured on the Chatbot Studio Agent references an action type that could not be found. This can surface at runtime if the action type was deleted or is not accessible to the calling token. Verify the action type exists and is accessible, then review the Chatbot Studio Agent's tools in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
-        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Chatbot Studio Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Chatbot Studio Agent for this session. Check the available application variables for the Chatbot Studio Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Chatbot Studio Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Chatbot Studio Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Chatbot Studio Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
-        :raises UnsupportedLanguageModelRid: The Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Agent's language model in AIP Chatbot Studio.
+        :raises UnsupportedLanguageModelRid: The Chatbot Studio Agent is configured with a language model that is not supported or could not be resolved. This can surface at runtime if the model was deprecated or is not accessible to the calling token. Update the Chatbot Studio Agent's language model in AIP Chatbot Studio.
         """
 
         return self._api_client.call_api(
@@ -1530,12 +1530,12 @@ class AsyncSessionClient:
     ) -> typing.Awaitable[None]:
         """
         Update the title for a session.
-        Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
+        Use this to set a custom title for a session to help identify it in the list of sessions with a Chatbot Studio Agent.
 
 
         Required scopes: [api:aip-agents-write]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid

@@ -721,6 +721,12 @@ def admin_marking_category_op_get(
     help="""Whether to include deleted Marking Categories. Defaults to true when omitted.""",
 )
 @click.option(
+    "--marking_type",
+    type=click.Choice(["MANDATORY", "CBAC"]),
+    required=False,
+    help="""The marking type of the Marking Categories to return. Defaults to all marking types when omitted.""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -735,6 +741,7 @@ and use it to populate the `pageToken` field of the next request.""",
 def admin_marking_category_op_list(
     client: FoundryClient,
     include_deleted: typing.Optional[bool],
+    marking_type: typing.Optional[typing.Literal["MANDATORY", "CBAC"]],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -743,6 +750,7 @@ def admin_marking_category_op_list(
     """
     result = client.admin.MarkingCategory.list(
         include_deleted=include_deleted,
+        marking_type=marking_type,
         page_size=page_size,
         page_token=page_token,
     )
@@ -920,6 +928,14 @@ def admin_marking_op_get_batch(
     help="""Whether to include deleted Markings. Defaults to true when omitted.""",
 )
 @click.option(
+    "--marking_type",
+    type=click.Choice(["MANDATORY", "CBAC"]),
+    required=False,
+    help="""The marking type of the Markings to return. Defaults to all marking types
+when omitted.
+""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -934,6 +950,7 @@ and use it to populate the `pageToken` field of the next request.""",
 def admin_marking_op_list(
     client: FoundryClient,
     include_deleted: typing.Optional[bool],
+    marking_type: typing.Optional[typing.Literal["MANDATORY", "CBAC"]],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -942,6 +959,7 @@ def admin_marking_op_list(
     """
     result = client.admin.Marking.list(
         include_deleted=include_deleted,
+        marking_type=marking_type,
         page_size=page_size,
         page_token=page_token,
     )
@@ -953,26 +971,23 @@ def admin_marking_op_list(
     "--classification_strings",
     type=str,
     required=True,
-    help="""The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries.
-Duplicate entries count toward this limit but are parsed once. An empty list returns a
+    help="""The classification strings to parse, e.g. `MTS//MNF`. Requests must contain between 1 and 1000 entries.
+Duplicate entries count toward this limit but are parsed only once. An empty list returns a
 `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
 """,
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
 def admin_marking_op_parse_classifications(
     client: FoundryClient,
     classification_strings: str,
-    preview: typing.Optional[bool],
 ):
     """
-    Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+    Parses classification marking strings (e.g. `MTS//MNF`) into their component marking IDs.
+    Strings that cannot be parsed are returned in `errors` with a human-readable message.
+
     """
     result = client.admin.Marking.parse_classifications(
         classification_strings=json.loads(classification_strings),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1941,23 +1956,24 @@ def admin_cbac_banner():
     "--display_type",
     type=click.Choice(["BANNER_LINE", "PORTION_MARKING"]),
     required=False,
-    help="""The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs""",
+    help="""The display type of the banner. Defaults to `PORTION_MARKING`. `BANNER_LINE` is a long classification
+string used in the header of a document; `PORTION_MARKING` is a short classification string used for
+individual paragraphs.
+""",
 )
 @click.option(
     "--marking_ids",
     type=str,
     required=False,
-    help="""The marking IDs for which to generate a banner. Duplicate entries are ignored.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+    help="""The marking IDs for which to generate a banner. Duplicate marking IDs are ignored. Marking IDs that
+the current CBAC configuration does not recognize are ignored and omitted from the `markings` response.
+""",
 )
 @click.pass_obj
 def admin_cbac_banner_op_get(
     client: FoundryClient,
     display_type: typing.Optional[typing.Literal["BANNER_LINE", "PORTION_MARKING"]],
     marking_ids: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Returns a classification banner string and colors for the given set of marking IDs.
@@ -1965,7 +1981,6 @@ def admin_cbac_banner_op_get(
     result = client.admin.CbacBanner.get(
         display_type=display_type,
         marking_ids=None if marking_ids is None else json.loads(marking_ids),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2035,7 +2050,7 @@ def aip_agents_agent_op_all_sessions(
     preview: typing.Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+    List all conversation sessions between the calling user and all accessible Chatbot Studio Agents that were created by this client.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -2056,7 +2071,7 @@ def aip_agents_agent_op_all_sessions(
     "--version",
     type=str,
     required=False,
-    help="""The version of the Agent to retrieve. If not specified, the latest published version will be returned.
+    help="""The version of the Chatbot Studio Agent to retrieve. If not specified, the latest published version will be returned.
 """,
 )
 @click.pass_obj
@@ -2067,7 +2082,7 @@ def aip_agents_agent_op_get(
     version: typing.Optional[str],
 ):
     """
-    Get details for an Agent.
+    Get details for a Chatbot Studio Agent.
     """
     result = client.aip_agents.Agent.get(
         agent_rid=agent_rid,
@@ -2089,21 +2104,21 @@ def aip_agents_agent_session():
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
 """,
 )
 @click.option(
     "--user_input",
     type=str,
     required=True,
-    help="""The user message for the Agent to respond to.""",
+    help="""The user message for the Chatbot Studio Agent to respond to.""",
 )
 @click.option(
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
-If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+    help="""If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Chatbot Studio Agent instead.
+If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
 """,
 )
 @click.option(
@@ -2131,8 +2146,8 @@ def aip_agents_agent_session_op_blocking_continue(
     session_trace_id: typing.Optional[str],
 ):
     """
-    Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-    Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+    Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+    Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
     Blocks on returning the result of the added exchange until the response is fully generated.
     Streamed responses are also supported; see `streamingContinue` for details.
     Concurrent requests to continue the same session are not supported.
@@ -2183,8 +2198,8 @@ def aip_agents_agent_session_op_cancel(
     response: typing.Optional[str],
 ):
     """
-    Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
-    Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
+    Cancel an in-progress streamed exchange with a Chatbot Studio Agent which was initiated with `streamingContinue`.
+    Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Chatbot Studio Agent-generated response.
     Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
     """
@@ -2204,9 +2219,9 @@ def aip_agents_agent_session_op_cancel(
     "--agent_version",
     type=str,
     required=False,
-    help="""The version of the Agent associated with the session.
+    help="""The version of the Chatbot Studio Agent associated with the session.
 This can be set by clients on session creation.
-If not specified, defaults to use the latest published version of the Agent at session creation time.
+If not specified, defaults to use the latest published version of the Chatbot Studio Agent at session creation time.
 """,
 )
 @click.option(
@@ -2220,7 +2235,7 @@ def aip_agents_agent_session_op_create(
     preview: typing.Optional[bool],
 ):
     """
-    Create a new conversation session between the calling user and an Agent.
+    Create a new conversation session between the calling user and a Chatbot Studio Agent.
     Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
     """
@@ -2246,7 +2261,7 @@ def aip_agents_agent_session_op_delete(
     preview: typing.Optional[bool],
 ):
     """
-    Delete a conversation session between the calling user and an Agent.
+    Delete a conversation session between the calling user and a Chatbot Studio Agent.
     Once deleted, the session can no longer be accessed and will not appear in session lists.
 
     """
@@ -2272,7 +2287,7 @@ def aip_agents_agent_session_op_get(
     preview: typing.Optional[bool],
 ):
     """
-    Get the details of a conversation session between the calling user and an Agent.
+    Get the details of a conversation session between the calling user and a Chatbot Studio Agent.
     """
     result = client.aip_agents.Agent.Session.get(
         agent_rid=agent_rid,
@@ -2307,7 +2322,7 @@ def aip_agents_agent_session_op_list(
     preview: typing.Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user and an Agent that was created by this client.
+    List all conversation sessions between the calling user and a Chatbot Studio Agent that was created by this client.
     This does not list sessions for the user created by other clients.
     For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
     Sessions are returned in order of most recently updated first.
@@ -2336,7 +2351,7 @@ def aip_agents_agent_session_op_list(
     "--user_input",
     type=str,
     required=True,
-    help="""The user message to retrieve relevant context for from the configured Agent data sources.""",
+    help="""The user message to retrieve relevant context for from the configured Chatbot Studio Agent data sources.""",
 )
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
@@ -2352,7 +2367,7 @@ def aip_agents_agent_session_op_rag_context(
 ):
     """
     Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
-    This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
+    This allows clients to pre-retrieve context for a user message before sending it to the Chatbot Studio Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Chatbot Studio Agent.
 
     """
     result = client.aip_agents.Agent.Session.rag_context(
@@ -2372,21 +2387,21 @@ def aip_agents_agent_session_op_rag_context(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
 """,
 )
 @click.option(
     "--user_input",
     type=str,
     required=True,
-    help="""The user message for the Agent to respond to.""",
+    help="""The user message for the Chatbot Studio Agent to respond to.""",
 )
 @click.option(
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
-If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+    help="""If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Chatbot Studio Agent instead.
+If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
 """,
 )
 @click.option(
@@ -2423,9 +2438,9 @@ def aip_agents_agent_session_op_streaming_continue(
     session_trace_id: typing.Optional[str],
 ):
     """
-    Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-    Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-    Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+    Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+    Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
+    Returns a stream of the Chatbot Studio Agent response text (formatted using markdown) for clients to consume as the response is generated.
     On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
     Streamed exchanges also support cancellation; see `cancel` for details.
     Concurrent requests to continue the same session are not supported.
@@ -2469,7 +2484,7 @@ def aip_agents_agent_session_op_update_title(
 ):
     """
     Update the title for a session.
-    Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
+    Use this to set a custom title for a session to help identify it in the list of sessions with a Chatbot Studio Agent.
 
     """
     result = client.aip_agents.Agent.Session.update_title(
@@ -2502,7 +2517,7 @@ def aip_agents_agent_session_session_trace_op_get(
     preview: typing.Optional[bool],
 ):
     """
-    Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at
+    Get the trace of a Chatbot Studio Agent response. The trace lists the sequence of steps that a Chatbot Studio Agent took to arrive at
     an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
     poll this endpoint to check the realtime progress of a response until the trace is completed.
 
@@ -2535,7 +2550,7 @@ def aip_agents_agent_session_content_op_get(
     preview: typing.Optional[bool],
 ):
     """
-    Get the conversation content for a session between the calling user and an Agent.
+    Get the conversation content for a session between the calling user and a Chatbot Studio Agent.
     """
     result = client.aip_agents.Agent.Session.Content.get(
         agent_rid=agent_rid,
@@ -2564,7 +2579,7 @@ def aip_agents_agent_agent_version_op_get(
     preview: typing.Optional[bool],
 ):
     """
-    Get version details for an Agent.
+    Get version details for a Chatbot Studio Agent.
     """
     result = client.aip_agents.Agent.AgentVersion.get(
         agent_rid=agent_rid,
@@ -2599,7 +2614,7 @@ def aip_agents_agent_agent_version_op_list(
     preview: typing.Optional[bool],
 ):
     """
-    List all versions for an Agent.
+    List all versions for a Chatbot Studio Agent.
     Versions are returned in descending order, by most recent versions first.
 
     """
@@ -6401,7 +6416,8 @@ def functions_execution_op_get_result(
     - running: execution is still in progress.
     - succeeded: execution completed successfully with a return value.
 
-    If the execution failed, a service error is thrown.
+    If the execution failed, a service error is thrown. Canceled executions return an
+    AsyncQueryCanceled error.
 
     Use the timeout parameter for long-polling: the server holds the
     connection open for up to the specified number of seconds. If the
@@ -9292,6 +9308,37 @@ def ontologies_ontology_scenario_op_list_scenario_edited_objects(
         object_type=object_type,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_scenario.command("rebase_scenario")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_scenario_op_rebase_scenario(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Rebases all object types edited within the scenario onto the latest data from the scenario's base.
+    Rebasing may also cause other scenarios with edits to the same object types on the same base to observe
+    the updated base data. The caller must have permission to edit the scenario.
+
+    """
+    result = client.ontologies.OntologyScenario.rebase_scenario(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -13689,6 +13736,13 @@ def ontologies_action():
 @click.argument("action", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
+    "--attribution",
+    type=str,
+    required=False,
+    help="""The Attribution to be used when executing this request.
+""",
+)
+@click.option(
     "--branch",
     type=str,
     required=False,
@@ -13746,6 +13800,7 @@ def ontologies_action_op_apply(
     ontology: str,
     action: str,
     parameters: str,
+    attribution: typing.Optional[str],
     branch: typing.Optional[str],
     options: typing.Optional[str],
     scenario_rid: typing.Optional[str],
@@ -13772,6 +13827,7 @@ def ontologies_action_op_apply(
         ontology=ontology,
         action=action,
         parameters=json.loads(parameters),
+        attribution=attribution,
         branch=branch,
         options=None if options is None else json.loads(options),
         scenario_rid=scenario_rid,

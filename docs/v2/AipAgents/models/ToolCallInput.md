@@ -5,7 +5,7 @@ Input parameters for a tool call.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**thought** | Optional[str] | No | Any additional message content that the Agent provided for why it chose to call the tool.  |
+**thought** | Optional[str] | No | Any additional message content that the Chatbot Studio Agent provided for why it chose to call the tool.  |
 **inputs** | Dict[ToolInputName, ToolInputValue] | Yes |  |
 
 

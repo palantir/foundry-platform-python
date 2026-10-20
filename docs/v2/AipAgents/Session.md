@@ -13,8 +13,8 @@ Method | HTTP request | Release Stage |
 [**update_title**](#update_title) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/updateTitle | Public Beta |
 
 # **blocking_continue**
-Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
 Blocks on returning the result of the added exchange until the response is fully generated.
 Streamed responses are also supported; see `streamingContinue` for details.
 Concurrent requests to continue the same session are not supported.
@@ -25,11 +25,11 @@ Clients should wait to receive a response before sending the next message.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
-**parameter_inputs** | Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.  |  |
-**user_input** | UserTextInput | The user message for the Agent to respond to. |  |
-**contexts_override** | Optional[List[InputContext]] | If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
+**parameter_inputs** | Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.  |  |
+**user_input** | UserTextInput | The user message for the Chatbot Studio Agent to respond to. |  |
+**contexts_override** | Optional[List[InputContext]] | If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **session_trace_id** | Optional[SessionTraceId] | The unique identifier to use for this continue session trace. By generating and passing this ID to the `blockingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`.  | [optional] |
 
@@ -45,11 +45,11 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
-# Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+# Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
 parameter_inputs = {
     "currentCustomerOrders": {
         "type": "objectSet",
@@ -61,9 +61,9 @@ parameter_inputs = {
         },
     }
 }
-# UserTextInput | The user message for the Agent to respond to.
+# UserTextInput | The user message for the Chatbot Studio Agent to respond to.
 user_input = {"text": "What is the status of my order?"}
-# Optional[List[InputContext]] | If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+# Optional[List[InputContext]] | If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
 contexts_override = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -104,8 +104,8 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **cancel**
-Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
-Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
+Cancel an in-progress streamed exchange with a Chatbot Studio Agent which was initiated with `streamingContinue`.
+Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Chatbot Studio Agent-generated response.
 Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
 
@@ -113,7 +113,7 @@ Note that canceling an exchange does not terminate the stream returned by `strea
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
 **message_id** | MessageId | The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -131,7 +131,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
@@ -170,7 +170,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **create**
-Create a new conversation session between the calling user and an Agent.
+Create a new conversation session between the calling user and a Chatbot Studio Agent.
 Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
 
@@ -178,8 +178,8 @@ Use `blockingContinue` or `streamingContinue` to start adding exchanges to the s
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
-**agent_version** | Optional[AgentVersionString] | The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.  | [optional] |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_version** | Optional[AgentVersionString] | The version of the Chatbot Studio Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Chatbot Studio Agent at session creation time.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -194,9 +194,9 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# Optional[AgentVersionString] | The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
+# Optional[AgentVersionString] | The version of the Chatbot Studio Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Chatbot Studio Agent at session creation time.
 agent_version = "1.0"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -229,7 +229,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **delete**
-Delete a conversation session between the calling user and an Agent.
+Delete a conversation session between the calling user and a Chatbot Studio Agent.
 Once deleted, the session can no longer be accessed and will not appear in session lists.
 
 
@@ -237,7 +237,7 @@ Once deleted, the session can no longer be accessed and will not appear in sessi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -253,7 +253,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
@@ -286,13 +286,13 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-Get the details of a conversation session between the calling user and an Agent.
+Get the details of a conversation session between the calling user and a Chatbot Studio Agent.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -308,7 +308,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
@@ -341,7 +341,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **list**
-List all conversation sessions between the calling user and an Agent that was created by this client.
+List all conversation sessions between the calling user and a Chatbot Studio Agent that was created by this client.
 This does not list sessions for the user created by other clients.
 For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
 Sessions are returned in order of most recently updated first.
@@ -351,7 +351,7 @@ Sessions are returned in order of most recently updated first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -368,7 +368,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -405,17 +405,17 @@ See [README](../../../README.md#authorization)
 
 # **rag_context**
 Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
-This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
+This allows clients to pre-retrieve context for a user message before sending it to the Chatbot Studio Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Chatbot Studio Agent.
 
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
 **parameter_inputs** | Dict[ParameterId, ParameterValue] | Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.  |  |
-**user_input** | UserTextInput | The user message to retrieve relevant context for from the configured Agent data sources. |  |
+**user_input** | UserTextInput | The user message to retrieve relevant context for from the configured Chatbot Studio Agent data sources. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -430,13 +430,13 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, ParameterValue] | Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.
 parameter_inputs = {"customerName": {"type": "string", "value": "Titan Technologies"}}
-# UserTextInput | The user message to retrieve relevant context for from the configured Agent data sources.
+# UserTextInput | The user message to retrieve relevant context for from the configured Chatbot Studio Agent data sources.
 user_input = {"text": "What is the status of my order?"}
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -473,9 +473,9 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **streaming_continue**
-Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+Continue a conversation session with a Chatbot Studio Agent, or add the first exchange to a session after creation.
+Adds a new exchange to the session with the provided inputs, and generates a response from the Chatbot Studio Agent.
+Returns a stream of the Chatbot Studio Agent response text (formatted using markdown) for clients to consume as the response is generated.
 On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
 Streamed exchanges also support cancellation; see `cancel` for details.
 Concurrent requests to continue the same session are not supported.
@@ -486,11 +486,11 @@ Clients should wait to receive a response, or cancel the in-progress exchange, b
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
-**parameter_inputs** | Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.  |  |
-**user_input** | UserTextInput | The user message for the Agent to respond to. |  |
-**contexts_override** | Optional[List[InputContext]] | If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
+**parameter_inputs** | Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.  |  |
+**user_input** | UserTextInput | The user message for the Chatbot Studio Agent to respond to. |  |
+**contexts_override** | Optional[List[InputContext]] | If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.  | [optional] |
 **message_id** | Optional[MessageId] | A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **session_trace_id** | Optional[SessionTraceId] | The unique identifier to use for this continue session trace. By generating and passing this ID to the `streamingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`, which can be loaded via the `getContent` endpoint.  | [optional] |
@@ -507,11 +507,11 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
-# Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
+# Dict[ParameterId, ParameterValue] | Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Chatbot Studio Agent for the exchange.
 parameter_inputs = {
     "currentCustomerOrders": {
         "type": "objectSet",
@@ -523,9 +523,9 @@ parameter_inputs = {
         },
     }
 }
-# UserTextInput | The user message for the Agent to respond to.
+# UserTextInput | The user message for the Chatbot Studio Agent to respond to.
 user_input = {"text": "What is the status of my order?"}
-# Optional[List[InputContext]] | If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+# Optional[List[InputContext]] | If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Chatbot Studio Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Chatbot Studio Agent for the session.
 contexts_override = None
 # Optional[MessageId] | A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
 message_id = "00f8412a-c29d-4063-a417-8052825285a5"
@@ -570,14 +570,14 @@ See [README](../../../README.md#authorization)
 
 # **update_title**
 Update the title for a session.
-Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
+Use this to set a custom title for a session to help identify it in the list of sessions with a Chatbot Studio Agent.
 
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/). |  |
 **session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
 **title** | str | The new title for the session. The maximum title length is 200 characters. Titles are truncated if they exceed this length.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -594,7 +594,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+# AgentRid | An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
