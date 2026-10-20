@@ -54,6 +54,7 @@ Represents the value of data in the following format. Note that these values can
 | Decimal                     | string                                                | `"2.718281828"`                                                               |
 | Float                       | number                                                | `3.14159265`                                                                  |
 | Double                      | number                                                | `3.14159265`                                                                  |
+| Geoshape                    | GeoJSON geometry, as an object or string              | `{"type": "Point", "coordinates": [102.0, 0.5]}`                              |
 | Integer                     | number                                                | `238940`                                                                      |
 | Long                        | string                                                | `"58319870951433"`                                                            |
 | Marking                     | string                                                | `"MU"`                                                                        |
@@ -137,7 +138,7 @@ class ExecutionCompleted(core.ModelBase):
 
 
 ExecutionId: typing_extensions.TypeAlias = str
-"""Unique identifier for an async query execution."""
+"""An opaque identifier for an async query execution. Retain this value unchanged for polling and cancellation."""
 
 
 class ExecutionSubmitted(core.ModelBase):
@@ -333,6 +334,7 @@ QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "ThreeDimensionalAggregation",
         "QueryUnionType",
         core_models.FloatType,
+        core_models.GeoShapeType,
         core_models.LongType,
         core_models.BooleanType,
         core_models.UnsupportedType,

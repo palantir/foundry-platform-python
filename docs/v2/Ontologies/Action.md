@@ -27,6 +27,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
+**attribution** | Optional[Attribution] | The Attribution to be used when executing this request.  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **options** | Optional[ApplyActionRequestOptions] |  | [optional] |
 **scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to apply the action against.  | [optional] |
@@ -54,6 +55,8 @@ ontology = "palantir"
 action = "rename-employee"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
+# Optional[Attribution] | The Attribution to be used when executing this request.
+attribution = None
 # Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[ApplyActionRequestOptions]
@@ -77,6 +80,7 @@ try:
         ontology,
         action,
         parameters=parameters,
+        attribution=attribution,
         branch=branch,
         options=options,
         scenario_rid=scenario_rid,

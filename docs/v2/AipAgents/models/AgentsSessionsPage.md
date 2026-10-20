@@ -1,6 +1,6 @@
 # AgentsSessionsPage
 
-A page of results for sessions across all accessible Agents for the calling user.
+A page of results for sessions across all accessible Chatbot Studio Agents for the calling user.
 Sessions are returned in order of most recently updated first.
 
 

@@ -680,6 +680,317 @@ def filesystem_folder_op_restore(
     click.echo(repr(result))
 
 
+@cli.group("marketplace")
+def marketplace():
+    pass
+
+
+@marketplace.group("marketplace_installation_job")
+def marketplace_marketplace_installation_job():
+    pass
+
+
+@marketplace_marketplace_installation_job.command("abort")
+@click.argument("marketplace_installation_job_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.pass_obj
+def marketplace_marketplace_installation_job_op_abort(
+    client: FoundryClient,
+    marketplace_installation_job_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Abort an installation job draft or request cancellation of a submitted installation job. This operation is
+    idempotent while the job remains available. Poll the job with `get` after aborting: submitted jobs may report
+    `ABORTING` before reaching `ABORTED`. Aborting a job that has already finished leaves its terminal status
+    unchanged.
+
+    A submitted job may already have created resources. Cancelling it can leave the installation in an
+    inconsistent state. To recover to a consistent state, attempt a new job to the same target version.
+
+    An aborted draft remains queryable only until automatic cleanup.
+    """
+    result = client.marketplace.MarketplaceInstallationJob.abort(
+        marketplace_installation_job_rid=marketplace_installation_job_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@marketplace_marketplace_installation_job.command("create")
+@click.option(
+    "--installations",
+    type=str,
+    required=True,
+    help="""Existing installations to upgrade to their target versions, along with their input mappings.""",
+)
+@click.option(
+    "--recommendations",
+    type=str,
+    required=True,
+    help="""Strategies for selecting other installations whose outputs can fulfill the targets' inputs. Targets in this request may still supply inputs to one another, independent of recommendation strategy.""",
+)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.option("--submission_mode", type=str, required=False, help="""""")
+@click.pass_obj
+def marketplace_marketplace_installation_job_op_create(
+    client: FoundryClient,
+    installations: str,
+    recommendations: str,
+    preview: typing.Optional[bool],
+    submission_mode: typing.Optional[str],
+):
+    """
+    Create a job to upgrade existing installations to their target versions.
+
+    The operation returns before preparation and validation complete. Poll the job's status to track progress.
+
+    Specify 1 to 10 distinct installations, with at most one installation per product. Targets must share a
+    namespace and marketplace and have at most one resulting ontology after applying overrides.
+
+    For each target, `values` and `explicitlyUnset` replace all previously provided values and explicit unsets.
+
+    Inputs omitted from both fields may be fulfilled by defaults, automatic mapping, or recommendations. Use
+    `discoverInputs` to inspect available sources.
+
+    This operation is not idempotent. Repeating it may create another draft or return a conflict.
+    """
+    result = client.marketplace.MarketplaceInstallationJob.create(
+        installations=json.loads(installations),
+        recommendations=json.loads(recommendations),
+        preview=preview,
+        submission_mode=None if submission_mode is None else json.loads(submission_mode),
+    )
+    click.echo(repr(result))
+
+
+@marketplace_marketplace_installation_job.command("discover_inputs")
+@click.option(
+    "--installations",
+    type=str,
+    required=True,
+    help="""Between 1 and 10 distinct installations, with at most one installation per product. Targets must share a namespace and marketplace and have at most one resulting ontology after applying overrides.""",
+)
+@click.option(
+    "--recommendations",
+    type=str,
+    required=True,
+    help="""An empty list disables recommendations from installations outside the requested targets. Targets in this request may still supply inputs to one another.""",
+)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.option(
+    "--source_filter",
+    type=str,
+    required=False,
+    help="""When supplied, excludes an input if any of its available sources appears in `excludedSources`. If omitted, returns only inputs whose sole available source is `MANUAL`. Inputs with no available source are always omitted.""",
+)
+@click.pass_obj
+def marketplace_marketplace_installation_job_op_discover_inputs(
+    client: FoundryClient,
+    installations: str,
+    recommendations: str,
+    preview: typing.Optional[bool],
+    source_filter: typing.Optional[str],
+):
+    """
+    Discover required and optional inputs for existing installations and their proposed target versions.
+
+    Resolves input requirements and available sources using the requested target versions, location overrides,
+    and recommendation strategies.
+
+    The request token must have permission to edit each target. Every input in the target product versions must
+    have an API name.
+    """
+    result = client.marketplace.MarketplaceInstallationJob.discover_inputs(
+        installations=json.loads(installations),
+        recommendations=json.loads(recommendations),
+        preview=preview,
+        source_filter=None if source_filter is None else json.loads(source_filter),
+    )
+    click.echo(repr(result))
+
+
+@marketplace_marketplace_installation_job.command("get")
+@click.argument("marketplace_installation_job_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.pass_obj
+def marketplace_marketplace_installation_job_op_get(
+    client: FoundryClient,
+    marketplace_installation_job_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the current status of an installation job through draft preparation and execution.
+
+    The request token must have permission to view the draft or submitted job. Missing or inaccessible jobs return
+    `MarketplaceInstallationJobNotFound`. A failed or aborted job still returns HTTP 200 with its current status.
+    """
+    result = client.marketplace.MarketplaceInstallationJob.get(
+        marketplace_installation_job_rid=marketplace_installation_job_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@marketplace_marketplace_installation_job.group("marketplace_installation_job_details")
+def marketplace_marketplace_installation_job_marketplace_installation_job_details():
+    pass
+
+
+@marketplace_marketplace_installation_job_marketplace_installation_job_details.command("get")
+@click.argument("marketplace_installation_job_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.pass_obj
+def marketplace_marketplace_installation_job_marketplace_installation_job_details_op_get(
+    client: FoundryClient,
+    marketplace_installation_job_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get available validation results and failure diagnostics for an installation job or draft. Use the
+    installation job's `status` to track its progress and outcome. These details can help explain why a draft or
+    job has not progressed or completed as expected.
+
+    Draft owners receive full validation errors. Other authorized viewers receive a validation summary instead.
+    Failed and aborted jobs return HTTP 200 with their available diagnostics. An explicit abort or a
+    validation-only submission rejection may have no failure diagnostics.
+    The job remains queryable under the same RID after its draft is submitted, subject to retention and access.
+    """
+    result = client.marketplace.MarketplaceInstallationJob.Details.get(
+        marketplace_installation_job_rid=marketplace_installation_job_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@marketplace.group("marketplace_installation")
+def marketplace_marketplace_installation():
+    pass
+
+
+@marketplace_marketplace_installation.command("create")
+@click.option("--marketplace_rid", type=str, required=True, help="""""")
+@click.option(
+    "--parent_folder_rid",
+    type=str,
+    required=True,
+    help="""The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.""",
+)
+@click.option("--product_id", type=str, required=True, help="""""")
+@click.option(
+    "--installation_suffix",
+    type=str,
+    required=False,
+    help="""An optional suffix appended to the product title to form the initial display name, for example "Product title - CI staging". If omitted, the display name uses the product title alone.""",
+)
+@click.option(
+    "--ontology_rid",
+    type=str,
+    required=False,
+    help="""The ontology where jobs for this installation create or update ontology resources. Omit if the product does not interact with the ontology.""",
+)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.option(
+    "--target_version_hint",
+    type=str,
+    required=False,
+    help="""If provided:
+ - validations that are version specific (e.g. singleton validations) are executed assuming
+    the installation will later have a job run to transition it to this specific target version.
+ - the installation title is resolved from the product title at that version.
+
+If not provided, the latest released version of the product is used to resolve information for
+the steps above.""",
+)
+@click.pass_obj
+def marketplace_marketplace_installation_op_create(
+    client: FoundryClient,
+    marketplace_rid: str,
+    parent_folder_rid: str,
+    product_id: str,
+    installation_suffix: typing.Optional[str],
+    ontology_rid: typing.Optional[str],
+    preview: typing.Optional[bool],
+    target_version_hint: typing.Optional[str],
+):
+    """
+    Register a product installation in the given project or folder without running an installation job or
+    installing product resources. Returns the created installation with its current Compass metadata and
+    no latest target version. A subsequent installation job selects the version to install.
+
+    This operation is not idempotent. Repeated requests create separate installations unless the selected
+    product version's singleton policy prohibits another installation in the destination namespace, in
+    which case SingletonMarketplaceInstallationAlreadyExists is returned.
+    """
+    result = client.marketplace.MarketplaceInstallation.create(
+        marketplace_rid=marketplace_rid,
+        parent_folder_rid=parent_folder_rid,
+        product_id=product_id,
+        installation_suffix=installation_suffix,
+        ontology_rid=ontology_rid,
+        preview=preview,
+        target_version_hint=(
+            None if target_version_hint is None else json.loads(target_version_hint)
+        ),
+    )
+    click.echo(repr(result))
+
+
+@marketplace_marketplace_installation.command("get")
+@click.argument("marketplace_installation_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.pass_obj
+def marketplace_marketplace_installation_op_get(
+    client: FoundryClient,
+    marketplace_installation_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get a registered installation and the product version targeted by its latest submitted job.
+    """
+    result = client.marketplace.MarketplaceInstallation.get(
+        marketplace_installation_rid=marketplace_installation_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@marketplace_marketplace_installation.group("marketplace_installation_inputs")
+def marketplace_marketplace_installation_marketplace_installation_inputs():
+    pass
+
+
+@marketplace_marketplace_installation_marketplace_installation_inputs.command("get")
+@click.argument("marketplace_installation_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.option("--selection", type=click.Choice(["MANUAL_ONLY", "ALL"]), required=False, help="""""")
+@click.pass_obj
+def marketplace_marketplace_installation_marketplace_installation_inputs_op_get(
+    client: FoundryClient,
+    marketplace_installation_rid: str,
+    preview: typing.Optional[bool],
+    selection: typing.Optional[typing.Literal["MANUAL_ONLY", "ALL"]],
+):
+    """
+    Get the current fulfilled input values and explicit unset inputs of an installation.
+
+    By default, only manually fulfilled inputs are returned. Set `selection` to `ALL` to return fulfilled inputs
+    from every stored source. Explicitly unset inputs are returned regardless of `selection`.
+
+    Optional inputs with neither a value nor an explicit unset are omitted.
+
+    Returned values may use a different supported representation from the value originally provided.
+
+    Credential values expose secret names only, never plaintext, and cannot be submitted to another installation job.
+    """
+    result = client.marketplace.MarketplaceInstallation.Inputs.get(
+        marketplace_installation_rid=marketplace_installation_rid,
+        preview=preview,
+        selection=selection,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("orchestrator")
 def orchestrator():
     pass

@@ -125,7 +125,8 @@ class ExecutionClient:
         - running: execution is still in progress.
         - succeeded: execution completed successfully with a return value.
 
-        If the execution failed, a service error is thrown.
+        If the execution failed, a service error is thrown. Canceled executions return an
+        AsyncQueryCanceled error.
 
         Use the timeout parameter for long-polling: the server holds the
         connection open for up to the specified number of seconds. If the
@@ -294,7 +295,8 @@ class AsyncExecutionClient:
         - running: execution is still in progress.
         - succeeded: execution completed successfully with a return value.
 
-        If the execution failed, a service error is thrown.
+        If the execution failed, a service error is thrown. Canceled executions return an
+        AsyncQueryCanceled error.
 
         Use the timeout parameter for long-polling: the server holds the
         connection open for up to the specified number of seconds. If the

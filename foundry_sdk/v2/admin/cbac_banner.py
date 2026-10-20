@@ -62,7 +62,6 @@ class CbacBannerClient:
         *,
         display_type: typing.Optional[admin_models.ClassificationBannerDisplayType] = None,
         marking_ids: typing.Optional[typing.List[core_models.MarkingId]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.CbacBanner:
@@ -71,12 +70,10 @@ class CbacBannerClient:
 
         Required scopes: [api:admin-read]
 
-        :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
+        :param display_type: The display type of the banner. Defaults to `PORTION_MARKING`. `BANNER_LINE` is a long classification string used in the header of a document; `PORTION_MARKING` is a short classification string used for individual paragraphs.
         :type display_type: Optional[ClassificationBannerDisplayType]
-        :param marking_ids: The marking IDs for which to generate a banner. Duplicate entries are ignored.
+        :param marking_ids: The marking IDs for which to generate a banner. Duplicate marking IDs are ignored. Marking IDs that the current CBAC configuration does not recognize are ignored and omitted from the `markings` response.
         :type marking_ids: Optional[List[MarkingId]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -95,7 +92,6 @@ class CbacBannerClient:
                 query_params={
                     "displayType": display_type,
                     "markingIds": marking_ids,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -232,7 +228,6 @@ class AsyncCbacBannerClient:
         *,
         display_type: typing.Optional[admin_models.ClassificationBannerDisplayType] = None,
         marking_ids: typing.Optional[typing.List[core_models.MarkingId]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.CbacBanner]:
@@ -241,12 +236,10 @@ class AsyncCbacBannerClient:
 
         Required scopes: [api:admin-read]
 
-        :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
+        :param display_type: The display type of the banner. Defaults to `PORTION_MARKING`. `BANNER_LINE` is a long classification string used in the header of a document; `PORTION_MARKING` is a short classification string used for individual paragraphs.
         :type display_type: Optional[ClassificationBannerDisplayType]
-        :param marking_ids: The marking IDs for which to generate a banner. Duplicate entries are ignored.
+        :param marking_ids: The marking IDs for which to generate a banner. Duplicate marking IDs are ignored. Marking IDs that the current CBAC configuration does not recognize are ignored and omitted from the `markings` response.
         :type marking_ids: Optional[List[MarkingId]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -265,7 +258,6 @@ class AsyncCbacBannerClient:
                 query_params={
                     "displayType": display_type,
                     "markingIds": marking_ids,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={

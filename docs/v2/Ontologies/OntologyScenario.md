@@ -9,6 +9,7 @@ Method | HTTP request | Release Stage |
 [**list_scenario_edited_links**](#list_scenario_edited_links) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/links/{linkType}/edited | Private Beta |
 [**list_scenario_edited_object_types**](#list_scenario_edited_object_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/edited | Private Beta |
 [**list_scenario_edited_objects**](#list_scenario_edited_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/edited | Private Beta |
+[**rebase_scenario**](#rebase_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/rebase | Private Beta |
 
 # **create_scenario**
 Creates an ontology scenario.
@@ -484,6 +485,66 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListScenarioEditedObjectsResponse  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **rebase_scenario**
+Rebases all object types edited within the scenario onto the latest data from the scenario's base.
+Rebasing may also cause other scenarios with edits to the same object types on the same base to observe
+the updated base data. The caller must have permission to edit the scenario.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**scenario_rid** | OntologyScenarioRid | The unique resource identifier of the scenario.  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# OntologyScenarioRid | The unique resource identifier of the scenario.
+scenario_rid = "ri.actions..scenario.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = client.ontologies.OntologyScenario.rebase_scenario(
+        ontology, scenario_rid, preview=preview
+    )
+    print("The rebase_scenario response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling OntologyScenario.rebase_scenario: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+Required scopes: [api:ontologies-read, api:ontologies-write]
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  | No Content | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

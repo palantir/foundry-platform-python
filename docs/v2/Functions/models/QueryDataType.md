@@ -20,6 +20,7 @@ IntegerType | integer
 ThreeDimensionalAggregation | threeDimensionalAggregation
 QueryUnionType | union
 FloatType | float
+GeoShapeType | geoshape
 LongType | long
 BooleanType | boolean
 UnsupportedType | unsupported

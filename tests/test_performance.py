@@ -518,6 +518,26 @@ def test_filesystem_v3_models_import_performance():
     assert init_and_access_time < 1.0
 
 
+def test_marketplace_v3_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').marketplace",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3', None);import foundry_sdk; import foundry_sdk.v3",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_marketplace_v3_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v3.marketplace.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v3.marketplace.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 1.0
+
+
 def test_orchestrator_v3_client_access_performance():
     init_and_access_time = timeit.timeit(
         stmt="foundry_sdk.v3.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').orchestrator",

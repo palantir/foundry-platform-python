@@ -1,6 +1,6 @@
 # ModelPurpose
 
-The purpose for which a language model is configured on an Agent.
+The purpose for which a language model is configured on a Chatbot Studio Agent.
 
 | **Value** |
 | --------- |

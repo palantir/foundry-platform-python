@@ -1318,6 +1318,21 @@ class UnknownClassificationBannerDisplayType(errors.BadRequestError):
     error_instance_id: str
 
 
+class UnknownMarkingTypeParameters(typing_extensions.TypedDict):
+    """The provided marking type is not recognized."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    markingType: str
+
+
+@dataclass
+class UnknownMarkingType(errors.BadRequestError):
+    name: typing.Literal["UnknownMarkingType"]
+    parameters: UnknownMarkingTypeParameters
+    error_instance_id: str
+
+
 class UserDeletedParameters(typing_extensions.TypedDict):
     """The user is deleted."""
 
@@ -1467,6 +1482,7 @@ __all__ = [
     "SearchGroupsPermissionDenied",
     "SearchUsersPermissionDenied",
     "UnknownClassificationBannerDisplayType",
+    "UnknownMarkingType",
     "UserDeleted",
     "UserIsActive",
     "UserNotFound",

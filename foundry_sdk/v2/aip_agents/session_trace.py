@@ -68,14 +68,14 @@ class SessionTraceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.SessionTrace:
         """
-        Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at
+        Get the trace of a Chatbot Studio Agent response. The trace lists the sequence of steps that a Chatbot Studio Agent took to arrive at
         an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
         poll this endpoint to check the realtime progress of a response until the trace is completed.
 
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -178,14 +178,14 @@ class AsyncSessionTraceClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.SessionTrace]:
         """
-        Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at
+        Get the trace of a Chatbot Studio Agent response. The trace lists the sequence of steps that a Chatbot Studio Agent took to arrive at
         an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
         poll this endpoint to check the realtime progress of a response until the trace is completed.
 
 
         Required scopes: [api:aip-agents-read]
 
-        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+        :param agent_rid: An RID identifying a Chatbot Studio Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid

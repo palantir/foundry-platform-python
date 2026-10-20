@@ -489,6 +489,58 @@ class OntologyScenarioClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def rebase_scenario(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        scenario_rid: ontologies_models.OntologyScenarioRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Rebases all object types edited within the scenario onto the latest data from the scenario's base.
+        Rebasing may also cause other scenarios with edits to the same object types on the same base to observe
+        the updated base data. The caller must have permission to edit the scenario.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param scenario_rid: The unique resource identifier of the scenario.
+        :type scenario_rid: OntologyScenarioRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/rebase",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "scenarioRid": scenario_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _OntologyScenarioClientRaw:
     def __init__(self, client: OntologyScenarioClient) -> None:
@@ -509,6 +561,7 @@ class _OntologyScenarioClientRaw:
         def list_scenario_edited_objects(
             _: ontologies_models.ListScenarioEditedObjectsResponse,
         ): ...
+        def rebase_scenario(_: None): ...
 
         self.create_scenario = core.with_raw_response(create_scenario, client.create_scenario)
         self.list_scenario_conflicting_objects = core.with_raw_response(
@@ -529,6 +582,7 @@ class _OntologyScenarioClientRaw:
         self.list_scenario_edited_objects = core.with_raw_response(
             list_scenario_edited_objects, client.list_scenario_edited_objects
         )
+        self.rebase_scenario = core.with_raw_response(rebase_scenario, client.rebase_scenario)
 
 
 class _OntologyScenarioClientStreaming:
@@ -1037,6 +1091,58 @@ class AsyncOntologyScenarioClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def rebase_scenario(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        scenario_rid: ontologies_models.OntologyScenarioRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Rebases all object types edited within the scenario onto the latest data from the scenario's base.
+        Rebasing may also cause other scenarios with edits to the same object types on the same base to observe
+        the updated base data. The caller must have permission to edit the scenario.
+
+
+        Required scopes: [api:ontologies-read, api:ontologies-write]
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param scenario_rid: The unique resource identifier of the scenario.
+        :type scenario_rid: OntologyScenarioRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/scenarios/{scenarioRid}/rebase",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "scenarioRid": scenario_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncOntologyScenarioClientRaw:
     def __init__(self, client: AsyncOntologyScenarioClient) -> None:
@@ -1057,6 +1163,7 @@ class _AsyncOntologyScenarioClientRaw:
         def list_scenario_edited_objects(
             _: ontologies_models.ListScenarioEditedObjectsResponse,
         ): ...
+        def rebase_scenario(_: None): ...
 
         self.create_scenario = core.async_with_raw_response(create_scenario, client.create_scenario)
         self.list_scenario_conflicting_objects = core.async_with_raw_response(
@@ -1077,6 +1184,7 @@ class _AsyncOntologyScenarioClientRaw:
         self.list_scenario_edited_objects = core.async_with_raw_response(
             list_scenario_edited_objects, client.list_scenario_edited_objects
         )
+        self.rebase_scenario = core.async_with_raw_response(rebase_scenario, client.rebase_scenario)
 
 
 class _AsyncOntologyScenarioClientStreaming:

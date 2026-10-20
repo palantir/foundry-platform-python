@@ -1189,6 +1189,7 @@ Represents the value of data in the following format. Note that these values can
 | Double                              | number                                                | `3.14159265`                                                                                                                                                  |
 | EntrySet                            | array of JSON objects                                 | `[{"key": "EMP1234", "value": "true"}, {"key": "EMP4444", "value": "false"}]`                                                                                 |
 | Float                               | number                                                | `3.14159265`                                                                                                                                                  |
+| Geoshape                            | GeoJSON geometry, as an object or string              | `{"type": "Point", "coordinates": [102.0, 0.5]}`                                                                                                              |
 | Integer                             | number                                                | `238940`                                                                                                                                                      |
 | Long                                | string                                                | `"58319870951433"`                                                                                                                                            |
 | Marking                             | string                                                | `"MU"`                                                                                                                                                        |
@@ -5050,6 +5051,7 @@ QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "EntrySetType",
         core_models.DoubleType,
         "QueryUnionType",
+        core_models.GeoShapeType,
         core_models.BooleanType,
         core_models.MediaReferenceType,
         core_models.NullType,

@@ -1,6 +1,6 @@
 # FunctionRetrievedContext
 
-Context retrieved from running a function to include as additional context in the prompt to the Agent.
+Context retrieved from running a function to include as additional context in the prompt to the Chatbot Studio Agent.
 
 
 ## Properties

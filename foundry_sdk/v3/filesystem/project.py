@@ -142,11 +142,11 @@ class ProjectClient:
         :return: Returns the result object.
         :rtype: None
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises DeleteProjectPermissionDenied: Could not delete the project due to insufficient permissions.
         :raises InvalidProjects: The given resources are not projects.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ProjectsNotFound: The specified projects could not be found.
         :raises TrashingHomeFoldersNotSupported: Home folders cannot be trashed. Home folders are created and managed by the platform.
         """
@@ -261,10 +261,10 @@ class ProjectClient:
         :return: Returns the result object.
         :rtype: filesystem_models.GetProjectsBatchResponse
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises InvalidProjects: The given resources are not projects.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ProjectsNotFound: The specified projects could not be found.
         """
 
@@ -496,11 +496,11 @@ class AsyncProjectClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises DeleteProjectPermissionDenied: Could not delete the project due to insufficient permissions.
         :raises InvalidProjects: The given resources are not projects.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ProjectsNotFound: The specified projects could not be found.
         :raises TrashingHomeFoldersNotSupported: Home folders cannot be trashed. Home folders are created and managed by the platform.
         """
@@ -615,10 +615,10 @@ class AsyncProjectClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.GetProjectsBatchResponse]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises InvalidProjects: The given resources are not projects.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ProjectsNotFound: The specified projects could not be found.
         """
 

@@ -23,11 +23,15 @@ from foundry_sdk.v3.core import models as core_models
 
 
 class BatchRequestSizeExceededLimitParameters(typing_extensions.TypedDict):
+    """Thrown when a batch request exceeds the endpoint's maximum batch size."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     maximumBatchSize: int
+    """The maximum size of batch requests that can be sent to this endpoint."""
+
     providedBatchSize: int
+    """The size of the batch request that was sent to this endpoint."""
 
 
 @dataclass
@@ -53,6 +57,7 @@ class InvalidPageSize(errors.BadRequestError):
 
 
 class MissingBatchRequestParameters(typing_extensions.TypedDict):
+    """Thrown when a batch request contains no elements."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

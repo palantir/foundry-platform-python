@@ -367,6 +367,7 @@ class MarkingClient:
         self,
         *,
         include_deleted: typing.Optional[bool] = None,
+        marking_type: typing.Optional[admin_models.MarkingType] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -379,6 +380,8 @@ class MarkingClient:
 
         :param include_deleted: Whether to include deleted Markings. Defaults to true when omitted.
         :type include_deleted: Optional[bool]
+        :param marking_type: The marking type of the Markings to return. Defaults to all marking types when omitted.
+        :type marking_type: Optional[MarkingType]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -389,6 +392,7 @@ class MarkingClient:
         :rtype: core.ResourceIterator[admin_models.Marking]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UnknownMarkingType: The provided marking type is not recognized.
         """
 
         return self._api_client.call_api(
@@ -397,6 +401,7 @@ class MarkingClient:
                 resource_path="/v2/admin/markings",
                 query_params={
                     "includeDeleted": include_deleted,
+                    "markingType": marking_type,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -409,6 +414,7 @@ class MarkingClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UnknownMarkingType": admin_errors.UnknownMarkingType,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -421,25 +427,26 @@ class MarkingClient:
         self,
         *,
         classification_strings: typing.List[str],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.ParseClassificationsResponse:
         """
-        Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+        Parses classification marking strings (e.g. `MTS//MNF`) into their component marking IDs.
+        Strings that cannot be parsed are returned in `errors` with a human-readable message.
+
 
         Required scopes: [api:admin-read]
 
-        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
+        :param classification_strings: The classification strings to parse, e.g. `MTS//MNF`. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed only once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: admin_models.ParseClassificationsResponse
 
+        :raises BatchRequestSizeExceededLimit: The submitted batch request was too large.
         :raises CbacUnavailable: CBAC is not available.
+        :raises MissingBatchRequest: Batch requests must contain at least one element.
         :raises ParseClassificationsPermissionDenied: The provided token does not have permission to parse the given classification strings.
         """
 
@@ -447,9 +454,7 @@ class MarkingClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/parseClassifications",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -461,7 +466,9 @@ class MarkingClient:
                 response_type=admin_models.ParseClassificationsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "BatchRequestSizeExceededLimit": core_errors.BatchRequestSizeExceededLimit,
                     "CbacUnavailable": admin_errors.CbacUnavailable,
+                    "MissingBatchRequest": core_errors.MissingBatchRequest,
                     "ParseClassificationsPermissionDenied": admin_errors.ParseClassificationsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -922,6 +929,7 @@ class AsyncMarkingClient:
         self,
         *,
         include_deleted: typing.Optional[bool] = None,
+        marking_type: typing.Optional[admin_models.MarkingType] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -934,6 +942,8 @@ class AsyncMarkingClient:
 
         :param include_deleted: Whether to include deleted Markings. Defaults to true when omitted.
         :type include_deleted: Optional[bool]
+        :param marking_type: The marking type of the Markings to return. Defaults to all marking types when omitted.
+        :type marking_type: Optional[MarkingType]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -944,6 +954,7 @@ class AsyncMarkingClient:
         :rtype: core.AsyncResourceIterator[admin_models.Marking]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UnknownMarkingType: The provided marking type is not recognized.
         """
 
         return self._api_client.call_api(
@@ -952,6 +963,7 @@ class AsyncMarkingClient:
                 resource_path="/v2/admin/markings",
                 query_params={
                     "includeDeleted": include_deleted,
+                    "markingType": marking_type,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -964,6 +976,7 @@ class AsyncMarkingClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UnknownMarkingType": admin_errors.UnknownMarkingType,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -976,25 +989,26 @@ class AsyncMarkingClient:
         self,
         *,
         classification_strings: typing.List[str],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.ParseClassificationsResponse]:
         """
-        Parses classification marking strings (e.g. 'S//NF') into their component marking IDs. Strings that cannot be parsed are returned in 'errors' with a human-readable message.
+        Parses classification marking strings (e.g. `MTS//MNF`) into their component marking IDs.
+        Strings that cannot be parsed are returned in `errors` with a human-readable message.
+
 
         Required scopes: [api:admin-read]
 
-        :param classification_strings: The classification strings to parse, e.g. 'S//NF'. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
+        :param classification_strings: The classification strings to parse, e.g. `MTS//MNF`. Requests must contain between 1 and 1000 entries. Duplicate entries count toward this limit but are parsed only once. An empty list returns a `MissingBatchRequest` error, and more than 1000 entries returns a `BatchRequestSizeExceededLimit` error.
         :type classification_strings: List[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: typing.Awaitable[admin_models.ParseClassificationsResponse]
 
+        :raises BatchRequestSizeExceededLimit: The submitted batch request was too large.
         :raises CbacUnavailable: CBAC is not available.
+        :raises MissingBatchRequest: Batch requests must contain at least one element.
         :raises ParseClassificationsPermissionDenied: The provided token does not have permission to parse the given classification strings.
         """
 
@@ -1002,9 +1016,7 @@ class AsyncMarkingClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/parseClassifications",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -1016,7 +1028,9 @@ class AsyncMarkingClient:
                 response_type=admin_models.ParseClassificationsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "BatchRequestSizeExceededLimit": core_errors.BatchRequestSizeExceededLimit,
                     "CbacUnavailable": admin_errors.CbacUnavailable,
+                    "MissingBatchRequest": core_errors.MissingBatchRequest,
                     "ParseClassificationsPermissionDenied": admin_errors.ParseClassificationsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

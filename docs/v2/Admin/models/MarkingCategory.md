@@ -10,6 +10,7 @@ MarkingCategory
 **description** | MarkingCategoryDescription | Yes |  |
 **category_type** | MarkingCategoryType | Yes |  |
 **marking_type** | MarkingType | Yes |  |
+**priority** | Optional[Long] | No | The priority, only used on CBAC categories. Higher numbers mean higher priority. |
 **markings** | List[MarkingId] | Yes |  |
 **deleted** | MarkingCategoryDeleted | Yes | Whether the Marking Category has been deleted. |
 **created_time** | CreatedTime | Yes |  |

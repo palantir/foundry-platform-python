@@ -44,11 +44,13 @@ class FoundryClient:
 
         from foundry_sdk.v3.endpoints._client import EndpointsClient
         from foundry_sdk.v3.filesystem._client import FilesystemClient
+        from foundry_sdk.v3.marketplace._client import MarketplaceClient
         from foundry_sdk.v3.orchestrator._client import OrchestratorClient
         from foundry_sdk.v3.tiles._client import TilesClient
 
         self.endpoints = EndpointsClient(auth=auth, hostname=hostname_supplier, config=config)
         self.filesystem = FilesystemClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.marketplace = MarketplaceClient(auth=auth, hostname=hostname_supplier, config=config)
         self.orchestrator = OrchestratorClient(auth=auth, hostname=hostname_supplier, config=config)
         self.tiles = TilesClient(auth=auth, hostname=hostname_supplier, config=config)
 
@@ -81,11 +83,15 @@ class AsyncFoundryClient:
 
         from foundry_sdk.v3.endpoints._client import AsyncEndpointsClient
         from foundry_sdk.v3.filesystem._client import AsyncFilesystemClient
+        from foundry_sdk.v3.marketplace._client import AsyncMarketplaceClient
         from foundry_sdk.v3.orchestrator._client import AsyncOrchestratorClient
         from foundry_sdk.v3.tiles._client import AsyncTilesClient
 
         self.endpoints = AsyncEndpointsClient(auth=auth, hostname=hostname_supplier, config=config)
         self.filesystem = AsyncFilesystemClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.marketplace = AsyncMarketplaceClient(
             auth=auth, hostname=hostname_supplier, config=config
         )
         self.orchestrator = AsyncOrchestratorClient(

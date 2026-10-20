@@ -5,7 +5,7 @@ Details about the used tool.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | str | Yes | The name of the tool that was called, as configured on the Agent. |
+**name** | str | Yes | The name of the tool that was called, as configured on the Chatbot Studio Agent. |
 **type** | ToolType | Yes | The type of the tool that was called. |
 
 

@@ -1,6 +1,6 @@
 # ExecutionId
 
-Unique identifier for an async query execution.
+An opaque identifier for an async query execution. Retain this value unchanged for polling and cancellation.
 
 ## Type
 ```python

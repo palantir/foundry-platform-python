@@ -41,12 +41,24 @@ FolderRid: typing_extensions.TypeAlias = core.RID
 """The unique resource identifier (RID) of a folder."""
 
 
+NamespaceRid: typing_extensions.TypeAlias = core.RID
+"""The unique resource identifier (RID) of a namespace."""
+
+
+OntologyRid: typing_extensions.TypeAlias = core.RID
+"""The unique resource identifier (RID) of an ontology."""
+
+
 PageSize: typing_extensions.TypeAlias = int
-"""PageSize"""
+"""The page size to use for the endpoint."""
 
 
 PageToken: typing_extensions.TypeAlias = str
-"""PageToken"""
+"""
+The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.
+"""
 
 
 Position: typing_extensions.TypeAlias = typing.List["Coordinate"]
@@ -76,6 +88,8 @@ __all__ = [
     "Coordinate",
     "CreatedTime",
     "FolderRid",
+    "NamespaceRid",
+    "OntologyRid",
     "PageSize",
     "PageToken",
     "Position",

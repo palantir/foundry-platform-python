@@ -11,6 +11,7 @@ Represents the value of data in the following format. Note that these values can
 | Decimal                     | string                                                | `"2.718281828"`                                                               |
 | Float                       | number                                                | `3.14159265`                                                                  |
 | Double                      | number                                                | `3.14159265`                                                                  |
+| Geoshape                    | GeoJSON geometry, as an object or string              | `{"type": "Point", "coordinates": [102.0, 0.5]}`                              |
 | Integer                     | number                                                | `238940`                                                                      |
 | Long                        | string                                                | `"58319870951433"`                                                            |
 | Marking                     | string                                                | `"MU"`                                                                        |

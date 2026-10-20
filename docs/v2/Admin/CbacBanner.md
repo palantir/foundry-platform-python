@@ -2,7 +2,7 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/admin/cbacBanner | Public Beta |
+[**get**](#get) | **GET** /v2/admin/cbacBanner | Stable |
 [**get_for_resources**](#get_for_resources) | **POST** /v2/admin/cbacBanner/getForResources | Private Beta |
 
 # **get**
@@ -12,9 +12,8 @@ Returns a classification banner string and colors for the given set of marking I
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**display_type** | Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs | [optional] |
-**marking_ids** | Optional[List[MarkingId]] | The marking IDs for which to generate a banner. Duplicate entries are ignored. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**display_type** | Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to `PORTION_MARKING`. `BANNER_LINE` is a long classification string used in the header of a document; `PORTION_MARKING` is a short classification string used for individual paragraphs.  | [optional] |
+**marking_ids** | Optional[List[MarkingId]] | The marking IDs for which to generate a banner. Duplicate marking IDs are ignored. Marking IDs that the current CBAC configuration does not recognize are ignored and omitted from the `markings` response.  | [optional] |
 
 ### Return type
 **CbacBanner**
@@ -28,18 +27,14 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
+# Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to `PORTION_MARKING`. `BANNER_LINE` is a long classification string used in the header of a document; `PORTION_MARKING` is a short classification string used for individual paragraphs.
 display_type = "PORTION_MARKING"
-# Optional[List[MarkingId]] | The marking IDs for which to generate a banner. Duplicate entries are ignored.
+# Optional[List[MarkingId]] | The marking IDs for which to generate a banner. Duplicate marking IDs are ignored. Marking IDs that the current CBAC configuration does not recognize are ignored and omitted from the `markings` response.
 marking_ids = ["MTS", "MNF"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.CbacBanner.get(
-        display_type=display_type, marking_ids=marking_ids, preview=preview
-    )
+    api_response = client.admin.CbacBanner.get(display_type=display_type, marking_ids=marking_ids)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

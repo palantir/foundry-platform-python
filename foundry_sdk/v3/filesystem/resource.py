@@ -152,12 +152,12 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: None
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises DeleteResourcePermissionDenied: Could not delete the resource due to insufficient permissions.
         :raises DeleteServiceSpaceNotSupported: The service's space cannot be deleted.
         :raises DeleteUserSpaceNotSupported: The user's space cannot be deleted.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ResourceNotFound:
         :raises TrashingAutosavedResourcesNotSupported: Auto-saved resources cannot be trashed.
         :raises TrashingHiddenResourcesNotSupported: Hidden resources cannot be trashed.
@@ -285,10 +285,10 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: filesystem_models.GetResourcesBatchResponse
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises GetRootFolderNotSupported: The root folder cannot be retrieved.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ResourceNotFound:
         """
 
@@ -592,12 +592,12 @@ class AsyncResourceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises DeleteOntologyResourcePermissionDenied: The resource, or one of its descendants, backs an ontology entity. Trashing such a resource through the filesystem would leave the ontology in an inconsistent state, so it must be deleted through the ontology APIs instead.
         :raises DeleteResourcePermissionDenied: Could not delete the resource due to insufficient permissions.
         :raises DeleteServiceSpaceNotSupported: The service's space cannot be deleted.
         :raises DeleteUserSpaceNotSupported: The user's space cannot be deleted.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ResourceNotFound:
         :raises TrashingAutosavedResourcesNotSupported: Auto-saved resources cannot be trashed.
         :raises TrashingHiddenResourcesNotSupported: Hidden resources cannot be trashed.
@@ -725,10 +725,10 @@ class AsyncResourceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.GetResourcesBatchResponse]
 
-        :raises BatchRequestSizeExceededLimit:
+        :raises BatchRequestSizeExceededLimit: Thrown when a batch request exceeds the endpoint's maximum batch size.
         :raises GetResourceTimedOut: The request to retrieve resource information timed out.
         :raises GetRootFolderNotSupported: The root folder cannot be retrieved.
-        :raises MissingBatchRequest:
+        :raises MissingBatchRequest: Thrown when a batch request contains no elements.
         :raises ResourceNotFound:
         """
 

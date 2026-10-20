@@ -64,6 +64,7 @@ class ActionClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
+        attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
@@ -96,6 +97,8 @@ class ActionClient:
         :type action: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution: The Attribution to be used when executing this request.
+        :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param options:
@@ -134,6 +137,7 @@ class ActionClient:
                     "action": action,
                 },
                 header_params={
+                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
@@ -477,6 +481,7 @@ class AsyncActionClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
+        attribution: typing.Optional[core_models.Attribution] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
@@ -509,6 +514,8 @@ class AsyncActionClient:
         :type action: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution: The Attribution to be used when executing this request.
+        :type attribution: Optional[Attribution]
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param options:
@@ -547,6 +554,7 @@ class AsyncActionClient:
                     "action": action,
                 },
                 header_params={
+                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
