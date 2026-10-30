@@ -58,6 +58,7 @@ Represents the value of data in the following format. Note that these values can
 | Integer                     | number                                                | `238940`                                                                      |
 | Long                        | string                                                | `"58319870951433"`                                                            |
 | Marking                     | string                                                | `"MU"`                                                                        |
+| Entry set                   | array of key/value entries                            | `[{"key": "alpha", "value": 1}]`                                             |
 | Null                        | null                                                  | `null`                                                                        |
 | Set                         | array                                                 | `["alpha", "bravo", "charlie"]`                                               |
 | Short                       | number                                                | `8739`                                                                        |
@@ -67,6 +68,14 @@ Represents the value of data in the following format. Note that these values can
 | ThreeDimensionalAggregation | JSON object                                           | `{"groups": [{"key": "NYC", "groups": [{"key": "Engineer", "value" : 100}]}]}`|
 | Timestamp                   | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                      |
 """
+
+
+class EntrySetType(core.ModelBase):
+    """EntrySetType"""
+
+    key_type: QueryDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
+    value_type: QueryDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
+    type: typing.Literal["entrySet"] = "entrySet"
 
 
 class EnumConstraint(core.ModelBase):
@@ -329,6 +338,7 @@ QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "QuerySetType",
         core_models.VoidType,
         core_models.StringType,
+        "EntrySetType",
         core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
@@ -349,7 +359,10 @@ QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""A union of all the types supported by Query parameters or outputs."""
+"""
+Query parameter and output types.
+Entry-set values require asynchronous execution.
+"""
 
 
 QueryRuntimeErrorParameter: typing_extensions.TypeAlias = str
@@ -788,6 +801,7 @@ __all__ = [
     "ArrayConstraint",
     "CancelExecutionResponse",
     "DataValue",
+    "EntrySetType",
     "EnumConstraint",
     "ExecuteAsyncQueryRequest",
     "ExecuteQueryAsyncResponse",

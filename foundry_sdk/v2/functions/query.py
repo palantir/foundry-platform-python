@@ -186,6 +186,8 @@ class QueryClient:
         Use the Execution resource's getResult endpoint to poll for the
         result of a submitted execution.
 
+        Supports maps represented as arrays of key/value entries, including nested maps.
+
 
         Required scopes: [api:functions-execute]
 
@@ -866,6 +868,8 @@ class AsyncQueryClient:
 
         Use the Execution resource's getResult endpoint to poll for the
         result of a submitted execution.
+
+        Supports maps represented as arrays of key/value entries, including nested maps.
 
 
         Required scopes: [api:functions-execute]

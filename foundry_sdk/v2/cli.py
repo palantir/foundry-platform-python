@@ -6039,6 +6039,8 @@ def functions_query_op_execute_async(
     Use the Execution resource's getResult endpoint to poll for the
     result of a submitted execution.
 
+    Supports maps represented as arrays of key/value entries, including nested maps.
+
     """
     result = client.functions.Query.execute_async(
         query_api_name=query_api_name,

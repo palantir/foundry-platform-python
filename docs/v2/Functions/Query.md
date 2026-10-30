@@ -117,6 +117,8 @@ for polling, or the complete result if execution finished immediately.
 Use the Execution resource's getResult endpoint to poll for the
 result of a submitted execution.
 
+Supports maps represented as arrays of key/value entries, including nested maps.
+
 
 ### Parameters
 

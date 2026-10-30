@@ -2096,6 +2096,7 @@ Namespace | Name | Import |
 **Functions** | [ArrayConstraint](docs/v2/Functions/models/ArrayConstraint.md) | `from foundry_sdk.v2.functions.models import ArrayConstraint` |
 **Functions** | [CancelExecutionResponse](docs/v2/Functions/models/CancelExecutionResponse.md) | `from foundry_sdk.v2.functions.models import CancelExecutionResponse` |
 **Functions** | [DataValue](docs/v2/Functions/models/DataValue.md) | `from foundry_sdk.v2.functions.models import DataValue` |
+**Functions** | [EntrySetType](docs/v2/Functions/models/EntrySetType.md) | `from foundry_sdk.v2.functions.models import EntrySetType` |
 **Functions** | [EnumConstraint](docs/v2/Functions/models/EnumConstraint.md) | `from foundry_sdk.v2.functions.models import EnumConstraint` |
 **Functions** | [ExecuteAsyncQueryRequest](docs/v2/Functions/models/ExecuteAsyncQueryRequest.md) | `from foundry_sdk.v2.functions.models import ExecuteAsyncQueryRequest` |
 **Functions** | [ExecuteQueryAsyncResponse](docs/v2/Functions/models/ExecuteQueryAsyncResponse.md) | `from foundry_sdk.v2.functions.models import ExecuteQueryAsyncResponse` |
