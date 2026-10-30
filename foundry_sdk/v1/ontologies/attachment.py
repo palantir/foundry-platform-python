@@ -187,7 +187,6 @@ class AttachmentClient:
                 header_params={
                     "Content-Length": content_length,
                     "Content-Type": content_type,
-                    "Content-Type": "*/*",
                     "Accept": "application/json",
                 },
                 body=body,
@@ -384,7 +383,6 @@ class AsyncAttachmentClient:
                 header_params={
                     "Content-Length": content_length,
                     "Content-Type": content_type,
-                    "Content-Type": "*/*",
                     "Accept": "application/json",
                 },
                 body=body,

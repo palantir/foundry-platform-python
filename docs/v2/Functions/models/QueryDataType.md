@@ -1,6 +1,7 @@
 # QueryDataType
 
-A union of all the types supported by Query parameters or outputs.
+Query parameter and output types.
+Entry-set values require asynchronous execution.
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
@@ -15,6 +16,7 @@ QueryStructType | struct
 QuerySetType | set
 VoidType | void
 StringType | string
+EntrySetType | entrySet
 DoubleType | double
 IntegerType | integer
 ThreeDimensionalAggregation | threeDimensionalAggregation
