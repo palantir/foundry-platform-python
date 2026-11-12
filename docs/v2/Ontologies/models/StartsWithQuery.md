@@ -10,6 +10,7 @@ query on by a variety of means. Either `field` or `propertyIdentifier` must be s
 | ------------ | ------------- | ------------- | ------------- |
 **field** | Optional[PropertyApiName] | No |  |
 **property_identifier** | Optional[PropertyIdentifier] | No |  |
+**analyzer_selection** | Optional[AnalyzerSelection] | No |  |
 **value** | str | Yes |  |
 **type** | Literal["startsWith"] | Yes | None |
 

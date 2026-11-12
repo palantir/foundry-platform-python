@@ -21,6 +21,8 @@ functions, use the equivalent endpoint under
 `/v2/ontologies/{ontology}/queries/{queryApiName}/execute`. For streaming or incremental
 result delivery, use `streamingExecute`.
 
+Entry-set, object, and interface-object values and object-set inputs are not supported; use `executeAsync`.
+
 
 ### Parameters
 
@@ -128,7 +130,7 @@ Name | Type | Description  | Notes |
 **branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
 **include_prerelease** | Optional[IncludePrerelease] |  | [optional] |
 **latest_version_resolution** | Optional[LatestVersionResolution] |  | [optional] |
-**ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.  | [optional] |
+**ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name).  Used to resolve ontology-bound API names for this request, including queries, objects, and links.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
@@ -159,7 +161,7 @@ branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 include_prerelease = None
 # Optional[LatestVersionResolution]
 latest_version_resolution = "PUBLISH_TIME"
-# Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
+# Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name).  Used to resolve ontology-bound API names for this request, including queries, objects, and links.
 ontology = "example-ontology"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

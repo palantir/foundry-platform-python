@@ -685,6 +685,12 @@ loading all objects of an interface where all objects are viewed as the interfac
 Note that the result object set cannot contain a mix of objects with "interface" properties and "object type"
 properties. Attempting to load an object set like this will result in an error.
 
+If an object in the result can be viewed as more than one interface, the request fails with an
+`UnsupportedObjectSet` error. For example, this happens when the object set intersects two interfaces that the
+object implements, or intersects an interface with a saved object set defined over a different interface. To
+load these objects, use `loadObjectsMultipleObjectTypes` instead. It returns each object with its object type
+properties, along with a mapping from each interface's properties to the object type's properties.
+
 For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
 are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
 

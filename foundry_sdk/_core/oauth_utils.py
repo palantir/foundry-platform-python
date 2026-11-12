@@ -14,6 +14,7 @@
 
 
 import base64
+import contextlib
 import hashlib
 import secrets
 import string
@@ -25,6 +26,7 @@ from abc import abstractmethod
 from typing import Any
 from typing import Callable
 from typing import Dict
+from typing import Iterator
 from typing import List
 from typing import Optional
 from typing import TypeVar
@@ -40,6 +42,7 @@ from foundry_sdk._core.config import Config
 from foundry_sdk._core.hostname_supplier import EndpointType
 from foundry_sdk._core.hostname_supplier import HostnameSupplier
 from foundry_sdk._core.http_client import HttpClient
+from foundry_sdk._errors.not_authenticated import NotAuthenticated
 
 
 class OAuthUtils:
@@ -68,6 +71,8 @@ class OAuthTokenResponse(pydantic.BaseModel):
 
 REFRESH_LIFETIME_FRACTION = 0.75
 TOKEN_EXPIRED_PADDING_MS = 60 * 1000
+EARLY_REFRESH_RATE_LIMIT_SECONDS = 10
+REFRESH_LOCK_TIMEOUT_SECONDS = 5 * 60
 
 
 class OAuthToken(Token):
@@ -100,6 +105,12 @@ class OAuthToken(Token):
         """Token is considered expired 60s before actual expiry."""
         return int(time.time() * 1000) >= self._expires_at - TOKEN_EXPIRED_PADDING_MS
 
+    @property
+    def expires_soon(self) -> bool:
+        """Token should be refreshed once 75% of its lifetime has elapsed."""
+        refresh_window_ms = self.expires_in * 1000 * (1 - REFRESH_LIFETIME_FRACTION)
+        return int(time.time() * 1000) >= self._expires_at - refresh_window_ms
+
 
 class AuthorizeRequest(pydantic.BaseModel):
     url: str
@@ -122,14 +133,13 @@ class OAuth(Auth, ABC):
         self._hostname_supplier = maybe_create_hostname_supplier(hostname, config)
         self._client: Optional[HttpClient] = None
         self._should_refresh = should_refresh
-        self._stop_refresh_event = threading.Event()
+        self._refresh_lock = threading.Lock()
+        self._next_early_refresh_at = 0.0
         self._token: Optional[OAuthToken] = None
 
     def sign_out(self) -> SignOutResponse:
         self._revoke_token()
         self._token = None
-        # Signal the auto-refresh thread to stop
-        self._stop_refresh_event.set()
         return SignOutResponse()
 
     def execute_with_token(self, func: Callable[[OAuthToken], T]) -> T:
@@ -148,35 +158,64 @@ class OAuth(Auth, ABC):
     def run_with_token(self, func: Callable[[OAuthToken], T]) -> None:
         self.execute_with_token(func)
 
-    @abstractmethod
     def get_token(self) -> OAuthToken:
-        pass
+        token = self._token
+        if token is None or token.expired:
+            with self._acquire_refresh_lock():
+                # Another thread may have refreshed the token while this one waited for the lock
+                if self._token is token:
+                    self._refresh_token()
+                if self._token is None or self._token is token:
+                    raise NotAuthenticated("Token expired and refresh failed.")
+                token = self._token
+        elif self._should_refresh and token.expires_soon:
+            token = self._try_early_refresh(token)
+        return token
 
     @abstractmethod
     def _revoke_token(self) -> None:
         pass
 
-    @abstractmethod
     def _try_refresh_token(self) -> bool:
+        """Refresh the token, waiting for any refresh already in progress."""
+        with self._acquire_refresh_lock():
+            return self._refresh_token()
+
+    @abstractmethod
+    def _refresh_token(self) -> bool:
+        """Fetch a new token. Callers must hold the refresh lock."""
         pass
 
-    def _start_auto_refresh(self) -> None:
-        # Stop any existing auto-refresh thread before starting a new one
-        self._stop_refresh_event.set()
-        self._stop_refresh_event = threading.Event()
-        stop = self._stop_refresh_event
+    @contextlib.contextmanager
+    def _acquire_refresh_lock(self) -> Iterator[None]:
+        lock = self._refresh_lock
+        if not lock.acquire(timeout=REFRESH_LOCK_TIMEOUT_SECONDS):
+            # The thread holding the lock is gone, e.g. because the process forked while it was refreshing
+            lock = self._refresh_lock = threading.Lock()
+            lock.acquire()
+        try:
+            yield
+        finally:
+            lock.release()
 
-        def _auto_refresh_token() -> None:
-            while not stop.wait(
-                self._token.expires_in * REFRESH_LIFETIME_FRACTION if self._token else 10
-            ):
-                if self._token:
-                    try:
-                        self._try_refresh_token()
-                    except Exception:
-                        pass
+    def _try_early_refresh(self, token: OAuthToken) -> OAuthToken:
+        """
+        Refresh a token that is close to expiring but still valid.
+        """
+        lock = self._refresh_lock
+        if time.monotonic() < self._next_early_refresh_at or not lock.acquire(blocking=False):
+            return token
 
-        threading.Thread(target=_auto_refresh_token, daemon=True).start()
+        try:
+            if self._token is token:
+                self._next_early_refresh_at = time.monotonic() + EARLY_REFRESH_RATE_LIMIT_SECONDS
+                self._refresh_token()
+        except Exception as e:
+            warnings.warn(f"OAuth token refresh failed: {e}", UserWarning, stacklevel=3)
+        finally:
+            lock.release()
+
+        return self._token or token
 
     def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
         """

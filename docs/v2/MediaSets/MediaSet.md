@@ -19,6 +19,7 @@ Method | HTTP request | Release Stage |
 [**register**](#register) | **POST** /v2/mediasets/{mediaSetRid}/items/register | Public Beta |
 [**retrieve**](#retrieve) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve | Private Beta |
 [**tile**](#tile) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/tiles/{z}/{x}/{y} | Private Beta |
+[**tile_json**](#tile_json) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/tiles.json | Private Beta |
 [**transform**](#transform) | **POST** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform | Public Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
 [**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Stable |
@@ -1096,6 +1097,67 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Optional[bytes]  | The PNG tile. | */* |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **tile_json**
+Gets a TileJSON 3.0.0 document describing the media item's tiles.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set. |  |
+**media_item_rid** | MediaItemRid | The RID of the media item. |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**read_token** | Optional[MediaItemReadToken] |  | [optional] |
+
+### Return type
+**bytes**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemRid | The RID of the media item.
+media_item_rid = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaItemReadToken]
+read_token = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.tile_json(
+        media_set_rid, media_item_rid, preview=preview, read_token=read_token
+    )
+    print("The tile_json response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.tile_json: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+Required scopes: [api:mediasets-read]
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | bytes  | The TileJSON document. | */* |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

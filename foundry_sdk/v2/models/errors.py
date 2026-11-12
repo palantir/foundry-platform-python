@@ -202,6 +202,32 @@ class DisableLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class EmptyModelVersionBackingRepositoriesParameters(typing_extensions.TypedDict):
+    """A Dill Model Version must provide at least one repository in backingRepositories."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class EmptyModelVersionBackingRepositories(errors.BadRequestError):
+    name: typing.Literal["EmptyModelVersionBackingRepositories"]
+    parameters: EmptyModelVersionBackingRepositoriesParameters
+    error_instance_id: str
+
+
+class EmptyModelVersionCondaRequirementsParameters(typing_extensions.TypedDict):
+    """A Dill Model Version must provide at least one package specification in condaRequirements."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class EmptyModelVersionCondaRequirements(errors.BadRequestError):
+    name: typing.Literal["EmptyModelVersionCondaRequirements"]
+    parameters: EmptyModelVersionCondaRequirementsParameters
+    error_instance_id: str
+
+
 class ExperimentArtifactNotFoundParameters(typing_extensions.TypedDict):
     """The requested artifact was not found in the experiment."""
 
@@ -874,6 +900,8 @@ __all__ = [
     "DeploymentSourceNotEnabledForComputeModules",
     "DeploymentSourceNotImportedIntoProject",
     "DisableLiveDeploymentPermissionDenied",
+    "EmptyModelVersionBackingRepositories",
+    "EmptyModelVersionCondaRequirements",
     "ExperimentArtifactNotFound",
     "ExperimentNotFound",
     "ExperimentSeriesNotFound",

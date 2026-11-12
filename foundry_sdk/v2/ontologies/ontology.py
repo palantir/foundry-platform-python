@@ -136,6 +136,7 @@ class OntologyClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         include_action_type_full_metadata: typing.Optional[bool] = None,
+        include_datasources: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -154,6 +155,8 @@ class OntologyClient:
         :type branch: Optional[FoundryBranch]
         :param include_action_type_full_metadata: When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
         :type include_action_type_full_metadata: Optional[bool]
+        :param include_datasources: When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -169,6 +172,7 @@ class OntologyClient:
                 query_params={
                     "branch": branch,
                     "includeActionTypeFullMetadata": include_action_type_full_metadata,
+                    "includeDatasources": include_datasources,
                     "preview": preview,
                 },
                 path_params={
@@ -442,6 +446,7 @@ class AsyncOntologyClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         include_action_type_full_metadata: typing.Optional[bool] = None,
+        include_datasources: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -460,6 +465,8 @@ class AsyncOntologyClient:
         :type branch: Optional[FoundryBranch]
         :param include_action_type_full_metadata: When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
         :type include_action_type_full_metadata: Optional[bool]
+        :param include_datasources: When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -475,6 +482,7 @@ class AsyncOntologyClient:
                 query_params={
                     "branch": branch,
                     "includeActionTypeFullMetadata": include_action_type_full_metadata,
+                    "includeDatasources": include_datasources,
                     "preview": preview,
                 },
                 path_params={

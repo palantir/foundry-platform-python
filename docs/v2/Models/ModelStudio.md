@@ -123,6 +123,7 @@ Launches a new training run for the Model Studio using the latest configuration 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **model_studio_rid** | ModelStudioRid |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to launch the run on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, uses the latest configuration version on the default branch.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -139,12 +140,16 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ModelStudioRid
 model_studio_rid = None
+# Optional[FoundryBranch] | The Foundry branch to launch the run on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, uses the latest configuration version on the default branch.
+branch = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = client.models.ModelStudio.launch(model_studio_rid, preview=preview)
+    api_response = client.models.ModelStudio.launch(
+        model_studio_rid, branch=branch, preview=preview
+    )
     print("The launch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

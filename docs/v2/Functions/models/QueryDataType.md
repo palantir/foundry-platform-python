@@ -1,6 +1,6 @@
 # QueryDataType
 
-A union of all the types supported by Query parameters or outputs.
+Query parameter and output types.
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
@@ -11,27 +11,32 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 DateType | date
+OntologyInterfaceObjectType | interfaceObject
 QueryStructType | struct
-QuerySetType | set
-VoidType | void
 StringType | string
-DoubleType | double
 IntegerType | integer
 ThreeDimensionalAggregation | threeDimensionalAggregation
-QueryUnionType | union
 FloatType | float
-GeoShapeType | geoshape
 LongType | long
-BooleanType | boolean
 UnsupportedType | unsupported
 AttachmentType | attachment
-MediaReferenceType | mediaReference
-NullType | null
 QueryArrayType | array
+OntologyObjectSetType | objectSet
 TwoDimensionalAggregation | twoDimensionalAggregation
-ValueTypeReference | valueTypeReference
 QueryTypeReferenceType | typeReference
 TimestampType | timestamp
+QuerySetType | set
+VoidType | void
+EntrySetType | entrySet
+DoubleType | double
+QueryUnionType | union
+GeoShapeType | geoshape
+BooleanType | boolean
+MediaReferenceType | mediaReference
+NullType | null
+ValueTypeReference | valueTypeReference
+OntologyInterfaceObjectSetType | interfaceObjectSet
+OntologyObjectType | object
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

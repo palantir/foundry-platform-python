@@ -874,7 +874,7 @@ def marketplace_marketplace_installation():
     "--parent_folder_rid",
     type=str,
     required=True,
-    help="""The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.""",
+    help="""The RID of the project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.""",
 )
 @click.option("--product_id", type=str, required=True, help="""""")
 @click.option(
@@ -915,7 +915,7 @@ def marketplace_marketplace_installation_op_create(
 ):
     """
     Register a product installation in the given project or folder without running an installation job or
-    installing product resources. Returns the created installation with its current Compass metadata and
+    installing product resources. Returns the created installation with its current filesystem metadata and
     no latest target version. A subsequent installation job selects the version to install.
 
     This operation is not idempotent. Repeated requests create separate installations unless the selected
@@ -1133,6 +1133,71 @@ def tiles_tile_source_op_list(
         preview=preview,
     )
     click.echo(repr(result))
+
+
+@tiles_tile_source.group("tile_source_tile")
+def tiles_tile_source_tile_source_tile():
+    pass
+
+
+@tiles_tile_source_tile_source_tile.command("get")
+@click.argument("tile_source_id", type=str, required=True)
+@click.argument("z", type=int, required=True)
+@click.argument("x", type=int, required=True)
+@click.argument("y", type=int, required=True)
+@click.option(
+    "--format",
+    type=click.Choice(
+        [
+            "IMAGERY",
+            "MAPBOX_VECTOR_TILE",
+            "CESIUM_QUANTIZED_MESH",
+            "TERRARIUM_ELEVATION",
+            "MAPBOX_ELEVATION",
+        ]
+    ),
+    required=False,
+    help="""""",
+)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.option(
+    "--tiling_scheme",
+    type=click.Choice(["WEB_MERCATOR", "GLOBAL_GEODETIC", "CUSTOM"]),
+    required=False,
+    help="""""",
+)
+@click.pass_obj
+def tiles_tile_source_tile_source_tile_op_get(
+    client: FoundryClient,
+    tile_source_id: str,
+    z: int,
+    x: int,
+    y: int,
+    format: typing.Optional[
+        typing.Literal[
+            "IMAGERY",
+            "MAPBOX_VECTOR_TILE",
+            "CESIUM_QUANTIZED_MESH",
+            "TERRARIUM_ELEVATION",
+            "MAPBOX_ELEVATION",
+        ]
+    ],
+    preview: typing.Optional[bool],
+    tiling_scheme: typing.Optional[typing.Literal["WEB_MERCATOR", "GLOBAL_GEODETIC", "CUSTOM"]],
+):
+    """
+    Get a tile from a tile source.
+    """
+    result = client.tiles.TileSource.Tile.get(
+        tile_source_id=tile_source_id,
+        z=z,
+        x=x,
+        y=y,
+        format=format,
+        preview=preview,
+        tiling_scheme=tiling_scheme,
+    )
+    click.echo(result)
 
 
 if __name__ == "__main__":

@@ -74,8 +74,47 @@ class TileSourceNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class TileSourceTileNotFoundParameters(typing_extensions.TypedDict):
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    z: int
+    x: int
+    y: int
+    tileSourceId: tiles_models.TileSourceId
+
+
+@dataclass
+class TileSourceTileNotFound(errors.NotFoundError):
+    name: typing.Literal["TileSourceTileNotFound"]
+    parameters: TileSourceTileNotFoundParameters
+    error_instance_id: str
+
+
+class TileSourceTileSetNotSupportedParameters(typing_extensions.TypedDict):
+    """
+    The tile source does not provide a tile set matching the requested format and tiling scheme. Use the tile
+    source's `tileSets` metadata to select a supported combination.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    tileSourceId: tiles_models.TileSourceId
+    format: typing_extensions.NotRequired[tiles_models.TileFormat]
+    tilingScheme: typing_extensions.NotRequired[tiles_models.TilingScheme]
+
+
+@dataclass
+class TileSourceTileSetNotSupported(errors.BadRequestError):
+    name: typing.Literal["TileSourceTileSetNotSupported"]
+    parameters: TileSourceTileSetNotSupportedParameters
+    error_instance_id: str
+
+
 __all__ = [
     "MaxElevationPointCountExceeded",
     "TileSourceCapabilityNotSupported",
     "TileSourceNotFound",
+    "TileSourceTileNotFound",
+    "TileSourceTileSetNotSupported",
 ]

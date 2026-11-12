@@ -328,6 +328,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **requests** | List[GetObjectTypeFullMetadataBatchRequestElement] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_datasources** | Optional[bool] | When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.  | [optional] |
 **include_link_types** | Optional[bool] | A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
@@ -349,6 +350,8 @@ ontology = "palantir"
 requests = None
 # Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[bool] | When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+include_datasources = None
 # Optional[bool] | A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.
 include_link_types = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -360,6 +363,7 @@ try:
         ontology,
         requests=requests,
         branch=branch,
+        include_datasources=include_datasources,
         include_link_types=include_link_types,
         preview=preview,
     )

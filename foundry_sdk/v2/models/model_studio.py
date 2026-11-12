@@ -199,6 +199,7 @@ class ModelStudioClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -210,6 +211,8 @@ class ModelStudioClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to launch the run on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, uses the latest configuration version on the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -226,6 +229,7 @@ class ModelStudioClient:
                 method="POST",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/launch",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -439,6 +443,7 @@ class AsyncModelStudioClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -450,6 +455,8 @@ class AsyncModelStudioClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to launch the run on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, uses the latest configuration version on the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -466,6 +473,7 @@ class AsyncModelStudioClient:
                 method="POST",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/launch",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={

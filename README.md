@@ -933,6 +933,14 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | OntologyObjectSet | [**load**](docs/v2/Ontologies/OntologyObjectSet.md#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects |
 **Ontologies** | OntologyObjectSet | [**load_multiple_object_types**](docs/v2/Ontologies/OntologyObjectSet.md#load_multiple_object_types) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes |
 **Ontologies** | OntologyObjectSet | [**load_objects_or_interfaces**](docs/v2/Ontologies/OntologyObjectSet.md#load_objects_or_interfaces) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces |
+**Ontologies** | OntologyScenario | [**create_scenario**](docs/v2/Ontologies/OntologyScenario.md#create_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/create |
+**Ontologies** | OntologyScenario | [**list_scenario_conflicting_objects**](docs/v2/Ontologies/OntologyScenario.md#list_scenario_conflicting_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/conflicting |
+**Ontologies** | OntologyScenario | [**list_scenario_edited_entity_types**](docs/v2/Ontologies/OntologyScenario.md#list_scenario_edited_entity_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/editedEntityTypes |
+**Ontologies** | OntologyScenario | [**list_scenario_edited_link_types**](docs/v2/Ontologies/OntologyScenario.md#list_scenario_edited_link_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/{objectType}/outgoingLinkTypes/edited |
+**Ontologies** | OntologyScenario | [**list_scenario_edited_links**](docs/v2/Ontologies/OntologyScenario.md#list_scenario_edited_links) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/links/{linkType}/edited |
+**Ontologies** | OntologyScenario | [**list_scenario_edited_object_types**](docs/v2/Ontologies/OntologyScenario.md#list_scenario_edited_object_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/edited |
+**Ontologies** | OntologyScenario | [**list_scenario_edited_objects**](docs/v2/Ontologies/OntologyScenario.md#list_scenario_edited_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/edited |
+**Ontologies** | OntologyScenario | [**rebase_scenario**](docs/v2/Ontologies/OntologyScenario.md#rebase_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/rebase |
 **Ontologies** | OntologyValueType | [**get**](docs/v2/Ontologies/OntologyValueType.md#get) | **GET** /v2/ontologies/{ontology}/valueTypes/{valueType} |
 **Ontologies** | OntologyValueType | [**list**](docs/v2/Ontologies/OntologyValueType.md#list) | **GET** /v2/ontologies/{ontology}/valueTypes |
 **Ontologies** | Query | [**execute**](docs/v2/Ontologies/Query.md#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute |
@@ -2096,6 +2104,7 @@ Namespace | Name | Import |
 **Functions** | [ArrayConstraint](docs/v2/Functions/models/ArrayConstraint.md) | `from foundry_sdk.v2.functions.models import ArrayConstraint` |
 **Functions** | [CancelExecutionResponse](docs/v2/Functions/models/CancelExecutionResponse.md) | `from foundry_sdk.v2.functions.models import CancelExecutionResponse` |
 **Functions** | [DataValue](docs/v2/Functions/models/DataValue.md) | `from foundry_sdk.v2.functions.models import DataValue` |
+**Functions** | [EntrySetType](docs/v2/Functions/models/EntrySetType.md) | `from foundry_sdk.v2.functions.models import EntrySetType` |
 **Functions** | [EnumConstraint](docs/v2/Functions/models/EnumConstraint.md) | `from foundry_sdk.v2.functions.models import EnumConstraint` |
 **Functions** | [ExecuteAsyncQueryRequest](docs/v2/Functions/models/ExecuteAsyncQueryRequest.md) | `from foundry_sdk.v2.functions.models import ExecuteAsyncQueryRequest` |
 **Functions** | [ExecuteQueryAsyncResponse](docs/v2/Functions/models/ExecuteQueryAsyncResponse.md) | `from foundry_sdk.v2.functions.models import ExecuteQueryAsyncResponse` |
@@ -2116,6 +2125,10 @@ Namespace | Name | Import |
 **Functions** | [MapConstraint](docs/v2/Functions/models/MapConstraint.md) | `from foundry_sdk.v2.functions.models import MapConstraint` |
 **Functions** | [NullableConstraint](docs/v2/Functions/models/NullableConstraint.md) | `from foundry_sdk.v2.functions.models import NullableConstraint` |
 **Functions** | [NullableConstraintValue](docs/v2/Functions/models/NullableConstraintValue.md) | `from foundry_sdk.v2.functions.models import NullableConstraintValue` |
+**Functions** | [OntologyInterfaceObjectSetType](docs/v2/Functions/models/OntologyInterfaceObjectSetType.md) | `from foundry_sdk.v2.functions.models import OntologyInterfaceObjectSetType` |
+**Functions** | [OntologyInterfaceObjectType](docs/v2/Functions/models/OntologyInterfaceObjectType.md) | `from foundry_sdk.v2.functions.models import OntologyInterfaceObjectType` |
+**Functions** | [OntologyObjectSetType](docs/v2/Functions/models/OntologyObjectSetType.md) | `from foundry_sdk.v2.functions.models import OntologyObjectSetType` |
+**Functions** | [OntologyObjectType](docs/v2/Functions/models/OntologyObjectType.md) | `from foundry_sdk.v2.functions.models import OntologyObjectType` |
 **Functions** | [Parameter](docs/v2/Functions/models/Parameter.md) | `from foundry_sdk.v2.functions.models import Parameter` |
 **Functions** | [ParameterId](docs/v2/Functions/models/ParameterId.md) | `from foundry_sdk.v2.functions.models import ParameterId` |
 **Functions** | [Query](docs/v2/Functions/models/Query.md) | `from foundry_sdk.v2.functions.models import Query` |
@@ -2708,6 +2721,7 @@ Namespace | Name | Import |
 **Ontologies** | [AggregationRangeV2](docs/v2/Ontologies/models/AggregationRangeV2.md) | `from foundry_sdk.v2.ontologies.models import AggregationRangeV2` |
 **Ontologies** | [AggregationV2](docs/v2/Ontologies/models/AggregationV2.md) | `from foundry_sdk.v2.ontologies.models import AggregationV2` |
 **Ontologies** | [AllOfRule](docs/v2/Ontologies/models/AllOfRule.md) | `from foundry_sdk.v2.ontologies.models import AllOfRule` |
+**Ontologies** | [AnalyzerSelection](docs/v2/Ontologies/models/AnalyzerSelection.md) | `from foundry_sdk.v2.ontologies.models import AnalyzerSelection` |
 **Ontologies** | [AndActionTypesQueryV2](docs/v2/Ontologies/models/AndActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import AndActionTypesQueryV2` |
 **Ontologies** | [AndQueryV2](docs/v2/Ontologies/models/AndQueryV2.md) | `from foundry_sdk.v2.ontologies.models import AndQueryV2` |
 **Ontologies** | [AnyOfRule](docs/v2/Ontologies/models/AnyOfRule.md) | `from foundry_sdk.v2.ontologies.models import AnyOfRule` |
@@ -3624,6 +3638,7 @@ Namespace | Name | Import |
 **Ontologies** | [AggregationRange](docs/v1/Ontologies/models/AggregationRange.md) | `from foundry_sdk.v1.ontologies.models import AggregationRange` |
 **Ontologies** | [AggregationRangesGrouping](docs/v1/Ontologies/models/AggregationRangesGrouping.md) | `from foundry_sdk.v1.ontologies.models import AggregationRangesGrouping` |
 **Ontologies** | [AllTermsQuery](docs/v1/Ontologies/models/AllTermsQuery.md) | `from foundry_sdk.v1.ontologies.models import AllTermsQuery` |
+**Ontologies** | [AnalyzerSelection](docs/v1/Ontologies/models/AnalyzerSelection.md) | `from foundry_sdk.v1.ontologies.models import AnalyzerSelection` |
 **Ontologies** | [AndQuery](docs/v1/Ontologies/models/AndQuery.md) | `from foundry_sdk.v1.ontologies.models import AndQuery` |
 **Ontologies** | [AnyTermQuery](docs/v1/Ontologies/models/AnyTermQuery.md) | `from foundry_sdk.v1.ontologies.models import AnyTermQuery` |
 **Ontologies** | [ApplyActionMode](docs/v1/Ontologies/models/ApplyActionMode.md) | `from foundry_sdk.v1.ontologies.models import ApplyActionMode` |
@@ -3792,6 +3807,7 @@ Namespace | Name | Import |
 --------- | ---- | ------ |
 **Core** | BatchRequestSizeExceededLimit | `from foundry_sdk.v3.core.errors import BatchRequestSizeExceededLimit` |
 **Core** | InvalidPageSize | `from foundry_sdk.v3.core.errors import InvalidPageSize` |
+**Core** | InvalidPageToken | `from foundry_sdk.v3.core.errors import InvalidPageToken` |
 **Core** | MissingBatchRequest | `from foundry_sdk.v3.core.errors import MissingBatchRequest` |
 **Endpoints** | EndpointSetEndpointNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetEndpointNotFound` |
 **Endpoints** | EndpointSetNotFound | `from foundry_sdk.v3.endpoints.errors import EndpointSetNotFound` |
@@ -3875,6 +3891,8 @@ Namespace | Name | Import |
 **Tiles** | MaxElevationPointCountExceeded | `from foundry_sdk.v3.tiles.errors import MaxElevationPointCountExceeded` |
 **Tiles** | TileSourceCapabilityNotSupported | `from foundry_sdk.v3.tiles.errors import TileSourceCapabilityNotSupported` |
 **Tiles** | TileSourceNotFound | `from foundry_sdk.v3.tiles.errors import TileSourceNotFound` |
+**Tiles** | TileSourceTileNotFound | `from foundry_sdk.v3.tiles.errors import TileSourceTileNotFound` |
+**Tiles** | TileSourceTileSetNotSupported | `from foundry_sdk.v3.tiles.errors import TileSourceTileSetNotSupported` |
 <a id="errors-v2-link"></a>
 ## Documentation for V2 errors
 
@@ -4287,6 +4305,7 @@ Namespace | Name | Import |
 **LanguageModels** | OpenAiEmbeddingsPermissionDenied | `from foundry_sdk.v2.language_models.errors import OpenAiEmbeddingsPermissionDenied` |
 **MediaSets** | ConflictingMediaSetIdentifiers | `from foundry_sdk.v2.media_sets.errors import ConflictingMediaSetIdentifiers` |
 **MediaSets** | GetMediaItemRidByPathPermissionDenied | `from foundry_sdk.v2.media_sets.errors import GetMediaItemRidByPathPermissionDenied` |
+**MediaSets** | InvalidHostHeader | `from foundry_sdk.v2.media_sets.errors import InvalidHostHeader` |
 **MediaSets** | InvalidMediaItemRid | `from foundry_sdk.v2.media_sets.errors import InvalidMediaItemRid` |
 **MediaSets** | InvalidMediaItemSchema | `from foundry_sdk.v2.media_sets.errors import InvalidMediaItemSchema` |
 **MediaSets** | InvalidTilePath | `from foundry_sdk.v2.media_sets.errors import InvalidTilePath` |
@@ -4302,6 +4321,7 @@ Namespace | Name | Import |
 **MediaSets** | MissingMediaItemPath | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemPath` |
 **MediaSets** | TemporaryMediaUploadInsufficientPermissions | `from foundry_sdk.v2.media_sets.errors import TemporaryMediaUploadInsufficientPermissions` |
 **MediaSets** | TemporaryMediaUploadUnknownFailure | `from foundry_sdk.v2.media_sets.errors import TemporaryMediaUploadUnknownFailure` |
+**MediaSets** | TileJsonUnavailable | `from foundry_sdk.v2.media_sets.errors import TileJsonUnavailable` |
 **MediaSets** | TransformationDocumentExtractError | `from foundry_sdk.v2.media_sets.errors import TransformationDocumentExtractError` |
 **MediaSets** | TransformationImageTooLargeForOcr | `from foundry_sdk.v2.media_sets.errors import TransformationImageTooLargeForOcr` |
 **MediaSets** | TransformationInputTooLarge | `from foundry_sdk.v2.media_sets.errors import TransformationInputTooLarge` |
@@ -4313,6 +4333,7 @@ Namespace | Name | Import |
 **MediaSets** | TransformationNotFound | `from foundry_sdk.v2.media_sets.errors import TransformationNotFound` |
 **MediaSets** | TransformationPermissionDenied | `from foundry_sdk.v2.media_sets.errors import TransformationPermissionDenied` |
 **MediaSets** | TransformationUnavailable | `from foundry_sdk.v2.media_sets.errors import TransformationUnavailable` |
+**MediaSets** | TransformationUnsupported | `from foundry_sdk.v2.media_sets.errors import TransformationUnsupported` |
 **MediaSets** | TransformationVlmError | `from foundry_sdk.v2.media_sets.errors import TransformationVlmError` |
 **MediaSets** | TransformationVlmLayoutModelFailure | `from foundry_sdk.v2.media_sets.errors import TransformationVlmLayoutModelFailure` |
 **MediaSets** | TransformationVlmMultiPageRequestUnsupported | `from foundry_sdk.v2.media_sets.errors import TransformationVlmMultiPageRequestUnsupported` |
@@ -4320,6 +4341,7 @@ Namespace | Name | Import |
 **MediaSets** | TransformationVlmResponseParseError | `from foundry_sdk.v2.media_sets.errors import TransformationVlmResponseParseError` |
 **MediaSets** | TransformedMediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import TransformedMediaItemNotFound` |
 **MediaSets** | UnexpectedMetadataType | `from foundry_sdk.v2.media_sets.errors import UnexpectedMetadataType` |
+**MediaSets** | UnexpectedTileJsonResponse | `from foundry_sdk.v2.media_sets.errors import UnexpectedTileJsonResponse` |
 **MediaSets** | UnsupportedMetadata | `from foundry_sdk.v2.media_sets.errors import UnsupportedMetadata` |
 **Models** | CondaSolveFailureForProvidedPackages | `from foundry_sdk.v2.models.errors import CondaSolveFailureForProvidedPackages` |
 **Models** | CreateConfigValidationError | `from foundry_sdk.v2.models.errors import CreateConfigValidationError` |
@@ -4333,6 +4355,8 @@ Namespace | Name | Import |
 **Models** | DeploymentSourceNotEnabledForComputeModules | `from foundry_sdk.v2.models.errors import DeploymentSourceNotEnabledForComputeModules` |
 **Models** | DeploymentSourceNotImportedIntoProject | `from foundry_sdk.v2.models.errors import DeploymentSourceNotImportedIntoProject` |
 **Models** | DisableLiveDeploymentPermissionDenied | `from foundry_sdk.v2.models.errors import DisableLiveDeploymentPermissionDenied` |
+**Models** | EmptyModelVersionBackingRepositories | `from foundry_sdk.v2.models.errors import EmptyModelVersionBackingRepositories` |
+**Models** | EmptyModelVersionCondaRequirements | `from foundry_sdk.v2.models.errors import EmptyModelVersionCondaRequirements` |
 **Models** | ExperimentArtifactNotFound | `from foundry_sdk.v2.models.errors import ExperimentArtifactNotFound` |
 **Models** | ExperimentNotFound | `from foundry_sdk.v2.models.errors import ExperimentNotFound` |
 **Models** | ExperimentSeriesNotFound | `from foundry_sdk.v2.models.errors import ExperimentSeriesNotFound` |
@@ -4375,6 +4399,7 @@ Namespace | Name | Import |
 **Models** | UnsupportedLiveDeployment | `from foundry_sdk.v2.models.errors import UnsupportedLiveDeployment` |
 **Models** | UnsupportedModelSource | `from foundry_sdk.v2.models.errors import UnsupportedModelSource` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v2.ontologies.errors import ActionContainsDuplicateEdits` |
+**Ontologies** | ActionDidNotReturnValue | `from foundry_sdk.v2.ontologies.errors import ActionDidNotReturnValue` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import ActionEditedPropertiesNotFound` |
 **Ontologies** | ActionEditsNotSupportedWithMarketplace | `from foundry_sdk.v2.ontologies.errors import ActionEditsNotSupportedWithMarketplace` |
 **Ontologies** | ActionEditsReadOnlyEntity | `from foundry_sdk.v2.ontologies.errors import ActionEditsReadOnlyEntity` |
@@ -4428,6 +4453,7 @@ Namespace | Name | Import |
 **Ontologies** | InvalidApplyActionOptionCombination | `from foundry_sdk.v2.ontologies.errors import InvalidApplyActionOptionCombination` |
 **Ontologies** | InvalidContentLength | `from foundry_sdk.v2.ontologies.errors import InvalidContentLength` |
 **Ontologies** | InvalidContentType | `from foundry_sdk.v2.ontologies.errors import InvalidContentType` |
+**Ontologies** | InvalidDerivedPropertyCollectionLimit | `from foundry_sdk.v2.ontologies.errors import InvalidDerivedPropertyCollectionLimit` |
 **Ontologies** | InvalidDerivedPropertyDefinition | `from foundry_sdk.v2.ontologies.errors import InvalidDerivedPropertyDefinition` |
 **Ontologies** | InvalidDerivedPropertyDefinitionOnInterface | `from foundry_sdk.v2.ontologies.errors import InvalidDerivedPropertyDefinitionOnInterface` |
 **Ontologies** | InvalidDurationGroupByPropertyType | `from foundry_sdk.v2.ontologies.errors import InvalidDurationGroupByPropertyType` |
@@ -4466,6 +4492,7 @@ Namespace | Name | Import |
 **Ontologies** | MarketplaceSdkObjectMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkObjectMappingNotFound` |
 **Ontologies** | MarketplaceSdkPropertyMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkPropertyMappingNotFound` |
 **Ontologies** | MarketplaceSdkQueryMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceSdkQueryMappingNotFound` |
+**Ontologies** | MediaItemAlreadyExists | `from foundry_sdk.v2.ontologies.errors import MediaItemAlreadyExists` |
 **Ontologies** | MediaUploadDestinationNotConfigured | `from foundry_sdk.v2.ontologies.errors import MediaUploadDestinationNotConfigured` |
 **Ontologies** | MediaUploadPropertyNotBackedByMediaSetView | `from foundry_sdk.v2.ontologies.errors import MediaUploadPropertyNotBackedByMediaSetView` |
 **Ontologies** | MissingParameter | `from foundry_sdk.v2.ontologies.errors import MissingParameter` |
@@ -4497,6 +4524,7 @@ Namespace | Name | Import |
 **Ontologies** | ParametersNotFound | `from foundry_sdk.v2.ontologies.errors import ParametersNotFound` |
 **Ontologies** | ParameterTypeNotSupported | `from foundry_sdk.v2.ontologies.errors import ParameterTypeNotSupported` |
 **Ontologies** | ParentAttachmentPermissionDenied | `from foundry_sdk.v2.ontologies.errors import ParentAttachmentPermissionDenied` |
+**Ontologies** | PhoneticQueryNotSupported | `from foundry_sdk.v2.ontologies.errors import PhoneticQueryNotSupported` |
 **Ontologies** | PropertiesHaveDifferentIds | `from foundry_sdk.v2.ontologies.errors import PropertiesHaveDifferentIds` |
 **Ontologies** | PropertiesNotFilterable | `from foundry_sdk.v2.ontologies.errors import PropertiesNotFilterable` |
 **Ontologies** | PropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import PropertiesNotFound` |
@@ -4520,6 +4548,7 @@ Namespace | Name | Import |
 **Ontologies** | QueryTimeExceededLimit | `from foundry_sdk.v2.ontologies.errors import QueryTimeExceededLimit` |
 **Ontologies** | QueryVersionNotFound | `from foundry_sdk.v2.ontologies.errors import QueryVersionNotFound` |
 **Ontologies** | RateLimitReached | `from foundry_sdk.v2.ontologies.errors import RateLimitReached` |
+**Ontologies** | ReturnValueTypeMismatch | `from foundry_sdk.v2.ontologies.errors import ReturnValueTypeMismatch` |
 **Ontologies** | SharedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import SharedPropertiesNotFound` |
 **Ontologies** | SharedPropertyTypeNotFound | `from foundry_sdk.v2.ontologies.errors import SharedPropertyTypeNotFound` |
 **Ontologies** | SimilarityThresholdOutOfRange | `from foundry_sdk.v2.ontologies.errors import SimilarityThresholdOutOfRange` |
@@ -4528,6 +4557,8 @@ Namespace | Name | Import |
 **Ontologies** | UndecryptableValue | `from foundry_sdk.v2.ontologies.errors import UndecryptableValue` |
 **Ontologies** | UniqueIdentifierLinkIdsDoNotExistInActionType | `from foundry_sdk.v2.ontologies.errors import UniqueIdentifierLinkIdsDoNotExistInActionType` |
 **Ontologies** | UnknownParameter | `from foundry_sdk.v2.ontologies.errors import UnknownParameter` |
+**Ontologies** | UnsupportedAnalyzerSelection | `from foundry_sdk.v2.ontologies.errors import UnsupportedAnalyzerSelection` |
+**Ontologies** | UnsupportedFilter | `from foundry_sdk.v2.ontologies.errors import UnsupportedFilter` |
 **Ontologies** | UnsupportedInterfaceBasedObjectSet | `from foundry_sdk.v2.ontologies.errors import UnsupportedInterfaceBasedObjectSet` |
 **Ontologies** | UnsupportedObjectSet | `from foundry_sdk.v2.ontologies.errors import UnsupportedObjectSet` |
 **Ontologies** | ValueTypeNotFound | `from foundry_sdk.v2.ontologies.errors import ValueTypeNotFound` |
@@ -4713,6 +4744,7 @@ Namespace | Name | Import |
 **Datasets** | TransactionNotOpen | `from foundry_sdk.v1.datasets.errors import TransactionNotOpen` |
 **Datasets** | UploadFilePermissionDenied | `from foundry_sdk.v1.datasets.errors import UploadFilePermissionDenied` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v1.ontologies.errors import ActionContainsDuplicateEdits` |
+**Ontologies** | ActionDidNotReturnValue | `from foundry_sdk.v1.ontologies.errors import ActionDidNotReturnValue` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v1.ontologies.errors import ActionEditedPropertiesNotFound` |
 **Ontologies** | ActionEditsNotSupportedWithMarketplace | `from foundry_sdk.v1.ontologies.errors import ActionEditsNotSupportedWithMarketplace` |
 **Ontologies** | ActionEditsReadOnlyEntity | `from foundry_sdk.v1.ontologies.errors import ActionEditsReadOnlyEntity` |
@@ -4766,6 +4798,7 @@ Namespace | Name | Import |
 **Ontologies** | InvalidApplyActionOptionCombination | `from foundry_sdk.v1.ontologies.errors import InvalidApplyActionOptionCombination` |
 **Ontologies** | InvalidContentLength | `from foundry_sdk.v1.ontologies.errors import InvalidContentLength` |
 **Ontologies** | InvalidContentType | `from foundry_sdk.v1.ontologies.errors import InvalidContentType` |
+**Ontologies** | InvalidDerivedPropertyCollectionLimit | `from foundry_sdk.v1.ontologies.errors import InvalidDerivedPropertyCollectionLimit` |
 **Ontologies** | InvalidDerivedPropertyDefinition | `from foundry_sdk.v1.ontologies.errors import InvalidDerivedPropertyDefinition` |
 **Ontologies** | InvalidDerivedPropertyDefinitionOnInterface | `from foundry_sdk.v1.ontologies.errors import InvalidDerivedPropertyDefinitionOnInterface` |
 **Ontologies** | InvalidDurationGroupByPropertyType | `from foundry_sdk.v1.ontologies.errors import InvalidDurationGroupByPropertyType` |
@@ -4804,6 +4837,7 @@ Namespace | Name | Import |
 **Ontologies** | MarketplaceSdkObjectMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkObjectMappingNotFound` |
 **Ontologies** | MarketplaceSdkPropertyMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkPropertyMappingNotFound` |
 **Ontologies** | MarketplaceSdkQueryMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceSdkQueryMappingNotFound` |
+**Ontologies** | MediaItemAlreadyExists | `from foundry_sdk.v1.ontologies.errors import MediaItemAlreadyExists` |
 **Ontologies** | MediaUploadDestinationNotConfigured | `from foundry_sdk.v1.ontologies.errors import MediaUploadDestinationNotConfigured` |
 **Ontologies** | MediaUploadPropertyNotBackedByMediaSetView | `from foundry_sdk.v1.ontologies.errors import MediaUploadPropertyNotBackedByMediaSetView` |
 **Ontologies** | MissingParameter | `from foundry_sdk.v1.ontologies.errors import MissingParameter` |
@@ -4835,6 +4869,7 @@ Namespace | Name | Import |
 **Ontologies** | ParametersNotFound | `from foundry_sdk.v1.ontologies.errors import ParametersNotFound` |
 **Ontologies** | ParameterTypeNotSupported | `from foundry_sdk.v1.ontologies.errors import ParameterTypeNotSupported` |
 **Ontologies** | ParentAttachmentPermissionDenied | `from foundry_sdk.v1.ontologies.errors import ParentAttachmentPermissionDenied` |
+**Ontologies** | PhoneticQueryNotSupported | `from foundry_sdk.v1.ontologies.errors import PhoneticQueryNotSupported` |
 **Ontologies** | PropertiesHaveDifferentIds | `from foundry_sdk.v1.ontologies.errors import PropertiesHaveDifferentIds` |
 **Ontologies** | PropertiesNotFilterable | `from foundry_sdk.v1.ontologies.errors import PropertiesNotFilterable` |
 **Ontologies** | PropertiesNotFound | `from foundry_sdk.v1.ontologies.errors import PropertiesNotFound` |
@@ -4858,6 +4893,7 @@ Namespace | Name | Import |
 **Ontologies** | QueryTimeExceededLimit | `from foundry_sdk.v1.ontologies.errors import QueryTimeExceededLimit` |
 **Ontologies** | QueryVersionNotFound | `from foundry_sdk.v1.ontologies.errors import QueryVersionNotFound` |
 **Ontologies** | RateLimitReached | `from foundry_sdk.v1.ontologies.errors import RateLimitReached` |
+**Ontologies** | ReturnValueTypeMismatch | `from foundry_sdk.v1.ontologies.errors import ReturnValueTypeMismatch` |
 **Ontologies** | SharedPropertiesNotFound | `from foundry_sdk.v1.ontologies.errors import SharedPropertiesNotFound` |
 **Ontologies** | SharedPropertyTypeNotFound | `from foundry_sdk.v1.ontologies.errors import SharedPropertyTypeNotFound` |
 **Ontologies** | SimilarityThresholdOutOfRange | `from foundry_sdk.v1.ontologies.errors import SimilarityThresholdOutOfRange` |
@@ -4866,6 +4902,8 @@ Namespace | Name | Import |
 **Ontologies** | UndecryptableValue | `from foundry_sdk.v1.ontologies.errors import UndecryptableValue` |
 **Ontologies** | UniqueIdentifierLinkIdsDoNotExistInActionType | `from foundry_sdk.v1.ontologies.errors import UniqueIdentifierLinkIdsDoNotExistInActionType` |
 **Ontologies** | UnknownParameter | `from foundry_sdk.v1.ontologies.errors import UnknownParameter` |
+**Ontologies** | UnsupportedAnalyzerSelection | `from foundry_sdk.v1.ontologies.errors import UnsupportedAnalyzerSelection` |
+**Ontologies** | UnsupportedFilter | `from foundry_sdk.v1.ontologies.errors import UnsupportedFilter` |
 **Ontologies** | UnsupportedInterfaceBasedObjectSet | `from foundry_sdk.v1.ontologies.errors import UnsupportedInterfaceBasedObjectSet` |
 **Ontologies** | UnsupportedObjectSet | `from foundry_sdk.v1.ontologies.errors import UnsupportedObjectSet` |
 **Ontologies** | ValueTypeNotFound | `from foundry_sdk.v1.ontologies.errors import ValueTypeNotFound` |

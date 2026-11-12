@@ -65,6 +65,7 @@ class ModelStudioConfigVersionClient:
         resources: models_models.ResourceConfiguration,
         trainer_id: models_models.TrainerId,
         worker_config: models_models.ModelStudioWorkerConfig,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         changelog: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -85,6 +86,8 @@ class ModelStudioConfigVersionClient:
         :type trainer_id: TrainerId
         :param worker_config: The worker configuration including inputs, outputs, and custom settings.
         :type worker_config: ModelStudioWorkerConfig
+        :param branch: The Foundry branch to create the configuration version on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, creates the configuration version on the default branch.
+        :type branch: Optional[FoundryBranch]
         :param changelog: Changelog describing changes in this version.
         :type changelog: Optional[str]
         :param preview: Enables the use of preview functionality.
@@ -105,6 +108,7 @@ class ModelStudioConfigVersionClient:
                 method="POST",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -141,6 +145,7 @@ class ModelStudioConfigVersionClient:
         model_studio_rid: models_models.ModelStudioRid,
         model_studio_config_version_version: models_models.ModelStudioConfigVersionNumber,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -154,6 +159,8 @@ class ModelStudioConfigVersionClient:
         :type model_studio_rid: ModelStudioRid
         :param model_studio_config_version_version: The version number of this configuration.
         :type model_studio_config_version_version: ModelStudioConfigVersionNumber
+        :param branch: The Foundry branch to get the configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the configuration version from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -170,6 +177,7 @@ class ModelStudioConfigVersionClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions/{modelStudioConfigVersionVersion}",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -197,6 +205,7 @@ class ModelStudioConfigVersionClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -208,6 +217,8 @@ class ModelStudioConfigVersionClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to get the latest configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the latest configuration version from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -224,6 +235,7 @@ class ModelStudioConfigVersionClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions/latest",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -250,6 +262,7 @@ class ModelStudioConfigVersionClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -263,6 +276,8 @@ class ModelStudioConfigVersionClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to list configuration versions from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists configuration versions from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -282,6 +297,7 @@ class ModelStudioConfigVersionClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,
@@ -369,6 +385,7 @@ class AsyncModelStudioConfigVersionClient:
         resources: models_models.ResourceConfiguration,
         trainer_id: models_models.TrainerId,
         worker_config: models_models.ModelStudioWorkerConfig,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         changelog: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -389,6 +406,8 @@ class AsyncModelStudioConfigVersionClient:
         :type trainer_id: TrainerId
         :param worker_config: The worker configuration including inputs, outputs, and custom settings.
         :type worker_config: ModelStudioWorkerConfig
+        :param branch: The Foundry branch to create the configuration version on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, creates the configuration version on the default branch.
+        :type branch: Optional[FoundryBranch]
         :param changelog: Changelog describing changes in this version.
         :type changelog: Optional[str]
         :param preview: Enables the use of preview functionality.
@@ -409,6 +428,7 @@ class AsyncModelStudioConfigVersionClient:
                 method="POST",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -445,6 +465,7 @@ class AsyncModelStudioConfigVersionClient:
         model_studio_rid: models_models.ModelStudioRid,
         model_studio_config_version_version: models_models.ModelStudioConfigVersionNumber,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -458,6 +479,8 @@ class AsyncModelStudioConfigVersionClient:
         :type model_studio_rid: ModelStudioRid
         :param model_studio_config_version_version: The version number of this configuration.
         :type model_studio_config_version_version: ModelStudioConfigVersionNumber
+        :param branch: The Foundry branch to get the configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the configuration version from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -474,6 +497,7 @@ class AsyncModelStudioConfigVersionClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions/{modelStudioConfigVersionVersion}",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -501,6 +525,7 @@ class AsyncModelStudioConfigVersionClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -512,6 +537,8 @@ class AsyncModelStudioConfigVersionClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to get the latest configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the latest configuration version from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -528,6 +555,7 @@ class AsyncModelStudioConfigVersionClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions/latest",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -554,6 +582,7 @@ class AsyncModelStudioConfigVersionClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -567,6 +596,8 @@ class AsyncModelStudioConfigVersionClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to list configuration versions from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists configuration versions from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -586,6 +617,7 @@ class AsyncModelStudioConfigVersionClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/configVersions",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,

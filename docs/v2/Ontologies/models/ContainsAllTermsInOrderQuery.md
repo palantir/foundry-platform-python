@@ -10,6 +10,7 @@ by a variety of means. Either `field` or `propertyIdentifier` must be supplied, 
 | ------------ | ------------- | ------------- | ------------- |
 **field** | Optional[PropertyApiName] | No |  |
 **property_identifier** | Optional[PropertyIdentifier] | No |  |
+**analyzer_selection** | Optional[AnalyzerSelection] | No |  |
 **value** | str | Yes |  |
 **type** | Literal["containsAllTermsInOrder"] | Yes | None |
 

@@ -70,6 +70,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **include_action_type_full_metadata** | Optional[bool] | When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.  | [optional] |
+**include_datasources** | Optional[bool] | When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -90,6 +91,8 @@ ontology = "palantir"
 branch = None
 # Optional[bool] | When set to true, the `actionTypesFullMetadata` field of the response will be populated in addition to `actionTypes`.
 include_action_type_full_metadata = None
+# Optional[bool] | When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+include_datasources = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
@@ -99,6 +102,7 @@ try:
         ontology,
         branch=branch,
         include_action_type_full_metadata=include_action_type_full_metadata,
+        include_datasources=include_datasources,
         preview=preview,
     )
     print("The get_full_metadata response:\n")
