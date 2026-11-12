@@ -93,6 +93,8 @@ class ModelVersionClient:
 
         :raises CondaSolveFailureForProvidedPackages: Thrown when conda solve fails for the provided input packages.
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises EmptyModelVersionBackingRepositories: A Dill Model Version must provide at least one repository in backingRepositories.
+        :raises EmptyModelVersionCondaRequirements: A Dill Model Version must provide at least one package specification in condaRequirements.
         :raises InvalidModelApi: The model api failed validations
         :raises ModelNotFound: The given Model could not be found.
         :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
@@ -123,6 +125,8 @@ class ModelVersionClient:
                 throwable_errors={
                     "CondaSolveFailureForProvidedPackages": models_errors.CondaSolveFailureForProvidedPackages,
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "EmptyModelVersionBackingRepositories": models_errors.EmptyModelVersionBackingRepositories,
+                    "EmptyModelVersionCondaRequirements": models_errors.EmptyModelVersionCondaRequirements,
                     "InvalidModelApi": models_errors.InvalidModelApi,
                     "ModelNotFound": models_errors.ModelNotFound,
                     "UnsupportedModelSource": models_errors.UnsupportedModelSource,
@@ -344,6 +348,8 @@ class AsyncModelVersionClient:
 
         :raises CondaSolveFailureForProvidedPackages: Thrown when conda solve fails for the provided input packages.
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises EmptyModelVersionBackingRepositories: A Dill Model Version must provide at least one repository in backingRepositories.
+        :raises EmptyModelVersionCondaRequirements: A Dill Model Version must provide at least one package specification in condaRequirements.
         :raises InvalidModelApi: The model api failed validations
         :raises ModelNotFound: The given Model could not be found.
         :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
@@ -374,6 +380,8 @@ class AsyncModelVersionClient:
                 throwable_errors={
                     "CondaSolveFailureForProvidedPackages": models_errors.CondaSolveFailureForProvidedPackages,
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "EmptyModelVersionBackingRepositories": models_errors.EmptyModelVersionBackingRepositories,
+                    "EmptyModelVersionCondaRequirements": models_errors.EmptyModelVersionCondaRequirements,
                     "InvalidModelApi": models_errors.InvalidModelApi,
                     "ModelNotFound": models_errors.ModelNotFound,
                     "UnsupportedModelSource": models_errors.UnsupportedModelSource,

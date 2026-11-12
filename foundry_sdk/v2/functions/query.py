@@ -89,6 +89,8 @@ class QueryClient:
         `/v2/ontologies/{ontology}/queries/{queryApiName}/execute`. For streaming or incremental
         result delivery, use `streamingExecute`.
 
+        Entry-set, object, and interface-object values and object-set inputs are not supported; use `executeAsync`.
+
 
         Required scopes: [api:functions-execute]
 
@@ -201,7 +203,7 @@ class QueryClient:
         :type include_prerelease: Optional[IncludePrerelease]
         :param latest_version_resolution:
         :type latest_version_resolution: Optional[LatestVersionResolution]
-        :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
+        :param ontology: Optional ontology identifier (RID or API name).  Used to resolve ontology-bound API names for this request, including queries, objects, and links.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -770,6 +772,8 @@ class AsyncQueryClient:
         `/v2/ontologies/{ontology}/queries/{queryApiName}/execute`. For streaming or incremental
         result delivery, use `streamingExecute`.
 
+        Entry-set, object, and interface-object values and object-set inputs are not supported; use `executeAsync`.
+
 
         Required scopes: [api:functions-execute]
 
@@ -882,7 +886,7 @@ class AsyncQueryClient:
         :type include_prerelease: Optional[IncludePrerelease]
         :param latest_version_resolution:
         :type latest_version_resolution: Optional[LatestVersionResolution]
-        :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
+        :param ontology: Optional ontology identifier (RID or API name).  Used to resolve ontology-bound API names for this request, including queries, objects, and links.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]

@@ -58,7 +58,7 @@ class CreateMarketplaceInstallationRequest(core.ModelBase):
     """The ontology where jobs for this installation create or update ontology resources. Omit if the product does not interact with the ontology."""
 
     parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-    """The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources."""
+    """The RID of the project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources."""
 
     product_id: ProductId = pydantic.Field(alias=str("productId"))  # type: ignore[literal-required]
     target_version_hint: typing.Optional[ProductVersionSelector] = pydantic.Field(alias=str("targetVersionHint"), default=None)  # type: ignore[literal-required]
@@ -719,26 +719,26 @@ class LocalGeotimeDestination(core.ModelBase):
 
 
 class MarketplaceInstallation(core.ModelBase):
-    """A registered product installation and Compass resource. Its latest target version is absent until an installation job runs."""
+    """A registered product installation and filesystem resource. Its latest target version is absent until an installation job runs."""
 
     description: typing.Optional[str] = None
-    """The current description of the installation in Compass. Absent if no description is set."""
+    """The current description of the installation in the filesystem. Absent if no description is set."""
 
     display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-    """The current display name of the installation in Compass."""
+    """The current display name of the installation in the filesystem."""
 
     latest_target_version: typing.Optional[ProductVersion] = pydantic.Field(alias=str("latestTargetVersion"), default=None)  # type: ignore[literal-required]
     """The product version targeted by the latest submitted installation job. This may differ from the currently installed version. Absent if no installation job has run."""
 
     marketplace_rid: MarketplaceRid = pydantic.Field(alias=str("marketplaceRid"))  # type: ignore[literal-required]
     namespace_rid: core_models.NamespaceRid = pydantic.Field(alias=str("namespaceRid"))  # type: ignore[literal-required]
-    """The RID of the namespace that the installation currently belongs to in Compass."""
+    """The RID of the namespace that the installation currently belongs to in the filesystem."""
 
     ontology_rid: typing.Optional[core_models.OntologyRid] = pydantic.Field(alias=str("ontologyRid"), default=None)  # type: ignore[literal-required]
     """The ontology where jobs for this installation create or update ontology resources. Omit if the product does not interact with the ontology."""
 
     parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-    """The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources."""
+    """The RID of the project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources."""
 
     product_id: ProductId = pydantic.Field(alias=str("productId"))  # type: ignore[literal-required]
     rid: MarketplaceInstallationRid

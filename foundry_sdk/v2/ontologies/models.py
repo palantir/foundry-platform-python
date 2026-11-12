@@ -277,6 +277,8 @@ class ActionTypeV2(core.ModelBase):
     tool_description: typing.Optional[str] = pydantic.Field(alias=str("toolDescription"), default=None)  # type: ignore[literal-required]
     """Optional description intended for tool use contexts, such as AI agents."""
 
+    return_type: typing.Optional[QueryDataType] = pydantic.Field(alias=str("returnType"), default=None)  # type: ignore[literal-required]
+
 
 class ActivePropertyTypeStatus(core.ModelBase):
     """
@@ -566,6 +568,18 @@ class AllOfRule(core.ModelBase):
     """If true, the matched intervals must occur in order."""
 
     type: typing.Literal["allOf"] = "allOf"
+
+
+AnalyzerSelection: typing_extensions.TypeAlias = typing.Literal[
+    "BASE_ANALYZER", "PHONETIC_ANALYZER"
+]
+"""
+Selects the analyzed field variant used for full-text and phrase queries.
+
+The base analyzer searches the field using the analyzer it was indexed with. The base analyzer is used when the
+optional `analyzerSelection` is omitted.
+The phonetic analyzer searches the field's phonetic indexing to match similar-sounding terms.
+"""
 
 
 class AndActionTypesQueryV2(core.ModelBase):
@@ -967,6 +981,7 @@ class ContainsAllTermsInOrderPrefixLastTerm(core.ModelBase):
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    analyzer_selection: typing.Optional[AnalyzerSelection] = pydantic.Field(alias=str("analyzerSelection"), default=None)  # type: ignore[literal-required]
     value: str
     type: typing.Literal["containsAllTermsInOrderPrefixLastTerm"] = (
         "containsAllTermsInOrderPrefixLastTerm"
@@ -982,6 +997,7 @@ class ContainsAllTermsInOrderQuery(core.ModelBase):
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    analyzer_selection: typing.Optional[AnalyzerSelection] = pydantic.Field(alias=str("analyzerSelection"), default=None)  # type: ignore[literal-required]
     value: str
     type: typing.Literal["containsAllTermsInOrder"] = "containsAllTermsInOrder"
 
@@ -991,10 +1007,13 @@ class ContainsAllTermsQuery(core.ModelBase):
     Returns objects where the specified field contains all of the whitespace separated words in any
     order in the provided value. This query supports fuzzy matching. Allows you to specify a property to query on
     by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
+    When `analyzerSelection` selects the phonetic analyzer, `fuzzy` must be omitted or set to `false`.
     """
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    analyzer_selection: typing.Optional[AnalyzerSelection] = pydantic.Field(alias=str("analyzerSelection"), default=None)  # type: ignore[literal-required]
     value: str
     fuzzy: typing.Optional[FuzzyV2] = None
     type: typing.Literal["containsAllTerms"] = "containsAllTerms"
@@ -1005,10 +1024,13 @@ class ContainsAnyTermQuery(core.ModelBase):
     Returns objects where the specified field contains any of the whitespace separated words in any
     order in the provided value. This query supports fuzzy matching. Allows you to specify a property to query on
     by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
+    When `analyzerSelection` selects the phonetic analyzer, `fuzzy` must be omitted or set to `false`.
     """
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    analyzer_selection: typing.Optional[AnalyzerSelection] = pydantic.Field(alias=str("analyzerSelection"), default=None)  # type: ignore[literal-required]
     value: str
     fuzzy: typing.Optional[FuzzyV2] = None
     type: typing.Literal["containsAnyTerm"] = "containsAnyTerm"
@@ -1206,7 +1228,7 @@ Represents the value of data in the following format. Note that these values can
 | TwoDimensionalAggregation           | JSON object                                           | `{"groups": [{"key": "alpha", "value": 100}, {"key": "beta", "value": 101}]}`                                                                                 |
 | ThreeDimensionalAggregation         | JSON object                                           | `{"groups": [{"key": "NYC", "groups": [{"key": "Engineer", "value" : 100}]}]}`                                                                                |
 | Timestamp                           | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                                                                                                      |
-| Time Series Reference               | JSON object with a type discriminator                 | `{"type":"seriesId","seriesId":"sensor-123"}`, `{"type":"templateRid","templateRid":{"templateRid":"ri.time-series-catalog.main.template.2f944bae-5851-4204-8615-920c969a9f2e","templateVersion":"1"}}`, or `{"type":"qualifiedSeriesId","qualifiedSeriesId":{"seriesId":"sensor-123","syncRid":"ri.time-series-catalog.main.sync.2f944bae-5851-4204-8615-920c969a9f2e"}}` |
+| Time Series Reference               | seriesId string or JSON object                        | `"sensor-123"`, `{"seriesId": "sensor-123", "syncRid": "ri.time-series-catalog.main.sync.2f944bae-5851-4204-8615-920c969a9f2e"}`, or `{"templateRid": "ri.time-series-catalog.main.template.2f944bae-5851-4204-8615-920c969a9f2e", "templateVersion": "1"}` |
 """
 
 
@@ -3486,6 +3508,9 @@ class ObjectLoadingResponseOptions(core.ModelBase):
     Whether returned objects should include their RIDs. Note that resolving object RIDs can add 100s of 
     milliseconds to the execution time, and should be avoided where not needed.
     """
+
+    include_property_securities: typing.Optional[bool] = pydantic.Field(alias=str("includePropertySecurities"), default=None)  # type: ignore[literal-required]
+    """Whether to include property security metadata in object updates. Defaults to false."""
 
 
 class ObjectLocator(core.ModelBase):
@@ -5844,6 +5869,7 @@ class StartsWithQuery(core.ModelBase):
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    analyzer_selection: typing.Optional[AnalyzerSelection] = pydantic.Field(alias=str("analyzerSelection"), default=None)  # type: ignore[literal-required]
     value: str
     type: typing.Literal["startsWith"] = "startsWith"
 
@@ -6173,6 +6199,7 @@ class SyncApplyActionResponseV2(core.ModelBase):
     operation_id: typing.Optional[core.RID] = pydantic.Field(alias=str("operationId"), default=None)  # type: ignore[literal-required]
     validation: typing.Optional[ValidateActionResponseV2] = None
     edits: typing.Optional[ActionResults] = None
+    return_value: typing.Optional[DataValue] = pydantic.Field(alias=str("returnValue"), default=None)  # type: ignore[literal-required]
 
 
 class SynchronousWebhookOutputArgument(core.ModelBase):
@@ -6796,6 +6823,7 @@ __all__ = [
     "AggregationRangesGroupingV2",
     "AggregationV2",
     "AllOfRule",
+    "AnalyzerSelection",
     "AndActionTypesQueryV2",
     "AndQueryV2",
     "AnyOfRule",

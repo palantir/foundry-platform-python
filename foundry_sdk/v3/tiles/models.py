@@ -76,6 +76,7 @@ class ListTileSourcesResponse(core.ModelBase):
 
     data: typing.List[TileSource]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    """The token for the next page of results. Include this value in the `pageToken` parameter of the next request to retrieve that page."""
 
 
 TileFormat: typing_extensions.TypeAlias = typing.Literal[
