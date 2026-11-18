@@ -79,6 +79,7 @@ class BuildClient:
         :rtype: None
 
         :raises CancelBuildPermissionDenied: Could not cancel the Build.
+        :raises InvalidBuildRid: The given RID is not a valid Build RID.
         """
 
         return self._api_client.call_api(
@@ -95,6 +96,7 @@ class BuildClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CancelBuildPermissionDenied": orchestration_errors.CancelBuildPermissionDenied,
+                    "InvalidBuildRid": orchestration_errors.InvalidBuildRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -201,6 +203,7 @@ class BuildClient:
         :rtype: orchestration_models.Build
 
         :raises BuildNotFound: The given Build could not be found.
+        :raises InvalidBuildRid: The given RID is not a valid Build RID.
         """
 
         return self._api_client.call_api(
@@ -219,6 +222,7 @@ class BuildClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildNotFound": orchestration_errors.BuildNotFound,
+                    "InvalidBuildRid": orchestration_errors.InvalidBuildRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -300,6 +304,8 @@ class BuildClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[orchestration_models.Job]
+
+        :raises InvalidBuildRid: The given RID is not a valid Build RID.
         """
 
         return self._api_client.call_api(
@@ -319,7 +325,9 @@ class BuildClient:
                 body=None,
                 response_type=orchestration_models.ListJobsOfBuildResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "InvalidBuildRid": orchestration_errors.InvalidBuildRid,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -474,6 +482,7 @@ class AsyncBuildClient:
         :rtype: typing.Awaitable[None]
 
         :raises CancelBuildPermissionDenied: Could not cancel the Build.
+        :raises InvalidBuildRid: The given RID is not a valid Build RID.
         """
 
         return self._api_client.call_api(
@@ -490,6 +499,7 @@ class AsyncBuildClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CancelBuildPermissionDenied": orchestration_errors.CancelBuildPermissionDenied,
+                    "InvalidBuildRid": orchestration_errors.InvalidBuildRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -596,6 +606,7 @@ class AsyncBuildClient:
         :rtype: typing.Awaitable[orchestration_models.Build]
 
         :raises BuildNotFound: The given Build could not be found.
+        :raises InvalidBuildRid: The given RID is not a valid Build RID.
         """
 
         return self._api_client.call_api(
@@ -614,6 +625,7 @@ class AsyncBuildClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildNotFound": orchestration_errors.BuildNotFound,
+                    "InvalidBuildRid": orchestration_errors.InvalidBuildRid,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -695,6 +707,8 @@ class AsyncBuildClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[orchestration_models.Job]
+
+        :raises InvalidBuildRid: The given RID is not a valid Build RID.
         """
 
         return self._api_client.call_api(
@@ -714,7 +728,9 @@ class AsyncBuildClient:
                 body=None,
                 response_type=orchestration_models.ListJobsOfBuildResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "InvalidBuildRid": orchestration_errors.InvalidBuildRid,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )

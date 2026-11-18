@@ -14,6 +14,7 @@
 
 
 import typing
+from functools import cached_property
 
 import pydantic
 import typing_extensions
@@ -53,6 +54,16 @@ class TileSourceClient:
 
         self.with_streaming_response = _TileSourceClientStreaming(self)
         self.with_raw_response = _TileSourceClientRaw(self)
+
+    @cached_property
+    def Tile(self):
+        from foundry_sdk.v3.tiles.tile_source_tile import TileSourceTileClient
+
+        return TileSourceTileClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -276,6 +287,16 @@ class AsyncTileSourceClient:
 
         self.with_streaming_response = _AsyncTileSourceClientStreaming(self)
         self.with_raw_response = _AsyncTileSourceClientRaw(self)
+
+    @cached_property
+    def Tile(self):
+        from foundry_sdk.v3.tiles.tile_source_tile import AsyncTileSourceTileClient
+
+        return AsyncTileSourceTileClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call

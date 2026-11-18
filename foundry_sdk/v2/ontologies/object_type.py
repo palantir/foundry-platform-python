@@ -344,6 +344,7 @@ class ObjectTypeClient:
             annotated_types.Len(min_length=1, max_length=100),
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         include_link_types: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -369,6 +370,8 @@ class ObjectTypeClient:
         :type requests: List[GetObjectTypeFullMetadataBatchRequestElement]
         :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param include_link_types: A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.
         :type include_link_types: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -385,6 +388,7 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/getFullMetadataBatch",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                     "preview": preview,
                 },
                 path_params={
@@ -1059,6 +1063,7 @@ class AsyncObjectTypeClient:
             annotated_types.Len(min_length=1, max_length=100),
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_datasources: typing.Optional[bool] = None,
         include_link_types: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -1084,6 +1089,8 @@ class AsyncObjectTypeClient:
         :type requests: List[GetObjectTypeFullMetadataBatchRequestElement]
         :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param include_datasources: When set to `true`, the `datasources` field on each returned object type is populated with the datasources backing it. Defaults to `false`.
+        :type include_datasources: Optional[bool]
         :param include_link_types: A flag that will return all outgoing link types for each requested object type in that object type's `linkTypes`. When false or omitted, `linkTypes` is empty.
         :type include_link_types: Optional[bool]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -1100,6 +1107,7 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/getFullMetadataBatch",
                 query_params={
                     "branch": branch,
+                    "includeDatasources": include_datasources,
                     "preview": preview,
                 },
                 path_params={

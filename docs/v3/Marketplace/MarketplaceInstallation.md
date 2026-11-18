@@ -7,7 +7,7 @@ Method | HTTP request | Release Stage |
 
 # **create**
 Register a product installation in the given project or folder without running an installation job or
-installing product resources. Returns the created installation with its current Compass metadata and
+installing product resources. Returns the created installation with its current filesystem metadata and
 no latest target version. A subsequent installation job selects the version to install.
 
 This operation is not idempotent. Repeated requests create separate installations unless the selected
@@ -19,7 +19,7 @@ which case SingletonMarketplaceInstallationAlreadyExists is returned.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **marketplace_rid** | MarketplaceRid |  |  |
-**parent_folder_rid** | FolderRid | The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources. |  |
+**parent_folder_rid** | FolderRid | The RID of the project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources. |  |
 **product_id** | ProductId |  |  |
 **installation_suffix** | Optional[str] | An optional suffix appended to the product title to form the initial display name, for example "Product title - CI staging". If omitted, the display name uses the product title alone. | [optional] |
 **ontology_rid** | Optional[OntologyRid] | The ontology where jobs for this installation create or update ontology resources. Omit if the product does not interact with the ontology. | [optional] |
@@ -40,7 +40,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # MarketplaceRid
 marketplace_rid = "ri.marketplace.main.local.e74f7e10-08b7-4ed6-aad8-2ffbe901b115"
-# FolderRid | The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.
+# FolderRid | The RID of the project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.
 parent_folder_rid = "ri.compass.main.folder.0e77e9f7-683b-4e70-90b5-e35609d37864"
 # ProductId
 product_id = "4d9a2e36-52c7-49be-8d10-1fb0cc7481a2"

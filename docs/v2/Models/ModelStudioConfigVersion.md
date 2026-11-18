@@ -19,6 +19,7 @@ Name | Type | Description  | Notes |
 **resources** | ResourceConfiguration | The compute resources allocated for training runs. |  |
 **trainer_id** | TrainerId | The identifier of the trainer to use for this configuration. |  |
 **worker_config** | ModelStudioWorkerConfig | The worker configuration including inputs, outputs, and custom settings. |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to create the configuration version on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, creates the configuration version on the default branch.  | [optional] |
 **changelog** | Optional[str] | Changelog describing changes in this version. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -60,6 +61,8 @@ worker_config = {
         }
     },
 }
+# Optional[FoundryBranch] | The Foundry branch to create the configuration version on, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, creates the configuration version on the default branch.
+branch = None
 # Optional[str] | Changelog describing changes in this version.
 changelog = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -73,6 +76,7 @@ try:
         resources=resources,
         trainer_id=trainer_id,
         worker_config=worker_config,
+        branch=branch,
         changelog=changelog,
         preview=preview,
     )
@@ -107,6 +111,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **model_studio_rid** | ModelStudioRid |  |  |
 **model_studio_config_version_version** | ModelStudioConfigVersionNumber | The version number of this configuration. |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to get the configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the configuration version from the default branch.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -125,13 +130,15 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 model_studio_rid = None
 # ModelStudioConfigVersionNumber | The version number of this configuration.
 model_studio_config_version_version = None
+# Optional[FoundryBranch] | The Foundry branch to get the configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the configuration version from the default branch.
+branch = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
     api_response = client.models.ModelStudio.ConfigVersion.get(
-        model_studio_rid, model_studio_config_version_version, preview=preview
+        model_studio_rid, model_studio_config_version_version, branch=branch, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -163,6 +170,7 @@ Gets the latest configuration version for a Model Studio.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **model_studio_rid** | ModelStudioRid |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to get the latest configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the latest configuration version from the default branch.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -179,12 +187,16 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ModelStudioRid
 model_studio_rid = None
+# Optional[FoundryBranch] | The Foundry branch to get the latest configuration version from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, gets the latest configuration version from the default branch.
+branch = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = client.models.ModelStudio.ConfigVersion.latest(model_studio_rid, preview=preview)
+    api_response = client.models.ModelStudio.ConfigVersion.latest(
+        model_studio_rid, branch=branch, preview=preview
+    )
     print("The latest response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -215,6 +227,7 @@ Lists all configuration versions for a Model Studio.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **model_studio_rid** | ModelStudioRid |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list configuration versions from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists configuration versions from the default branch.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -233,6 +246,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ModelStudioRid
 model_studio_rid = None
+# Optional[FoundryBranch] | The Foundry branch to list configuration versions from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists configuration versions from the default branch.
+branch = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -243,7 +258,7 @@ preview = None
 
 try:
     for model_studio_config_version in client.models.ModelStudio.ConfigVersion.list(
-        model_studio_rid, page_size=page_size, page_token=page_token, preview=preview
+        model_studio_rid, branch=branch, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(model_studio_config_version)
 except foundry_sdk.PalantirRPCException as e:

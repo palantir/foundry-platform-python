@@ -79,6 +79,7 @@ immediately. Otherwise, the running variant is returned.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **execution_id** | ExecutionId |  |  |
+**branch** | Optional[FoundryBranch] | Branch supplied when starting execution, used to load ontology metadata for results. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **timeout** | Optional[int] | Maximum time in seconds to hold the connection open while waiting for execution to complete. Default: 0 (immediate status check). Values above 280 are clamped to 280.  | [optional] |
 
@@ -96,6 +97,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ExecutionId
 execution_id = None
+# Optional[FoundryBranch] | Branch supplied when starting execution, used to load ontology metadata for results.
+branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[int] | Maximum time in seconds to hold the connection open while waiting for execution to complete. Default: 0 (immediate status check). Values above 280 are clamped to 280.
@@ -104,7 +107,7 @@ timeout = None
 
 try:
     api_response = client.functions.Execution.get_result(
-        execution_id, preview=preview, timeout=timeout
+        execution_id, branch=branch, preview=preview, timeout=timeout
     )
     print("The get_result response:\n")
     pprint(api_response)

@@ -36,6 +36,22 @@ class ActionContainsDuplicateEdits(errors.ConflictError):
     error_instance_id: str
 
 
+class ActionDidNotReturnValueParameters(typing_extensions.TypedDict):
+    """The action declares a required return value, but the function backing it did not return one. No edits were applied."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
+
+
+@dataclass
+class ActionDidNotReturnValue(errors.BadRequestError):
+    name: typing.Literal["ActionDidNotReturnValue"]
+    parameters: ActionDidNotReturnValueParameters
+    error_instance_id: str
+
+
 class ActionEditedPropertiesNotFoundParameters(typing_extensions.TypedDict):
     """
     Actions attempted to edit properties that could not be found on the object type.
@@ -892,6 +908,34 @@ class InvalidContentType(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidDerivedPropertyCollectionLimitParameters(typing_extensions.TypedDict):
+    """
+    The limit requested for a collectList or collectSet derived property is outside the supported range.
+    Set limit to at least minLimit and no greater than maxLimit when maxLimit is provided.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    limit: int
+    """The requested maximum number of values to collect."""
+
+    maxLimit: typing_extensions.NotRequired[int]
+    """
+    The maximum supported number of values to collect, inclusive. Provided when limit exceeds the
+    maximum; omitted when limit is below minLimit.
+    """
+
+    minLimit: int
+    """The minimum supported number of values to collect, inclusive."""
+
+
+@dataclass
+class InvalidDerivedPropertyCollectionLimit(errors.BadRequestError):
+    name: typing.Literal["InvalidDerivedPropertyCollectionLimit"]
+    parameters: InvalidDerivedPropertyCollectionLimitParameters
+    error_instance_id: str
+
+
 class InvalidDerivedPropertyDefinitionParameters(typing_extensions.TypedDict):
     """Derived property definition was invalid due to shape of query or type checking."""
 
@@ -1557,6 +1601,23 @@ class MarketplaceSdkQueryMappingNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MediaItemAlreadyExistsParameters(typing_extensions.TypedDict):
+    """
+    A media item with the same identifier already exists in the destination media set, but read access was denied
+    when the action tried to reuse it. This error does not confirm that a previous action succeeded.
+    If a retry is needed, contact the Ontology administrator to resolve the conflict.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class MediaItemAlreadyExists(errors.ConflictError):
+    name: typing.Literal["MediaItemAlreadyExists"]
+    parameters: MediaItemAlreadyExistsParameters
+    error_instance_id: str
+
+
 class MediaUploadDestinationNotConfiguredParameters(typing_extensions.TypedDict):
     """
     The media reference property is backed by multiple media set views, and none of them are marked as the upload
@@ -2096,6 +2157,19 @@ class ParentAttachmentPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class PhoneticQueryNotSupportedParameters(typing_extensions.TypedDict):
+    """The phonetic query is not supported."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class PhoneticQueryNotSupported(errors.BadRequestError):
+    name: typing.Literal["PhoneticQueryNotSupported"]
+    parameters: PhoneticQueryNotSupportedParameters
+    error_instance_id: str
+
+
 class PropertiesHaveDifferentIdsParameters(typing_extensions.TypedDict):
     """Properties used in ordering must have the same ids."""
 
@@ -2489,6 +2563,28 @@ class RateLimitReached(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReturnValueTypeMismatchParameters(typing_extensions.TypedDict):
+    """
+    The value returned by the function backing the action does not match the action's declared return type. This
+    can happen when the function is republished with a different output type. No edits were applied.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
+    expectedType: typing_extensions.NotRequired[str]
+    actualType: typing_extensions.NotRequired[str]
+    fieldName: typing_extensions.NotRequired[str]
+
+
+@dataclass
+class ReturnValueTypeMismatch(errors.BadRequestError):
+    name: typing.Literal["ReturnValueTypeMismatch"]
+    parameters: ReturnValueTypeMismatchParameters
+    error_instance_id: str
+
+
 class SharedPropertiesNotFoundParameters(typing_extensions.TypedDict):
     """The requested shared property types are not present on every object type."""
 
@@ -2622,6 +2718,36 @@ class UnknownParameter(errors.BadRequestError):
     error_instance_id: str
 
 
+class UnsupportedAnalyzerSelectionParameters(typing_extensions.TypedDict):
+    """The queried properties do not support the selected analyzer."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    analyzerSelection: ontologies_models.AnalyzerSelection
+
+
+@dataclass
+class UnsupportedAnalyzerSelection(errors.BadRequestError):
+    name: typing.Literal["UnsupportedAnalyzerSelection"]
+    parameters: UnsupportedAnalyzerSelectionParameters
+    error_instance_id: str
+
+
+class UnsupportedFilterParameters(typing_extensions.TypedDict):
+    """The query contains an unsupported filter."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+
+
+@dataclass
+class UnsupportedFilter(errors.BadRequestError):
+    name: typing.Literal["UnsupportedFilter"]
+    parameters: UnsupportedFilterParameters
+    error_instance_id: str
+
+
 class UnsupportedInterfaceBasedObjectSetParameters(typing_extensions.TypedDict):
     """Aggregations on interface-based object sets are not supported for object sets with OSv1 objects."""
 
@@ -2686,6 +2812,7 @@ class ViewObjectPermissionDenied(errors.PermissionDeniedError):
 
 __all__ = [
     "ActionContainsDuplicateEdits",
+    "ActionDidNotReturnValue",
     "ActionEditedPropertiesNotFound",
     "ActionEditsNotSupportedWithMarketplace",
     "ActionEditsReadOnlyEntity",
@@ -2739,6 +2866,7 @@ __all__ = [
     "InvalidApplyActionOptionCombination",
     "InvalidContentLength",
     "InvalidContentType",
+    "InvalidDerivedPropertyCollectionLimit",
     "InvalidDerivedPropertyDefinition",
     "InvalidDerivedPropertyDefinitionOnInterface",
     "InvalidDurationGroupByPropertyType",
@@ -2777,6 +2905,7 @@ __all__ = [
     "MarketplaceSdkObjectMappingNotFound",
     "MarketplaceSdkPropertyMappingNotFound",
     "MarketplaceSdkQueryMappingNotFound",
+    "MediaItemAlreadyExists",
     "MediaUploadDestinationNotConfigured",
     "MediaUploadPropertyNotBackedByMediaSetView",
     "MissingParameter",
@@ -2808,6 +2937,7 @@ __all__ = [
     "ParameterTypeNotSupported",
     "ParametersNotFound",
     "ParentAttachmentPermissionDenied",
+    "PhoneticQueryNotSupported",
     "PropertiesHaveDifferentIds",
     "PropertiesNotFilterable",
     "PropertiesNotFound",
@@ -2831,6 +2961,7 @@ __all__ = [
     "QueryTimeExceededLimit",
     "QueryVersionNotFound",
     "RateLimitReached",
+    "ReturnValueTypeMismatch",
     "SharedPropertiesNotFound",
     "SharedPropertyTypeNotFound",
     "SimilarityThresholdOutOfRange",
@@ -2839,6 +2970,8 @@ __all__ = [
     "UndecryptableValue",
     "UniqueIdentifierLinkIdsDoNotExistInActionType",
     "UnknownParameter",
+    "UnsupportedAnalyzerSelection",
+    "UnsupportedFilter",
     "UnsupportedInterfaceBasedObjectSet",
     "UnsupportedObjectSet",
     "ValueTypeNotFound",

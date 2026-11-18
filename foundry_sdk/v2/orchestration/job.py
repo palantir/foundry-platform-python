@@ -83,6 +83,7 @@ class JobClient:
         :return: Returns the result object.
         :rtype: orchestration_models.Job
 
+        :raises InvalidJobRid: The given RID is not a valid Job RID.
         :raises JobNotFound: The given Job could not be found.
         """
 
@@ -103,6 +104,7 @@ class JobClient:
                 response_type=orchestration_models.Job,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidJobRid": orchestration_errors.InvalidJobRid,
                     "JobNotFound": orchestration_errors.JobNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -239,6 +241,7 @@ class AsyncJobClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[orchestration_models.Job]
 
+        :raises InvalidJobRid: The given RID is not a valid Job RID.
         :raises JobNotFound: The given Job could not be found.
         """
 
@@ -259,6 +262,7 @@ class AsyncJobClient:
                 response_type=orchestration_models.Job,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidJobRid": orchestration_errors.InvalidJobRid,
                     "JobNotFound": orchestration_errors.JobNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

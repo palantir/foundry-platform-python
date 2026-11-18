@@ -825,3 +825,9 @@ def test_tiles_v3_tile_source_import():
     from foundry_sdk.v3.tiles.tile_source import TileSourceClient
 
     assert TileSourceClient is not None
+
+
+def test_tiles_v3_tile_source_tile_import():
+    from foundry_sdk.v3.tiles.tile_source_tile import TileSourceTileClient
+
+    assert TileSourceTileClient is not None

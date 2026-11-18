@@ -15,6 +15,9 @@ Represents the value of data in the following format. Note that these values can
 | Integer                     | number                                                | `238940`                                                                      |
 | Long                        | string                                                | `"58319870951433"`                                                            |
 | Marking                     | string                                                | `"MU"`                                                                        |
+| Entry set                   | array of key/value entries                            | `[{"key": "alpha", "value": 1}]`                                             |
+| Object                      | primary key                                           | `123`                                                                         |
+| Interface object            | object type API name and primary key                  | `{"objectTypeApiName": "Aircraft", "primaryKeyValue": 123}`                   |
 | Null                        | null                                                  | `null`                                                                        |
 | Set                         | array                                                 | `["alpha", "bravo", "charlie"]`                                               |
 | Short                       | number                                                | `8739`                                                                        |

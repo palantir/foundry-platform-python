@@ -85,7 +85,7 @@ class MarketplaceInstallationClient:
     ) -> marketplace_models.MarketplaceInstallation:
         """
         Register a product installation in the given project or folder without running an installation job or
-        installing product resources. Returns the created installation with its current Compass metadata and
+        installing product resources. Returns the created installation with its current filesystem metadata and
         no latest target version. A subsequent installation job selects the version to install.
 
         This operation is not idempotent. Repeated requests create separate installations unless the selected
@@ -96,7 +96,7 @@ class MarketplaceInstallationClient:
 
         :param marketplace_rid:
         :type marketplace_rid: MarketplaceRid
-        :param parent_folder_rid: The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.
+        :param parent_folder_rid: The RID of the project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.
         :type parent_folder_rid: FolderRid
         :param product_id:
         :type product_id: ProductId
@@ -284,7 +284,7 @@ class AsyncMarketplaceInstallationClient:
     ) -> typing.Awaitable[marketplace_models.MarketplaceInstallation]:
         """
         Register a product installation in the given project or folder without running an installation job or
-        installing product resources. Returns the created installation with its current Compass metadata and
+        installing product resources. Returns the created installation with its current filesystem metadata and
         no latest target version. A subsequent installation job selects the version to install.
 
         This operation is not idempotent. Repeated requests create separate installations unless the selected
@@ -295,7 +295,7 @@ class AsyncMarketplaceInstallationClient:
 
         :param marketplace_rid:
         :type marketplace_rid: MarketplaceRid
-        :param parent_folder_rid: The RID of the Compass project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.
+        :param parent_folder_rid: The RID of the project or folder that currently contains the installation. On creation, this is the destination where the installation is registered and its jobs create resources.
         :type parent_folder_rid: FolderRid
         :param product_id:
         :type product_id: ProductId

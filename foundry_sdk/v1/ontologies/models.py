@@ -182,6 +182,18 @@ class AllTermsQuery(core.ModelBase):
     type: typing.Literal["allTerms"] = "allTerms"
 
 
+AnalyzerSelection: typing_extensions.TypeAlias = typing.Literal[
+    "BASE_ANALYZER", "PHONETIC_ANALYZER"
+]
+"""
+Selects the analyzed field variant used for full-text and phrase queries.
+
+The base analyzer searches the field using the analyzer it was indexed with. The base analyzer is used when the
+optional `analyzerSelection` is omitted.
+The phonetic analyzer searches the field's phonetic indexing to match similar-sounding terms.
+"""
+
+
 class AndQuery(core.ModelBase):
     """Returns objects where every query is satisfied."""
 
@@ -380,7 +392,7 @@ Represents the value of data in the following format. Note that these values can
 | TwoDimensionalAggregation           | JSON object                                           | `{"groups": [{"key": "alpha", "value": 100}, {"key": "beta", "value": 101}]}`                                                                                 |
 | ThreeDimensionalAggregation         | JSON object                                           | `{"groups": [{"key": "NYC", "groups": [{"key": "Engineer", "value" : 100}]}]}`                                                                                |
 | Timestamp                           | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                                                                                                      |
-| Time Series Reference               | JSON object with a type discriminator                 | `{"type":"seriesId","seriesId":"sensor-123"}`, `{"type":"templateRid","templateRid":{"templateRid":"ri.time-series-catalog.main.template.2f944bae-5851-4204-8615-920c969a9f2e","templateVersion":"1"}}`, or `{"type":"qualifiedSeriesId","qualifiedSeriesId":{"seriesId":"sensor-123","syncRid":"ri.time-series-catalog.main.sync.2f944bae-5851-4204-8615-920c969a9f2e"}}` |
+| Time Series Reference               | seriesId string or JSON object                        | `"sensor-123"`, `{"seriesId": "sensor-123", "syncRid": "ri.time-series-catalog.main.sync.2f944bae-5851-4204-8615-920c969a9f2e"}`, or `{"templateRid": "ri.time-series-catalog.main.template.2f944bae-5851-4204-8615-920c969a9f2e", "templateVersion": "1"}` |
 """
 
 
@@ -1611,6 +1623,7 @@ __all__ = [
     "AggregationRange",
     "AggregationRangesGrouping",
     "AllTermsQuery",
+    "AnalyzerSelection",
     "AndQuery",
     "AnyTermQuery",
     "ApplyActionMode",

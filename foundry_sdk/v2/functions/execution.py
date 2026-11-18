@@ -113,6 +113,7 @@ class ExecutionClient:
         self,
         execution_id: functions_models.ExecutionId,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         timeout: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -138,6 +139,8 @@ class ExecutionClient:
 
         :param execution_id:
         :type execution_id: ExecutionId
+        :param branch: Branch supplied when starting execution, used to load ontology metadata for results.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param timeout: Maximum time in seconds to hold the connection open while waiting for execution to complete. Default: 0 (immediate status check). Values above 280 are clamped to 280.
@@ -165,6 +168,7 @@ class ExecutionClient:
                     "Accept": "application/json",
                 },
                 body=functions_models.GetResultExecutionRequest(
+                    branch=branch,
                     timeout=timeout,
                 ),
                 response_type=functions_models.GetExecutionResultResponse,
@@ -283,6 +287,7 @@ class AsyncExecutionClient:
         self,
         execution_id: functions_models.ExecutionId,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         timeout: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -308,6 +313,8 @@ class AsyncExecutionClient:
 
         :param execution_id:
         :type execution_id: ExecutionId
+        :param branch: Branch supplied when starting execution, used to load ontology metadata for results.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param timeout: Maximum time in seconds to hold the connection open while waiting for execution to complete. Default: 0 (immediate status check). Values above 280 are clamped to 280.
@@ -335,6 +342,7 @@ class AsyncExecutionClient:
                     "Accept": "application/json",
                 },
                 body=functions_models.GetResultExecutionRequest(
+                    branch=branch,
                     timeout=timeout,
                 ),
                 response_type=functions_models.GetExecutionResultResponse,
