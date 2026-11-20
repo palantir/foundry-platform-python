@@ -12,6 +12,7 @@ Lists all runs for a Model Studio.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **model_studio_rid** | ModelStudioRid |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list runs from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists runs from the default branch.  | [optional] |
 **config_version** | Optional[ModelStudioConfigVersionNumber] | Filter runs by configuration version. | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
@@ -31,6 +32,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ModelStudioRid
 model_studio_rid = None
+# Optional[FoundryBranch] | The Foundry branch to list runs from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists runs from the default branch.
+branch = None
 # Optional[ModelStudioConfigVersionNumber] | Filter runs by configuration version.
 config_version = None
 # Optional[PageSize] | The page size to use for the endpoint.
@@ -44,6 +47,7 @@ preview = None
 try:
     for model_studio_run in client.models.ModelStudio.Run.list(
         model_studio_rid,
+        branch=branch,
         config_version=config_version,
         page_size=page_size,
         page_token=page_token,

@@ -674,6 +674,9 @@ class ModelApiColumn(core.ModelBase):
     """ModelApiColumn"""
 
     name: str
+    description: typing.Optional[str] = None
+    """Explains the meaning of the values in this column. Absent when no description is provided. Descriptions longer than 500 Unicode code points are dropped when the model version is created."""
+
     required: typing.Optional[bool] = None
     """true by default; false if the column can be null or omitted"""
 
@@ -726,6 +729,9 @@ class ModelApiParameterType(core.ModelBase):
     """ModelApiParameterType"""
 
     name: str
+    description: typing.Optional[str] = None
+    """Explains the purpose of this parameter input or output. Absent when no description is provided. Descriptions longer than 500 Unicode code points are dropped when the model version is created."""
+
     required: typing.Optional[bool] = None
     """true by default; false if the input or output can be null or omitted"""
 
@@ -741,6 +747,9 @@ class ModelApiTabularType(core.ModelBase):
     """ModelApiTabularType"""
 
     name: str
+    description: typing.Optional[str] = None
+    """Explains the purpose of this tabular input or output. Absent when no description is provided. Descriptions longer than 500 Unicode code points are dropped when the model version is created."""
+
     required: typing.Optional[bool] = None
     """true by default; false if the input or output can be null or omitted"""
 

@@ -260,6 +260,36 @@ class InvalidAndTrigger(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidBuildRidParameters(typing_extensions.TypedDict):
+    """The given RID is not a valid Build RID."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    buildRid: core_models.BuildRid
+
+
+@dataclass
+class InvalidBuildRid(errors.BadRequestError):
+    name: typing.Literal["InvalidBuildRid"]
+    parameters: InvalidBuildRidParameters
+    error_instance_id: str
+
+
+class InvalidJobRidParameters(typing_extensions.TypedDict):
+    """The given RID is not a valid Job RID."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    jobRid: core_models.JobRid
+
+
+@dataclass
+class InvalidJobRid(errors.BadRequestError):
+    name: typing.Literal["InvalidJobRid"]
+    parameters: InvalidJobRidParameters
+    error_instance_id: str
+
+
 class InvalidMediaSetTriggerParameters(typing_extensions.TypedDict):
     """The given MediaSet rid is invalid."""
 
@@ -568,6 +598,8 @@ __all__ = [
     "DuplicateBuildBranches",
     "GetAffectedResourcesSchedulePermissionDenied",
     "InvalidAndTrigger",
+    "InvalidBuildRid",
+    "InvalidJobRid",
     "InvalidMediaSetTrigger",
     "InvalidOrTrigger",
     "InvalidScheduleDescription",

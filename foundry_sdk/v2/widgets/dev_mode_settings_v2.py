@@ -149,6 +149,7 @@ class DevModeSettingsV2Client:
         :raises InvalidDevModeFilePath: The dev mode settings contains an invalid entrypoint file path. The file path must be a valid localhost URL with an optional port and a file path.
         :raises InvalidDevModeWidgetSettingsCount: The dev mode settings contains too many widget settings. You must limit the number of widget settings to the maximum allowed.
         :raises InvalidManifest: The provided manifest could not be parsed or is not well formed.
+        :raises InvalidParameterDisplayName: The parameter display name is invalid.
         :raises SetWidgetSetManifestDevModeSettingsV2PermissionDenied: Could not setWidgetSetManifest the DevModeSettingsV2.
         :raises WidgetIdNotFound: A non-existent widget id was provided. If creating a new widget, you must first publish your changes before previewing with developer mode.
         """
@@ -178,6 +179,7 @@ class DevModeSettingsV2Client:
                     "InvalidDevModeFilePath": widgets_errors.InvalidDevModeFilePath,
                     "InvalidDevModeWidgetSettingsCount": widgets_errors.InvalidDevModeWidgetSettingsCount,
                     "InvalidManifest": widgets_errors.InvalidManifest,
+                    "InvalidParameterDisplayName": widgets_errors.InvalidParameterDisplayName,
                     "SetWidgetSetManifestDevModeSettingsV2PermissionDenied": widgets_errors.SetWidgetSetManifestDevModeSettingsV2PermissionDenied,
                     "WidgetIdNotFound": widgets_errors.WidgetIdNotFound,
                 },
@@ -332,6 +334,7 @@ class AsyncDevModeSettingsV2Client:
         :raises InvalidDevModeFilePath: The dev mode settings contains an invalid entrypoint file path. The file path must be a valid localhost URL with an optional port and a file path.
         :raises InvalidDevModeWidgetSettingsCount: The dev mode settings contains too many widget settings. You must limit the number of widget settings to the maximum allowed.
         :raises InvalidManifest: The provided manifest could not be parsed or is not well formed.
+        :raises InvalidParameterDisplayName: The parameter display name is invalid.
         :raises SetWidgetSetManifestDevModeSettingsV2PermissionDenied: Could not setWidgetSetManifest the DevModeSettingsV2.
         :raises WidgetIdNotFound: A non-existent widget id was provided. If creating a new widget, you must first publish your changes before previewing with developer mode.
         """
@@ -361,6 +364,7 @@ class AsyncDevModeSettingsV2Client:
                     "InvalidDevModeFilePath": widgets_errors.InvalidDevModeFilePath,
                     "InvalidDevModeWidgetSettingsCount": widgets_errors.InvalidDevModeWidgetSettingsCount,
                     "InvalidManifest": widgets_errors.InvalidManifest,
+                    "InvalidParameterDisplayName": widgets_errors.InvalidParameterDisplayName,
                     "SetWidgetSetManifestDevModeSettingsV2PermissionDenied": widgets_errors.SetWidgetSetManifestDevModeSettingsV2PermissionDenied,
                     "WidgetIdNotFound": widgets_errors.WidgetIdNotFound,
                 },

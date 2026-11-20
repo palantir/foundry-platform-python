@@ -2,14 +2,14 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create_scenario**](#create_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/create | Private Beta |
-[**list_scenario_conflicting_objects**](#list_scenario_conflicting_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/conflicting | Private Beta |
-[**list_scenario_edited_entity_types**](#list_scenario_edited_entity_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/editedEntityTypes | Private Beta |
-[**list_scenario_edited_link_types**](#list_scenario_edited_link_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/{objectType}/outgoingLinkTypes/edited | Private Beta |
-[**list_scenario_edited_links**](#list_scenario_edited_links) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/links/{linkType}/edited | Private Beta |
-[**list_scenario_edited_object_types**](#list_scenario_edited_object_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/edited | Private Beta |
-[**list_scenario_edited_objects**](#list_scenario_edited_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/edited | Private Beta |
-[**rebase_scenario**](#rebase_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/rebase | Private Beta |
+[**create_scenario**](#create_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/create | Public Beta |
+[**list_scenario_conflicting_objects**](#list_scenario_conflicting_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/conflicting | Public Beta |
+[**list_scenario_edited_entity_types**](#list_scenario_edited_entity_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/editedEntityTypes | Public Beta |
+[**list_scenario_edited_link_types**](#list_scenario_edited_link_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/{objectType}/outgoingLinkTypes/edited | Public Beta |
+[**list_scenario_edited_links**](#list_scenario_edited_links) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/links/{linkType}/edited | Public Beta |
+[**list_scenario_edited_object_types**](#list_scenario_edited_object_types) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objectTypes/edited | Public Beta |
+[**list_scenario_edited_objects**](#list_scenario_edited_objects) | **GET** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/objects/{objectType}/edited | Public Beta |
+[**rebase_scenario**](#rebase_scenario) | **POST** /v2/ontologies/{ontology}/scenarios/{scenarioRid}/rebase | Public Beta |
 
 # **create_scenario**
 Creates an ontology scenario.

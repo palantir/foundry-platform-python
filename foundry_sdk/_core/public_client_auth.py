@@ -27,7 +27,7 @@ from foundry_sdk._errors.not_authenticated import NotAuthenticated
 class PublicClientAuth(OAuth):
     """
     Client for Public Client OAuth-authenticated Ontology applications.
-    Runs a background thread to periodically refresh access token.
+    Refreshes the access token when it is close to expiring.
 
     :param client_id: OAuth client id to be used by the application.
     :param redirect_url: The URL the authorization server should redirect the user to after the user approves the request.
@@ -63,12 +63,7 @@ class PublicClientAuth(OAuth):
     def get_token(self) -> OAuthToken:
         if self._token is None:
             raise NotAuthenticated("Client has not been authenticated.")
-        if self._token.expired:
-            if not self._try_refresh_token():
-                raise NotAuthenticated("Token expired and refresh failed.")
-            if self._should_refresh:
-                self._start_auto_refresh()
-        return self._token
+        return super().get_token()
 
     def _revoke_token(self) -> None:
         if self._token:
@@ -78,7 +73,7 @@ class PublicClientAuth(OAuth):
                 self._get_base_url(),
             )
 
-    def _try_refresh_token(self) -> bool:
+    def _refresh_token(self) -> bool:
         if self._token and self._token.refresh_token:
             self._token = self._server_oauth_flow_provider.refresh_token(
                 self._get_client(),
@@ -115,6 +110,3 @@ class PublicClientAuth(OAuth):
             code_verifier=self._auth_request.code_verifier,
             base_url=self._get_base_url(),
         )
-
-        if self._should_refresh:
-            self._start_auto_refresh()

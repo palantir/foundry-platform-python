@@ -61,6 +61,7 @@ class ModelStudioRunClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         config_version: typing.Optional[models_models.ModelStudioConfigVersionNumber] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -75,6 +76,8 @@ class ModelStudioRunClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to list runs from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists runs from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param config_version: Filter runs by configuration version.
         :type config_version: Optional[ModelStudioConfigVersionNumber]
         :param page_size: The page size to use for the endpoint.
@@ -97,6 +100,7 @@ class ModelStudioRunClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/runs",
                 query_params={
+                    "branch": branch,
                     "configVersion": config_version,
                     "pageSize": page_size,
                     "pageToken": page_token,
@@ -170,6 +174,7 @@ class AsyncModelStudioRunClient:
         self,
         model_studio_rid: models_models.ModelStudioRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         config_version: typing.Optional[models_models.ModelStudioConfigVersionNumber] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -184,6 +189,8 @@ class AsyncModelStudioRunClient:
 
         :param model_studio_rid:
         :type model_studio_rid: ModelStudioRid
+        :param branch: The Foundry branch to list runs from, specified as either its RID or dataset branch identifier. The value must identify a global branch. Non-global branch names, including `main` and `master`, are rejected with `FoundryBranchNotFound`. If omitted, lists runs from the default branch.
+        :type branch: Optional[FoundryBranch]
         :param config_version: Filter runs by configuration version.
         :type config_version: Optional[ModelStudioConfigVersionNumber]
         :param page_size: The page size to use for the endpoint.
@@ -206,6 +213,7 @@ class AsyncModelStudioRunClient:
                 method="GET",
                 resource_path="/v2/models/modelStudios/{modelStudioRid}/runs",
                 query_params={
+                    "branch": branch,
                     "configVersion": config_version,
                     "pageSize": page_size,
                     "pageToken": page_token,

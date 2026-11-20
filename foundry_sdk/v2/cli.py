@@ -5953,6 +5953,8 @@ def functions_query_op_execute(
     `/v2/ontologies/{ontology}/queries/{queryApiName}/execute`. For streaming or incremental
     result delivery, use `streamingExecute`.
 
+    Entry-set, object, and interface-object values and object-set inputs are not supported; use `executeAsync`.
+
     """
     result = client.functions.Query.execute(
         query_api_name=query_api_name,
@@ -5994,8 +5996,10 @@ When provided with `version`, the specified version must exist on the branch.
     "--ontology",
     type=str,
     required=False,
-    help="""Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
-function. When omitted, executes a global function.
+    help="""Optional ontology identifier (RID or API name).
+
+Used to resolve ontology-bound API names for this request,
+including queries, objects, and links.
 """,
 )
 @click.option(
@@ -6391,6 +6395,12 @@ def functions_execution_op_cancel(
 @functions_execution.command("get_result")
 @click.argument("execution_id", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""Branch supplied when starting execution, used to load ontology metadata for results.""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
@@ -6406,6 +6416,7 @@ Values above 280 are clamped to 280.
 def functions_execution_op_get_result(
     client: FoundryClient,
     execution_id: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
     timeout: typing.Optional[int],
 ):
@@ -6427,6 +6438,7 @@ def functions_execution_op_get_result(
     """
     result = client.functions.Execution.get_result(
         execution_id=execution_id,
+        branch=branch,
         preview=preview,
         timeout=timeout,
     )
@@ -7247,6 +7259,38 @@ def media_sets_media_set_op_tile(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("tile_json")
+@click.argument("media_set_rid", type=str, required=True)
+@click.argument("media_item_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
+@click.pass_obj
+def media_sets_media_set_op_tile_json(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_rid: str,
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
+):
+    """
+    Gets a TileJSON 3.0.0 document describing the media item's tiles.
+
+    """
+    result = client.media_sets.MediaSet.tile_json(
+        media_set_rid=media_set_rid,
+        media_item_rid=media_item_rid,
+        preview=preview,
+        read_token=read_token,
+    )
+    click.echo(result)
+
+
 @media_sets_media_set.command("transform")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
@@ -7549,12 +7593,23 @@ def models_model_studio_op_get(
 @models_model_studio.command("launch")
 @click.argument("model_studio_rid", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to launch the run on, specified as either its RID or dataset branch identifier.
+The value must identify a global branch. Non-global branch names, including `main` and `master`,
+are rejected with `FoundryBranchNotFound`.
+If omitted, uses the latest configuration version on the default branch.
+""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
 def models_model_studio_op_launch(
     client: FoundryClient,
     model_studio_rid: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -7562,6 +7617,7 @@ def models_model_studio_op_launch(
     """
     result = client.models.ModelStudio.launch(
         model_studio_rid=model_studio_rid,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -7599,6 +7655,16 @@ def models_model_studio_model_studio_config_version():
     help="""The worker configuration including inputs, outputs, and custom settings.""",
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to create the configuration version on, specified as either its RID or dataset branch identifier.
+The value must identify a global branch. Non-global branch names, including `main` and `master`,
+are rejected with `FoundryBranchNotFound`.
+If omitted, creates the configuration version on the default branch.
+""",
+)
+@click.option(
     "--changelog",
     type=str,
     required=False,
@@ -7615,6 +7681,7 @@ def models_model_studio_model_studio_config_version_op_create(
     resources: str,
     trainer_id: str,
     worker_config: str,
+    branch: typing.Optional[str],
     changelog: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
@@ -7627,6 +7694,7 @@ def models_model_studio_model_studio_config_version_op_create(
         resources=json.loads(resources),
         trainer_id=trainer_id,
         worker_config=json.loads(worker_config),
+        branch=branch,
         changelog=changelog,
         preview=preview,
     )
@@ -7637,6 +7705,16 @@ def models_model_studio_model_studio_config_version_op_create(
 @click.argument("model_studio_rid", type=str, required=True)
 @click.argument("model_studio_config_version_version", type=int, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to get the configuration version from, specified as either its RID or dataset branch identifier.
+The value must identify a global branch. Non-global branch names, including `main` and `master`,
+are rejected with `FoundryBranchNotFound`.
+If omitted, gets the configuration version from the default branch.
+""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
@@ -7644,6 +7722,7 @@ def models_model_studio_model_studio_config_version_op_get(
     client: FoundryClient,
     model_studio_rid: str,
     model_studio_config_version_version: int,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -7652,6 +7731,7 @@ def models_model_studio_model_studio_config_version_op_get(
     result = client.models.ModelStudio.ConfigVersion.get(
         model_studio_rid=model_studio_rid,
         model_studio_config_version_version=model_studio_config_version_version,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -7660,12 +7740,23 @@ def models_model_studio_model_studio_config_version_op_get(
 @models_model_studio_model_studio_config_version.command("latest")
 @click.argument("model_studio_rid", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to get the latest configuration version from, specified as either its RID or dataset branch identifier.
+The value must identify a global branch. Non-global branch names, including `main` and `master`,
+are rejected with `FoundryBranchNotFound`.
+If omitted, gets the latest configuration version from the default branch.
+""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
 def models_model_studio_model_studio_config_version_op_latest(
     client: FoundryClient,
     model_studio_rid: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -7673,6 +7764,7 @@ def models_model_studio_model_studio_config_version_op_latest(
     """
     result = client.models.ModelStudio.ConfigVersion.latest(
         model_studio_rid=model_studio_rid,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -7680,6 +7772,16 @@ def models_model_studio_model_studio_config_version_op_latest(
 
 @models_model_studio_model_studio_config_version.command("list")
 @click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list configuration versions from, specified as either its RID or dataset branch identifier.
+The value must identify a global branch. Non-global branch names, including `main` and `master`,
+are rejected with `FoundryBranchNotFound`.
+If omitted, lists configuration versions from the default branch.
+""",
+)
 @click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
@@ -7698,6 +7800,7 @@ and use it to populate the `pageToken` field of the next request.""",
 def models_model_studio_model_studio_config_version_op_list(
     client: FoundryClient,
     model_studio_rid: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -7707,6 +7810,7 @@ def models_model_studio_model_studio_config_version_op_list(
     """
     result = client.models.ModelStudio.ConfigVersion.list(
         model_studio_rid=model_studio_rid,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
@@ -7721,6 +7825,16 @@ def models_model_studio_model_studio_run():
 
 @models_model_studio_model_studio_run.command("list")
 @click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list runs from, specified as either its RID or dataset branch identifier.
+The value must identify a global branch. Non-global branch names, including `main` and `master`,
+are rejected with `FoundryBranchNotFound`.
+If omitted, lists runs from the default branch.
+""",
+)
 @click.option(
     "--config_version", type=int, required=False, help="""Filter runs by configuration version."""
 )
@@ -7742,6 +7856,7 @@ and use it to populate the `pageToken` field of the next request.""",
 def models_model_studio_model_studio_run_op_list(
     client: FoundryClient,
     model_studio_rid: str,
+    branch: typing.Optional[str],
     config_version: typing.Optional[int],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -7752,6 +7867,7 @@ def models_model_studio_model_studio_run_op_list(
     """
     result = client.models.ModelStudio.Run.list(
         model_studio_rid=model_studio_rid,
+        branch=branch,
         config_version=config_version,
         page_size=page_size,
         page_token=page_token,
@@ -10229,6 +10345,12 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     Note that the result object set cannot contain a mix of objects with "interface" properties and "object type"
     properties. Attempting to load an object set like this will result in an error.
 
+    If an object in the result can be viewed as more than one interface, the request fails with an
+    `UnsupportedObjectSet` error. For example, this happens when the object set intersects two interfaces that the
+    object implements, or intersects an interface with a saved object set defined over a different interface. To
+    load these objects, use `loadObjectsMultipleObjectTypes` instead. It returns each object with its object type
+    properties, along with a mapping from each interface's properties to the object type's properties.
+
     For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
     are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
 
@@ -10618,6 +10740,113 @@ def ontologies_ontology_object_op_list(
         sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
         snapshot=snapshot,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("load_links")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--links", type=str, required=True, help="""""")
+@click.option(
+    "--primary_keys", type=str, required=True, help="""The primary keys of the source objects."""
+)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load links from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--execute_in_memory_only",
+    type=bool,
+    required=False,
+    help="""If true, the request fails with an error when it cannot be computed in-memory.
+Use this to opt into fast failure on requests that would otherwise require
+heavier computation.
+
+Defaults to false.
+""",
+)
+@click.option("--include_compute_usage", type=bool, required=False, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_op_load_links(
+    client: FoundryClient,
+    ontology: str,
+    object_type: str,
+    links: str,
+    primary_keys: str,
+    branch: typing.Optional[str],
+    execute_in_memory_only: typing.Optional[bool],
+    include_compute_usage: typing.Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
+):
+    """
+    Loads the specified links from the provided source objects of the given object type.
+
+    Links are defined as a link type API name and object locators for the source and target objects
+    where only the `__primaryKey` and `__apiName` properties are loaded.
+
+    Links are grouped by source object locator; however, the links for a given source object may be
+    split over multiple entries and pages with the same source object locator.
+
+    To retrieve all links, request subsequent pages until `nextPageToken` is absent. Use the same
+    object type, primary keys, link types, and branch with each request. An empty page does not indicate completion.
+
+    Please keep these limitations in mind:
+    - Requests must include at least one source primary key and between 1 and 50 link type API names.
+      Duplicate primary keys are ignored. A request can include up to 5,000 distinct source objects.
+    - Each link type API name must be valid for the source object type.
+    - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+    - Source objects with no links may be omitted. Read all pages before treating a source object's links as complete.
+    - Page tokens can expire after a few minutes or when the underlying index changes.
+    - This endpoint does not support Object Storage V1 (OSv1) links or interface links.
+    - Requests fail if a requested object type or link type is unavailable or the request token does not
+      have permission to read it.
+
+    """
+    result = client.ontologies.OntologyObject.load_links(
+        ontology=ontology,
+        object_type=object_type,
+        links=json.loads(links),
+        primary_keys=json.loads(primary_keys),
+        branch=branch,
+        execute_in_memory_only=execute_in_memory_only,
+        include_compute_usage=include_compute_usage,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     click.echo(repr(result))
 
@@ -11461,6 +11690,14 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--include_datasources",
+    type=bool,
+    required=False,
+    help="""When set to `true`, the `datasources` field on each returned object type is populated with the
+datasources backing it. Defaults to `false`.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -11473,6 +11710,7 @@ def ontologies_ontology_op_get_full_metadata(
     ontology: str,
     branch: typing.Optional[str],
     include_action_type_full_metadata: typing.Optional[bool],
+    include_datasources: typing.Optional[bool],
     preview: typing.Optional[bool],
 ):
     """
@@ -11485,6 +11723,7 @@ def ontologies_ontology_op_get_full_metadata(
         ontology=ontology,
         branch=branch,
         include_action_type_full_metadata=include_action_type_full_metadata,
+        include_datasources=include_datasources,
         preview=preview,
     )
     click.echo(repr(result))
@@ -11961,6 +12200,14 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--include_datasources",
+    type=bool,
+    required=False,
+    help="""When set to `true`, the `datasources` field on each returned object type is populated with the
+datasources backing it. Defaults to `false`.
+""",
+)
+@click.option(
     "--include_link_types",
     type=bool,
     required=False,
@@ -11981,6 +12228,7 @@ def ontologies_ontology_object_type_op_get_full_metadata_batch(
     ontology: str,
     requests: str,
     branch: typing.Optional[str],
+    include_datasources: typing.Optional[bool],
     include_link_types: typing.Optional[bool],
     preview: typing.Optional[bool],
 ):
@@ -12000,6 +12248,7 @@ def ontologies_ontology_object_type_op_get_full_metadata_batch(
         ontology=ontology,
         requests=json.loads(requests),
         branch=branch,
+        include_datasources=include_datasources,
         include_link_types=include_link_types,
         preview=preview,
     )

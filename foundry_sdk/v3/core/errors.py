@@ -56,6 +56,21 @@ class InvalidPageSize(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidPageTokenParameters(typing_extensions.TypedDict):
+    """The page token is invalid. Use the `nextPageToken` value returned by the previous response."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    pageToken: core_models.PageToken
+
+
+@dataclass
+class InvalidPageToken(errors.BadRequestError):
+    name: typing.Literal["InvalidPageToken"]
+    parameters: InvalidPageTokenParameters
+    error_instance_id: str
+
+
 class MissingBatchRequestParameters(typing_extensions.TypedDict):
     """Thrown when a batch request contains no elements."""
 
@@ -72,5 +87,6 @@ class MissingBatchRequest(errors.BadRequestError):
 __all__ = [
     "BatchRequestSizeExceededLimit",
     "InvalidPageSize",
+    "InvalidPageToken",
     "MissingBatchRequest",
 ]

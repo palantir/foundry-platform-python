@@ -382,6 +382,116 @@ class OntologyObjectClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def load_links(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        *,
+        links: typing.List[ontologies_models.LinkTypeApiName],
+        primary_keys: typing.List[ontologies_models.PrimaryKeyValue],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.LoadObjectLinksResponse:
+        """
+        Loads the specified links from the provided source objects of the given object type.
+
+        Links are defined as a link type API name and object locators for the source and target objects
+        where only the `__primaryKey` and `__apiName` properties are loaded.
+
+        Links are grouped by source object locator; however, the links for a given source object may be
+        split over multiple entries and pages with the same source object locator.
+
+        To retrieve all links, request subsequent pages until `nextPageToken` is absent. Use the same
+        object type, primary keys, link types, and branch with each request. An empty page does not indicate completion.
+
+        Please keep these limitations in mind:
+        - Requests must include at least one source primary key and between 1 and 50 link type API names.
+          Duplicate primary keys are ignored. A request can include up to 5,000 distinct source objects.
+        - Each link type API name must be valid for the source object type.
+        - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+        - Source objects with no links may be omitted. Read all pages before treating a source object's links as complete.
+        - Page tokens can expire after a few minutes or when the underlying index changes.
+        - This endpoint does not support Object Storage V1 (OSv1) links or interface links.
+        - Requests fail if a requested object type or link type is unavailable or the request token does not
+          have permission to read it.
+
+
+        Required scopes: [api:ontologies-read]
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+        :type object_type: ObjectTypeApiName
+        :param links:
+        :type links: List[LinkTypeApiName]
+        :param primary_keys: The primary keys of the source objects.
+        :type primary_keys: List[PrimaryKeyValue]
+        :param branch: The Foundry branch to load links from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.LoadObjectLinksResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/loadLinks",
+                query_params={
+                    "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                },
+                header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.LoadObjectLinksRequest(
+                    primary_keys=primary_keys,
+                    links=links,
+                    page_size=page_size,
+                    page_token=page_token,
+                    include_compute_usage=include_compute_usage,
+                ),
+                response_type=ontologies_models.LoadObjectLinksResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def search(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -525,12 +635,14 @@ class _OntologyObjectClientRaw:
         def count(_: ontologies_models.CountObjectsResponseV2): ...
         def get(_: ontologies_models.OntologyObjectV2): ...
         def list(_: ontologies_models.ListObjectsResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectLinksResponse): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_raw_response(aggregate, client.aggregate)
         self.count = core.with_raw_response(count, client.count)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
+        self.load_links = core.with_raw_response(load_links, client.load_links)
         self.search = core.with_raw_response(search, client.search)
 
 
@@ -540,12 +652,14 @@ class _OntologyObjectClientStreaming:
         def count(_: ontologies_models.CountObjectsResponseV2): ...
         def get(_: ontologies_models.OntologyObjectV2): ...
         def list(_: ontologies_models.ListObjectsResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectLinksResponse): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_streaming_response(aggregate, client.aggregate)
         self.count = core.with_streaming_response(count, client.count)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
+        self.load_links = core.with_streaming_response(load_links, client.load_links)
         self.search = core.with_streaming_response(search, client.search)
 
 
@@ -907,6 +1021,116 @@ class AsyncOntologyObjectClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def load_links(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        *,
+        links: typing.List[ontologies_models.LinkTypeApiName],
+        primary_keys: typing.List[ontologies_models.PrimaryKeyValue],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        execute_in_memory_only: typing.Optional[bool] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.LoadObjectLinksResponse]:
+        """
+        Loads the specified links from the provided source objects of the given object type.
+
+        Links are defined as a link type API name and object locators for the source and target objects
+        where only the `__primaryKey` and `__apiName` properties are loaded.
+
+        Links are grouped by source object locator; however, the links for a given source object may be
+        split over multiple entries and pages with the same source object locator.
+
+        To retrieve all links, request subsequent pages until `nextPageToken` is absent. Use the same
+        object type, primary keys, link types, and branch with each request. An empty page does not indicate completion.
+
+        Please keep these limitations in mind:
+        - Requests must include at least one source primary key and between 1 and 50 link type API names.
+          Duplicate primary keys are ignored. A request can include up to 5,000 distinct source objects.
+        - Each link type API name must be valid for the source object type.
+        - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+        - Source objects with no links may be omitted. Read all pages before treating a source object's links as complete.
+        - Page tokens can expire after a few minutes or when the underlying index changes.
+        - This endpoint does not support Object Storage V1 (OSv1) links or interface links.
+        - Requests fail if a requested object type or link type is unavailable or the request token does not
+          have permission to read it.
+
+
+        Required scopes: [api:ontologies-read]
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+        :type object_type: ObjectTypeApiName
+        :param links:
+        :type links: List[LinkTypeApiName]
+        :param primary_keys: The primary keys of the source objects.
+        :type primary_keys: List[PrimaryKeyValue]
+        :param branch: The Foundry branch to load links from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+        :type execute_in_memory_only: Optional[bool]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.LoadObjectLinksResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/loadLinks",
+                query_params={
+                    "branch": branch,
+                    "executeInMemoryOnly": execute_in_memory_only,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                },
+                header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.LoadObjectLinksRequest(
+                    primary_keys=primary_keys,
+                    links=links,
+                    page_size=page_size,
+                    page_token=page_token,
+                    include_compute_usage=include_compute_usage,
+                ),
+                response_type=ontologies_models.LoadObjectLinksResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def search(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -1050,12 +1274,14 @@ class _AsyncOntologyObjectClientRaw:
         def count(_: ontologies_models.CountObjectsResponseV2): ...
         def get(_: ontologies_models.OntologyObjectV2): ...
         def list(_: ontologies_models.ListObjectsResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectLinksResponse): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.async_with_raw_response(aggregate, client.aggregate)
         self.count = core.async_with_raw_response(count, client.count)
         self.get = core.async_with_raw_response(get, client.get)
         self.list = core.async_with_raw_response(list, client.list)
+        self.load_links = core.async_with_raw_response(load_links, client.load_links)
         self.search = core.async_with_raw_response(search, client.search)
 
 
@@ -1065,10 +1291,12 @@ class _AsyncOntologyObjectClientStreaming:
         def count(_: ontologies_models.CountObjectsResponseV2): ...
         def get(_: ontologies_models.OntologyObjectV2): ...
         def list(_: ontologies_models.ListObjectsResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectLinksResponse): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.async_with_streaming_response(aggregate, client.aggregate)
         self.count = core.async_with_streaming_response(count, client.count)
         self.get = core.async_with_streaming_response(get, client.get)
         self.list = core.async_with_streaming_response(list, client.list)
+        self.load_links = core.async_with_streaming_response(load_links, client.load_links)
         self.search = core.async_with_streaming_response(search, client.search)
