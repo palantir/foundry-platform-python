@@ -19,14 +19,13 @@ from typing import Optional
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry_sdk._core.oauth_utils import OAuth
-from foundry_sdk._core.oauth_utils import OAuthToken
 from foundry_sdk._core.utils import assert_non_empty_string
 
 
 class ConfidentialClientAuth(OAuth):
     """
     Client for Confidential Client OAuth-authenticated Ontology applications.
-    Runs a background thread to periodically refresh access token.
+    Refreshes the access token when it is close to expiring.
 
     :param client_id: OAuth client id to be used by the application.
     :param client_secret: OAuth client secret to be used by the application.
@@ -68,16 +67,6 @@ class ConfidentialClientAuth(OAuth):
     def scopes(self) -> List[str]:
         return self._server_oauth_flow_provider.scopes or []
 
-    def get_token(self) -> OAuthToken:
-        if self._token is None or self._token.expired:
-            self._token = self._server_oauth_flow_provider.get_token(
-                self._get_client(), self._get_base_url()
-            )
-
-            if self._should_refresh:
-                self._start_auto_refresh()
-        return self._token
-
     def _revoke_token(self) -> None:
         if self._token:
             self._server_oauth_flow_provider.revoke_token(
@@ -94,7 +83,7 @@ class ConfidentialClientAuth(OAuth):
 
         return urlparse(base_url).hostname or base_url
 
-    def _try_refresh_token(self) -> bool:
+    def _refresh_token(self) -> bool:
         self._token = self._server_oauth_flow_provider.get_token(
             self._get_client(), self._get_base_url()
         )

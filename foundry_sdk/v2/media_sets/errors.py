@@ -52,6 +52,23 @@ class GetMediaItemRidByPathPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class InvalidHostHeaderParameters(typing_extensions.TypedDict):
+    """
+    The `Host` header of the request is missing or is not a valid host and optional port. The tile URLs in the
+    TileJSON document use this host. Make sure that the request includes a valid `Host` header, such as
+    `example.palantirfoundry.com`.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidHostHeader(errors.BadRequestError):
+    name: typing.Literal["InvalidHostHeader"]
+    parameters: InvalidHostHeaderParameters
+    error_instance_id: str
+
+
 class InvalidMediaItemRidParameters(typing_extensions.TypedDict):
     """The provided media item RID is invalid."""
 
@@ -291,6 +308,22 @@ class TemporaryMediaUploadUnknownFailure(errors.InternalServerError):
     error_instance_id: str
 
 
+class TileJsonUnavailableParameters(typing_extensions.TypedDict):
+    """TileJSON is unavailable for the requested media item."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    mediaItemRid: core_models.MediaItemRid
+
+
+@dataclass
+class TileJsonUnavailable(errors.NotFoundError):
+    name: typing.Literal["TileJsonUnavailable"]
+    parameters: TileJsonUnavailableParameters
+    error_instance_id: str
+
+
 class TransformationDocumentExtractErrorParameters(typing_extensions.TypedDict):
     """Document extraction failed. This covers any failure during extraction, from a malformed document to a server-side error."""
 
@@ -449,6 +482,19 @@ class TransformationUnavailable(errors.BadRequestError):
     error_instance_id: str
 
 
+class TransformationUnsupportedParameters(typing_extensions.TypedDict):
+    """The requested transformation does not support the specified input and output formats."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationUnsupported(errors.BadRequestError):
+    name: typing.Literal["TransformationUnsupported"]
+    parameters: TransformationUnsupportedParameters
+    error_instance_id: str
+
+
 class TransformationVlmErrorParameters(typing_extensions.TypedDict):
     """A language model call failed during a media transformation."""
 
@@ -549,6 +595,22 @@ class UnexpectedMetadataType(errors.InternalServerError):
     error_instance_id: str
 
 
+class UnexpectedTileJsonResponseParameters(typing_extensions.TypedDict):
+    """The service returned an unexpected response while retrieving the media item's TileJSON."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    statusCode: int
+    """The HTTP status code returned by the upstream service."""
+
+
+@dataclass
+class UnexpectedTileJsonResponse(errors.InternalServerError):
+    name: typing.Literal["UnexpectedTileJsonResponse"]
+    parameters: UnexpectedTileJsonResponseParameters
+    error_instance_id: str
+
+
 class UnsupportedMetadataParameters(typing_extensions.TypedDict):
     """A media item has an unsupported metadata type"""
 
@@ -565,6 +627,7 @@ class UnsupportedMetadata(errors.InternalServerError):
 __all__ = [
     "ConflictingMediaSetIdentifiers",
     "GetMediaItemRidByPathPermissionDenied",
+    "InvalidHostHeader",
     "InvalidMediaItemRid",
     "InvalidMediaItemSchema",
     "InvalidTilePath",
@@ -580,6 +643,7 @@ __all__ = [
     "MissingMediaItemPath",
     "TemporaryMediaUploadInsufficientPermissions",
     "TemporaryMediaUploadUnknownFailure",
+    "TileJsonUnavailable",
     "TransformationDocumentExtractError",
     "TransformationImageTooLargeForOcr",
     "TransformationInputTooLarge",
@@ -591,6 +655,7 @@ __all__ = [
     "TransformationNotFound",
     "TransformationPermissionDenied",
     "TransformationUnavailable",
+    "TransformationUnsupported",
     "TransformationVlmError",
     "TransformationVlmLayoutModelFailure",
     "TransformationVlmMultiPageRequestUnsupported",
@@ -598,5 +663,6 @@ __all__ = [
     "TransformationVlmResponseParseError",
     "TransformedMediaItemNotFound",
     "UnexpectedMetadataType",
+    "UnexpectedTileJsonResponse",
     "UnsupportedMetadata",
 ]

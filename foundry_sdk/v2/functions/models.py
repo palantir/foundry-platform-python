@@ -58,6 +58,9 @@ Represents the value of data in the following format. Note that these values can
 | Integer                     | number                                                | `238940`                                                                      |
 | Long                        | string                                                | `"58319870951433"`                                                            |
 | Marking                     | string                                                | `"MU"`                                                                        |
+| Entry set                   | array of key/value entries                            | `[{"key": "alpha", "value": 1}]`                                             |
+| Object                      | primary key                                           | `123`                                                                         |
+| Interface object            | object type API name and primary key                  | `{"objectTypeApiName": "Aircraft", "primaryKeyValue": 123}`                   |
 | Null                        | null                                                  | `null`                                                                        |
 | Set                         | array                                                 | `["alpha", "bravo", "charlie"]`                                               |
 | Short                       | number                                                | `8739`                                                                        |
@@ -67,6 +70,14 @@ Represents the value of data in the following format. Note that these values can
 | ThreeDimensionalAggregation | JSON object                                           | `{"groups": [{"key": "NYC", "groups": [{"key": "Engineer", "value" : 100}]}]}`|
 | Timestamp                   | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                      |
 """
+
+
+class EntrySetType(core.ModelBase):
+    """A map represented as an array of key/value entries."""
+
+    key_type: QueryDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
+    value_type: QueryDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
+    type: typing.Literal["entrySet"] = "entrySet"
 
 
 class EnumConstraint(core.ModelBase):
@@ -81,8 +92,10 @@ class ExecuteAsyncQueryRequest(core.ModelBase):
 
     ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None
     """
-    Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
-    function. When omitted, executes a global function.
+    Optional ontology identifier (RID or API name).
+
+    Used to resolve ontology-bound API names for this request,
+    including queries, objects, and links.
     """
 
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
@@ -193,6 +206,9 @@ GetExecutionResultResponse: typing_extensions.TypeAlias = typing_extensions.Anno
 class GetResultExecutionRequest(core.ModelBase):
     """GetResultExecutionRequest"""
 
+    branch: typing.Optional[core_models.FoundryBranch] = None
+    """Branch supplied when starting execution, used to load ontology metadata for results."""
+
     timeout: typing.Optional[int] = None
     """
     Maximum time in seconds to hold the connection open while waiting
@@ -240,6 +256,34 @@ class NullableConstraint(core.ModelBase):
 
 NullableConstraintValue: typing_extensions.TypeAlias = typing.Literal["NULLABLE", "NOT_NULLABLE"]
 """NullableConstraintValue"""
+
+
+class OntologyInterfaceObjectSetType(core.ModelBase):
+    """OntologyInterfaceObjectSetType"""
+
+    interface_type_api_name: str = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["interfaceObjectSet"] = "interfaceObjectSet"
+
+
+class OntologyInterfaceObjectType(core.ModelBase):
+    """OntologyInterfaceObjectType"""
+
+    interface_type_api_name: str = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["interfaceObject"] = "interfaceObject"
+
+
+class OntologyObjectSetType(core.ModelBase):
+    """OntologyObjectSetType"""
+
+    object_type_api_name: ontologies_models.ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["objectSet"] = "objectSet"
+
+
+class OntologyObjectType(core.ModelBase):
+    """OntologyObjectType"""
+
+    object_type_api_name: ontologies_models.ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["object"] = "object"
 
 
 class Parameter(core.ModelBase):
@@ -325,31 +369,36 @@ class QueryArrayType(core.ModelBase):
 QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
+        "OntologyInterfaceObjectType",
         "QueryStructType",
-        "QuerySetType",
-        core_models.VoidType,
         core_models.StringType,
-        core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
-        "QueryUnionType",
         core_models.FloatType,
-        core_models.GeoShapeType,
         core_models.LongType,
-        core_models.BooleanType,
         core_models.UnsupportedType,
         core_models.AttachmentType,
-        core_models.MediaReferenceType,
-        core_models.NullType,
         "QueryArrayType",
+        "OntologyObjectSetType",
         "TwoDimensionalAggregation",
-        "ValueTypeReference",
         "QueryTypeReferenceType",
         core_models.TimestampType,
+        "QuerySetType",
+        core_models.VoidType,
+        "EntrySetType",
+        core_models.DoubleType,
+        "QueryUnionType",
+        core_models.GeoShapeType,
+        core_models.BooleanType,
+        core_models.MediaReferenceType,
+        core_models.NullType,
+        "ValueTypeReference",
+        "OntologyInterfaceObjectSetType",
+        "OntologyObjectType",
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""A union of all the types supported by Query parameters or outputs."""
+"""Query parameter and output types."""
 
 
 QueryRuntimeErrorParameter: typing_extensions.TypeAlias = str
@@ -788,6 +837,7 @@ __all__ = [
     "ArrayConstraint",
     "CancelExecutionResponse",
     "DataValue",
+    "EntrySetType",
     "EnumConstraint",
     "ExecuteAsyncQueryRequest",
     "ExecuteQueryAsyncResponse",
@@ -808,6 +858,10 @@ __all__ = [
     "MapConstraint",
     "NullableConstraint",
     "NullableConstraintValue",
+    "OntologyInterfaceObjectSetType",
+    "OntologyInterfaceObjectType",
+    "OntologyObjectSetType",
+    "OntologyObjectType",
     "Parameter",
     "ParameterId",
     "Query",

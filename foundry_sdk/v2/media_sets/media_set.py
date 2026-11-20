@@ -1032,6 +1032,62 @@ class MediaSetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def tile_json(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> bytes:
+        """
+        Gets a TileJSON 3.0.0 document describing the media item's tiles.
+
+
+        Required scopes: [api:mediasets-read]
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: The RID of the media item.
+        :type media_item_rid: MediaItemRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param read_token:
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: bytes
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/tiles.json",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "*/*",
+                },
+                body=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def transform(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -1257,6 +1313,7 @@ class _MediaSetClientRaw:
         def register(_: media_sets_models.RegisterMediaItemResponse): ...
         def retrieve(_: bytes): ...
         def tile(_: typing.Optional[bytes]): ...
+        def tile_json(_: bytes): ...
         def transform(_: media_sets_models.TransformMediaItemResponse): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
         def upload_media(_: core_models.MediaReference): ...
@@ -1278,6 +1335,7 @@ class _MediaSetClientRaw:
         self.register = core.with_raw_response(register, client.register)
         self.retrieve = core.with_raw_response(retrieve, client.retrieve)
         self.tile = core.with_raw_response(tile, client.tile)
+        self.tile_json = core.with_raw_response(tile_json, client.tile_json)
         self.transform = core.with_raw_response(transform, client.transform)
         self.upload = core.with_raw_response(upload, client.upload)
         self.upload_media = core.with_raw_response(upload_media, client.upload_media)
@@ -1299,6 +1357,7 @@ class _MediaSetClientStreaming:
         def register(_: media_sets_models.RegisterMediaItemResponse): ...
         def retrieve(_: bytes): ...
         def tile(_: typing.Optional[bytes]): ...
+        def tile_json(_: bytes): ...
         def transform(_: media_sets_models.TransformMediaItemResponse): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
         def upload_media(_: core_models.MediaReference): ...
@@ -1317,6 +1376,7 @@ class _MediaSetClientStreaming:
         self.register = core.with_streaming_response(register, client.register)
         self.retrieve = core.with_streaming_response(retrieve, client.retrieve)
         self.tile = core.with_streaming_response(tile, client.tile)
+        self.tile_json = core.with_streaming_response(tile_json, client.tile_json)
         self.transform = core.with_streaming_response(transform, client.transform)
         self.upload = core.with_streaming_response(upload, client.upload)
         self.upload_media = core.with_streaming_response(upload_media, client.upload_media)
@@ -2330,6 +2390,62 @@ class AsyncMediaSetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def tile_json(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[bytes]:
+        """
+        Gets a TileJSON 3.0.0 document describing the media item's tiles.
+
+
+        Required scopes: [api:mediasets-read]
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: The RID of the media item.
+        :type media_item_rid: MediaItemRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param read_token:
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[bytes]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/tiles.json",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "*/*",
+                },
+                body=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def transform(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -2555,6 +2671,7 @@ class _AsyncMediaSetClientRaw:
         def register(_: media_sets_models.RegisterMediaItemResponse): ...
         def retrieve(_: bytes): ...
         def tile(_: typing.Optional[bytes]): ...
+        def tile_json(_: bytes): ...
         def transform(_: media_sets_models.TransformMediaItemResponse): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
         def upload_media(_: core_models.MediaReference): ...
@@ -2576,6 +2693,7 @@ class _AsyncMediaSetClientRaw:
         self.register = core.async_with_raw_response(register, client.register)
         self.retrieve = core.async_with_raw_response(retrieve, client.retrieve)
         self.tile = core.async_with_raw_response(tile, client.tile)
+        self.tile_json = core.async_with_raw_response(tile_json, client.tile_json)
         self.transform = core.async_with_raw_response(transform, client.transform)
         self.upload = core.async_with_raw_response(upload, client.upload)
         self.upload_media = core.async_with_raw_response(upload_media, client.upload_media)
@@ -2597,6 +2715,7 @@ class _AsyncMediaSetClientStreaming:
         def register(_: media_sets_models.RegisterMediaItemResponse): ...
         def retrieve(_: bytes): ...
         def tile(_: typing.Optional[bytes]): ...
+        def tile_json(_: bytes): ...
         def transform(_: media_sets_models.TransformMediaItemResponse): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
         def upload_media(_: core_models.MediaReference): ...
@@ -2617,6 +2736,7 @@ class _AsyncMediaSetClientStreaming:
         self.register = core.async_with_streaming_response(register, client.register)
         self.retrieve = core.async_with_streaming_response(retrieve, client.retrieve)
         self.tile = core.async_with_streaming_response(tile, client.tile)
+        self.tile_json = core.async_with_streaming_response(tile_json, client.tile_json)
         self.transform = core.async_with_streaming_response(transform, client.transform)
         self.upload = core.async_with_streaming_response(upload, client.upload)
         self.upload_media = core.async_with_streaming_response(upload_media, client.upload_media)

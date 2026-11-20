@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**count**](#count) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/count | Private Beta |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey} | Stable |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/objects/{objectType} | Stable |
+[**load_links**](#load_links) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/loadLinks | Private Beta |
 [**search**](#search) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/search | Stable |
 
 # **aggregate**
@@ -370,6 +371,122 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListObjectsResponseV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **load_links**
+Loads the specified links from the provided source objects of the given object type.
+
+Links are defined as a link type API name and object locators for the source and target objects
+where only the `__primaryKey` and `__apiName` properties are loaded.
+
+Links are grouped by source object locator; however, the links for a given source object may be
+split over multiple entries and pages with the same source object locator.
+
+To retrieve all links, request subsequent pages until `nextPageToken` is absent. Use the same
+object type, primary keys, link types, and branch with each request. An empty page does not indicate completion.
+
+Please keep these limitations in mind:
+- Requests must include at least one source primary key and between 1 and 50 link type API names.
+  Duplicate primary keys are ignored. A request can include up to 5,000 distinct source objects.
+- Each link type API name must be valid for the source object type.
+- Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+- Source objects with no links may be omitted. Read all pages before treating a source object's links as complete.
+- Page tokens can expire after a few minutes or when the underlying index changes.
+- This endpoint does not support Object Storage V1 (OSv1) links or interface links.
+- Requests fail if a requested object type or link type is unavailable or the request token does not
+  have permission to read it.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**links** | List[LinkTypeApiName] |  |  |
+**primary_keys** | List[PrimaryKeyValue] | The primary keys of the source objects. |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load links from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**execute_in_memory_only** | Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.  | [optional] |
+**include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
+
+### Return type
+**LoadObjectLinksResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+object_type = "employee"
+# List[LinkTypeApiName]
+links = ["lead"]
+# List[PrimaryKeyValue] | The primary keys of the source objects.
+primary_keys = [42]
+# Optional[FoundryBranch] | The Foundry branch to load links from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[bool] | If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
+execute_in_memory_only = None
+# Optional[IncludeComputeUsage]
+include_compute_usage = None
+# Optional[PageSize]
+page_size = None
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
+
+
+try:
+    api_response = client.ontologies.OntologyObject.load_links(
+        ontology,
+        object_type,
+        links=links,
+        primary_keys=primary_keys,
+        branch=branch,
+        execute_in_memory_only=execute_in_memory_only,
+        include_compute_usage=include_compute_usage,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
+    )
+    print("The load_links response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling OntologyObject.load_links: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+Required scopes: [api:ontologies-read]
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | LoadObjectLinksResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
