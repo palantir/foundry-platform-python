@@ -174,6 +174,7 @@ class QueryClient:
         latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[functions_models.ScenarioRid] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[functions_models.TransactionId] = None,
@@ -207,6 +208,8 @@ class QueryClient:
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to execute the query on. If omitted, no explicit scenario is used.
+        :type scenario_rid: Optional[ScenarioRid]
         :param trace_parent:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
@@ -229,6 +232,7 @@ class QueryClient:
                 resource_path="/v2/functions/queries/{queryApiName}/executeAsync",
                 query_params={
                     "preview": preview,
+                    "scenarioRid": scenario_rid,
                     "transactionId": transaction_id,
                 },
                 path_params={
@@ -857,6 +861,7 @@ class AsyncQueryClient:
         latest_version_resolution: typing.Optional[functions_models.LatestVersionResolution] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[functions_models.ScenarioRid] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[functions_models.TransactionId] = None,
@@ -890,6 +895,8 @@ class AsyncQueryClient:
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to execute the query on. If omitted, no explicit scenario is used.
+        :type scenario_rid: Optional[ScenarioRid]
         :param trace_parent:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
@@ -912,6 +919,7 @@ class AsyncQueryClient:
                 resource_path="/v2/functions/queries/{queryApiName}/executeAsync",
                 query_params={
                     "preview": preview,
+                    "scenarioRid": scenario_rid,
                     "transactionId": transaction_id,
                 },
                 path_params={

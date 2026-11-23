@@ -471,6 +471,10 @@ class RunningExecution(core.ModelBase):
     type: typing.Literal["running"] = "running"
 
 
+ScenarioRid: typing_extensions.TypeAlias = core.RID
+"""The unique resource identifier of an ontology scenario."""
+
+
 class StreamingExecuteEventsQueryRequest(core.ModelBase):
     """StreamingExecuteEventsQueryRequest"""
 
@@ -882,6 +886,7 @@ __all__ = [
     "RegexConstraint",
     "RidConstraint",
     "RunningExecution",
+    "ScenarioRid",
     "StreamingExecuteEventsQueryRequest",
     "StreamingExecuteQueryRequest",
     "StreamingExecuteQueryResponse",

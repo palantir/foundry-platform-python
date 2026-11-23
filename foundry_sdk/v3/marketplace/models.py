@@ -284,6 +284,7 @@ InputType: typing_extensions.TypeAlias = typing.Literal[
     "AGENT_BUILDER_AGENT",
     "AGENT_DEFINITION",
     "ONTOLOGY_SCHEMA_MIGRATION_POLICY",
+    "ONTOLOGY_PROJECTS_MIGRATION_POLICY",
     "AIP_AGENT",
     "ARTIFACTS_REPOSITORY",
     "LIBRARY",
@@ -317,6 +318,7 @@ InputType: typing_extensions.TypeAlias = typing.Literal[
     "FUNCTION_API_STABILITY",
     "FUSION_DOCUMENT",
     "GEOTIME_SERIES_INTEGRATION",
+    "GOTHAM_ARTIFACT",
     "INTERFACE_TYPE",
     "INTERFACE_LINK_TYPE",
     "INTERFACE_PROPERTY_TYPE",
@@ -496,7 +498,7 @@ class InputValueStrings(core.ModelBase):
 
 
 class InstallationError(core.ModelBase):
-    """A resolution or validation error. Resource references are included only when visible to the request token."""
+    """A preparation, resolution, or validation error. Resource references are included only when visible to the request token."""
 
     error_value: ErrorValue = pydantic.Field(alias=str("errorValue"))  # type: ignore[literal-required]
     severity: ErrorSeverity
@@ -519,15 +521,6 @@ class InstallationJobDraftMode(core.ModelBase):
     type: typing.Literal["draft"] = "draft"
 
 
-class InstallationJobDraftPreparationFailure(core.ModelBase):
-    """An error prevented draft preparation from reaching a consistent state."""
-
-    error: ErrorValue
-    """The error encountered while preparing the draft. The resolved state may be incomplete."""
-
-    type: typing.Literal["draftPreparation"] = "draftPreparation"
-
-
 InstallationJobErrorHandling: typing_extensions.TypeAlias = typing.Literal["IDLE", "ABORT"]
 """
 What to do with a draft if preparation fails or submission is prevented.
@@ -536,6 +529,13 @@ Values:
 - **ABORT**: Abort and clean up the draft.
 - **IDLE**: Retain the draft for inspection or continuation in Marketplace.
 """
+
+
+InstallationJobErrors: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["InstallationJobExecutionFailure", "InstallationJobPreparationErrors"],
+    pydantic.Field(discriminator="type"),
+]
+"""Available error results for a job being prepared or a submitted installation job."""
 
 
 class InstallationJobExecutionFailure(core.ModelBase):
@@ -549,13 +549,6 @@ class InstallationJobExecutionFailure(core.ModelBase):
 
     stage: InstallationJobFailureStage
     type: typing.Literal["execution"] = "execution"
-
-
-InstallationJobFailure: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union["InstallationJobDraftPreparationFailure", "InstallationJobExecutionFailure"],
-    pydantic.Field(discriminator="type"),
-]
-"""Failure diagnostics grouped by the phase in which the failure occurred."""
 
 
 InstallationJobFailureStage: typing_extensions.TypeAlias = typing.Literal[
@@ -572,6 +565,38 @@ class InstallationJobInputs(core.ModelBase):
 
     values: typing.Dict[InputApiName, InputValue]
     """Manually supplied values keyed by qualified input API name. A child with a value requires its parent to have a value in this map, recursively through the ancestor chain."""
+
+
+class InstallationJobPreparationErrorList(core.ModelBase):
+    """Draft preparation and validation errors visible to the draft owner."""
+
+    errors: typing.List[InstallationError]
+    type: typing.Literal["errors"] = "errors"
+
+
+InstallationJobPreparationErrorResult: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["InstallationJobPreparationErrorList", "InstallationJobPreparationErrorSummary"],
+    pydantic.Field(discriminator="type"),
+]
+"""Full draft preparation and validation errors for the owner, or a blocking error summary for other viewers."""
+
+
+class InstallationJobPreparationErrorSummary(core.ModelBase):
+    """A blocking preparation error count visible to authorized viewers other than the job owner."""
+
+    total_blocking_errors: int = pydantic.Field(alias=str("totalBlockingErrors"))  # type: ignore[literal-required]
+    type: typing.Literal["summary"] = "summary"
+
+
+class InstallationJobPreparationErrors(core.ModelBase):
+    """
+    Draft preparation and validation results available to the viewer. An error that prevents preparation from reaching
+    a consistent state is included as a blocking error with a job-level target, alongside any existing validation
+    errors.
+    """
+
+    result: InstallationJobPreparationErrorResult
+    type: typing.Literal["preparation"] = "preparation"
 
 
 InstallationJobSubmissionMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
@@ -604,13 +629,6 @@ class InstallationJobTarget(core.ModelBase):
     target_version: TargetVersion = pydantic.Field(alias=str("targetVersion"))  # type: ignore[literal-required]
 
 
-InstallationJobValidation: typing_extensions.TypeAlias = typing_extensions.Annotated[
-    typing.Union["InstallationJobValidationErrors", "InstallationJobValidationSummary"],
-    pydantic.Field(discriminator="type"),
-]
-"""Validation results available to the viewer."""
-
-
 InstallationJobValidationErrorTolerance: typing_extensions.TypeAlias = typing.Literal[
     "NONE", "NON_BLOCKING_ERRORS"
 ]
@@ -621,20 +639,6 @@ Values:
 - **NONE**: Any validation error prevents submission.
 - **NON_BLOCKING_ERRORS**: Only blocking validation errors prevent submission.
 """
-
-
-class InstallationJobValidationErrors(core.ModelBase):
-    """Validation errors visible to the job owner."""
-
-    errors: typing.List[InstallationError]
-    type: typing.Literal["errors"] = "errors"
-
-
-class InstallationJobValidationSummary(core.ModelBase):
-    """A validation error count visible to authorized viewers other than the job owner."""
-
-    total_blocking_errors: int = pydantic.Field(alias=str("totalBlockingErrors"))  # type: ignore[literal-required]
-    type: typing.Literal["summary"] = "summary"
 
 
 class InstallationOverrides(core.ModelBase):
@@ -718,6 +722,31 @@ class LocalGeotimeDestination(core.ModelBase):
     type: typing.Literal["local"] = "local"
 
 
+class LocalMarketplaceStore(core.ModelBase):
+    """A local Marketplace store and its filesystem location."""
+
+    parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    """The RID of the project or folder that currently contains the local store."""
+
+    type: typing.Literal["local"] = "local"
+
+
+class Marketplace(core.ModelBase):
+    """A Marketplace store containing published products available for installation."""
+
+    description: typing.Optional[str] = None
+    """The current description of the store. Absent if no description is set."""
+
+    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    """The current display name of the store."""
+
+    rid: MarketplaceRid
+    """The store RID used as `marketplaceRid` when registering a product installation."""
+
+    store_type: MarketplaceStoreType = pydantic.Field(alias=str("storeType"))  # type: ignore[literal-required]
+    """Whether this is a local or remote store. Only local stores expose a filesystem parent."""
+
+
 class MarketplaceInstallation(core.ModelBase):
     """A registered product installation and filesystem resource. Its latest target version is absent until an installation job runs."""
 
@@ -762,20 +791,19 @@ class MarketplaceInstallationJob(core.ModelBase):
 
 
 class MarketplaceInstallationJobDetails(core.ModelBase):
-    """Available validation and failure diagnostics for an installation job or draft."""
+    """Available preparation results and execution failure diagnostics for an installation job or draft."""
 
-    failure: typing.Optional[InstallationJobFailure] = None
+    errors: typing.Optional[InstallationJobErrors] = None
     """
-    Diagnostics for a draft preparation or submitted-job execution failure, when available. A draft preparation
-    failure can appear alongside validation. Absence does not mean the job succeeded; for example, an explicitly
-    aborted job may have no failure diagnostics. Check the job's `status` for its outcome.
-    """
+    Preparation results for a draft, or execution failure diagnostics for a submitted job, when available.
+    Draft owners receive the full list of preparation and validation errors; other authorized viewers receive
+    a summary of blocking errors, including failures that prevented preparation from reaching a consistent state.
 
-    validation: typing.Optional[InstallationJobValidation] = None
-    """
-    Draft validation results, when available. The draft owner receives the full list of errors; other authorized
-    viewers receive a summary of blocking errors. An empty error list or a summary count of zero is a validation
-    result, not an absence of validation. This field is absent when no draft validation result is available.
+    This field is absent when no result is available, for example, while preparation is still running.
+    Absence does not mean preparation passed validation or the job succeeded. An explicitly aborted job may
+    have no diagnostics. Check the job's `status` for its progress and outcome.
+
+    An empty preparation error list means a result is available with no preparation or validation errors.
     """
 
 
@@ -812,6 +840,13 @@ MarketplaceInstallationRid: typing_extensions.TypeAlias = core.RID
 
 MarketplaceRid: typing_extensions.TypeAlias = core.RID
 """MarketplaceRid"""
+
+
+MarketplaceStoreType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+    typing.Union["LocalMarketplaceStore", "RemoteMarketplaceStore"],
+    pydantic.Field(discriminator="type"),
+]
+"""Whether the store is local or managed remotely, with metadata specific to that kind of store."""
 
 
 MigrationCandidateId: typing_extensions.TypeAlias = str
@@ -1344,6 +1379,12 @@ class RedactedCredentialSecrets(core.ModelBase):
     type: typing.Literal["redacted"] = "redacted"
 
 
+class RemoteMarketplaceStore(core.ModelBase):
+    """A remotely managed Marketplace store without a filesystem parent."""
+
+    type: typing.Literal["remote"] = "remote"
+
+
 class ReplayAcknowledgement(core.ModelBase):
     """ReplayAcknowledgement"""
 
@@ -1717,19 +1758,19 @@ __all__ = [
     "InstallationError",
     "InstallationInputSelection",
     "InstallationJobDraftMode",
-    "InstallationJobDraftPreparationFailure",
     "InstallationJobErrorHandling",
+    "InstallationJobErrors",
     "InstallationJobExecutionFailure",
-    "InstallationJobFailure",
     "InstallationJobFailureStage",
     "InstallationJobInputs",
+    "InstallationJobPreparationErrorList",
+    "InstallationJobPreparationErrorResult",
+    "InstallationJobPreparationErrorSummary",
+    "InstallationJobPreparationErrors",
     "InstallationJobSubmissionMode",
     "InstallationJobSubmitMode",
     "InstallationJobTarget",
-    "InstallationJobValidation",
     "InstallationJobValidationErrorTolerance",
-    "InstallationJobValidationErrors",
-    "InstallationJobValidationSummary",
     "InstallationOverrides",
     "InstallationPrefixConfiguration",
     "InstallationTarget",
@@ -1738,6 +1779,8 @@ __all__ = [
     "LibraryLocatorConda",
     "LibraryLocatorPath",
     "LocalGeotimeDestination",
+    "LocalMarketplaceStore",
+    "Marketplace",
     "MarketplaceInstallation",
     "MarketplaceInstallationInputs",
     "MarketplaceInstallationJob",
@@ -1746,6 +1789,7 @@ __all__ = [
     "MarketplaceInstallationJobStatus",
     "MarketplaceInstallationRid",
     "MarketplaceRid",
+    "MarketplaceStoreType",
     "MigrationCandidateId",
     "OntologyLiteral",
     "OntologyLiteralArray",
@@ -1812,6 +1856,7 @@ __all__ = [
     "RecommendationStrategyExplicit",
     "RecommendationStrategySameNamespace",
     "RedactedCredentialSecrets",
+    "RemoteMarketplaceStore",
     "ReplayAcknowledgement",
     "ResolvedInput",
     "ResolvedInputConnectionConfigurationOverrides",

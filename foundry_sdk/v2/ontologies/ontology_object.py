@@ -231,7 +231,7 @@ class OntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param scenario_rid: The resource identifier of an ontology scenario to read the object from.
         :type scenario_rid: Optional[OntologyScenarioRid]
@@ -326,7 +326,7 @@ class OntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
@@ -564,7 +564,7 @@ class OntologyObjectClient:
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
         :type execute_in_memory_only: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
@@ -870,7 +870,7 @@ class AsyncOntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param scenario_rid: The resource identifier of an ontology scenario to read the object from.
         :type scenario_rid: Optional[OntologyScenarioRid]
@@ -965,7 +965,7 @@ class AsyncOntologyObjectClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
@@ -1203,7 +1203,7 @@ class AsyncOntologyObjectClient:
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
         :type execute_in_memory_only: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]

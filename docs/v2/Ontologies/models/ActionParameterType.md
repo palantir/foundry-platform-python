@@ -15,6 +15,7 @@ OntologyInterfaceObjectType | interfaceObject
 OntologyStructType | struct
 StringType | string
 DoubleType | double
+GeotimeSeriesReferenceType | geotimeSeriesReference
 IntegerType | integer
 GeoShapeType | geoshape
 LongType | long
@@ -30,6 +31,7 @@ OntologyObjectSetType | objectSet
 GeohashType | geohash
 VectorType | vector
 DecimalType | decimal
+OntologyInterfaceObjectSetType | interfaceObjectSet
 OntologyObjectType | object
 TimestampType | timestamp
 

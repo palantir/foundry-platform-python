@@ -1,6 +1,6 @@
 # InstallationError
 
-A resolution or validation error. Resource references are included only when visible to the request token.
+A preparation, resolution, or validation error. Resource references are included only when visible to the request token.
 
 ## Properties
 | Name | Type | Required | Description |

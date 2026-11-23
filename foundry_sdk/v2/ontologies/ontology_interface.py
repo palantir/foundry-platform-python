@@ -374,7 +374,7 @@ class OntologyInterfaceClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
@@ -1137,7 +1137,7 @@ class AsyncOntologyInterfaceClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]

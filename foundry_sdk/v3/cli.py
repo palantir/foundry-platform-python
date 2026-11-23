@@ -847,13 +847,17 @@ def marketplace_marketplace_installation_job_marketplace_installation_job_detail
     preview: typing.Optional[bool],
 ):
     """
-    Get available validation results and failure diagnostics for an installation job or draft. Use the
+    Get available preparation results and execution failure diagnostics for an installation job or draft. Use the
     installation job's `status` to track its progress and outcome. These details can help explain why a draft or
     job has not progressed or completed as expected.
 
-    Draft owners receive full validation errors. Other authorized viewers receive a validation summary instead.
-    Failed and aborted jobs return HTTP 200 with their available diagnostics. An explicit abort or a
-    validation-only submission rejection may have no failure diagnostics.
+    Draft owners receive full preparation and validation errors. Other authorized viewers receive a summary
+    of blocking errors instead. Preparation failures are included as blocking errors alongside any validation
+    errors. An absent `errors` field means no result is available; an empty preparation error list or a summary
+    count of zero is an available result.
+
+    Failed and aborted jobs return HTTP 200 with their available diagnostics. An explicit abort may have no
+    diagnostics. A submission prevented by validation is reported through `preparation`.
     The job remains queryable under the same RID after its draft is submitted, subject to retention and access.
     """
     result = client.marketplace.MarketplaceInstallationJob.Details.get(
@@ -987,6 +991,30 @@ def marketplace_marketplace_installation_marketplace_installation_inputs_op_get(
         marketplace_installation_rid=marketplace_installation_rid,
         preview=preview,
         selection=selection,
+    )
+    click.echo(repr(result))
+
+
+@marketplace.group("marketplace")
+def marketplace_marketplace():
+    pass
+
+
+@marketplace_marketplace.command("get")
+@click.argument("marketplace_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.pass_obj
+def marketplace_marketplace_op_get(
+    client: FoundryClient,
+    marketplace_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get a local or remote Marketplace store by its RID, including its current display metadata.
+    """
+    result = client.marketplace.Marketplace.get(
+        marketplace_rid=marketplace_rid,
+        preview=preview,
     )
     click.echo(repr(result))
 

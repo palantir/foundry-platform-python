@@ -775,6 +775,12 @@ def test_filesystem_v3_space_import():
     assert SpaceClient is not None
 
 
+def test_marketplace_v3_marketplace_import():
+    from foundry_sdk.v3.marketplace.marketplace import MarketplaceClient
+
+    assert MarketplaceClient is not None
+
+
 def test_marketplace_v3_marketplace_installation_import():
     from foundry_sdk.v3.marketplace.marketplace_installation import (
         MarketplaceInstallationClient,

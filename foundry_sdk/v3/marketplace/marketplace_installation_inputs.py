@@ -93,6 +93,7 @@ class MarketplaceInstallationInputsClient:
 
         :raises InstallationInputApiNamesNotEnabled: One or more installations have product inputs without API names. Enable input API name generation for those products before interacting with them.
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -115,6 +116,7 @@ class MarketplaceInstallationInputsClient:
                 throwable_errors={
                     "InstallationInputApiNamesNotEnabled": marketplace_errors.InstallationInputApiNamesNotEnabled,
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -203,6 +205,7 @@ class AsyncMarketplaceInstallationInputsClient:
 
         :raises InstallationInputApiNamesNotEnabled: One or more installations have product inputs without API names. Enable input API name generation for those products before interacting with them.
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -225,6 +228,7 @@ class AsyncMarketplaceInstallationInputsClient:
                 throwable_errors={
                     "InstallationInputApiNamesNotEnabled": marketplace_errors.InstallationInputApiNamesNotEnabled,
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

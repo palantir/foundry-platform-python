@@ -1314,7 +1314,7 @@ MediaSchema: typing_extensions.TypeAlias = typing.Literal[
     "MULTIMODAL",
     "SPREADSHEET",
     "STREAMING_VIDEO",
-    "TILED_RASTER",
+    "TILED_FORMAT",
     "VIDEO",
     "EMAIL",
 ]

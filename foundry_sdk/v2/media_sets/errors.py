@@ -553,6 +553,19 @@ class TransformationVlmPageRangeRequired(errors.BadRequestError):
     error_instance_id: str
 
 
+class TransformationVlmPreprocessingRejectedParameters(typing_extensions.TypedDict):
+    """Document extraction failed during the text extraction that runs before the language model call, because of the request or the media item. The language model was not called."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationVlmPreprocessingRejected(errors.BadRequestError):
+    name: typing.Literal["TransformationVlmPreprocessingRejected"]
+    parameters: TransformationVlmPreprocessingRejectedParameters
+    error_instance_id: str
+
+
 class TransformationVlmResponseParseErrorParameters(typing_extensions.TypedDict):
     """The model response could not be parsed during document extraction."""
 
@@ -660,6 +673,7 @@ __all__ = [
     "TransformationVlmLayoutModelFailure",
     "TransformationVlmMultiPageRequestUnsupported",
     "TransformationVlmPageRangeRequired",
+    "TransformationVlmPreprocessingRejected",
     "TransformationVlmResponseParseError",
     "TransformedMediaItemNotFound",
     "UnexpectedMetadataType",

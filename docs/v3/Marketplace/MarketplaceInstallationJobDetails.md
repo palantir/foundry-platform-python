@@ -5,13 +5,17 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v3/platform/marketplaceInstallationJobs/{marketplaceInstallationJobRid}/details | Public Beta |
 
 # **get**
-Get available validation results and failure diagnostics for an installation job or draft. Use the
+Get available preparation results and execution failure diagnostics for an installation job or draft. Use the
 installation job's `status` to track its progress and outcome. These details can help explain why a draft or
 job has not progressed or completed as expected.
 
-Draft owners receive full validation errors. Other authorized viewers receive a validation summary instead.
-Failed and aborted jobs return HTTP 200 with their available diagnostics. An explicit abort or a
-validation-only submission rejection may have no failure diagnostics.
+Draft owners receive full preparation and validation errors. Other authorized viewers receive a summary
+of blocking errors instead. Preparation failures are included as blocking errors alongside any validation
+errors. An absent `errors` field means no result is available; an empty preparation error list or a summary
+count of zero is an available result.
+
+Failed and aborted jobs return HTTP 200 with their available diagnostics. An explicit abort may have no
+diagnostics. A submission prevented by validation is reported through `preparation`.
 The job remains queryable under the same RID after its draft is submitted, subject to retention and access.
 
 ### Parameters

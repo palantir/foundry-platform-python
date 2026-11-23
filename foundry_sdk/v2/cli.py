@@ -6005,6 +6005,14 @@ including queries, objects, and links.
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to execute the query on.
+If omitted, no explicit scenario is used.
+""",
+)
 @click.option("--trace_parent", type=str, required=False, help="""""")
 @click.option("--trace_state", type=str, required=False, help="""""")
 @click.option(
@@ -6031,6 +6039,7 @@ def functions_query_op_execute_async(
     latest_version_resolution: typing.Optional[typing.Literal["PUBLISH_TIME", "SEMANTIC_VERSION"]],
     ontology: typing.Optional[str],
     preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
@@ -6053,6 +6062,7 @@ def functions_query_op_execute_async(
         latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
+        scenario_rid=scenario_rid,
         trace_parent=trace_parent,
         trace_state=trace_state,
         transaction_id=transaction_id,
@@ -9721,7 +9731,7 @@ Defaults to false.
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
 properties are selected, this flag has no effect and the selected properties are always returned.
 
@@ -10022,7 +10032,7 @@ Defaults to false.
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
 properties are selected, this flag has no effect and the selected properties are always returned.
 
@@ -10229,7 +10239,7 @@ Defaults to false.
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
 properties are selected, this flag has no effect and the selected properties are always returned.
 
@@ -10544,7 +10554,7 @@ Setting this to true may improve performance of this endpoint for object types i
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection is provided; when specific properties are
 selected, this flag has no effect and the selected properties are always returned.
 
@@ -10646,7 +10656,7 @@ Setting this to true may improve performance of this endpoint for object types i
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection is provided; when specific properties are
 selected, this flag has no effect and the selected properties are always returned.
 
@@ -10893,7 +10903,7 @@ Defaults to false.
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection is provided; when specific properties are
 selected, this flag has no effect and the selected properties are always returned.
 
@@ -11256,7 +11266,7 @@ Setting this to true may improve performance of this endpoint for object types i
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection is provided; when specific properties are
 selected, this flag has no effect and the selected properties are always returned.
 
@@ -12928,7 +12938,7 @@ Setting this to true may improve performance of this endpoint for object types i
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection is provided; when specific properties are
 selected, this flag has no effect and the selected properties are always returned.
 
@@ -13019,7 +13029,7 @@ Setting this to true may improve performance of this endpoint for object types i
     "--load_ontology_defined_derived_properties",
     type=bool,
     required=False,
-    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    help="""A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
 Only applies when no explicit property selection is provided; when specific properties are
 selected, this flag has no effect and the selected properties are always returned.
 

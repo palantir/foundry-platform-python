@@ -832,6 +832,7 @@ OntologyDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
+        core_models.GeohashType,
         core_models.ShortType,
         core_models.DecimalType,
         "OntologyMapType",

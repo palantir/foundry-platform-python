@@ -87,6 +87,7 @@ ActionParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "OntologyStructType",
         core_models.StringType,
         core_models.DoubleType,
+        core_models.GeotimeSeriesReferenceType,
         core_models.IntegerType,
         core_models.GeoShapeType,
         core_models.LongType,
@@ -102,6 +103,7 @@ ActionParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         core_models.GeohashType,
         core_models.VectorType,
         core_models.DecimalType,
+        "OntologyInterfaceObjectSetType",
         "OntologyObjectType",
         core_models.TimestampType,
     ],
@@ -2806,7 +2808,7 @@ class LoadObjectSetRequestV2(core.ModelBase):
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
     """
-    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
     Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
     properties are selected, this flag has no effect and the selected properties are always returned.
 
@@ -2870,7 +2872,7 @@ class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
     """
-    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
     Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
     properties are selected, this flag has no effect and the selected properties are always returned.
 
@@ -2952,7 +2954,7 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
     """
-    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
     Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific
     properties are selected, this flag has no effect and the selected properties are always returned.
 
@@ -4252,6 +4254,7 @@ OntologyDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
         "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
+        core_models.GeohashType,
         core_models.ShortType,
         core_models.DecimalType,
         "OntologyMapType",
@@ -4403,12 +4406,16 @@ OntologyTransactionId: typing_extensions.TypeAlias = str
 
 
 class OntologyV2(core.ModelBase):
-    """Metadata about an Ontology."""
+    """
+    Metadata about an Ontology. `defaultBranchOntologyVersion` is the latest version of the Ontology on its
+    default branch, even when the request targets a different branch.
+    """
 
     api_name: OntologyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     description: str
     rid: OntologyRid
+    default_branch_ontology_version: OntologyVersion = pydantic.Field(alias=str("defaultBranchOntologyVersion"))  # type: ignore[literal-required]
 
 
 class OntologyValueType(core.ModelBase):
@@ -4422,6 +4429,10 @@ class OntologyValueType(core.ModelBase):
     field_type: ValueTypeFieldType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     version: str
     constraints: typing.List[ValueTypeConstraint]
+
+
+OntologyVersion: typing_extensions.TypeAlias = core.UUID
+"""OntologyVersion"""
 
 
 class OrActionTypesQueryV2(core.ModelBase):
@@ -5627,7 +5638,7 @@ class SearchObjectsRequestV2(core.ModelBase):
     default_load_level: typing.Optional[PropertyLoadLevel] = pydantic.Field(alias=str("defaultLoadLevel"), default=None)  # type: ignore[literal-required]
     load_ontology_defined_derived_properties: typing.Optional[bool] = pydantic.Field(alias=str("loadOntologyDefinedDerivedProperties"), default=None)  # type: ignore[literal-required]
     """
-    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true.
+    A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false.
     Only applies when no explicit property selection is provided; when specific properties are
     selected, this flag has no effect and the selected properties are always returned.
 
@@ -7237,6 +7248,7 @@ __all__ = [
     "OntologyTransactionId",
     "OntologyV2",
     "OntologyValueType",
+    "OntologyVersion",
     "OrActionTypesQueryV2",
     "OrQueryV2",
     "OrderBy",

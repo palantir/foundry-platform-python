@@ -147,6 +147,12 @@ class GeoShapeType(core.ModelBase):
     type: typing.Literal["geoshape"] = "geoshape"
 
 
+class GeohashType(core.ModelBase):
+    """GeohashType"""
+
+    type: typing.Literal["geohash"] = "geohash"
+
+
 class IntegerType(core.ModelBase):
     """IntegerType"""
 
@@ -302,6 +308,7 @@ __all__ = [
     "FolderRid",
     "FoundryBranch",
     "GeoShapeType",
+    "GeohashType",
     "IntegerType",
     "LongType",
     "MarkingType",

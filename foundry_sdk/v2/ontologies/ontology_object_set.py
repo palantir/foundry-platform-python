@@ -344,7 +344,7 @@ class OntologyObjectSetClient:
         :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
         :type load_property_securities: Optional[bool]
@@ -597,7 +597,7 @@ class OntologyObjectSetClient:
         :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
         :type load_property_securities: Optional[bool]
@@ -754,7 +754,7 @@ class OntologyObjectSetClient:
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
         :type execute_in_memory_only: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
@@ -1207,7 +1207,7 @@ class AsyncOntologyObjectSetClient:
         :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
         :type load_property_securities: Optional[bool]
@@ -1460,7 +1460,7 @@ class AsyncOntologyObjectSetClient:
         :type execute_in_memory_only: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
         :type load_property_securities: Optional[bool]
@@ -1617,7 +1617,7 @@ class AsyncOntologyObjectSetClient:
         :type exclude_rid: Optional[bool]
         :param execute_in_memory_only: If true, the request fails with an error when it cannot be computed in-memory. Use this to opt into fast failure on requests that would otherwise require heavier computation.  Defaults to false.
         :type execute_in_memory_only: Optional[bool]
-        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to true. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
+        :param load_ontology_defined_derived_properties: A flag to load ontology-defined derived properties (OTDPs) in the response. Defaults to false. Only applies when no explicit property selection (`select`/`selectV2`) is provided; when specific properties are selected, this flag has no effect and the selected properties are always returned.  This flag does not affect interface properties that are implemented by an OTDP on an object type; those are always returned regardless of this flag.  This feature is experimental and not yet generally available.
         :type load_ontology_defined_derived_properties: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]

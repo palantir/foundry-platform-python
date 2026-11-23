@@ -132,6 +132,7 @@ Name | Type | Description  | Notes |
 **latest_version_resolution** | Optional[LatestVersionResolution] |  | [optional] |
 **ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name).  Used to resolve ontology-bound API names for this request, including queries, objects, and links.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**scenario_rid** | Optional[ScenarioRid] | The resource identifier of an ontology scenario to execute the query on. If omitted, no explicit scenario is used.  | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
 **transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and not all workflows may be supported. | [optional] |
@@ -165,6 +166,8 @@ latest_version_resolution = "PUBLISH_TIME"
 ontology = "example-ontology"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
+# Optional[ScenarioRid] | The resource identifier of an ontology scenario to execute the query on. If omitted, no explicit scenario is used.
+scenario_rid = None
 # Optional[TraceParent]
 trace_parent = None
 # Optional[TraceState]
@@ -185,6 +188,7 @@ try:
         latest_version_resolution=latest_version_resolution,
         ontology=ontology,
         preview=preview,
+        scenario_rid=scenario_rid,
         trace_parent=trace_parent,
         trace_state=trace_state,
         transaction_id=transaction_id,

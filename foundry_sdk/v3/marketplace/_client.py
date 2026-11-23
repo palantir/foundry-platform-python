@@ -44,6 +44,16 @@ class MarketplaceClient:
         self._config = config
 
     @cached_property
+    def Marketplace(self):
+        from foundry_sdk.v3.marketplace.marketplace import MarketplaceClient
+
+        return MarketplaceClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
+    @cached_property
     def MarketplaceInstallation(self):
         from foundry_sdk.v3.marketplace.marketplace_installation import (
             MarketplaceInstallationClient,
@@ -83,12 +93,15 @@ class AsyncMarketplaceClient:
         hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
+        from foundry_sdk.v3.marketplace.marketplace import AsyncMarketplaceClient
         from foundry_sdk.v3.marketplace.marketplace_installation import (
             AsyncMarketplaceInstallationClient,
         )  # NOQA
         from foundry_sdk.v3.marketplace.marketplace_installation_job import (
             AsyncMarketplaceInstallationJobClient,
         )  # NOQA
+
+        self.Marketplace = AsyncMarketplaceClient(auth=auth, hostname=hostname, config=config)
 
         self.MarketplaceInstallation = AsyncMarketplaceInstallationClient(
             auth=auth, hostname=hostname, config=config

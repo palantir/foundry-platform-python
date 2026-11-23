@@ -1,6 +1,6 @@
-# InstallationJobValidationErrors
+# InstallationJobPreparationErrorList
 
-Validation errors visible to the job owner.
+Draft preparation and validation errors visible to the draft owner.
 
 ## Properties
 | Name | Type | Required | Description |

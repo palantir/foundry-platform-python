@@ -424,6 +424,39 @@ class MarketplaceInstallationNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MarketplaceNotFoundParameters(typing_extensions.TypedDict):
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    marketplaceRid: marketplace_models.MarketplaceRid
+
+
+@dataclass
+class MarketplaceNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceNotFound"]
+    parameters: MarketplaceNotFoundParameters
+    error_instance_id: str
+
+
+class MarketplaceOperationFailedParameters(typing_extensions.TypedDict):
+    """Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    errorName: marketplace_models.ErrorName
+    """The name of the underlying error that prevented the operation."""
+
+    errorCode: marketplace_models.ErrorCode
+    """The code of the underlying error that prevented the operation. This does not determine the HTTP status."""
+
+
+@dataclass
+class MarketplaceOperationFailed(errors.InternalServerError):
+    name: typing.Literal["MarketplaceOperationFailed"]
+    parameters: MarketplaceOperationFailedParameters
+    error_instance_id: str
+
+
 class MarketplaceProductNotFoundParameters(typing_extensions.TypedDict):
     """The product could not be found in the specified marketplace or has no released version available for registration."""
 
@@ -561,6 +594,8 @@ __all__ = [
     "InvalidInstallationTargetVersionHint",
     "MarketplaceInstallationJobNotFound",
     "MarketplaceInstallationNotFound",
+    "MarketplaceNotFound",
+    "MarketplaceOperationFailed",
     "MarketplaceProductNotFound",
     "MarketplaceProductVersionNotFound",
     "MaxInstallationJobInstallationsCountExceeded",

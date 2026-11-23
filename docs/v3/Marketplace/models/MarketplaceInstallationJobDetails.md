@@ -1,12 +1,11 @@
 # MarketplaceInstallationJobDetails
 
-Available validation and failure diagnostics for an installation job or draft.
+Available preparation results and execution failure diagnostics for an installation job or draft.
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**failure** | Optional[InstallationJobFailure] | No | Diagnostics for a draft preparation or submitted-job execution failure, when available. A draft preparation failure can appear alongside validation. Absence does not mean the job succeeded; for example, an explicitly aborted job may have no failure diagnostics. Check the job's `status` for its outcome. |
-**validation** | Optional[InstallationJobValidation] | No | Draft validation results, when available. The draft owner receives the full list of errors; other authorized viewers receive a summary of blocking errors. An empty error list or a summary count of zero is a validation result, not an absence of validation. This field is absent when no draft validation result is available. |
+**errors** | Optional[InstallationJobErrors] | No | Preparation results for a draft, or execution failure diagnostics for a submitted job, when available. Draft owners receive the full list of preparation and validation errors; other authorized viewers receive a summary of blocking errors, including failures that prevented preparation from reaching a consistent state.  This field is absent when no result is available, for example, while preparation is still running. Absence does not mean preparation passed validation or the job succeeded. An explicitly aborted job may have no diagnostics. Check the job's `status` for its progress and outcome.  An empty preparation error list means a result is available with no preparation or validation errors. |
 
 
 [[Back to Model list]](../../../../README.md#models-v3-link) [[Back to API list]](../../../../README.md#apis-v3-link) [[Back to README]](../../../../README.md)

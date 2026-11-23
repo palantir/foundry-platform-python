@@ -102,6 +102,7 @@ class MarketplaceInstallationJobClient:
 
         :raises AbortInstallationJobPermissionDenied: The installation job is visible to the request token, but the request token does not have permission to abort it.
         :raises MarketplaceInstallationJobNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -121,6 +122,7 @@ class MarketplaceInstallationJobClient:
                 throwable_errors={
                     "AbortInstallationJobPermissionDenied": marketplace_errors.AbortInstallationJobPermissionDenied,
                     "MarketplaceInstallationJobNotFound": marketplace_errors.MarketplaceInstallationJobNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -187,6 +189,7 @@ class MarketplaceInstallationJobClient:
         :raises InvalidInstallationInput: An input value could not be converted for the selected product version. The error reason does not contain the supplied value.
         :raises InvalidInstallationTargetVersion: The target semantic version must be an exact major.minor.patch version with non-negative integer components and no leading zeros. Each component must be at most 2⁵³ - 2 (9,007,199,254,740,990). Version ranges, wildcards, prerelease identifiers, and build metadata are not supported.
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         :raises MaxInstallationJobInstallationsCountExceeded: The number of installation targets exceeds the maximum supported by this operation.
         :raises MissingInstallationInputParentValue: A child input with a value requires its parent to have a value in `inputs.values` for the same installation.
         :raises MissingInstallationJobInstallations: At least one installation target must be supplied.
@@ -230,6 +233,7 @@ class MarketplaceInstallationJobClient:
                     "InvalidInstallationInput": marketplace_errors.InvalidInstallationInput,
                     "InvalidInstallationTargetVersion": marketplace_errors.InvalidInstallationTargetVersion,
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                     "MaxInstallationJobInstallationsCountExceeded": marketplace_errors.MaxInstallationJobInstallationsCountExceeded,
                     "MissingInstallationInputParentValue": marketplace_errors.MissingInstallationInputParentValue,
                     "MissingInstallationJobInstallations": marketplace_errors.MissingInstallationJobInstallations,
@@ -290,6 +294,7 @@ class MarketplaceInstallationJobClient:
         :raises InstallationUninstallStarted: Uninstall has begun for the target installation. Create a new installation to install the product again.
         :raises InvalidInstallationTargetVersion: The target semantic version must be an exact major.minor.patch version with non-negative integer components and no leading zeros. Each component must be at most 2⁵³ - 2 (9,007,199,254,740,990). Version ranges, wildcards, prerelease identifiers, and build metadata are not supported.
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         :raises MaxInstallationJobInstallationsCountExceeded: The number of installation targets exceeds the maximum supported by this operation.
         :raises MissingInstallationJobInstallations: At least one installation target must be supplied.
         """
@@ -329,6 +334,7 @@ class MarketplaceInstallationJobClient:
                     "InstallationUninstallStarted": marketplace_errors.InstallationUninstallStarted,
                     "InvalidInstallationTargetVersion": marketplace_errors.InvalidInstallationTargetVersion,
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                     "MaxInstallationJobInstallationsCountExceeded": marketplace_errors.MaxInstallationJobInstallationsCountExceeded,
                     "MissingInstallationJobInstallations": marketplace_errors.MissingInstallationJobInstallations,
                 },
@@ -365,6 +371,7 @@ class MarketplaceInstallationJobClient:
         :rtype: marketplace_models.MarketplaceInstallationJob
 
         :raises MarketplaceInstallationJobNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -385,6 +392,7 @@ class MarketplaceInstallationJobClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "MarketplaceInstallationJobNotFound": marketplace_errors.MarketplaceInstallationJobNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -491,6 +499,7 @@ class AsyncMarketplaceInstallationJobClient:
 
         :raises AbortInstallationJobPermissionDenied: The installation job is visible to the request token, but the request token does not have permission to abort it.
         :raises MarketplaceInstallationJobNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -510,6 +519,7 @@ class AsyncMarketplaceInstallationJobClient:
                 throwable_errors={
                     "AbortInstallationJobPermissionDenied": marketplace_errors.AbortInstallationJobPermissionDenied,
                     "MarketplaceInstallationJobNotFound": marketplace_errors.MarketplaceInstallationJobNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -576,6 +586,7 @@ class AsyncMarketplaceInstallationJobClient:
         :raises InvalidInstallationInput: An input value could not be converted for the selected product version. The error reason does not contain the supplied value.
         :raises InvalidInstallationTargetVersion: The target semantic version must be an exact major.minor.patch version with non-negative integer components and no leading zeros. Each component must be at most 2⁵³ - 2 (9,007,199,254,740,990). Version ranges, wildcards, prerelease identifiers, and build metadata are not supported.
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         :raises MaxInstallationJobInstallationsCountExceeded: The number of installation targets exceeds the maximum supported by this operation.
         :raises MissingInstallationInputParentValue: A child input with a value requires its parent to have a value in `inputs.values` for the same installation.
         :raises MissingInstallationJobInstallations: At least one installation target must be supplied.
@@ -619,6 +630,7 @@ class AsyncMarketplaceInstallationJobClient:
                     "InvalidInstallationInput": marketplace_errors.InvalidInstallationInput,
                     "InvalidInstallationTargetVersion": marketplace_errors.InvalidInstallationTargetVersion,
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                     "MaxInstallationJobInstallationsCountExceeded": marketplace_errors.MaxInstallationJobInstallationsCountExceeded,
                     "MissingInstallationInputParentValue": marketplace_errors.MissingInstallationInputParentValue,
                     "MissingInstallationJobInstallations": marketplace_errors.MissingInstallationJobInstallations,
@@ -679,6 +691,7 @@ class AsyncMarketplaceInstallationJobClient:
         :raises InstallationUninstallStarted: Uninstall has begun for the target installation. Create a new installation to install the product again.
         :raises InvalidInstallationTargetVersion: The target semantic version must be an exact major.minor.patch version with non-negative integer components and no leading zeros. Each component must be at most 2⁵³ - 2 (9,007,199,254,740,990). Version ranges, wildcards, prerelease identifiers, and build metadata are not supported.
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         :raises MaxInstallationJobInstallationsCountExceeded: The number of installation targets exceeds the maximum supported by this operation.
         :raises MissingInstallationJobInstallations: At least one installation target must be supplied.
         """
@@ -718,6 +731,7 @@ class AsyncMarketplaceInstallationJobClient:
                     "InstallationUninstallStarted": marketplace_errors.InstallationUninstallStarted,
                     "InvalidInstallationTargetVersion": marketplace_errors.InvalidInstallationTargetVersion,
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                     "MaxInstallationJobInstallationsCountExceeded": marketplace_errors.MaxInstallationJobInstallationsCountExceeded,
                     "MissingInstallationJobInstallations": marketplace_errors.MissingInstallationJobInstallations,
                 },
@@ -754,6 +768,7 @@ class AsyncMarketplaceInstallationJobClient:
         :rtype: typing.Awaitable[marketplace_models.MarketplaceInstallationJob]
 
         :raises MarketplaceInstallationJobNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -774,6 +789,7 @@ class AsyncMarketplaceInstallationJobClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "MarketplaceInstallationJobNotFound": marketplace_errors.MarketplaceInstallationJobNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

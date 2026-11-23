@@ -1164,19 +1164,19 @@ Namespace | Name | Import |
 **Marketplace** | [InstallationError](docs/v3/Marketplace/models/InstallationError.md) | `from foundry_sdk.v3.marketplace.models import InstallationError` |
 **Marketplace** | [InstallationInputSelection](docs/v3/Marketplace/models/InstallationInputSelection.md) | `from foundry_sdk.v3.marketplace.models import InstallationInputSelection` |
 **Marketplace** | [InstallationJobDraftMode](docs/v3/Marketplace/models/InstallationJobDraftMode.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobDraftMode` |
-**Marketplace** | [InstallationJobDraftPreparationFailure](docs/v3/Marketplace/models/InstallationJobDraftPreparationFailure.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobDraftPreparationFailure` |
 **Marketplace** | [InstallationJobErrorHandling](docs/v3/Marketplace/models/InstallationJobErrorHandling.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobErrorHandling` |
+**Marketplace** | [InstallationJobErrors](docs/v3/Marketplace/models/InstallationJobErrors.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobErrors` |
 **Marketplace** | [InstallationJobExecutionFailure](docs/v3/Marketplace/models/InstallationJobExecutionFailure.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobExecutionFailure` |
-**Marketplace** | [InstallationJobFailure](docs/v3/Marketplace/models/InstallationJobFailure.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobFailure` |
 **Marketplace** | [InstallationJobFailureStage](docs/v3/Marketplace/models/InstallationJobFailureStage.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobFailureStage` |
 **Marketplace** | [InstallationJobInputs](docs/v3/Marketplace/models/InstallationJobInputs.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobInputs` |
+**Marketplace** | [InstallationJobPreparationErrorList](docs/v3/Marketplace/models/InstallationJobPreparationErrorList.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobPreparationErrorList` |
+**Marketplace** | [InstallationJobPreparationErrorResult](docs/v3/Marketplace/models/InstallationJobPreparationErrorResult.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobPreparationErrorResult` |
+**Marketplace** | [InstallationJobPreparationErrors](docs/v3/Marketplace/models/InstallationJobPreparationErrors.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobPreparationErrors` |
+**Marketplace** | [InstallationJobPreparationErrorSummary](docs/v3/Marketplace/models/InstallationJobPreparationErrorSummary.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobPreparationErrorSummary` |
 **Marketplace** | [InstallationJobSubmissionMode](docs/v3/Marketplace/models/InstallationJobSubmissionMode.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobSubmissionMode` |
 **Marketplace** | [InstallationJobSubmitMode](docs/v3/Marketplace/models/InstallationJobSubmitMode.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobSubmitMode` |
 **Marketplace** | [InstallationJobTarget](docs/v3/Marketplace/models/InstallationJobTarget.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobTarget` |
-**Marketplace** | [InstallationJobValidation](docs/v3/Marketplace/models/InstallationJobValidation.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobValidation` |
-**Marketplace** | [InstallationJobValidationErrors](docs/v3/Marketplace/models/InstallationJobValidationErrors.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobValidationErrors` |
 **Marketplace** | [InstallationJobValidationErrorTolerance](docs/v3/Marketplace/models/InstallationJobValidationErrorTolerance.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobValidationErrorTolerance` |
-**Marketplace** | [InstallationJobValidationSummary](docs/v3/Marketplace/models/InstallationJobValidationSummary.md) | `from foundry_sdk.v3.marketplace.models import InstallationJobValidationSummary` |
 **Marketplace** | [InstallationOverrides](docs/v3/Marketplace/models/InstallationOverrides.md) | `from foundry_sdk.v3.marketplace.models import InstallationOverrides` |
 **Marketplace** | [InstallationPrefixConfiguration](docs/v3/Marketplace/models/InstallationPrefixConfiguration.md) | `from foundry_sdk.v3.marketplace.models import InstallationPrefixConfiguration` |
 **Marketplace** | [InstallationTarget](docs/v3/Marketplace/models/InstallationTarget.md) | `from foundry_sdk.v3.marketplace.models import InstallationTarget` |
@@ -1185,6 +1185,8 @@ Namespace | Name | Import |
 **Marketplace** | [LibraryLocatorConda](docs/v3/Marketplace/models/LibraryLocatorConda.md) | `from foundry_sdk.v3.marketplace.models import LibraryLocatorConda` |
 **Marketplace** | [LibraryLocatorPath](docs/v3/Marketplace/models/LibraryLocatorPath.md) | `from foundry_sdk.v3.marketplace.models import LibraryLocatorPath` |
 **Marketplace** | [LocalGeotimeDestination](docs/v3/Marketplace/models/LocalGeotimeDestination.md) | `from foundry_sdk.v3.marketplace.models import LocalGeotimeDestination` |
+**Marketplace** | [LocalMarketplaceStore](docs/v3/Marketplace/models/LocalMarketplaceStore.md) | `from foundry_sdk.v3.marketplace.models import LocalMarketplaceStore` |
+**Marketplace** | [Marketplace](docs/v3/Marketplace/models/Marketplace.md) | `from foundry_sdk.v3.marketplace.models import Marketplace` |
 **Marketplace** | [MarketplaceInstallation](docs/v3/Marketplace/models/MarketplaceInstallation.md) | `from foundry_sdk.v3.marketplace.models import MarketplaceInstallation` |
 **Marketplace** | [MarketplaceInstallationInputs](docs/v3/Marketplace/models/MarketplaceInstallationInputs.md) | `from foundry_sdk.v3.marketplace.models import MarketplaceInstallationInputs` |
 **Marketplace** | [MarketplaceInstallationJob](docs/v3/Marketplace/models/MarketplaceInstallationJob.md) | `from foundry_sdk.v3.marketplace.models import MarketplaceInstallationJob` |
@@ -1193,6 +1195,7 @@ Namespace | Name | Import |
 **Marketplace** | [MarketplaceInstallationJobStatus](docs/v3/Marketplace/models/MarketplaceInstallationJobStatus.md) | `from foundry_sdk.v3.marketplace.models import MarketplaceInstallationJobStatus` |
 **Marketplace** | [MarketplaceInstallationRid](docs/v3/Marketplace/models/MarketplaceInstallationRid.md) | `from foundry_sdk.v3.marketplace.models import MarketplaceInstallationRid` |
 **Marketplace** | [MarketplaceRid](docs/v3/Marketplace/models/MarketplaceRid.md) | `from foundry_sdk.v3.marketplace.models import MarketplaceRid` |
+**Marketplace** | [MarketplaceStoreType](docs/v3/Marketplace/models/MarketplaceStoreType.md) | `from foundry_sdk.v3.marketplace.models import MarketplaceStoreType` |
 **Marketplace** | [MigrationCandidateId](docs/v3/Marketplace/models/MigrationCandidateId.md) | `from foundry_sdk.v3.marketplace.models import MigrationCandidateId` |
 **Marketplace** | [OntologyLiteral](docs/v3/Marketplace/models/OntologyLiteral.md) | `from foundry_sdk.v3.marketplace.models import OntologyLiteral` |
 **Marketplace** | [OntologyLiteralArray](docs/v3/Marketplace/models/OntologyLiteralArray.md) | `from foundry_sdk.v3.marketplace.models import OntologyLiteralArray` |
@@ -1259,6 +1262,7 @@ Namespace | Name | Import |
 **Marketplace** | [RecommendationStrategyExplicit](docs/v3/Marketplace/models/RecommendationStrategyExplicit.md) | `from foundry_sdk.v3.marketplace.models import RecommendationStrategyExplicit` |
 **Marketplace** | [RecommendationStrategySameNamespace](docs/v3/Marketplace/models/RecommendationStrategySameNamespace.md) | `from foundry_sdk.v3.marketplace.models import RecommendationStrategySameNamespace` |
 **Marketplace** | [RedactedCredentialSecrets](docs/v3/Marketplace/models/RedactedCredentialSecrets.md) | `from foundry_sdk.v3.marketplace.models import RedactedCredentialSecrets` |
+**Marketplace** | [RemoteMarketplaceStore](docs/v3/Marketplace/models/RemoteMarketplaceStore.md) | `from foundry_sdk.v3.marketplace.models import RemoteMarketplaceStore` |
 **Marketplace** | [ReplayAcknowledgement](docs/v3/Marketplace/models/ReplayAcknowledgement.md) | `from foundry_sdk.v3.marketplace.models import ReplayAcknowledgement` |
 **Marketplace** | [ResolvedInput](docs/v3/Marketplace/models/ResolvedInput.md) | `from foundry_sdk.v3.marketplace.models import ResolvedInput` |
 **Marketplace** | [ResolvedInputConnectionConfigurationOverrides](docs/v3/Marketplace/models/ResolvedInputConnectionConfigurationOverrides.md) | `from foundry_sdk.v3.marketplace.models import ResolvedInputConnectionConfigurationOverrides` |
@@ -2149,6 +2153,7 @@ Namespace | Name | Import |
 **Functions** | [RegexConstraint](docs/v2/Functions/models/RegexConstraint.md) | `from foundry_sdk.v2.functions.models import RegexConstraint` |
 **Functions** | [RidConstraint](docs/v2/Functions/models/RidConstraint.md) | `from foundry_sdk.v2.functions.models import RidConstraint` |
 **Functions** | [RunningExecution](docs/v2/Functions/models/RunningExecution.md) | `from foundry_sdk.v2.functions.models import RunningExecution` |
+**Functions** | [ScenarioRid](docs/v2/Functions/models/ScenarioRid.md) | `from foundry_sdk.v2.functions.models import ScenarioRid` |
 **Functions** | [StreamingExecuteEventsQueryRequest](docs/v2/Functions/models/StreamingExecuteEventsQueryRequest.md) | `from foundry_sdk.v2.functions.models import StreamingExecuteEventsQueryRequest` |
 **Functions** | [StreamingExecuteQueryRequest](docs/v2/Functions/models/StreamingExecuteQueryRequest.md) | `from foundry_sdk.v2.functions.models import StreamingExecuteQueryRequest` |
 **Functions** | [StreamingExecuteQueryResponse](docs/v2/Functions/models/StreamingExecuteQueryResponse.md) | `from foundry_sdk.v2.functions.models import StreamingExecuteQueryResponse` |
@@ -3115,6 +3120,7 @@ Namespace | Name | Import |
 **Ontologies** | [OntologyTransactionId](docs/v2/Ontologies/models/OntologyTransactionId.md) | `from foundry_sdk.v2.ontologies.models import OntologyTransactionId` |
 **Ontologies** | [OntologyV2](docs/v2/Ontologies/models/OntologyV2.md) | `from foundry_sdk.v2.ontologies.models import OntologyV2` |
 **Ontologies** | [OntologyValueType](docs/v2/Ontologies/models/OntologyValueType.md) | `from foundry_sdk.v2.ontologies.models import OntologyValueType` |
+**Ontologies** | [OntologyVersion](docs/v2/Ontologies/models/OntologyVersion.md) | `from foundry_sdk.v2.ontologies.models import OntologyVersion` |
 **Ontologies** | [OrActionTypesQueryV2](docs/v2/Ontologies/models/OrActionTypesQueryV2.md) | `from foundry_sdk.v2.ontologies.models import OrActionTypesQueryV2` |
 **Ontologies** | [OrderBy](docs/v2/Ontologies/models/OrderBy.md) | `from foundry_sdk.v2.ontologies.models import OrderBy` |
 **Ontologies** | [OrderByDirection](docs/v2/Ontologies/models/OrderByDirection.md) | `from foundry_sdk.v2.ontologies.models import OrderByDirection` |
@@ -3580,6 +3586,7 @@ Namespace | Name | Import |
 **Core** | [FloatType](docs/v1/Core/models/FloatType.md) | `from foundry_sdk.v1.core.models import FloatType` |
 **Core** | [FolderRid](docs/v1/Core/models/FolderRid.md) | `from foundry_sdk.v1.core.models import FolderRid` |
 **Core** | [FoundryBranch](docs/v1/Core/models/FoundryBranch.md) | `from foundry_sdk.v1.core.models import FoundryBranch` |
+**Core** | [GeohashType](docs/v1/Core/models/GeohashType.md) | `from foundry_sdk.v1.core.models import GeohashType` |
 **Core** | [GeoShapeType](docs/v1/Core/models/GeoShapeType.md) | `from foundry_sdk.v1.core.models import GeoShapeType` |
 **Core** | [IntegerType](docs/v1/Core/models/IntegerType.md) | `from foundry_sdk.v1.core.models import IntegerType` |
 **Core** | [LongType](docs/v1/Core/models/LongType.md) | `from foundry_sdk.v1.core.models import LongType` |
@@ -3879,6 +3886,8 @@ Namespace | Name | Import |
 **Marketplace** | InvalidInstallationTargetVersionHint | `from foundry_sdk.v3.marketplace.errors import InvalidInstallationTargetVersionHint` |
 **Marketplace** | MarketplaceInstallationJobNotFound | `from foundry_sdk.v3.marketplace.errors import MarketplaceInstallationJobNotFound` |
 **Marketplace** | MarketplaceInstallationNotFound | `from foundry_sdk.v3.marketplace.errors import MarketplaceInstallationNotFound` |
+**Marketplace** | MarketplaceNotFound | `from foundry_sdk.v3.marketplace.errors import MarketplaceNotFound` |
+**Marketplace** | MarketplaceOperationFailed | `from foundry_sdk.v3.marketplace.errors import MarketplaceOperationFailed` |
 **Marketplace** | MarketplaceProductNotFound | `from foundry_sdk.v3.marketplace.errors import MarketplaceProductNotFound` |
 **Marketplace** | MarketplaceProductVersionNotFound | `from foundry_sdk.v3.marketplace.errors import MarketplaceProductVersionNotFound` |
 **Marketplace** | MaxInstallationJobInstallationsCountExceeded | `from foundry_sdk.v3.marketplace.errors import MaxInstallationJobInstallationsCountExceeded` |
@@ -4340,6 +4349,7 @@ Namespace | Name | Import |
 **MediaSets** | TransformationVlmLayoutModelFailure | `from foundry_sdk.v2.media_sets.errors import TransformationVlmLayoutModelFailure` |
 **MediaSets** | TransformationVlmMultiPageRequestUnsupported | `from foundry_sdk.v2.media_sets.errors import TransformationVlmMultiPageRequestUnsupported` |
 **MediaSets** | TransformationVlmPageRangeRequired | `from foundry_sdk.v2.media_sets.errors import TransformationVlmPageRangeRequired` |
+**MediaSets** | TransformationVlmPreprocessingRejected | `from foundry_sdk.v2.media_sets.errors import TransformationVlmPreprocessingRejected` |
 **MediaSets** | TransformationVlmResponseParseError | `from foundry_sdk.v2.media_sets.errors import TransformationVlmResponseParseError` |
 **MediaSets** | TransformedMediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import TransformedMediaItemNotFound` |
 **MediaSets** | UnexpectedMetadataType | `from foundry_sdk.v2.media_sets.errors import UnexpectedMetadataType` |

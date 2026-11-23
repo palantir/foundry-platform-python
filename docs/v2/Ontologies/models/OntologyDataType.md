@@ -28,6 +28,7 @@ MediaReferenceType | mediaReference
 OntologyArrayType | array
 OntologyObjectSetType | objectSet
 BinaryType | binary
+GeohashType | geohash
 ShortType | short
 DecimalType | decimal
 OntologyMapType | map

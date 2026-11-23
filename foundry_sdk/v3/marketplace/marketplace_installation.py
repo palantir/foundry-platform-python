@@ -115,6 +115,7 @@ class MarketplaceInstallationClient:
 
         :raises CreateMarketplaceInstallationPermissionDenied: Could not register the installation due to insufficient permissions on the marketplace, product, or destination project or folder.
         :raises InvalidInstallationTargetVersionHint: The semantic version in the hint must be an exact major.minor.patch version with non-negative integer components and no leading zeros. Version ranges, wildcards, prerelease identifiers, and build metadata are not supported.
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         :raises MarketplaceProductNotFound: The product could not be found in the specified marketplace or has no released version available for registration.
         :raises MarketplaceProductVersionNotFound: The hinted product version could not be found in the specified product and marketplace.
         :raises ParentFolderNotFound: The destination project or folder could not be found.
@@ -146,6 +147,7 @@ class MarketplaceInstallationClient:
                 throwable_errors={
                     "CreateMarketplaceInstallationPermissionDenied": marketplace_errors.CreateMarketplaceInstallationPermissionDenied,
                     "InvalidInstallationTargetVersionHint": marketplace_errors.InvalidInstallationTargetVersionHint,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                     "MarketplaceProductNotFound": marketplace_errors.MarketplaceProductNotFound,
                     "MarketplaceProductVersionNotFound": marketplace_errors.MarketplaceProductVersionNotFound,
                     "ParentFolderNotFound": marketplace_errors.ParentFolderNotFound,
@@ -181,6 +183,7 @@ class MarketplaceInstallationClient:
         :rtype: marketplace_models.MarketplaceInstallation
 
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -201,6 +204,7 @@ class MarketplaceInstallationClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -314,6 +318,7 @@ class AsyncMarketplaceInstallationClient:
 
         :raises CreateMarketplaceInstallationPermissionDenied: Could not register the installation due to insufficient permissions on the marketplace, product, or destination project or folder.
         :raises InvalidInstallationTargetVersionHint: The semantic version in the hint must be an exact major.minor.patch version with non-negative integer components and no leading zeros. Version ranges, wildcards, prerelease identifiers, and build metadata are not supported.
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         :raises MarketplaceProductNotFound: The product could not be found in the specified marketplace or has no released version available for registration.
         :raises MarketplaceProductVersionNotFound: The hinted product version could not be found in the specified product and marketplace.
         :raises ParentFolderNotFound: The destination project or folder could not be found.
@@ -345,6 +350,7 @@ class AsyncMarketplaceInstallationClient:
                 throwable_errors={
                     "CreateMarketplaceInstallationPermissionDenied": marketplace_errors.CreateMarketplaceInstallationPermissionDenied,
                     "InvalidInstallationTargetVersionHint": marketplace_errors.InvalidInstallationTargetVersionHint,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                     "MarketplaceProductNotFound": marketplace_errors.MarketplaceProductNotFound,
                     "MarketplaceProductVersionNotFound": marketplace_errors.MarketplaceProductVersionNotFound,
                     "ParentFolderNotFound": marketplace_errors.ParentFolderNotFound,
@@ -380,6 +386,7 @@ class AsyncMarketplaceInstallationClient:
         :rtype: typing.Awaitable[marketplace_models.MarketplaceInstallation]
 
         :raises MarketplaceInstallationNotFound:
+        :raises MarketplaceOperationFailed: Marketplace could not complete the operation. The underlying error name and code are provided for diagnosis; its message and parameters are omitted.
         """
 
         return self._api_client.call_api(
@@ -400,6 +407,7 @@ class AsyncMarketplaceInstallationClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "MarketplaceInstallationNotFound": marketplace_errors.MarketplaceInstallationNotFound,
+                    "MarketplaceOperationFailed": marketplace_errors.MarketplaceOperationFailed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
