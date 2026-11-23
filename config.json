@@ -169,9 +169,11 @@
       ],
       "namespaces": {
         "Admin": true,
+        "Agents": true,
         "AipAgents": true,
         "Audit": true,
         "Checkpoints": true,
+        "Comments": true,
         "Connectivity": true,
         "Core": true,
         "DataHealth": true,
@@ -194,6 +196,8 @@
         "MapRendering": false,
         "MediaSets": true,
         "Models": true,
+        "Notepad": true,
+        "Observability": true,
         "SqlQueries": true,
         "Ontologies": {
           "exclude": [
